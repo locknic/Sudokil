@@ -109,73 +109,6 @@ public class CommandLineManager implements EventListener
 		return output + getLocation() + "$ ";
 	}
 
-	public ItemCLI findItem(String location)
-	{
-		ItemCLI newItem = null;
-		boolean foundLocation = false;
-		
-		if (location != null && (location.equals("") || location.equals("~") || location.equals("/")))
-		{
-			newItem = root;
-			return newItem;
-		}
-		
-		if (location != null && (location.substring(0, 1).equals("/") || location.substring(0, 1).equals("~")))
-		{
-			newItem = root;
-			foundLocation = true;
-		}
-		else if (currentItem != null)
-		{
-			newItem = currentItem;
-		}		
-		String[] locations;
-		locations = location.split("/");
-		for (int x = 0; x < locations.length; x++)
-		{
-			if (locations[x].length() > 0)
-			{
-				foundLocation = false;
-
-				if (locations[x].equals(".."))
-				{
-					if (!newItem.getLocation().equals(""))
-					{
-						newItem = root.getItem(newItem.getLocation());
-						foundLocation = true;
-					}
-					else
-					{
-						newItem = root;
-						foundLocation = true;
-					}
-				}
-				else if (newItem instanceof FolderCLI)
-				{
-					for (ItemCLI child : root.getChildren(((FolderCLI) newItem)))
-					{
-						if (child instanceof FolderCLI)
-						{
-							if (locations[x].equals(child.getName()))
-							{
-								newItem = (FolderCLI) child;
-								foundLocation = true;
-								break;
-							}
-						}
-					}
-				}
-
-				if (foundLocation == false)
-				{
-					newItem = null;
-					break;
-				}
-			}
-		}
-		return newItem;
-	}
-
 	public void pwd()
 	{
 		EventManager.get_instance().broadcast(new ConsoleLogEvent(getLocation(), ownerUUID));
@@ -186,6 +119,7 @@ public class CommandLineManager implements EventListener
 		String output = "";
 		for (ItemCLI child : root.getChildren(currentItem))
 		{
+			System.out.println(child.getLocation() + ", " + child.getName());
 			output += child.getName() + "\n";
 		}
 		EventManager.get_instance().broadcast(new ConsoleLogEvent(output, ownerUUID));
@@ -199,8 +133,7 @@ public class CommandLineManager implements EventListener
 		}
 		else
 		{
-			ItemCLI newItem = findItem(location);
-
+			ItemCLI newItem = root.findItem(currentItem, location);
 			if (newItem instanceof FolderCLI)
 			{
 				currentItem = (FolderCLI) newItem;
@@ -219,7 +152,7 @@ public class CommandLineManager implements EventListener
 
 	public void runScript(String[] args)
 	{
-		ItemCLI newItem = findItem(args[0]);
+		ItemCLI newItem = root.findItem(currentItem, args[0]);
 
 		if (newItem == null)
 		{
@@ -351,7 +284,7 @@ public class CommandLineManager implements EventListener
 			if (e instanceof UnrecognizedOptionException)
 			{
 				args[0] = args[0].substring(1, args[0].length());
-				ItemCLI script = findItem(args[0]);
+				ItemCLI script = root.findItem(currentItem, args[0]);
 				if (script != null && script instanceof ScriptCLI)
 				{
 					runScript(args);
@@ -421,7 +354,7 @@ public class CommandLineManager implements EventListener
 		{
 			tempLocationString += locations[x];
 		}
-		ItemCLI tempLocation = findItem(root.getItemID(currentItem) + tempLocationString);
+		ItemCLI tempLocation = root.findItem(currentItem, root.getItemID(currentItem) + tempLocationString);
 		for (ItemCLI child : root.getChildren((FolderCLI) tempLocation))
 		{
 			if (child.getName().startsWith(locations[locations.length - 1]))
