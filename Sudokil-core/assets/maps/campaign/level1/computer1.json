@@ -1,0 +1,22 @@
+{
+deviceName: computer1,
+items: [ /door1-1 ],
+itemList: [
+	{
+		class: com.custardgames.sudokil.ui.cli.FolderCLI,
+		parent: "",
+		name: door1-1,
+		items: [ /door1-1/toggle.sh ]
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		parent: door1-1,
+		name: toggle.sh,
+		location: /door1-1,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.ToggleEvent
+		}
+	}
+]
+}
