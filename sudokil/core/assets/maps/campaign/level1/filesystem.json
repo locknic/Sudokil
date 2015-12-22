@@ -1,0 +1,165 @@
+{
+deviceName: pip-boy,
+itemList: [
+	{
+		class: com.custardgames.sudokil.ui.cli.FolderCLI,
+		name: camera
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: target.sh,
+		location: /camera,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.camera.CameraTargetEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: reset.sh,
+		location: /camera,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.camera.CameraResetEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.FolderCLI,
+		name: robot1
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: forward.sh,
+		location: /robot1,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.ForwardEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: backward.sh,
+		location: /robot1,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.BackwardEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: left.sh,
+		location: /robot1,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.LeftEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: right.sh,
+		location: /robot1,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.RightEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.FolderCLI,
+		name: robot2
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: forward.sh,
+		location: /robot2,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.ForwardEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: backward.sh,
+		location: /robot2,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.BackwardEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: left.sh,
+		location: /robot2,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.LeftEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: right.sh,
+		location: /robot2,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.RightEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.FolderCLI,
+		name: robot3
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: forward.sh,
+		location: /robot3,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.ForwardEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: backward.sh,
+		location: /robot3,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.BackwardEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: left.sh,
+		location: /robot3,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.LeftEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: right.sh,
+		location: /robot3,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.RightEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: connect.sh,
+		location: /robot3,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.WiredConnectEvent
+		}
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+		name: disconnect.sh,
+		location: /robot3,
+		event:
+		{
+			class: com.custardgames.sudokil.events.commands.DisconnectEvent
+		}
+	}
+]
+}
