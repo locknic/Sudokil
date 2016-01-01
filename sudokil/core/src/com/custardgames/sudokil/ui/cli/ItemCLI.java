@@ -3,17 +3,16 @@ package com.custardgames.sudokil.ui.cli;
 public class ItemCLI
 {
 	private String name;
-	private String location;
-
+	private FolderCLI parent;
+	
 	public ItemCLI()
 	{
-		this("");
+		this("", null);
 	}
 
-	public ItemCLI(String name)
+	public ItemCLI(String name, FolderCLI parent)
 	{
 		setName(name);
-		setLocation("");
 	}
 
 	public String getName()
@@ -26,20 +25,48 @@ public class ItemCLI
 		this.name = name;
 	}
 
-	public String getLocation()
+	public FolderCLI getParent()
 	{
-		return location;
+		return parent;
 	}
 
-	public void setLocation(String location)
+	public void setParent(FolderCLI parent)
 	{
-		this.location = location;
+		this.parent = parent;
+	}
+	
+	public void changeParent(FolderCLI newParent)
+	{
+		parent.removeChild(this);
+		newParent.addChild(this);
 	}
 	
 	public String getParentName()
 	{
-		String[] locationStructure = location.split("/");
-		return locationStructure[locationStructure.length - 1];
+		return parent.getName();
+	}
+	
+	public String getLocation()
+	{
+		if (parent != null)
+		{
+			parent.getPath();
+		}
+		return "";
+	}
+	
+	public String getPath()
+	{
+		if (parent != null)
+		{
+			if(!parent.getPath().equals(""))
+			{
+				return parent.getPath() + "/" + getName();
+			}
+			return getName();
+		}
+		return "";
 	}
 
+	
 }

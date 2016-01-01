@@ -1,5 +1,6 @@
 package com.custardgames.sudokil.managers;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.EventListener;
 import java.util.HashMap;
@@ -43,8 +44,20 @@ public class EventManager
 				{
 					m.invoke(l, event);
 				}
-				catch (Exception e)
+				catch (IllegalAccessException e)
 				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (IllegalArgumentException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (InvocationTargetException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		}
@@ -62,8 +75,20 @@ public class EventManager
 				{
 					return m.invoke(l, event);
 				}
-				catch (Exception e)
+				catch (IllegalAccessException e)
 				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (IllegalArgumentException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				catch (InvocationTargetException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		}

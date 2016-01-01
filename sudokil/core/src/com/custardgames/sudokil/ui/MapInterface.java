@@ -56,6 +56,9 @@ public class MapInterface extends Stage implements EventListener
 
 	public void init()
 	{
+		InputManager.get_instance().addProcessor(this);
+		EventManager.get_instance().register(PingAssetsEvent.class, this);
+		
 		kcInput = new Array<String>();
 		mouseX = mouseY = mouseWheelRotation = 0;
 		mouseLeft = mouseRight = mouseMiddle = false;
@@ -85,8 +88,6 @@ public class MapInterface extends Stage implements EventListener
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
 		this.addActor(map);
 
-		InputManager.get_instance().addProcessor(this);
-		EventManager.get_instance().register(PingAssetsEvent.class, this);
 	}
 
 	public void update(float dt)

@@ -96,9 +96,64 @@ public class CommandLineManager implements EventListener
 		device = root.getDeviceName();
 	}
 
+	public ItemCLI findItemRelative(FolderCLI startingLoc, String path)
+	{
+		ItemCLI selectedItem = startingLoc;
+		String[] locations;
+		locations = path.split("/");
+		for (String currentLocation : locations)
+		{
+			boolean foundItem = false;
+			if (currentLocation.equals(".."))
+			{
+				foundItem = true;
+				if (selectedItem.getParent() != null)
+				{
+					selectedItem = selectedItem.getParent();
+				}
+			}
+			else
+			{
+				for (ItemCLI child : ((FolderCLI) selectedItem).getChildren())
+				{
+					if (currentLocation.equals(child.getName()))
+					{
+						foundItem = true;
+						selectedItem = child;
+					}
+				}
+			}
+			if (!foundItem)
+			{
+				return null;
+			}
+		}
+		return selectedItem;
+	}
+
+	public ItemCLI findItem(String path)
+	{
+		if (path.equals("/") || path.equals("~"))
+		{
+			return root;
+		}
+		else if (path.length() > 0 && (path.substring(0, 1).equals("/") || path.substring(0, 1).equals("~")))
+		{
+			return findItemRelative(root, path.substring(1));
+		}
+		else if (path.equals(""))
+		{
+			return currentItem;
+		}
+		else
+		{
+			return findItemRelative(currentItem, path);
+		}
+	}
+
 	public String getLocation()
 	{
-		return currentItem.getLocation() + "/" + currentItem.getName();
+		return currentItem.getPath();
 	}
 
 	public String getInputPrefix()
@@ -117,9 +172,8 @@ public class CommandLineManager implements EventListener
 	public void list()
 	{
 		String output = "";
-		for (ItemCLI child : root.getChildren(currentItem))
+		for (ItemCLI child : currentItem.getChildren())
 		{
-			System.out.println(child.getLocation() + ", " + child.getName());
 			output += child.getName() + "\n";
 		}
 		EventManager.get_instance().broadcast(new ConsoleLogEvent(output, ownerUUID));
@@ -133,7 +187,7 @@ public class CommandLineManager implements EventListener
 		}
 		else
 		{
-			ItemCLI newItem = root.findItem(currentItem, location);
+			ItemCLI newItem = findItem(location);
 			if (newItem instanceof FolderCLI)
 			{
 				currentItem = (FolderCLI) newItem;
@@ -144,15 +198,14 @@ public class CommandLineManager implements EventListener
 			}
 			else
 			{
-				EventManager.get_instance()
-						.broadcast(new ConsoleLogEvent("ERROR! No such file or directory.", ownerUUID));
+				EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! No such file or directory.", ownerUUID));
 			}
 		}
 	}
 
 	public void runScript(String[] args)
 	{
-		ItemCLI newItem = root.findItem(currentItem, args[0]);
+		ItemCLI newItem = findItem(args[0]);
 
 		if (newItem == null)
 		{
@@ -166,66 +219,82 @@ public class CommandLineManager implements EventListener
 		{
 			EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! Is a directory.", ownerUUID));
 		}
+		else if (newItem instanceof FolderCLI)
+		{
+			EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! Is not a runnable file.", ownerUUID));
+		}
 		else
 		{
 			EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! No such file or directory.", ownerUUID));
 		}
 	}
-//
-//	public void moveItem(String[] args)
-//	{
-//		ItemCLI sourceItem = findItem(args[0]);
-//		
-//		System.out.println("Destination: " +args[1]);
-//		ItemCLI destinationItem = findItem(args[1]);
-//
-//		if (sourceItem != root)
-//		{
-//			if (sourceItem != null)
-//			{
-//				if (destinationItem != null)
-//				{
-//					if (destinationItem instanceof FolderCLI)
-//					{
-//						System.out.println("Working");
-//						System.out.println("Destination: " + root.getItemID(destinationItem));
-//						root.moveItem(root.getItemID(destinationItem), root.getItemID(sourceItem));
-//					}
-//					else
-//					{
-//						EventManager.get_instance()
-//								.broadcast(new ConsoleLogEvent("ERROR! Not a directory.", ownerUUID));
-//					}
-//				}
-//				else
-//				{
-//					String location = "";
-//					String[] locations;
-//					locations = args[1].split("/");
-//					for (int x = 0; x < locations.length - 1; x++)
-//					{
-//						location += locations[x];
-//					}
-//					ItemCLI parent = findItem(location);
-//					if (parent != null && parent instanceof FolderCLI)
-//					{
-//						root.deleteItem(root.getItemID(sourceItem));
-//						root.addItemTo(root.getItemID(parent), locations[locations.length - 1], sourceItem);
-//					}
-//					else
-//					{
-//						EventManager.get_instance()
-//								.broadcast(new ConsoleLogEvent("ERROR! No such file or directory.", ownerUUID));
-//					}
-//				}
-//			}
-//			else
-//			{
-//				EventManager.get_instance()
-//						.broadcast(new ConsoleLogEvent("ERROR! No such file or directory.", ownerUUID));
-//			}
-//		}
-//	}
+
+	public void moveItem(String[] args)
+	{
+		if (args[0] != null && args[0].length() > 0 && args[1] != null && args[1].length() > 0)
+		{
+			ItemCLI sourceItem = findItem(args[0]);
+
+			ItemCLI destinationItem = findItem(args[1]);
+
+			if (sourceItem != null && sourceItem != root)
+			{
+				if (destinationItem != null)
+				{
+					if (destinationItem instanceof FolderCLI)
+					{
+						if (!((FolderCLI) destinationItem).nameTaken(sourceItem.getName()))
+						{
+							sourceItem.changeParent((FolderCLI) destinationItem);
+						}
+						else
+						{
+							EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! Name already in use.", ownerUUID));
+						}
+					}
+					else
+					{
+						EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! Destination not a directory.", ownerUUID));
+					}
+				}
+				else
+				{
+					String location = "";
+					String[] locations;
+					locations = args[1].split("(?<=/)");
+					for (int x = 0; x < locations.length - 1; x++)
+					{
+						location += locations[x];
+					}
+					ItemCLI parent = findItem(location);
+					if (parent != null && parent instanceof FolderCLI)
+					{
+						if (!((FolderCLI) parent).nameTaken(locations[locations.length - 1]))
+						{
+							sourceItem.setName(locations[locations.length - 1]);
+							sourceItem.changeParent((FolderCLI) parent);
+						}
+						else
+						{
+							EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! Name already in use.", ownerUUID));
+						}
+					}
+					else
+					{
+						EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! No such destination file or directory.", ownerUUID));
+					}
+				}
+			}
+			else
+			{
+				EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! No such source file or directory.", ownerUUID));
+			}
+		}
+		else
+		{
+			EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! No such file or directory.", ownerUUID));
+		}
+	}
 
 	public void parseCommands(String[] args)
 	{
@@ -255,7 +324,7 @@ public class CommandLineManager implements EventListener
 			}
 			else if (commandLine.hasOption("mv"))
 			{
-//				moveItem(commandLine.getOptionValues("mv"));
+				moveItem(commandLine.getOptionValues("mv"));
 			}
 			else if (commandLine.hasOption("sh"))
 			{
@@ -274,8 +343,7 @@ public class CommandLineManager implements EventListener
 			}
 			else if (commandLine.hasOption("echo"))
 			{
-				EventManager.get_instance()
-						.broadcast(new ConsoleLogEvent(commandLine.getOptionValues("echo"), ownerUUID));
+				EventManager.get_instance().broadcast(new ConsoleLogEvent(commandLine.getOptionValues("echo"), ownerUUID));
 			}
 
 		}
@@ -284,21 +352,19 @@ public class CommandLineManager implements EventListener
 			if (e instanceof UnrecognizedOptionException)
 			{
 				args[0] = args[0].substring(1, args[0].length());
-				ItemCLI script = root.findItem(currentItem, args[0]);
+				ItemCLI script = findItem(args[0]);
 				if (script != null && script instanceof ScriptCLI)
 				{
 					runScript(args);
 				}
 				else
 				{
-					EventManager.get_instance()
-							.broadcast(new ConsoleLogEvent("" + args[0] + ": command not found.", ownerUUID));
+					EventManager.get_instance().broadcast(new ConsoleLogEvent("" + args[0] + ": command not found.", ownerUUID));
 				}
 			}
 			else if (e instanceof MissingArgumentException)
 			{
-				EventManager.get_instance().broadcast(new ConsoleLogEvent(
-						"" + args[0].substring(1, args[0].length()) + ": missing arguments.", ownerUUID));
+				EventManager.get_instance().broadcast(new ConsoleLogEvent("" + args[0].substring(1, args[0].length()) + ": missing arguments.", ownerUUID));
 			}
 
 		}
@@ -322,8 +388,7 @@ public class CommandLineManager implements EventListener
 		}
 		catch (NumberFormatException e)
 		{
-			EventManager.get_instance()
-					.broadcast(new ConsoleLogEvent("" + number + ": argument must be an integer.", ownerUUID));
+			EventManager.get_instance().broadcast(new ConsoleLogEvent("" + number + ": argument must be an integer.", ownerUUID));
 		}
 
 		for (int x = 0; x < num; x++)
@@ -354,13 +419,16 @@ public class CommandLineManager implements EventListener
 		{
 			tempLocationString += locations[x];
 		}
-		ItemCLI tempLocation = root.findItem(currentItem, root.getItemID(currentItem) + tempLocationString);
-		for (ItemCLI child : root.getChildren((FolderCLI) tempLocation))
+		ItemCLI tempLocation = findItem(tempLocationString);
+		if (tempLocation != null && ((FolderCLI) tempLocation).getChildren().size >= 0)
 		{
-			if (child.getName().startsWith(locations[locations.length - 1]))
+			for (ItemCLI child : ((FolderCLI) tempLocation).getChildren())
 			{
-				String result = child.getName();
-				matches.add(tempLocationString + result);
+				if (child.getName().startsWith(locations[locations.length - 1]))
+				{
+					String result = child.getName();
+					matches.add(tempLocationString + result);
+				}
 			}
 		}
 		return matches;
@@ -368,25 +436,26 @@ public class CommandLineManager implements EventListener
 
 	public void handleAutocompleteRequest(AutocompleteRequestEvent event)
 	{
-		String[] commands = event.getCommand().split(";| ");
-		Array<String> matches = autoComplete(commands[commands.length - 1]);
-		if (matches != null)
+		if (event.getOwnerUI().equals(ownerUUID))
 		{
-			if (matches.size == 1)
+			String[] commands = event.getCommand().split(";| ");
+			Array<String> matches = autoComplete(commands[commands.length - 1]);
+			if (matches != null)
 			{
-				String result = event.getCommand().substring(0,
-						event.getCommand().length() - commands[commands.length - 1].length()) + matches.first();
-				EventManager.get_instance().broadcast(new AutocompleteResponseEvent(result, ownerUUID));
-			}
-			else if (matches.size > 1)
-			{
-				String output = "";
-				for (String match : matches)
+				if (matches.size == 1)
 				{
-					output += match + " ";
+					String result = event.getCommand().substring(0, event.getCommand().length() - commands[commands.length - 1].length()) + matches.first();
+					EventManager.get_instance().broadcast(new AutocompleteResponseEvent(result, ownerUUID));
 				}
-				EventManager.get_instance().broadcast(
-						new ConsoleLogEvent(getInputPrefix() + event.getCommand() + "\n" + output, ownerUUID));
+				else if (matches.size > 1)
+				{
+					String output = "";
+					for (String match : matches)
+					{
+						output += match + " ";
+					}
+					EventManager.get_instance().broadcast(new ConsoleLogEvent(getInputPrefix() + event.getCommand() + "\n" + output, ownerUUID));
+				}
 			}
 		}
 	}
@@ -395,8 +464,7 @@ public class CommandLineManager implements EventListener
 	{
 		if (event.getOwnerUI().equals(ownerUUID))
 		{
-			EventManager.get_instance()
-					.broadcast(new ConsoleLogEvent(getInputPrefix() + event.getCommand(), ownerUUID));
+			EventManager.get_instance().broadcast(new ConsoleLogEvent(getInputPrefix() + event.getCommand(), ownerUUID));
 			try
 			{
 				String[] commands;

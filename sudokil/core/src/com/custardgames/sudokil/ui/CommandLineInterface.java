@@ -36,18 +36,18 @@ public class CommandLineInterface implements EventListener
 	private Label consoleArrow;
 	private ScrollPane consoleScroll;
 	private boolean updateScroll;
-	
+
 	private CircularArray<String> previousCommands;
 	private String tempStore;
 	private int commandLocation;
-	
+
 	public CommandLineInterface(Stage stage, RootCLI root)
 	{
 		EventManager.get_instance().register(ConsoleLogEvent.class, this);
 		EventManager.get_instance().register(AutocompleteResponseEvent.class, this);
-		
-		this.ownerUI = UUID.randomUUID();
 
+		this.ownerUI = UUID.randomUUID();
+		
 		this.stage = stage;
 		this.commandLocation = -1;
 		this.tempStore = "";
@@ -74,7 +74,7 @@ public class CommandLineInterface implements EventListener
 		TextButton closeButton = new TextButton("X", skin);
 
 		Random random = new Random();
-		
+
 		dialog = new Window("Terminal", skin);
 		dialog.setBounds(10 + random.nextInt(50), 100 + random.nextInt(50), 400, 200);
 		dialog.setResizable(true);
@@ -82,7 +82,7 @@ public class CommandLineInterface implements EventListener
 		dialog.getButtonTable().add(closeButton).height(dialog.getPadTop());
 		dialog.left().top();
 		dialog.setResizeBorder(5);
-		
+
 		consoleDialog = new Label("Welcome to Terminal", skin);
 		consoleDialog.setWrap(true);
 
@@ -102,16 +102,15 @@ public class CommandLineInterface implements EventListener
 		dialog.add(consoleScroll).fill().expand();
 		this.stage.addActor(dialog);
 
-		closeButton.addListener(new CloseButtonListener(dialog));
-		
+		closeButton.addListener(new CLICloseButtonListener(this, dialog));
+
 		stage.setKeyboardFocus(consoleField);
 		stage.setScrollFocus(consoleScroll);
 	}
 
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 	{
-		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleField
-				|| event.getTarget() == consoleDialog || event.getTarget() == consoleArrow)
+		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleField || event.getTarget() == consoleDialog || event.getTarget() == consoleArrow)
 		{
 			stage.setKeyboardFocus(consoleField);
 			stage.setScrollFocus(consoleScroll);
@@ -130,7 +129,7 @@ public class CommandLineInterface implements EventListener
 		stage.setKeyboardFocus(consoleField);
 		stage.setScrollFocus(consoleScroll);
 	}
-	
+
 	public void tabClicked()
 	{
 		EventManager.get_instance().broadcast(new AutocompleteRequestEvent(consoleField.getText(), ownerUI));
@@ -140,9 +139,9 @@ public class CommandLineInterface implements EventListener
 
 	public boolean keyUp(int keycode)
 	{
-		if (keycode == Input.Keys.ENTER)
+		if (stage.getKeyboardFocus() == consoleField)
 		{
-			if (stage.getKeyboardFocus() == consoleField)
+			if (keycode == Input.Keys.ENTER)
 			{
 				updateScroll = true;
 				if (consoleField.getText().equals(""))
@@ -158,12 +157,7 @@ public class CommandLineInterface implements EventListener
 				}
 			}
 
-			return false;
-		}
-		
-		if (keycode == Input.Keys.TAB)
-		{
-			if (stage.getKeyboardFocus() == consoleField)
+			if (keycode == Input.Keys.TAB)
 			{
 				updateScroll = true;
 				if (consoleField.getText().equals(""))
@@ -177,40 +171,35 @@ public class CommandLineInterface implements EventListener
 				}
 			}
 
-			return false;
-		}
-		
-		if (keycode == Input.Keys.UP)
-		{
-			if (commandLocation < previousCommands.getCurrentSize()-1)
+			if (keycode == Input.Keys.UP)
 			{
-				if (commandLocation == -1)
+				if (commandLocation < previousCommands.getCurrentSize() - 1)
 				{
-					tempStore = consoleField.getText();
+					if (commandLocation == -1)
+					{
+						tempStore = consoleField.getText();
+					}
+					commandLocation++;
+					consoleField.setText((String) previousCommands.get(commandLocation));
+					consoleField.setCursorPosition(consoleField.getText().length());
 				}
-				commandLocation++;
-				consoleField.setText((String) previousCommands.get(commandLocation));
-				consoleField.setCursorPosition(consoleField.getText().length());
 			}
-		}
-		if (keycode == Input.Keys.DOWN)
-		{
-			if (commandLocation > 0)
+			if (keycode == Input.Keys.DOWN)
 			{
-				commandLocation--;
-				consoleField.setText((String) previousCommands.get(commandLocation));
-				consoleField.setCursorPosition(consoleField.getText().length());
+				if (commandLocation > 0)
+				{
+					commandLocation--;
+					consoleField.setText((String) previousCommands.get(commandLocation));
+					consoleField.setCursorPosition(consoleField.getText().length());
+				}
+				else if (commandLocation == 0)
+				{
+					commandLocation--;
+					consoleField.setText(tempStore);
+					consoleField.setCursorPosition(consoleField.getText().length());
+				}
 			}
-			else if (commandLocation == 0)
-			{
-				commandLocation--;
-				consoleField.setText(tempStore);
-				consoleField.setCursorPosition(consoleField.getText().length());
-			}
-		}
 
-		if (stage.getKeyboardFocus() == consoleField)
-		{
 			updateScroll = true;
 			return true;
 		}
@@ -245,7 +234,7 @@ public class CommandLineInterface implements EventListener
 			updateScroll = true;
 		}
 	}
-	
+
 	public void handleConsoleLog(ConsoleLogEvent keyEvent)
 	{
 		if (keyEvent.getOwnerUI() == ownerUI)

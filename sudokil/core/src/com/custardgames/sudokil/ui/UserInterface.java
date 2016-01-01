@@ -1,6 +1,7 @@
 package com.custardgames.sudokil.ui;
 
 import java.util.EventListener;
+import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
+import com.custardgames.sudokil.events.CloseCommandLineWindowEvent;
 import com.custardgames.sudokil.events.ConsoleConnectEvent;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.FileSystemManager;
@@ -20,6 +22,7 @@ public class UserInterface extends Stage implements EventListener
 {
 	private String root;
 	private Array<CommandLineInterface> windows;
+	private int maxWindows;
 	private Button newTerminalWindow;
 
 	private FileSystemManager fileSystemManager;
@@ -28,12 +31,15 @@ public class UserInterface extends Stage implements EventListener
 	{
 		InputManager.get_instance().addProcessor(this);
 		EventManager.get_instance().register(ConsoleConnectEvent.class, this);
+		EventManager.get_instance().register(CloseCommandLineWindowEvent.class, this);
+		
 		root = "maps/campaign/level1/filesystem.json";
 
 		fileSystemManager = new FileSystemManager();
 		fileSystemManager.addFileSystem(root);
 
 		windows = new Array<CommandLineInterface>();
+		maxWindows = 5;
 
 		this.getRoot().addCaptureListener(new InputListener()
 		{
@@ -74,8 +80,11 @@ public class UserInterface extends Stage implements EventListener
 	}
 
 	public void addCLI()
-	{
-		windows.add(new CommandLineInterface(this, fileSystemManager.getFileSystem(root)));
+	{	
+		if (windows.size < maxWindows)
+		{
+			windows.add(new CommandLineInterface(this, fileSystemManager.getFileSystem(root)));
+		}
 	}
 
 	public void generateUI()
@@ -114,8 +123,21 @@ public class UserInterface extends Stage implements EventListener
 			e.act();
 		}
 	}
+	
+	public void handleCloseCommandLineWindow(CloseCommandLineWindowEvent event)
+	{
+		Iterator<CommandLineInterface> iterator = windows.iterator();
+		while(iterator.hasNext())
+		{
+			CommandLineInterface window = iterator.next();
+			if (event.getOwner().equals(window.getUUID().toString()))
+			{
+				iterator.remove();
+			}
+		}
+	}
 
-	public void handleConsoleConnectEvent(ConsoleConnectEvent event)
+	public void handleConsoleConnect(ConsoleConnectEvent event)
 	{
 		for (CommandLineInterface e : windows)
 		{
