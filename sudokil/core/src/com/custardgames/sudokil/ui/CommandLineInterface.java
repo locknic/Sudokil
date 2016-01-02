@@ -143,7 +143,6 @@ public class CommandLineInterface implements EventListener
 		{
 			if (keycode == Input.Keys.ENTER)
 			{
-				updateScroll = true;
 				if (consoleField.getText().equals(""))
 				{
 					return true;
@@ -159,7 +158,6 @@ public class CommandLineInterface implements EventListener
 
 			if (keycode == Input.Keys.TAB)
 			{
-				updateScroll = true;
 				if (consoleField.getText().equals(""))
 				{
 					return true;
@@ -213,13 +211,10 @@ public class CommandLineInterface implements EventListener
 	{
 		if (updateScroll)
 		{
-			if (consoleScroll.getScrollPercentY() < 100 || consoleScroll.getScrollPercentX() > 0)
-			{
-				updateScroll = false;
-			}
 			consoleScroll.setScrollPercentX(0);
 			consoleScroll.setScrollPercentY(100);
 			consoleScroll.updateVisualScroll();
+			updateScroll = false;
 		}
 
 	}
@@ -231,7 +226,6 @@ public class CommandLineInterface implements EventListener
 			consoleArrow.setText(parser.getInputPrefix());
 			consoleField.setText(event.getCommand());
 			consoleField.setCursorPosition(consoleField.getText().length());
-			updateScroll = true;
 		}
 	}
 

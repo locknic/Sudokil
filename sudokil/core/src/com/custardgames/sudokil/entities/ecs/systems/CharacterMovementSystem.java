@@ -27,7 +27,7 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 	@SuppressWarnings("unchecked")
 	public CharacterMovementSystem()
 	{
-		super(Aspect.all(SpriteComponent.class, CharacterInputComponent.class, ProcessQueueComponent.class));
+		super(Aspect.all(EntityComponent.class, SpriteComponent.class, CharacterInputComponent.class, ProcessQueueComponent.class));
 		EventManager.get_instance().register(ForwardEvent.class, this);
 		EventManager.get_instance().register(BackwardEvent.class, this);
 		EventManager.get_instance().register(LeftEvent.class, this);
@@ -42,9 +42,9 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 	public void moveCommand(String owner, String[] args, int direction)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (int x = 0; x < entities.size(); x++)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entities.get(x));
+			EntityComponent entityComponent = entityComponents.get(entity);
 
 			int distance = 1;
 
@@ -69,7 +69,7 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 			{
 				for (int y = 0; y < distance; y++)
 				{
-					MoveProcess moveProcess = new MoveProcess(entities.get(x), direction);
+					MoveProcess moveProcess = new MoveProcess(entity, direction);
 					EventManager.get_instance().broadcast(new ProcessEvent(entityComponent.getId(), moveProcess));
 				}
 			}
@@ -151,22 +151,22 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 		}
 	}
 
-	public void handleForwardEvent(ForwardEvent event)
+	public void handleForward(ForwardEvent event)
 	{
 		moveCommand(event.getOwner(), event.getArgs(), 1);
 	}
 
-	public void handleBackwardEvent(BackwardEvent event)
+	public void handleBackward(BackwardEvent event)
 	{
 		moveCommand(event.getOwner(), event.getArgs(), -1);
 	}
 
-	public void handleLeftEvent(LeftEvent event)
+	public void handleLeft(LeftEvent event)
 	{
 		leftCommand(event.getOwner(), event.getArgs());
 	}
 
-	public void handleRightEvent(RightEvent event)
+	public void handleRight(RightEvent event)
 	{
 		rightCommand(event.getOwner(), event.getArgs());
 	}

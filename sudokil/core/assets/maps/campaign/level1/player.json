@@ -27,6 +27,13 @@
 				spriteLocation : images/player/robot1.png
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.LifterComponent,
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
 			}
 		],
@@ -54,6 +61,13 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
 				spriteLocation : images/player/robot1.png
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.LiftableComponent,
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
@@ -85,6 +99,10 @@
 				spriteLocation : images/player/robot1.png
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
 			}
 		],
@@ -106,6 +124,10 @@
 				spriteLocation : images/entities/door-on-1.png
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.DoorGroupComponent,
 				doorTiles : [ door1-2, door1-3, door1-4]
 			},
@@ -125,6 +147,10 @@
 				width : 32,
 				height : 32,
 				angle : 90
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
@@ -152,6 +178,10 @@
 				spriteLocation : images/entities/door-on-2.png
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
 			}
 		],
@@ -173,6 +203,10 @@
 				spriteLocation : images/entities/door-on-1.png
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
 			}
 		],
@@ -192,6 +226,10 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
 				spriteLocation : images/entities/computer-on.png
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,

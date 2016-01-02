@@ -1,15 +1,14 @@
 package com.custardgames.sudokil.entities.ecs.processes;
 
-import java.util.EventListener;
-
 import com.artemis.Entity;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.VelocityComponent;
+import com.custardgames.sudokil.events.entities.EntityMovedEvent;
 import com.custardgames.sudokil.events.map.RequestMoveEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
-public class MoveProcess extends EntityProcess implements EventListener
+public class MoveProcess extends EntityProcess
 {
 	private int direction;
 	private float deltaX, deltaY;
@@ -93,6 +92,8 @@ public class MoveProcess extends EntityProcess implements EventListener
 
 			position.setX(positionX);
 			position.setY(positionY);
+			
+			EventManager.get_instance().broadcast(new EntityMovedEvent(entity));
 
 			return false;
 		}
@@ -105,6 +106,8 @@ public class MoveProcess extends EntityProcess implements EventListener
 			position.setX(positionX);
 			position.setY(positionY);
 
+			EventManager.get_instance().broadcast(new EntityMovedEvent(entity));
+			
 			return true;
 		}
 	}

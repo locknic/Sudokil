@@ -7,16 +7,14 @@ public class PositionComponent extends Component
 	private float x, y;
 	private float width, height;
 	private float angle;
-	private boolean solid;
 
 	public PositionComponent()
 	{
-		setSolid(true);
+		
 	}
-
+	
 	public PositionComponent(int x, int y)
 	{
-		this();
 		setX(x);
 		setY(y);
 	}
@@ -75,16 +73,6 @@ public class PositionComponent extends Component
 	public void setAngle(float angle)
 	{
 		this.angle = angle;
-	}
-
-	public boolean isSolid()
-	{
-		return solid;
-	}
-
-	public void setSolid(boolean solid)
-	{
-		this.solid = solid;
 	}
 
 }

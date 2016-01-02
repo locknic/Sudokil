@@ -1,7 +1,7 @@
 package com.custardgames.sudokil.entities.ecs.processes;
 
 import com.artemis.Entity;
-import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
+import com.custardgames.sudokil.entities.ecs.components.BlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
 import com.custardgames.sudokil.events.map.AddToMapEvent;
 import com.custardgames.sudokil.events.map.RemoveFromMapEvent;
@@ -20,18 +20,18 @@ public class DoorToggleProcess extends EntityProcess
 	public boolean process()
 	{
 		SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
-		PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
+		BlockingComponent blockingComponent = entity.getComponent(BlockingComponent.class);
 
 		if (spriteComponent.isShouldRender())
 		{
 			spriteComponent.setShouldRender(false);
-			positionComponent.setSolid(false);
+			blockingComponent.setBlocking(false);
 			EventManager.get_instance().broadcast(new RemoveFromMapEvent(entity));
 		}
 		else
 		{
 			spriteComponent.setShouldRender(true);
-			positionComponent.setSolid(true);
+			blockingComponent.setBlocking(true);
 			EventManager.get_instance().broadcast(new AddToMapEvent(entity));
 		}
 

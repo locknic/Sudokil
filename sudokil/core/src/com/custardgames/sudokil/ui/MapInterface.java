@@ -18,6 +18,7 @@ import com.custardgames.sudokil.entities.ecs.systems.CameraMovementSystem;
 import com.custardgames.sudokil.entities.ecs.systems.CharacterMovementSystem;
 import com.custardgames.sudokil.entities.ecs.systems.DoorToggleSystem;
 import com.custardgames.sudokil.entities.ecs.systems.EntityLocatorSystem;
+import com.custardgames.sudokil.entities.ecs.systems.LiftSystem;
 import com.custardgames.sudokil.entities.ecs.systems.ProcessQueueSystem;
 import com.custardgames.sudokil.entities.ecs.systems.SpriteRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.UpdatePhysicalCharacterInputSystem;
@@ -77,7 +78,7 @@ public class MapInterface extends Stage implements EventListener
 		WorldConfiguration config = new WorldConfigurationBuilder()
 				.with(spriteRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(camera),
 						new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(),
-						new DoorToggleSystem(), new WiredConnectionSystem())
+						new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem())
 				.build();
 		artemisWorld = new com.artemis.World(config);
 

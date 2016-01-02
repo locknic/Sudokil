@@ -61,6 +61,14 @@ children:
 				{
 					class: com.custardgames.sudokil.events.commands.RightEvent
 				}
+			},
+			{
+				class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+				name: lift.sh,
+				event:
+				{
+					class: com.custardgames.sudokil.events.commands.LiftEvent
+				}
 			}
 		]
 	},

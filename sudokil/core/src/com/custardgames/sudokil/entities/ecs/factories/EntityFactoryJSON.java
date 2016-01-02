@@ -30,7 +30,7 @@ public class EntityFactoryJSON
 			for (Component c : e)
 			{
 				entity.edit().add(c);
-				if (c instanceof PositionComponent && ((PositionComponent) c).isSolid())
+				if (c instanceof PositionComponent)
 				{
 					EventManager.get_instance().broadcast(new AddToMapEvent(entity));
 				}

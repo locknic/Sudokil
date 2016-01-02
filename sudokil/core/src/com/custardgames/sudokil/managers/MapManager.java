@@ -8,6 +8,7 @@ import com.artemis.Entity;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.custardgames.sudokil.entities.ecs.components.BlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.events.map.AddToMapEvent;
 import com.custardgames.sudokil.events.map.PingCellEvent;
@@ -70,7 +71,8 @@ public class MapManager implements EventListener
 
 		if (((TiledMapTileLayer) map.getLayers().get("floor")).getCell(xPosition, yPosition) != null)
 		{
-			if (getCellEntity(xPosition, yPosition) == null)
+			Entity blockingEntity = getCellEntity(xPosition, yPosition);
+			if (blockingEntity == null || (entity.getComponent(BlockingComponent.class) == null || !entity.getComponent(BlockingComponent.class).isBlocking()) || (blockingEntity.getComponent(BlockingComponent.class) == null || !blockingEntity.getComponent(BlockingComponent.class).isBlocking()))
 			{
 				removeFromMap(entity);
 				addToMap(entity, xPosition, yPosition);
@@ -96,6 +98,8 @@ public class MapManager implements EventListener
 
 		return getCellEntity(xPosition, yPosition);
 	}
+	
+	
 
 	public void handleAddToMapEvent(AddToMapEvent event)
 	{
@@ -125,6 +129,17 @@ public class MapManager implements EventListener
 	public PingCellEvent handleInquiryPingEntityEvent(PingCellEvent event)
 	{
 		event.setCellEntity(getCellEntity(event.getOwnerEntity(), event.getxDir(), event.getyDir()));
+		PositionComponent position = event.getOwnerEntity().getComponent(PositionComponent.class);
+		int xPosition = (int) (position.getX() / tileWidth) + event.getxDir();
+		int yPosition = (int) (position.getY() / tileHeight) + event.getyDir();
+		if (((TiledMapTileLayer) map.getLayers().get("floor")).getCell(xPosition, yPosition) != null)
+		{
+			event.setFloor(true);
+		}
+		else
+		{
+			event.setFloor(false);
+		}
 		return event;
 	}
 }
