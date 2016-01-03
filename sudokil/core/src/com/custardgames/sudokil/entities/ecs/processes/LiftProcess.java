@@ -12,11 +12,14 @@ import com.custardgames.sudokil.managers.EventManager;
 
 public class LiftProcess extends EntityProcess
 {
+	private float targetX, targetY;
+	private boolean setTarget;
+	private Entity lifted;
 
 	public LiftProcess(Entity entity)
 	{
 		super(entity);
-		// TODO Auto-generated constructor stub
+		setTarget = false;
 	}
 
 	@Override
@@ -24,11 +27,14 @@ public class LiftProcess extends EntityProcess
 	{
 		PositionComponent position = entity.getComponent(PositionComponent.class);
 		LifterComponent lifterComponent = entity.getComponent(LifterComponent.class);
-		
-		if (lifterComponent != null && !lifterComponent.isLifting())
+
+		if (lifterComponent != null)
 		{
+			float positionX = 0;
+			float positionY = 0;
 			double angle = 0;
-	
+			float maxVelocity = lifterComponent.getLiftSpeed();
+
 			if (position != null)
 			{
 				angle = position.getAngle();
@@ -37,30 +43,65 @@ public class LiftProcess extends EntityProcess
 			{
 				return true;
 			}
-			
-			float deltaX = (float) (1 * Math.cos(Math.toRadians(angle)));
-			float deltaY = (float) (1 * Math.sin(Math.toRadians(angle)));
-			PingCellEvent event = (PingCellEvent) EventManager.get_instance()
-					.broadcastInquiry(new PingCellEvent(entity, (int) deltaX, (int) deltaY));
-			if (event != null && event instanceof PingCellEvent
-					&& event.getOwner() != null && event.getOwner().equals(entity.getComponent(EntityComponent.class).getId()))
+
+			if (!setTarget)
 			{
-				Entity lifted = event.getCellEntity();
-				if (lifted != null)
+				if (!lifterComponent.isLifting())
 				{
-					LiftableComponent liftableComponent = lifted.getComponent(LiftableComponent.class);
-					BlockingComponent blockingComponent = lifted.getComponent(BlockingComponent.class);
-					if (liftableComponent != null && !liftableComponent.isLifted())
+					positionX = (float) (1 * Math.cos(Math.toRadians(angle)));
+					positionY = (float) (1 * Math.sin(Math.toRadians(angle)));
+					PingCellEvent event = (PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, (int) positionX, (int) positionY));
+					if (event != null && event instanceof PingCellEvent && event.getOwner() != null && event.getOwner().equals(entity.getComponent(EntityComponent.class).getId()))
 					{
-						EventManager.get_instance().broadcast(new RemoveFromMapEvent(lifted));
-						liftableComponent.setLifted(true);
-						blockingComponent.setBlocking(false);
-						lifterComponent.setLifting(true);
-						lifterComponent.setLifted(lifted);
+						lifted = event.getCellEntity();
+						if (lifted != null)
+						{
+							LiftableComponent liftableComponent = lifted.getComponent(LiftableComponent.class);
+							BlockingComponent blockingComponent = lifted.getComponent(BlockingComponent.class);
+							if (liftableComponent != null && !liftableComponent.isLifted())
+							{
+								EventManager.get_instance().broadcast(new RemoveFromMapEvent(lifted));
+								liftableComponent.setLifted(true);
+								blockingComponent.setBlocking(false);
+								lifterComponent.setLifting(true);
+								lifterComponent.setLifted(lifted);
+
+								targetX = position.getX();
+								targetY = position.getY();
+								setTarget = true;
+								return false;
+							}
+						}
 					}
 				}
+				return true;
 			}
+			PositionComponent liftedPosition = lifted.getComponent(PositionComponent.class);
+			if (liftedPosition != null)
+			{
+				positionX = liftedPosition.getX();
+				positionY = liftedPosition.getY();
+				float deltaX = positionX - targetX;
+				float deltaY = positionY - targetY;
+				
+				System.out.println("positionX " + positionX + ", targetX " + targetX + ", deltaX " + deltaX + ", change " + ((float) (positionX + (-maxVelocity * (deltaX / Math.abs(deltaX))))));
 
+				if (Math.abs(deltaX) <= maxVelocity && Math.abs(deltaY) <= maxVelocity)
+				{
+					liftedPosition.setX(targetX);
+					liftedPosition.setY(targetY);
+					return true;
+				}
+				
+				if (deltaX != 0)
+					positionX = ((float) (positionX + (-maxVelocity * (deltaX / Math.abs(deltaX)))));
+				if (deltaY != 0)
+				positionY = ((float) (positionY + (-maxVelocity * (deltaY / Math.abs(deltaY)))));
+
+				liftedPosition.setX(positionX);
+				liftedPosition.setY(positionY);
+				return false;
+			}
 		}
 		return true;
 	}

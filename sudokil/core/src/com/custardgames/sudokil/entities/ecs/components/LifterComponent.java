@@ -7,11 +7,13 @@ public class LifterComponent extends Component
 {
 	private boolean lifting;
 	private Entity lifted;
+	private float liftSpeed;
 
 	public LifterComponent()
 	{
 		lifting = false;
 		lifted = null;
+		setLiftSpeed(0.5f);
 	}
 	
 	public boolean isLifting()
@@ -32,6 +34,16 @@ public class LifterComponent extends Component
 	public void setLifted(Entity lifted)
 	{
 		this.lifted = lifted;
+	}
+
+	public float getLiftSpeed()
+	{
+		return liftSpeed;
+	}
+
+	public void setLiftSpeed(float liftSpeed)
+	{
+		this.liftSpeed = liftSpeed;
 	}
 	
 }
