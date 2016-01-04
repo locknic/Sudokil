@@ -62,7 +62,10 @@ public class LiftProcess extends EntityProcess
 							{
 								EventManager.get_instance().broadcast(new RemoveFromMapEvent(lifted));
 								liftableComponent.setLifted(true);
-								blockingComponent.setBlocking(false);
+								if (blockingComponent != null)
+								{
+									blockingComponent.setBlocking(false);
+								}
 								lifterComponent.setLifting(true);
 								lifterComponent.setLifted(lifted);
 
@@ -83,8 +86,6 @@ public class LiftProcess extends EntityProcess
 				positionY = liftedPosition.getY();
 				float deltaX = positionX - targetX;
 				float deltaY = positionY - targetY;
-				
-				System.out.println("positionX " + positionX + ", targetX " + targetX + ", deltaX " + deltaX + ", change " + ((float) (positionX + (-maxVelocity * (deltaX / Math.abs(deltaX))))));
 
 				if (Math.abs(deltaX) <= maxVelocity && Math.abs(deltaY) <= maxVelocity)
 				{
@@ -92,11 +93,11 @@ public class LiftProcess extends EntityProcess
 					liftedPosition.setY(targetY);
 					return true;
 				}
-				
+
 				if (deltaX != 0)
 					positionX = ((float) (positionX + (-maxVelocity * (deltaX / Math.abs(deltaX)))));
 				if (deltaY != 0)
-				positionY = ((float) (positionY + (-maxVelocity * (deltaY / Math.abs(deltaY)))));
+					positionY = ((float) (positionY + (-maxVelocity * (deltaY / Math.abs(deltaY)))));
 
 				liftedPosition.setX(positionX);
 				liftedPosition.setY(positionY);

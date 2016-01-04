@@ -61,7 +61,7 @@ public class ProcessQueueSystem extends EntityProcessingSystem implements EventL
 		}
 	}
 
-	public void handleStopCommandsEvent(StopCommandsEvent event)
+	public void handleStopCommands(StopCommandsEvent event)
 	{
 		stopCommand(event.getOwner());
 	}

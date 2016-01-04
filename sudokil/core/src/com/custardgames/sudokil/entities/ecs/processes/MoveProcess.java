@@ -86,19 +86,22 @@ public class MoveProcess extends EntityProcess
 		if (Math.abs(deltaX) + Math.abs(deltaY) > maxVelocity)
 		{
 			double travelDirection = Math.atan2(deltaY, deltaX);
-
-			positionX = ((float) (positionX + (maxVelocity * Math.cos(travelDirection))));
-			positionY = ((float) (positionY + (maxVelocity * Math.sin(travelDirection))));
+			
+			deltaX = ((float) ((maxVelocity * Math.cos(travelDirection))));
+			deltaY = ((float) ((maxVelocity * Math.sin(travelDirection))));
+			positionX += deltaX;
+			positionY += deltaY;
 
 			position.setX(positionX);
 			position.setY(positionY);
 			
-			EventManager.get_instance().broadcast(new EntityMovedEvent(entity));
+			EventManager.get_instance().broadcast(new EntityMovedEvent(entity, deltaX, deltaY));
 
 			return false;
 		}
 		else
 		{
+			EventManager.get_instance().broadcast(new EntityMovedEvent(entity, targetX - positionX, targetY - positionY));
 
 			positionX = targetX;
 			positionY = targetY;
@@ -106,8 +109,6 @@ public class MoveProcess extends EntityProcess
 			position.setX(positionX);
 			position.setY(positionY);
 
-			EventManager.get_instance().broadcast(new EntityMovedEvent(entity));
-			
 			return true;
 		}
 	}

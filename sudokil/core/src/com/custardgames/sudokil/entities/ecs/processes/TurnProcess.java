@@ -3,6 +3,8 @@ package com.custardgames.sudokil.entities.ecs.processes;
 import com.artemis.Entity;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.VelocityComponent;
+import com.custardgames.sudokil.events.entities.EntityTurnedEvent;
+import com.custardgames.sudokil.managers.EventManager;
 
 public class TurnProcess extends EntityProcess
 {
@@ -60,11 +62,13 @@ public class TurnProcess extends EntityProcess
 			if (deltaAngle > 0)
 			{
 				angle += maxTurnVelocity;
+				EventManager.get_instance().broadcast(new EntityTurnedEvent(entity, maxTurnVelocity));
 				deltaAngle -= maxTurnVelocity;
 			}
 			else
 			{
 				angle -= maxTurnVelocity;
+				EventManager.get_instance().broadcast(new EntityTurnedEvent(entity, -maxTurnVelocity));
 				deltaAngle += maxTurnVelocity;
 			}
 
@@ -86,6 +90,7 @@ public class TurnProcess extends EntityProcess
 		}
 		else
 		{
+			EventManager.get_instance().broadcast(new EntityTurnedEvent(entity, targetAngle - angle));
 			angle = targetAngle;
 
 			if (position != null)

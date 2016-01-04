@@ -9,6 +9,7 @@ public class PingCellEvent extends BaseEvent
 	private Entity ownerEntity;
 	private int xDir, yDir;
 	private Entity cellEntity;
+	private float xCo, yCo;
 	private boolean floor;
 
 	public PingCellEvent(Entity entity, int xDir, int yDir)
@@ -67,6 +68,26 @@ public class PingCellEvent extends BaseEvent
 	public void setFloor(boolean floor)
 	{
 		this.floor = floor;
+	}
+
+	public float getyCo()
+	{
+		return yCo;
+	}
+
+	public void setyCo(float yCo)
+	{
+		this.yCo = yCo;
+	}
+
+	public float getxCo()
+	{
+		return xCo;
+	}
+
+	public void setxCo(float xCo)
+	{
+		this.xCo = xCo;
 	}
 
 }
