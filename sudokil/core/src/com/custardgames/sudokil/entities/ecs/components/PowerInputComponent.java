@@ -1,6 +1,8 @@
 package com.custardgames.sudokil.entities.ecs.components;
 
-public class PowerInputComponent
+import com.artemis.Component;
+
+public class PowerInputComponent extends Component
 {
 	private boolean activated;
 	private boolean left, right, up, down, centre;

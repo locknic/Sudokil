@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.entities.ecs.factories.EntityFactoryJSON;
+import com.custardgames.sudokil.entities.ecs.systems.ActivityBlockingSystem;
 import com.custardgames.sudokil.entities.ecs.systems.CameraMovementSystem;
 import com.custardgames.sudokil.entities.ecs.systems.CharacterMovementSystem;
 import com.custardgames.sudokil.entities.ecs.systems.DoorToggleSystem;
@@ -78,7 +79,7 @@ public class MapInterface extends Stage implements EventListener
 		WorldConfiguration config = new WorldConfigurationBuilder()
 				.with(spriteRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(camera),
 						new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(),
-						new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem())
+						new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem())
 				.build();
 		artemisWorld = new com.artemis.World(config);
 

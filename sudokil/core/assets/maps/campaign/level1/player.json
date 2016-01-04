@@ -34,6 +34,9 @@
 				class : com.custardgames.sudokil.entities.ecs.components.LifterComponent,
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent,
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
 			}
 		],
@@ -70,6 +73,9 @@
 				class : com.custardgames.sudokil.entities.ecs.components.LiftableComponent,
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent,
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
 			}
 		],
@@ -103,6 +109,9 @@
 				blocking : true
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent,
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
 			}
 		],
@@ -130,6 +139,9 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.DoorGroupComponent,
 				doorTiles : [ door1-2, door1-3, door1-4]
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent,
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
@@ -255,6 +267,9 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
 				blocking : true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent,
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,

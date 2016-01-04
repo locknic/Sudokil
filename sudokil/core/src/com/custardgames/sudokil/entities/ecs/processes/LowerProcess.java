@@ -6,6 +6,7 @@ import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.LiftableComponent;
 import com.custardgames.sudokil.entities.ecs.components.LifterComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
+import com.custardgames.sudokil.events.entities.UnblockActivityEvent;
 import com.custardgames.sudokil.events.map.AddToMapEvent;
 import com.custardgames.sudokil.events.map.PingCellEvent;
 import com.custardgames.sudokil.managers.EventManager;
@@ -69,6 +70,7 @@ public class LowerProcess extends EntityProcess
 										{
 											blockingComponent.setBlocking(true);
 										}
+										EventManager.get_instance().broadcast(new UnblockActivityEvent(lifted, liftableComponent));
 										lifterComponent.setLifting(false);
 										lifterComponent.setLifted(null);
 										setTarget = true;

@@ -1,17 +1,26 @@
 package com.custardgames.sudokil.entities.ecs.components;
 
-public class PowerGeneratorComponent
-{
-	private int powerPerSecond;
+import com.artemis.Component;
 
-	public PowerGeneratorComponent(int powerPerSecond)
+public class PowerGeneratorComponent extends Component
+{
+	private boolean generatingPower;
+
+	public PowerGeneratorComponent()
 	{
-		this.powerPerSecond = powerPerSecond;
+		generatingPower = true;
+	}
+
+	public boolean isGeneratingPower()
+	{
+		return generatingPower;
+	}
+
+	public void setGeneratingPower(boolean generatingPower)
+	{
+		this.generatingPower = generatingPower;
 	}
 	
-	public int getPowerPerSecond()
-	{
-		return powerPerSecond;
-	}
+	
 	
 }

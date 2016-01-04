@@ -7,6 +7,7 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
+import com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
 import com.custardgames.sudokil.events.ProcessEvent;
@@ -17,11 +18,12 @@ public class ProcessQueueSystem extends EntityProcessingSystem implements EventL
 {
 	private ComponentMapper<ProcessQueueComponent> processQueueComponents;
 	private ComponentMapper<EntityComponent> entityComponents;
-
+	private ComponentMapper<ActivityBlockingComponent> activityBlockingComponents;
+	
 	@SuppressWarnings("unchecked")
 	public ProcessQueueSystem()
 	{
-		super(Aspect.all(ProcessQueueComponent.class));
+		super(Aspect.all(ProcessQueueComponent.class, EntityComponent.class));
 		EventManager.get_instance().register(ProcessEvent.class, this);
 		EventManager.get_instance().register(StopCommandsEvent.class, this);
 	}
@@ -35,13 +37,24 @@ public class ProcessQueueSystem extends EntityProcessingSystem implements EventL
 	public void handleProcess(ProcessEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (int x = 0; x < entities.size(); x++)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entities.get(x));
-			ProcessQueueComponent processQueueComponent = processQueueComponents.get(entities.get(x));
+			EntityComponent entityComponent = entityComponents.get(entity);
+			ProcessQueueComponent processQueueComponent = processQueueComponents.get(entity);
 			if (entityComponent.getId().equals(event.getOwner()))
 			{
-				processQueueComponent.addToQueue(event.getProcess());
+				ActivityBlockingComponent activityBlockingComponent = activityBlockingComponents.get(entity);
+				if (activityBlockingComponent != null)
+				{
+					if (activityBlockingComponent.isActive())
+					{
+						processQueueComponent.addToQueue(event.getProcess());
+					}
+				}
+				else
+				{
+					processQueueComponent.addToQueue(event.getProcess());
+				}
 			}
 		}
 	}

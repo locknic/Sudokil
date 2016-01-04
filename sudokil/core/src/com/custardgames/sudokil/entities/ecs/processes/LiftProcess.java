@@ -6,6 +6,7 @@ import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.LiftableComponent;
 import com.custardgames.sudokil.entities.ecs.components.LifterComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
+import com.custardgames.sudokil.events.entities.BlockActivityEvent;
 import com.custardgames.sudokil.events.map.PingCellEvent;
 import com.custardgames.sudokil.events.map.RemoveFromMapEvent;
 import com.custardgames.sudokil.managers.EventManager;
@@ -68,7 +69,7 @@ public class LiftProcess extends EntityProcess
 								}
 								lifterComponent.setLifting(true);
 								lifterComponent.setLifted(lifted);
-
+								EventManager.get_instance().broadcast(new BlockActivityEvent(lifted, liftableComponent));
 								targetX = position.getX();
 								targetY = position.getY();
 								setTarget = true;
