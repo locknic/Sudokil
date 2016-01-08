@@ -15,6 +15,7 @@ public class PlayLoadAssets
 		assets.load("images/entities/computer-off.png", Texture.class);
 		assets.load("images/entities/computer-on.png", Texture.class);
 		assets.load("images/entities/crate.png", Texture.class);
+		assets.load("images/entities/generator.png", Texture.class);
 		assets.finishLoading();
 		return assets;
 	}

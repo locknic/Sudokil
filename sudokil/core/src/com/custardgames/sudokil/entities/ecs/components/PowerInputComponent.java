@@ -7,6 +7,11 @@ public class PowerInputComponent extends Component
 	private boolean activated;
 	private boolean left, right, up, down, centre;
 	
+	public PowerInputComponent()
+	{
+		this(true, false, false, false, false, false);
+	}
+	
 	public PowerInputComponent(boolean activated, boolean left, boolean right, boolean up, boolean down, boolean centre)
 	{
 		this.activated = activated;
