@@ -12,9 +12,9 @@ import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
 import com.custardgames.sudokil.entities.ecs.processes.ConnectProcess;
-import com.custardgames.sudokil.events.ProcessEvent;
-import com.custardgames.sudokil.events.commands.WiredConnectEvent;
-import com.custardgames.sudokil.events.map.PingCellEvent;
+import com.custardgames.sudokil.events.entities.ProcessEvent;
+import com.custardgames.sudokil.events.entities.commands.WiredConnectEvent;
+import com.custardgames.sudokil.events.entities.map.PingCellEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class WiredConnectionSystem extends EntityProcessingSystem implements EventListener
@@ -39,24 +39,22 @@ public class WiredConnectionSystem extends EntityProcessingSystem implements Eve
 	public void connectCommand(UUID consoleUUID, String connectingWith)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (int x = 0; x < entities.size(); x++)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entities.get(x));
-			PositionComponent positionComponent = positionComponents.get(entities.get(x));
+			EntityComponent entityComponent = entityComponents.get(entity);
+			PositionComponent positionComponent = positionComponents.get(entity);
 
 			if (entityComponent.getId().equals(connectingWith))
 			{
-				PingCellEvent pingCell = ((PingCellEvent) EventManager.get_instance()
-						.broadcastInquiry(new PingCellEvent(entities.get(x),
-								(int) Math.cos(Math.toRadians(positionComponent.getAngle())),
-								(int) Math.sin(Math.toRadians(positionComponent.getAngle())))));
+				PingCellEvent pingCell = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(
+						new PingCellEvent(entity, (int) Math.cos(Math.toRadians(positionComponent.getAngle())), (int) Math.sin(Math.toRadians(positionComponent.getAngle())))));
 				if (pingCell != null)
 				{
 					Entity targetEntity = pingCell.getCellEntity();
 					if (targetEntity != null)
 					{
-						ConnectProcess connectProcess = new ConnectProcess(consoleUUID, entities.get(x), targetEntity);
-						EventManager.get_instance().broadcast(new ProcessEvent(connectingWith, connectProcess));
+						ConnectProcess connectProcess = new ConnectProcess(consoleUUID, entity, targetEntity);
+						EventManager.get_instance().broadcast(new ProcessEvent(entity, connectProcess));
 					}
 				}
 			}
@@ -65,7 +63,7 @@ public class WiredConnectionSystem extends EntityProcessingSystem implements Eve
 
 	public void handleWiredConnectEvent(WiredConnectEvent event)
 	{
-		connectCommand(event.getConsoleUUID(), event.getOwner());
+		connectCommand(event.getOwnerUI(), event.getEntityName());
 	}
 
 }

@@ -1,11 +1,10 @@
 package com.custardgames.sudokil.entities.ecs.processes;
 
 import com.artemis.Entity;
-import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.VelocityComponent;
 import com.custardgames.sudokil.events.entities.EntityMovedEvent;
-import com.custardgames.sudokil.events.map.RequestMoveEvent;
+import com.custardgames.sudokil.events.entities.map.RequestMoveEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class MoveProcess extends EntityProcess
@@ -59,7 +58,7 @@ public class MoveProcess extends EntityProcess
 					.broadcastInquiry(new RequestMoveEvent(entity, (int) deltaX, (int) deltaY));
 
 			if (event != null && event instanceof RequestMoveEvent
-					&& event.getOwner().equals(entity.getComponent(EntityComponent.class).getId()))
+					&& event.getEntity() == entity)
 			{
 				if (event.isAllowedMove())
 				{

@@ -3,8 +3,8 @@ package com.custardgames.sudokil.entities.ecs.processes;
 import com.artemis.Entity;
 import com.custardgames.sudokil.entities.ecs.components.BlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
-import com.custardgames.sudokil.events.map.AddToMapEvent;
-import com.custardgames.sudokil.events.map.RemoveFromMapEvent;
+import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
+import com.custardgames.sudokil.events.entities.map.RemoveFromMapEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class DoorToggleProcess extends EntityProcess

@@ -15,10 +15,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.custardgames.sudokil.events.AutocompleteRequestEvent;
-import com.custardgames.sudokil.events.AutocompleteResponseEvent;
-import com.custardgames.sudokil.events.CommandLineEvent;
-import com.custardgames.sudokil.events.ConsoleLogEvent;
+import com.custardgames.sudokil.events.commandLine.AutocompleteRequestEvent;
+import com.custardgames.sudokil.events.commandLine.AutocompleteResponseEvent;
+import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
+import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
 import com.custardgames.sudokil.managers.CommandLineManager;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.ui.cli.RootCLI;
@@ -122,7 +122,7 @@ public class CommandLineInterface implements EventListener
 
 	public void enterClicked()
 	{
-		EventManager.get_instance().broadcast(new CommandLineEvent(consoleField.getText(), ownerUI));
+		EventManager.get_instance().broadcast(new CommandLineEvent(ownerUI, consoleField.getText()));
 		previousCommands.add(consoleField.getText());
 		consoleArrow.setText(parser.getInputPrefix());
 		consoleField.setText("");
@@ -132,7 +132,7 @@ public class CommandLineInterface implements EventListener
 
 	public void tabClicked()
 	{
-		EventManager.get_instance().broadcast(new AutocompleteRequestEvent(consoleField.getText(), ownerUI));
+		EventManager.get_instance().broadcast(new AutocompleteRequestEvent(ownerUI, consoleField.getText()));
 		stage.setKeyboardFocus(consoleField);
 		stage.setScrollFocus(consoleScroll);
 	}
@@ -224,7 +224,7 @@ public class CommandLineInterface implements EventListener
 		if (event.getOwnerUI() == ownerUI)
 		{
 			consoleArrow.setText(parser.getInputPrefix());
-			consoleField.setText(event.getCommand());
+			consoleField.setText(event.getText());
 			consoleField.setCursorPosition(consoleField.getText().length());
 		}
 	}
@@ -233,7 +233,7 @@ public class CommandLineInterface implements EventListener
 	{
 		if (keyEvent.getOwnerUI() == ownerUI)
 		{
-			consoleDialog.setText(consoleDialog.getText() + "\n" + keyEvent.getMessage());
+			consoleDialog.setText(consoleDialog.getText() + "\n" + keyEvent.getText());
 			updateScroll = true;
 		}
 	}

@@ -1,17 +1,15 @@
 package com.custardgames.sudokil.events.entities;
 
 import com.artemis.Entity;
-import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
-import com.custardgames.sudokil.events.BaseEvent;
 
-public class EntityMovedEvent extends BaseEvent
+public class EntityMovedEvent extends EntityEvent
 {
 	private Entity entity;
 	private float deltaX, deltaY;
 
 	public EntityMovedEvent(Entity entity, float deltaX, float deltaY)
 	{
-		super(entity.getComponent(EntityComponent.class).getId());
+		super(entity);
 		this.setEntity(entity);
 		this.setDeltaX(deltaX);
 		this.setDeltaY(deltaY);

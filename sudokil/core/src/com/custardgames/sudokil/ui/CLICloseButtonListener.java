@@ -2,7 +2,7 @@ package com.custardgames.sudokil.ui;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.custardgames.sudokil.events.CloseCommandLineWindowEvent;
+import com.custardgames.sudokil.events.commandLine.CloseCommandLineWindowEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class CLICloseButtonListener extends CloseButtonListener
@@ -20,7 +20,7 @@ public class CLICloseButtonListener extends CloseButtonListener
 	public void clicked(InputEvent event, float x, float y)
 	{
 		super.clicked(event, x, y);
-		EventManager.get_instance().broadcast(new CloseCommandLineWindowEvent(cli.getUUID().toString()));
+		EventManager.get_instance().broadcast(new CloseCommandLineWindowEvent(cli.getUUID()));
 	}
 
 }

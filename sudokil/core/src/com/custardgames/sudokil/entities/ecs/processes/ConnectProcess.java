@@ -7,9 +7,9 @@ import com.artemis.Entity;
 import com.custardgames.sudokil.entities.ecs.components.ConnectableComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
-import com.custardgames.sudokil.events.ConsoleConnectEvent;
 import com.custardgames.sudokil.events.PingFileSystemEvent;
-import com.custardgames.sudokil.events.commands.DisconnectEvent;
+import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
+import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class ConnectProcess extends EntityProcess implements EventListener
@@ -75,10 +75,8 @@ public class ConnectProcess extends EntityProcess implements EventListener
 	public void handleDisconnectEvent(DisconnectEvent event)
 	{
 		EntityComponent entityComponent = entity.getComponent(EntityComponent.class);
-		System.out.println(event.getOwner() + " is either: " + entityComponent.getId() + ", or "
-				+ connectedTo.getComponent(EntityComponent.class).getId());
-		if (event.getOwner().equals(entityComponent.getId())
-				|| event.getOwner().equals(connectedTo.getComponent(EntityComponent.class).getId()))
+		if (event.getEntityName().equals(entityComponent.getId())
+				|| event.getEntityName().equals(connectedTo.getComponent(EntityComponent.class).getId()))
 		{
 			disconnect();
 		}

@@ -10,8 +10,8 @@ import com.artemis.utils.ImmutableBag;
 import com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
-import com.custardgames.sudokil.events.ProcessEvent;
-import com.custardgames.sudokil.events.commands.StopCommandsEvent;
+import com.custardgames.sudokil.events.entities.ProcessEvent;
+import com.custardgames.sudokil.events.entities.commands.StopCommandsEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class ProcessQueueSystem extends EntityProcessingSystem implements EventListener
@@ -39,9 +39,8 @@ public class ProcessQueueSystem extends EntityProcessingSystem implements EventL
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entity);
 			ProcessQueueComponent processQueueComponent = processQueueComponents.get(entity);
-			if (entityComponent.getId().equals(event.getOwner()))
+			if (entity == event.getEntity())
 			{
 				ActivityBlockingComponent activityBlockingComponent = activityBlockingComponents.get(entity);
 				if (activityBlockingComponent != null)
@@ -76,7 +75,7 @@ public class ProcessQueueSystem extends EntityProcessingSystem implements EventL
 
 	public void handleStopCommands(StopCommandsEvent event)
 	{
-		stopCommand(event.getOwner());
+		stopCommand(event.getEntityName());
 	}
 
 }

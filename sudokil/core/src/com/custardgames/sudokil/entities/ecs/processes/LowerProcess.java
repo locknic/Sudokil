@@ -2,13 +2,12 @@ package com.custardgames.sudokil.entities.ecs.processes;
 
 import com.artemis.Entity;
 import com.custardgames.sudokil.entities.ecs.components.BlockingComponent;
-import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.LiftableComponent;
 import com.custardgames.sudokil.entities.ecs.components.LifterComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.events.entities.UnblockActivityEvent;
-import com.custardgames.sudokil.events.map.AddToMapEvent;
-import com.custardgames.sudokil.events.map.PingCellEvent;
+import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
+import com.custardgames.sudokil.events.entities.map.PingCellEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class LowerProcess extends EntityProcess
@@ -52,7 +51,7 @@ public class LowerProcess extends EntityProcess
 						float deltaX = (float) (1 * Math.cos(Math.toRadians(angle)));
 						float deltaY = (float) (1 * Math.sin(Math.toRadians(angle)));
 						PingCellEvent event = (PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, (int) deltaX, (int) deltaY));
-						if (event != null && event instanceof PingCellEvent && event.getOwner() != null && event.getOwner().equals(entity.getComponent(EntityComponent.class).getId()))
+						if (event != null && event instanceof PingCellEvent && event.getEntity() != null && event.getEntity() == entity)
 						{
 							targetX = event.getxCo();
 							targetY = event.getyCo();
@@ -70,7 +69,7 @@ public class LowerProcess extends EntityProcess
 										{
 											blockingComponent.setBlocking(true);
 										}
-										EventManager.get_instance().broadcast(new UnblockActivityEvent(lifted, liftableComponent));
+										EventManager.get_instance().broadcast(new UnblockActivityEvent(lifted, liftableComponent.getClass()));
 										lifterComponent.setLifting(false);
 										lifterComponent.setLifted(null);
 										setTarget = true;

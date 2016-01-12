@@ -10,10 +10,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.custardgames.sudokil.entities.ecs.components.BlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
-import com.custardgames.sudokil.events.map.AddToMapEvent;
-import com.custardgames.sudokil.events.map.PingCellEvent;
-import com.custardgames.sudokil.events.map.RemoveFromMapEvent;
-import com.custardgames.sudokil.events.map.RequestMoveEvent;
+import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
+import com.custardgames.sudokil.events.entities.map.PingCellEvent;
+import com.custardgames.sudokil.events.entities.map.RemoveFromMapEvent;
+import com.custardgames.sudokil.events.entities.map.RequestMoveEvent;
 
 public class MapManager implements EventListener
 {
@@ -128,8 +128,8 @@ public class MapManager implements EventListener
 
 	public PingCellEvent handleInquiryPingEntityEvent(PingCellEvent event)
 	{
-		event.setCellEntity(getCellEntity(event.getOwnerEntity(), event.getxDir(), event.getyDir()));
-		PositionComponent position = event.getOwnerEntity().getComponent(PositionComponent.class);
+		event.setCellEntity(getCellEntity(event.getEntity(), event.getxDir(), event.getyDir()));
+		PositionComponent position = event.getEntity().getComponent(PositionComponent.class);
 		int xPosition = (int) (position.getX() / tileWidth) + event.getxDir();
 		int yPosition = (int) (position.getY() / tileHeight) + event.getyDir();
 		event.setxCo(xPosition * tileWidth);

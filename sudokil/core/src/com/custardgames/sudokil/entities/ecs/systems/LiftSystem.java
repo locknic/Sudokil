@@ -12,11 +12,11 @@ import com.custardgames.sudokil.entities.ecs.components.LifterComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.processes.LiftProcess;
 import com.custardgames.sudokil.entities.ecs.processes.LowerProcess;
-import com.custardgames.sudokil.events.ProcessEvent;
-import com.custardgames.sudokil.events.commands.LiftEvent;
-import com.custardgames.sudokil.events.commands.LowerEvent;
 import com.custardgames.sudokil.events.entities.EntityMovedEvent;
 import com.custardgames.sudokil.events.entities.EntityTurnedEvent;
+import com.custardgames.sudokil.events.entities.ProcessEvent;
+import com.custardgames.sudokil.events.entities.commands.LiftEvent;
+import com.custardgames.sudokil.events.entities.commands.LowerEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class LiftSystem extends EntityProcessingSystem implements EventListener
@@ -43,13 +43,13 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 	public void handleLift(LiftEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (Entity e : entities)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(e);
-			if (entityComponent.getId().equals(event.getOwner()))
+			EntityComponent entityComponent = entityComponents.get(entity);
+			if (entityComponent.getId().equals(event.getEntityName()))
 			{
-				LiftProcess liftProcess = new LiftProcess(e);
-				EventManager.get_instance().broadcast(new ProcessEvent(entityComponent.getId(), liftProcess));
+				LiftProcess liftProcess = new LiftProcess(entity);
+				EventManager.get_instance().broadcast(new ProcessEvent(entity, liftProcess));
 			}
 		}
 	}
@@ -57,13 +57,13 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 	public void handleLower(LowerEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (Entity e : entities)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(e);
-			if (entityComponent.getId().equals(event.getOwner()))
+			EntityComponent entityComponent = entityComponents.get(entity);
+			if (entityComponent.getId().equals(event.getEntityName()))
 			{
-				LowerProcess lowerProcess = new LowerProcess(e);
-				EventManager.get_instance().broadcast(new ProcessEvent(entityComponent.getId(), lowerProcess));
+				LowerProcess lowerProcess = new LowerProcess(entity);
+				EventManager.get_instance().broadcast(new ProcessEvent(entity, lowerProcess));
 			}
 		}
 	}
@@ -71,12 +71,11 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 	public void handleEntityTurned(EntityTurnedEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (Entity e : entities)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(e);
-			if (entityComponent.getId().equals(event.getOwner()))
+			if (entity == event.getEntity())
 			{
-				LifterComponent lifterComponent = lifterComponents.get(e);
+				LifterComponent lifterComponent = lifterComponents.get(entity);
 				Entity lifted = lifterComponent.getLifted();
 				if (lifted != null)
 				{
@@ -93,12 +92,11 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 	public void handleEntityMoved(EntityMovedEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (Entity e : entities)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(e);
-			if (entityComponent.getId().equals(event.getOwner()))
+			if (entity == event.getEntity())
 			{
-				LifterComponent lifterComponent = lifterComponents.get(e);
+				LifterComponent lifterComponent = lifterComponents.get(entity);
 				Entity lifted = lifterComponent.getLifted();
 				if (lifted != null)
 				{

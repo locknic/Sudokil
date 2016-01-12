@@ -2,24 +2,24 @@ package com.custardgames.sudokil.ui.cli;
 
 import java.util.UUID;
 
-import com.custardgames.sudokil.events.commands.BaseCommandEvent;
+import com.custardgames.sudokil.events.entities.commands.EntityCommandEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class ScriptCLI extends ItemCLI
 {
-	private BaseCommandEvent event;
+	private EntityCommandEvent event;
 
 	public void run()
 	{
-		event.setOwner(getParentName());
+		event.setEntityName(getParentName());
 		EventManager.get_instance().broadcast(event);
 	}
 
-	public void run(UUID consoleUUID, String[] args)
+	public void run(UUID ownerUI, String[] args)
 	{
-		event.setOwner(getParentName());
+		event.setEntityName(getParentName());
 		event.setArgs(args);
-		event.setConsoleUUID(consoleUUID);
+		event.setOwnerUI(ownerUI);
 		EventManager.get_instance().broadcast(event);
 	}
 }

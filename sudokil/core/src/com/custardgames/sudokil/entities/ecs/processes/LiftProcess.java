@@ -2,13 +2,12 @@ package com.custardgames.sudokil.entities.ecs.processes;
 
 import com.artemis.Entity;
 import com.custardgames.sudokil.entities.ecs.components.BlockingComponent;
-import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.LiftableComponent;
 import com.custardgames.sudokil.entities.ecs.components.LifterComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.events.entities.BlockActivityEvent;
-import com.custardgames.sudokil.events.map.PingCellEvent;
-import com.custardgames.sudokil.events.map.RemoveFromMapEvent;
+import com.custardgames.sudokil.events.entities.map.PingCellEvent;
+import com.custardgames.sudokil.events.entities.map.RemoveFromMapEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class LiftProcess extends EntityProcess
@@ -52,7 +51,7 @@ public class LiftProcess extends EntityProcess
 					positionX = (float) (1 * Math.cos(Math.toRadians(angle)));
 					positionY = (float) (1 * Math.sin(Math.toRadians(angle)));
 					PingCellEvent event = (PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, (int) positionX, (int) positionY));
-					if (event != null && event instanceof PingCellEvent && event.getOwner() != null && event.getOwner().equals(entity.getComponent(EntityComponent.class).getId()))
+					if (event != null && event instanceof PingCellEvent && event.getEntity() != null && event.getEntity() == entity)
 					{
 						lifted = event.getCellEntity();
 						if (lifted != null)
@@ -69,7 +68,7 @@ public class LiftProcess extends EntityProcess
 								}
 								lifterComponent.setLifting(true);
 								lifterComponent.setLifted(lifted);
-								EventManager.get_instance().broadcast(new BlockActivityEvent(lifted, liftableComponent));
+								EventManager.get_instance().broadcast(new BlockActivityEvent(lifted, liftableComponent.getClass()));
 								targetX = position.getX();
 								targetY = position.getY();
 								setTarget = true;

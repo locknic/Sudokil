@@ -12,8 +12,8 @@ import com.custardgames.sudokil.entities.ecs.components.CameraInputComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.events.PingEntityEvent;
-import com.custardgames.sudokil.events.commands.camera.CameraResetEvent;
-import com.custardgames.sudokil.events.commands.camera.CameraTargetEvent;
+import com.custardgames.sudokil.events.entities.commands.camera.CameraResetEvent;
+import com.custardgames.sudokil.events.entities.commands.camera.CameraTargetEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyPressedEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyReleasedEvent;
 import com.custardgames.sudokil.managers.EventManager;
@@ -188,12 +188,12 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 	public void handleCameraTargetEvent(CameraTargetEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (int x = 0; x < entities.size(); x++)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entities.get(x));
-			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
+			EntityComponent entityComponent = entityComponents.get(entity);
+			CameraInputComponent cameraInput = cameraInputComponents.get(entity);
 
-			if (entityComponent.getId().equals(event.getOwner()) && event.getArgs() != null
+			if (entityComponent.getId().equals(event.getEntityName()) && event.getArgs() != null
 					&& event.getArgs().length > 1)
 			{
 				cameraInput.setTargetID(event.getArgs()[1]);
@@ -213,7 +213,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			EntityComponent entityComponent = entityComponents.get(entities.get(x));
 			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
 
-			if (entityComponent.getId().equals(event.getOwner()))
+			if (entityComponent.getId().equals(event.getEntityName()))
 			{
 				cameraInput.setReset(true);
 			}

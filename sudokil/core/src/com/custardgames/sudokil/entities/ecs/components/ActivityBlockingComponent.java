@@ -5,11 +5,11 @@ import com.badlogic.gdx.utils.Array;
 
 public class ActivityBlockingComponent extends Component
 {
-	private Array<Component> activityBlockers;
+	private Array<Class<?>> activityBlockers;
 
 	public ActivityBlockingComponent()
 	{
-		activityBlockers = new Array<Component>();
+		activityBlockers = new Array<Class<?>>();
 	}
 
 	public boolean isActive()
@@ -21,24 +21,24 @@ public class ActivityBlockingComponent extends Component
 		return true;
 	}
 
-	public Array<Component> getComponents()
+	public Array<Class<?>> getComponents()
 	{
 		return activityBlockers;
 	}
 
-	public void addActivityBlocker(Component component)
+	public void addActivityBlocker(Class<?> componentClass)
 	{
-		if (!activityBlockers.contains(component, true))
+		if (!activityBlockers.contains(componentClass, true))
 		{
-			activityBlockers.add(component);
+			activityBlockers.add(componentClass);
 		}
 	}
 
-	public void removeActivityBlocker(Component component)
+	public void removeActivityBlocker(Class<?> componentClass)
 	{
-		if (activityBlockers.contains(component, true))
+		if (activityBlockers.contains(componentClass, true))
 		{
-			activityBlockers.removeValue(component, true);
+			activityBlockers.removeValue(componentClass, true);
 		}
 	}
 

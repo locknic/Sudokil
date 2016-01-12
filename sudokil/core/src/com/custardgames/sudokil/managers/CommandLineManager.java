@@ -17,13 +17,13 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.UnrecognizedOptionException;
 
 import com.badlogic.gdx.utils.Array;
-import com.custardgames.sudokil.events.AutocompleteRequestEvent;
-import com.custardgames.sudokil.events.AutocompleteResponseEvent;
 import com.custardgames.sudokil.events.BaseEvent;
-import com.custardgames.sudokil.events.CommandLineEvent;
-import com.custardgames.sudokil.events.ConsoleLogEvent;
-import com.custardgames.sudokil.events.commands.DisconnectEvent;
-import com.custardgames.sudokil.events.commands.StopCommandsEvent;
+import com.custardgames.sudokil.events.commandLine.AutocompleteRequestEvent;
+import com.custardgames.sudokil.events.commandLine.AutocompleteResponseEvent;
+import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
+import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
+import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
+import com.custardgames.sudokil.events.entities.commands.StopCommandsEvent;
 import com.custardgames.sudokil.ui.cli.FolderCLI;
 import com.custardgames.sudokil.ui.cli.ItemCLI;
 import com.custardgames.sudokil.ui.cli.RootCLI;
@@ -39,7 +39,7 @@ public class CommandLineManager implements EventListener
 
 	private Options options;
 
-	private UUID ownerUUID;
+	private UUID ownerUI;
 
 	public CommandLineManager(RootCLI root, UUID ownerUI)
 	{
@@ -50,7 +50,7 @@ public class CommandLineManager implements EventListener
 		device = root.getDeviceName();
 
 		this.root = root;
-		this.ownerUUID = ownerUI;
+		this.ownerUI = ownerUI;
 
 		currentItem = this.root;
 
@@ -166,7 +166,7 @@ public class CommandLineManager implements EventListener
 
 	public void pwd()
 	{
-		EventManager.get_instance().broadcast(new ConsoleLogEvent(getLocation(), ownerUUID));
+		EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, getLocation()));
 	}
 
 	public void list()
@@ -176,7 +176,7 @@ public class CommandLineManager implements EventListener
 		{
 			output += child.getName() + "\n";
 		}
-		EventManager.get_instance().broadcast(new ConsoleLogEvent(output, ownerUUID));
+		EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, output));
 	}
 
 	public void changeDirectory(String location)
@@ -194,11 +194,11 @@ public class CommandLineManager implements EventListener
 			}
 			else if (newItem instanceof ItemCLI)
 			{
-				EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! Not a directory.", ownerUUID));
+				EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! Not a directory."));
 			}
 			else
 			{
-				EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! No such file or directory.", ownerUUID));
+				EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! No such file or directory."));
 			}
 		}
 	}
@@ -209,23 +209,23 @@ public class CommandLineManager implements EventListener
 
 		if (newItem == null)
 		{
-			EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! No such file or directory", ownerUUID));
+			EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! No such file or directory"));
 		}
 		else if (newItem instanceof ScriptCLI)
 		{
-			((ScriptCLI) newItem).run(ownerUUID, args);
+			((ScriptCLI) newItem).run(ownerUI, args);
 		}
 		else if (newItem instanceof FolderCLI)
 		{
-			EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! Is a directory.", ownerUUID));
+			EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! Is a directory."));
 		}
 		else if (newItem instanceof FolderCLI)
 		{
-			EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! Is not a runnable file.", ownerUUID));
+			EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! Is not a runnable file."));
 		}
 		else
 		{
-			EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! No such file or directory.", ownerUUID));
+			EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! No such file or directory."));
 		}
 	}
 
@@ -249,12 +249,12 @@ public class CommandLineManager implements EventListener
 						}
 						else
 						{
-							EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! Name already in use.", ownerUUID));
+							EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! Name already in use."));
 						}
 					}
 					else
 					{
-						EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! Destination not a directory.", ownerUUID));
+						EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! Destination not a directory."));
 					}
 				}
 				else
@@ -276,23 +276,23 @@ public class CommandLineManager implements EventListener
 						}
 						else
 						{
-							EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! Name already in use.", ownerUUID));
+							EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! Name already in use."));
 						}
 					}
 					else
 					{
-						EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! No such destination file or directory.", ownerUUID));
+						EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! No such destination file or directory."));
 					}
 				}
 			}
 			else
 			{
-				EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! No such source file or directory.", ownerUUID));
+				EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! No such source file or directory."));
 			}
 		}
 		else
 		{
-			EventManager.get_instance().broadcast(new ConsoleLogEvent("ERROR! No such file or directory.", ownerUUID));
+			EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! No such file or directory."));
 		}
 	}
 
@@ -308,7 +308,7 @@ public class CommandLineManager implements EventListener
 				StringWriter stringWriter = new StringWriter();
 				PrintWriter printWriter = new PrintWriter(stringWriter);
 				formatter.printHelp(printWriter, 100, "Available Commands", "", options, 1, 3, "");
-				EventManager.get_instance().broadcast(new ConsoleLogEvent(stringWriter.toString(), ownerUUID));
+				EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, stringWriter.toString()));
 			}
 			else if (commandLine.hasOption("pwd"))
 			{
@@ -333,17 +333,17 @@ public class CommandLineManager implements EventListener
 			else if (commandLine.hasOption("stop"))
 			{
 				EventManager.get_instance().broadcast(new StopCommandsEvent(currentItem.getName()));
-				EventManager.get_instance().broadcast(new ConsoleLogEvent("Stopping queued commands.", ownerUUID));
+				EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "Stopping queued commands."));
 			}
 			else if (commandLine.hasOption("exit"))
 			{
 				DisconnectEvent disconnectEvent = new DisconnectEvent();
-				disconnectEvent.setOwner(device);
+				disconnectEvent.setEntityName(device);
 				EventManager.get_instance().broadcast(disconnectEvent);
 			}
 			else if (commandLine.hasOption("echo"))
 			{
-				EventManager.get_instance().broadcast(new ConsoleLogEvent(commandLine.getOptionValues("echo"), ownerUUID));
+				EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, commandLine.getOptionValues("echo")));
 			}
 
 		}
@@ -359,12 +359,12 @@ public class CommandLineManager implements EventListener
 				}
 				else
 				{
-					EventManager.get_instance().broadcast(new ConsoleLogEvent("" + args[0] + ": command not found.", ownerUUID));
+					EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "" + args[0] + ": command not found."));
 				}
 			}
 			else if (e instanceof MissingArgumentException)
 			{
-				EventManager.get_instance().broadcast(new ConsoleLogEvent("" + args[0].substring(1, args[0].length()) + ": missing arguments.", ownerUUID));
+				EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "" + args[0].substring(1, args[0].length()) + ": missing arguments."));
 			}
 
 		}
@@ -388,7 +388,7 @@ public class CommandLineManager implements EventListener
 		}
 		catch (NumberFormatException e)
 		{
-			EventManager.get_instance().broadcast(new ConsoleLogEvent("" + number + ": argument must be an integer.", ownerUUID));
+			EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "" + number + ": argument must be an integer."));
 		}
 
 		for (int x = 0; x < num; x++)
@@ -436,16 +436,16 @@ public class CommandLineManager implements EventListener
 
 	public void handleAutocompleteRequest(AutocompleteRequestEvent event)
 	{
-		if (event.getOwnerUI().equals(ownerUUID))
+		if (event.getOwnerUI().equals(ownerUI))
 		{
-			String[] commands = event.getCommand().split(";| ");
+			String[] commands = event.getText().split(";| ");
 			Array<String> matches = autoComplete(commands[commands.length - 1]);
 			if (matches != null)
 			{
 				if (matches.size == 1)
 				{
-					String result = event.getCommand().substring(0, event.getCommand().length() - commands[commands.length - 1].length()) + matches.first();
-					EventManager.get_instance().broadcast(new AutocompleteResponseEvent(result, ownerUUID));
+					String result = event.getText().substring(0, event.getText().length() - commands[commands.length - 1].length()) + matches.first();
+					EventManager.get_instance().broadcast(new AutocompleteResponseEvent(ownerUI, result));
 				}
 				else if (matches.size > 1)
 				{
@@ -454,7 +454,7 @@ public class CommandLineManager implements EventListener
 					{
 						output += match + " ";
 					}
-					EventManager.get_instance().broadcast(new ConsoleLogEvent(getInputPrefix() + event.getCommand() + "\n" + output, ownerUUID));
+					EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, getInputPrefix() + event.getText() + "\n" + output));
 				}
 			}
 		}
@@ -462,13 +462,13 @@ public class CommandLineManager implements EventListener
 
 	public void handleConsoleCommand(CommandLineEvent event)
 	{
-		if (event.getOwnerUI().equals(ownerUUID))
+		if (event.getOwnerUI().equals(ownerUI))
 		{
-			EventManager.get_instance().broadcast(new ConsoleLogEvent(getInputPrefix() + event.getCommand(), ownerUUID));
+			EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, getInputPrefix() + event.getText()));
 			try
 			{
 				String[] commands;
-				commands = event.getCommand().split(";");
+				commands = event.getText().split(";");
 				for (int x = 0; x < commands.length; x++)
 				{
 					String[] args = commands[x].split(" ");

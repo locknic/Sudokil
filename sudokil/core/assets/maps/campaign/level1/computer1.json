@@ -10,7 +10,7 @@ children: [
 				name: toggle.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.ToggleEvent
+					class: com.custardgames.sudokil.events.entities.commands.ToggleEvent
 				}
 			}
 		]

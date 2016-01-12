@@ -1,33 +1,21 @@
-package com.custardgames.sudokil.events.map;
+package com.custardgames.sudokil.events.entities.map;
 
 import com.artemis.Entity;
-import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
-import com.custardgames.sudokil.events.BaseEvent;
+import com.custardgames.sudokil.events.entities.EntityEvent;
 
-public class PingCellEvent extends BaseEvent
+public class PingCellEvent extends EntityEvent
 {
-	private Entity ownerEntity;
 	private int xDir, yDir;
+	
 	private Entity cellEntity;
 	private float xCo, yCo;
 	private boolean floor;
 
 	public PingCellEvent(Entity entity, int xDir, int yDir)
 	{
-		super(entity.getComponent(EntityComponent.class).getId());
-		setOwnerEntity(entity);
+		super(entity);
 		setxDir(xDir);
 		setyDir(yDir);
-	}
-
-	public Entity getOwnerEntity()
-	{
-		return ownerEntity;
-	}
-
-	public void setOwnerEntity(Entity ownerEntity)
-	{
-		this.ownerEntity = ownerEntity;
 	}
 
 	public int getxDir()

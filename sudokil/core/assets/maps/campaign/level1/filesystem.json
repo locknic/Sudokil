@@ -12,7 +12,7 @@ children:
 				name: target.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.camera.CameraTargetEvent
+					class: com.custardgames.sudokil.events.entities.commands.camera.CameraTargetEvent
 				}
 			},
 			{
@@ -20,7 +20,7 @@ children:
 				name: reset.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.camera.CameraResetEvent
+					class: com.custardgames.sudokil.events.entities.commands.camera.CameraResetEvent
 				}
 			}
 		]
@@ -35,7 +35,7 @@ children:
 				name: forward.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.ForwardEvent
+					class: com.custardgames.sudokil.events.entities.commands.ForwardEvent
 				}
 			},
 			{
@@ -43,7 +43,7 @@ children:
 				name: backward.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.BackwardEvent
+					class: com.custardgames.sudokil.events.entities.commands.BackwardEvent
 				}
 			},
 			{
@@ -51,7 +51,7 @@ children:
 				name: left.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.LeftEvent
+					class: com.custardgames.sudokil.events.entities.commands.LeftEvent
 				}
 			},
 			{
@@ -59,7 +59,7 @@ children:
 				name: right.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.RightEvent
+					class: com.custardgames.sudokil.events.entities.commands.RightEvent
 				}
 			},
 			{
@@ -67,7 +67,7 @@ children:
 				name: lift.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.LiftEvent
+					class: com.custardgames.sudokil.events.entities.commands.LiftEvent
 				}
 			},
 			{
@@ -75,7 +75,7 @@ children:
 				name: lower.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.LowerEvent
+					class: com.custardgames.sudokil.events.entities.commands.LowerEvent
 				}
 			}
 		]
@@ -90,7 +90,7 @@ children:
 				name: forward.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.ForwardEvent
+					class: com.custardgames.sudokil.events.entities.commands.ForwardEvent
 				}
 			},
 			{
@@ -98,7 +98,7 @@ children:
 				name: backward.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.BackwardEvent
+					class: com.custardgames.sudokil.events.entities.commands.BackwardEvent
 				}
 			},
 			{
@@ -106,7 +106,7 @@ children:
 				name: left.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.LeftEvent
+					class: com.custardgames.sudokil.events.entities.commands.LeftEvent
 				}
 			},
 			{
@@ -114,7 +114,7 @@ children:
 				name: right.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.RightEvent
+					class: com.custardgames.sudokil.events.entities.commands.RightEvent
 				}
 			}
 		]
@@ -129,7 +129,7 @@ children:
 				name: forward.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.ForwardEvent
+					class: com.custardgames.sudokil.events.entities.commands.ForwardEvent
 				}
 			},
 			{
@@ -137,7 +137,7 @@ children:
 				name: backward.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.BackwardEvent
+					class: com.custardgames.sudokil.events.entities.commands.BackwardEvent
 				}
 			},
 			{
@@ -145,7 +145,7 @@ children:
 				name: left.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.LeftEvent
+					class: com.custardgames.sudokil.events.entities.commands.LeftEvent
 				}
 			},
 			{
@@ -153,7 +153,7 @@ children:
 				name: right.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.RightEvent
+					class: com.custardgames.sudokil.events.entities.commands.RightEvent
 				}
 			},
 			{
@@ -161,7 +161,7 @@ children:
 				name: connect.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.WiredConnectEvent
+					class: com.custardgames.sudokil.events.entities.commands.WiredConnectEvent
 				}
 			},
 			{
@@ -169,7 +169,7 @@ children:
 				name: disconnect.sh,
 				event:
 				{
-					class: com.custardgames.sudokil.events.commands.DisconnectEvent
+					class: com.custardgames.sudokil.events.entities.commands.DisconnectEvent
 				}
 			}
 		]

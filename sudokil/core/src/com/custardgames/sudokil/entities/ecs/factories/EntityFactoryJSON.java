@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
-import com.custardgames.sudokil.events.map.AddToMapEvent;
+import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class EntityFactoryJSON

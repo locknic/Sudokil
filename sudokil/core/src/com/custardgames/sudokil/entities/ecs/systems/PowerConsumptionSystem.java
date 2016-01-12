@@ -16,9 +16,9 @@ import com.custardgames.sudokil.entities.ecs.components.PowerGeneratorComponent;
 import com.custardgames.sudokil.entities.ecs.components.PowerInputComponent;
 import com.custardgames.sudokil.entities.ecs.components.PowerOutputComponent;
 import com.custardgames.sudokil.events.entities.PowerStorageEvent;
-import com.custardgames.sudokil.events.map.AddToMapEvent;
-import com.custardgames.sudokil.events.map.PingCellEvent;
-import com.custardgames.sudokil.events.map.RemoveFromMapEvent;
+import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
+import com.custardgames.sudokil.events.entities.map.PingCellEvent;
+import com.custardgames.sudokil.events.entities.map.RemoveFromMapEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class PowerConsumptionSystem extends EntityProcessingSystem implements EventListener
@@ -118,7 +118,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 			{
 				xDir = (int) positionComponent.orientateDirectionX(xDir, yDir);
 				yDir = (int) positionComponent.orientateDirectionY(xDir, yDir);
-				Entity inputEntity = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, xDir, yDir))).getOwnerEntity();
+				Entity inputEntity = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, xDir, yDir))).getEntity();
 				if (inputEntity != null)
 				{
 					if (!entities.contains(inputEntity, true))
@@ -159,7 +159,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 				powerConsumerComponent.setPowered(true);
 				if (activityBlockingComponent != null)
 				{
-					activityBlockingComponent.removeActivityBlocker(powerConsumerComponent);
+					activityBlockingComponent.removeActivityBlocker(powerConsumerComponent.getClass());
 				}
 			}
 			else
@@ -167,7 +167,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 				powerConsumerComponent.setPowered(false);
 				if (activityBlockingComponent != null)
 				{
-					activityBlockingComponent.addActivityBlocker(powerConsumerComponent);
+					activityBlockingComponent.addActivityBlocker(powerConsumerComponent.getClass());
 				}
 			}
 		}

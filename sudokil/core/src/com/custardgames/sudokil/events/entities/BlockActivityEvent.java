@@ -1,27 +1,24 @@
 package com.custardgames.sudokil.events.entities;
 
-import com.artemis.Component;
 import com.artemis.Entity;
-import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
-import com.custardgames.sudokil.events.BaseEvent;
 
-public class BlockActivityEvent extends BaseEvent
+public class BlockActivityEvent extends EntityEvent
 {
-	private Component component;
+	private Class<?> componentClass;
 	
-	public BlockActivityEvent(Entity entity, Component component)
+	public BlockActivityEvent(Entity entity, Class<?> component)
 	{
-		super(entity.getComponent(EntityComponent.class).getId());
-		this.setComponent(component);
+		super(entity);
+		this.setComponentClass(component);
 	}
 
-	public Component getComponent()
+	public Class<?> getComponentClass()
 	{
-		return component;
+		return componentClass;
 	}
 
-	public void setComponent(Component component)
+	public void setComponentClass(Class<?> componentClass)
 	{
-		this.component = component;
+		this.componentClass = componentClass;
 	}
 }

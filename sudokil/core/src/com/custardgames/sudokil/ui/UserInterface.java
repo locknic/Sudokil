@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
-import com.custardgames.sudokil.events.CloseCommandLineWindowEvent;
-import com.custardgames.sudokil.events.ConsoleConnectEvent;
+import com.custardgames.sudokil.events.commandLine.CloseCommandLineWindowEvent;
+import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.FileSystemManager;
 import com.custardgames.sudokil.managers.InputManager;
@@ -130,7 +130,7 @@ public class UserInterface extends Stage implements EventListener
 		while(iterator.hasNext())
 		{
 			CommandLineInterface window = iterator.next();
-			if (event.getOwner().equals(window.getUUID().toString()))
+			if (event.getOwnerUI().equals(window.getUUID()))
 			{
 				iterator.remove();
 			}
@@ -141,7 +141,7 @@ public class UserInterface extends Stage implements EventListener
 	{
 		for (CommandLineInterface e : windows)
 		{
-			if (event.getConsoleUUID().equals(e.getUUID()))
+			if (event.getOwnerUI().equals(e.getUUID()))
 			{
 				if (event.getNewRoot() == null)
 				{

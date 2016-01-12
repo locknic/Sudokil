@@ -13,11 +13,11 @@ import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
 import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
 import com.custardgames.sudokil.entities.ecs.processes.MoveProcess;
 import com.custardgames.sudokil.entities.ecs.processes.TurnProcess;
-import com.custardgames.sudokil.events.ProcessEvent;
-import com.custardgames.sudokil.events.commands.BackwardEvent;
-import com.custardgames.sudokil.events.commands.ForwardEvent;
-import com.custardgames.sudokil.events.commands.LeftEvent;
-import com.custardgames.sudokil.events.commands.RightEvent;
+import com.custardgames.sudokil.events.entities.ProcessEvent;
+import com.custardgames.sudokil.events.entities.commands.BackwardEvent;
+import com.custardgames.sudokil.events.entities.commands.ForwardEvent;
+import com.custardgames.sudokil.events.entities.commands.LeftEvent;
+import com.custardgames.sudokil.events.entities.commands.RightEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class CharacterMovementSystem extends EntityProcessingSystem implements EventListener
@@ -70,7 +70,7 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 				for (int y = 0; y < distance; y++)
 				{
 					MoveProcess moveProcess = new MoveProcess(entity, direction);
-					EventManager.get_instance().broadcast(new ProcessEvent(entityComponent.getId(), moveProcess));
+					EventManager.get_instance().broadcast(new ProcessEvent(entity, moveProcess));
 				}
 			}
 		}
@@ -79,9 +79,9 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 	public void leftCommand(String owner, String[] args)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (int x = 0; x < entities.size(); x++)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entities.get(x));
+			EntityComponent entityComponent = entityComponents.get(entity);
 
 			int times = 1;
 
@@ -106,8 +106,8 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 			{
 				for (int y = 0; y < times; y++)
 				{
-					TurnProcess turnProcess = new TurnProcess(entities.get(x), 90);
-					EventManager.get_instance().broadcast(new ProcessEvent(entityComponent.getId(), turnProcess));
+					TurnProcess turnProcess = new TurnProcess(entity, 90);
+					EventManager.get_instance().broadcast(new ProcessEvent(entity, turnProcess));
 				}
 			}
 		}
@@ -116,9 +116,9 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 	public void rightCommand(String owner, String[] args)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (int x = 0; x < entities.size(); x++)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entities.get(x));
+			EntityComponent entityComponent = entityComponents.get(entity);
 
 			int times = 1;
 
@@ -143,8 +143,8 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 			{
 				for (int y = 0; y < times; y++)
 				{
-					TurnProcess turnProcess = new TurnProcess(entities.get(x), -90);
-					EventManager.get_instance().broadcast(new ProcessEvent(entityComponent.getId(), turnProcess));
+					TurnProcess turnProcess = new TurnProcess(entity, -90);
+					EventManager.get_instance().broadcast(new ProcessEvent(entity, turnProcess));
 				}
 
 			}
@@ -153,22 +153,22 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 
 	public void handleForward(ForwardEvent event)
 	{
-		moveCommand(event.getOwner(), event.getArgs(), 1);
+		moveCommand(event.getEntityName(), event.getArgs(), 1);
 	}
 
 	public void handleBackward(BackwardEvent event)
 	{
-		moveCommand(event.getOwner(), event.getArgs(), -1);
+		moveCommand(event.getEntityName(), event.getArgs(), -1);
 	}
 
 	public void handleLeft(LeftEvent event)
 	{
-		leftCommand(event.getOwner(), event.getArgs());
+		leftCommand(event.getEntityName(), event.getArgs());
 	}
 
 	public void handleRight(RightEvent event)
 	{
-		rightCommand(event.getOwner(), event.getArgs());
+		rightCommand(event.getEntityName(), event.getArgs());
 	}
 
 }

@@ -8,14 +8,12 @@ import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent;
-import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.events.entities.BlockActivityEvent;
 import com.custardgames.sudokil.events.entities.UnblockActivityEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class ActivityBlockingSystem extends EntityProcessingSystem implements EventListener
 {
-	private ComponentMapper<EntityComponent> entityComponents;
 	private ComponentMapper<ActivityBlockingComponent> activityBlockingComponents;
 	
 	@SuppressWarnings("unchecked")
@@ -38,11 +36,10 @@ public class ActivityBlockingSystem extends EntityProcessingSystem implements Ev
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entity);
-			if (entityComponent.getId().equals(event.getOwner()))
+			if (entity == event.getEntity())
 			{
 				ActivityBlockingComponent activityBlockingComponent = activityBlockingComponents.get(entity);
-				activityBlockingComponent.addActivityBlocker(event.getComponent());
+				activityBlockingComponent.addActivityBlocker(event.getComponentClass());
 			}
 		}
 	}
@@ -52,11 +49,10 @@ public class ActivityBlockingSystem extends EntityProcessingSystem implements Ev
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entity);
-			if (entityComponent.getId().equals(event.getOwner()))
+			if (entity == event.getEntity())
 			{
 				ActivityBlockingComponent activityBlockingComponent = activityBlockingComponents.get(entity);
-				activityBlockingComponent.removeActivityBlocker(event.getComponent());
+				activityBlockingComponent.removeActivityBlocker(event.getComponentClass());
 			}
 		}
 	}
