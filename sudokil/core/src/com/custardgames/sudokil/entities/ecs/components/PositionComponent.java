@@ -66,12 +66,12 @@ public class PositionComponent extends Component
 	
 	public float orientateDirectionX(int xDir, int yDir)
 	{
-		return(float) (Math.cos(Math.toRadians(Math.atan2(yDir, xDir))));
+		return(float) (xDir * Math.cos(Math.toRadians(angle)));
 	}
 	
 	public float orientateDirectionY(int xDir, int yDir)
 	{
-		return (float) (Math.sin(Math.toRadians(Math.atan2(yDir, xDir))));
+		return (float) (yDir * Math.sin(Math.toRadians(angle)));
 	}
 
 }

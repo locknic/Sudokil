@@ -27,13 +27,19 @@ public class EntityFactoryJSON
 		for (Array<Component> e : entities)
 		{
 			Entity entity = artemisWorld.createEntity();
-			for (Component c : e)
+			boolean addToMap = false;
+			for (Component component : e)
 			{
-				entity.edit().add(c);
-				if (c instanceof PositionComponent)
+				entity.edit().add(component);
+				if (component instanceof PositionComponent)
 				{
-					EventManager.get_instance().broadcast(new AddToMapEvent(entity));
+					addToMap = true;
 				}
+			}
+			artemisWorld.process();
+			if (addToMap)
+			{
+				EventManager.get_instance().broadcast(new AddToMapEvent(entity));
 			}
 		}
 	}

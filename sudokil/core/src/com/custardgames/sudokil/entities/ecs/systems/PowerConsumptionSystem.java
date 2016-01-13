@@ -23,40 +23,40 @@ import com.custardgames.sudokil.managers.EventManager;
 public class PowerConsumptionSystem extends EntityProcessingSystem implements EventListener
 {
 	private ComponentMapper<PowerConsumerComponent> powerConsumerComponents;
-	private ComponentMapper<PowerInputComponent> powerInputComponents;
 	private ComponentMapper<PositionComponent> positionComponents;
 	private ComponentMapper<ActivityBlockingComponent> activityBlockingComponents;
+
+	private ComponentMapper<PowerInputComponent> powerInputComponents;
+	private ComponentMapper<PowerOutputComponent> powerOutputComponents;
+	private ComponentMapper<PowerGeneratorComponent> powerGeneratorComponents;
 
 	@SuppressWarnings("unchecked")
 	public PowerConsumptionSystem()
 	{
-		super(Aspect.all(PowerConsumerComponent.class, PowerInputComponent.class, PositionComponent.class, ActivityBlockingComponent.class));
-		
-		EventManager.get_instance().register(PowerStorageEvent.class, this);
+		super(Aspect.all(PowerConsumerComponent.class, PositionComponent.class, ActivityBlockingComponent.class));
+
 		EventManager.get_instance().register(AddToMapEvent.class, this);
 		EventManager.get_instance().register(RemoveFromMapEvent.class, this);
 	}
-	
+
 	@Override
 	public void dispose()
 	{
 		super.dispose();
-		
-		EventManager.get_instance().deregister(PowerStorageEvent.class, this);
+
 		EventManager.get_instance().deregister(AddToMapEvent.class, this);
 		EventManager.get_instance().deregister(RemoveFromMapEvent.class, this);
 	}
-	
+
 	@Override
 	public boolean checkProcessing()
 	{
-		return false;
+		return true;
 	}
 
 	@Override
 	protected void process(Entity e)
 	{
-
 	}
 
 	public boolean isConnectedToGenerator(Entity sourceEntity)
@@ -66,7 +66,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 
 		for (Entity entity : searchEntities)
 		{
-			PowerGeneratorComponent powerGeneratorComponent = entity.getComponent(PowerGeneratorComponent.class);
+			PowerGeneratorComponent powerGeneratorComponent = powerGeneratorComponents.getSafe(entity);
 			if (powerGeneratorComponent != null)
 			{
 				if (powerGeneratorComponent.isGeneratingPower())
@@ -82,77 +82,80 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 	public Array<Entity> findGeneratorConnections(Entity entity, Array<Entity> entities)
 	{
 		PositionComponent positionComponent = positionComponents.get(entity);
-		PowerInputComponent powerInputComponent = powerInputComponents.get(entity);
+		PowerInputComponent powerInputComponent = powerInputComponents.getSafe(entity);
 
-		for (int x = 0; x < 5; x++)
+		if (powerInputComponent != null)
 		{
-			boolean willInput = false;
-			int xDir = 0;
-			int yDir = 0;
-
-			switch (x)
+			for (int x = 0; x < 5; x++)
 			{
-				case 0:
-					if (powerInputComponent.isCentre())
-					{
-						willInput = true;
-					}
-					break;
-				case 1:
-					if (powerInputComponent.isLeft())
-					{
-						willInput = true;
-						xDir = -1;
-					}
-					break;
-				case 2:
-					if (powerInputComponent.isRight())
-					{
-						willInput = true;
-						xDir = 1;
-					}
-					break;
-				case 3:
-					if (powerInputComponent.isDown())
-					{
-						willInput = true;
-						yDir = -1;
-					}
-					break;
-				case 4:
-					if (powerInputComponent.isUp())
-					{
-						willInput = true;
-						yDir = 1;
-					}
-					break;
-				default:
-					willInput = false;
-					break;
-			}
+				boolean willInput = false;
+				int xDir = 0;
+				int yDir = 0;
 
-			if (willInput)
-			{
-				xDir = (int) positionComponent.orientateDirectionX(xDir, yDir);
-				yDir = (int) positionComponent.orientateDirectionY(xDir, yDir);
-				Entity inputEntity = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, xDir, yDir))).getEntity();
-				if (inputEntity != null)
+				switch (x)
 				{
-					if (!entities.contains(inputEntity, true))
-					{
-						PowerOutputComponent inputEntityPowerOutputComponent = inputEntity.getComponent(PowerOutputComponent.class);
-						PositionComponent inputEntityPositionComponent = inputEntity.getComponent(PositionComponent.class);
-
-						if (inputEntityPowerOutputComponent != null)
+					case 0:
+						if (powerInputComponent.isCentre())
 						{
-							if (inputEntityPositionComponent != null)
-							{
-								int inputEntityXDir = (int) inputEntityPositionComponent.orientateDirectionX(xDir, yDir);
-								int inputEntityYDir = (int) inputEntityPositionComponent.orientateDirectionY(xDir, yDir);
+							willInput = true;
+						}
+						break;
+					case 1:
+						if (powerInputComponent.isLeft())
+						{
+							willInput = true;
+							xDir = -1;
+						}
+						break;
+					case 2:
+						if (powerInputComponent.isRight())
+						{
+							willInput = true;
+							xDir = 1;
+						}
+						break;
+					case 3:
+						if (powerInputComponent.isDown())
+						{
+							willInput = true;
+							yDir = -1;
+						}
+						break;
+					case 4:
+						if (powerInputComponent.isUp())
+						{
+							willInput = true;
+							yDir = 1;
+						}
+						break;
+					default:
+						willInput = false;
+						break;
+				}
 
-								if (inputEntityPowerOutputComponent.isOutputting(inputEntityXDir, inputEntityYDir))
+				if (willInput)
+				{
+					xDir = (int) positionComponent.orientateDirectionX(xDir, yDir);
+					yDir = (int) positionComponent.orientateDirectionY(xDir, yDir);
+					Entity inputEntity = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, xDir, yDir))).getCellEntity();
+					if (inputEntity != null)
+					{
+						if (!entities.contains(inputEntity, true))
+						{
+							PowerOutputComponent inputEntityPowerOutputComponent = inputEntity.getComponent(PowerOutputComponent.class);
+							PositionComponent inputEntityPositionComponent = inputEntity.getComponent(PositionComponent.class);
+
+							if (inputEntityPowerOutputComponent != null)
+							{
+								if (inputEntityPositionComponent != null)
 								{
-									entities.add(inputEntity);
+									int inputEntityXDir = (int) inputEntityPositionComponent.orientateDirectionX(xDir, yDir);
+									int inputEntityYDir = (int) inputEntityPositionComponent.orientateDirectionY(xDir, yDir);
+									
+									if (inputEntityPowerOutputComponent.isOutputting(inputEntityXDir, inputEntityYDir))
+									{
+										entities.add(inputEntity);
+									}
 								}
 							}
 						}
@@ -170,7 +173,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 		{
 			PowerConsumerComponent powerConsumerComponent = powerConsumerComponents.get(entity);
 			ActivityBlockingComponent activityBlockingComponent = activityBlockingComponents.get(entity);
-			
+
 			if (isConnectedToGenerator(entity))
 			{
 				powerConsumerComponent.setPowered(true);
@@ -178,6 +181,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 				{
 					activityBlockingComponent.removeActivityBlocker(powerConsumerComponent.getClass());
 				}
+				EventManager.get_instance().broadcast(new PowerStorageEvent(entity));
 			}
 			else
 			{
@@ -186,35 +190,33 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 				{
 					activityBlockingComponent.addActivityBlocker(powerConsumerComponent.getClass());
 				}
+				EventManager.get_instance().broadcast(new PowerStorageEvent(entity));
 			}
 		}
 	}
 
-	public void handlePowerStorage(PowerStorageEvent event)
-	{
-		checkPowerActivityBlocker();
-	}
-
 	public void handleAddToMap(AddToMapEvent event)
 	{
-		Entity newEntity = event.getEntity();
-		if (newEntity != null)
+		Entity entity = event.getEntity();
+		if (entity != null)
 		{
-			PowerOutputComponent newEntityPowerOutputComponent = newEntity.getComponent(PowerOutputComponent.class);
-			if (newEntityPowerOutputComponent != null)
+			PowerInputComponent powerInputComponent = powerInputComponents.getSafe(entity);
+			PowerOutputComponent powerOutputComponent = powerOutputComponents.getSafe(entity);
+			if (powerInputComponent != null || powerOutputComponent != null)
 			{
 				checkPowerActivityBlocker();
 			}
 		}
 	}
-	
+
 	public void handleRemoveFromMap(RemoveFromMapEvent event)
 	{
-		Entity oldEntity = event.getEntity();
-		if (oldEntity != null)
+		Entity entity = event.getEntity();
+		if (entity != null)
 		{
-			PowerOutputComponent oldEntityPowerOutputComponent = oldEntity.getComponent(PowerOutputComponent.class);
-			if (oldEntityPowerOutputComponent != null)
+			PowerInputComponent powerInputComponent = powerInputComponents.getSafe(entity);
+			PowerOutputComponent powerOutputComponent = powerOutputComponents.getSafe(entity);
+			if (powerInputComponent != null || powerOutputComponent != null)
 			{
 				checkPowerActivityBlocker();
 			}

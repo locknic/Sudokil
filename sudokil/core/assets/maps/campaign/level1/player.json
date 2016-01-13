@@ -265,6 +265,11 @@
 				spriteLocation : images/entities/computer-on.png
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.SpriteDeactiveComponent,
+				onSpriteLocation : images/entities/computer-on.png,
+				offSpriteLocation : images/entities/computer-off.png
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
 				blocking : true
 			},
@@ -311,6 +316,9 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
 				blocking : true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.LiftableComponent,
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PowerGeneratorComponent,

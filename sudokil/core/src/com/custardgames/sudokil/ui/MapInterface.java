@@ -15,11 +15,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.entities.ecs.factories.EntityFactoryJSON;
 import com.custardgames.sudokil.entities.ecs.systems.ActivityBlockingSystem;
+import com.custardgames.sudokil.entities.ecs.systems.ActivitySpriteSystem;
 import com.custardgames.sudokil.entities.ecs.systems.CameraMovementSystem;
 import com.custardgames.sudokil.entities.ecs.systems.CharacterMovementSystem;
 import com.custardgames.sudokil.entities.ecs.systems.DoorToggleSystem;
 import com.custardgames.sudokil.entities.ecs.systems.EntityLocatorSystem;
 import com.custardgames.sudokil.entities.ecs.systems.LiftSystem;
+import com.custardgames.sudokil.entities.ecs.systems.PowerConsumptionSystem;
 import com.custardgames.sudokil.entities.ecs.systems.ProcessQueueSystem;
 import com.custardgames.sudokil.entities.ecs.systems.SpriteRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.UpdatePhysicalCharacterInputSystem;
@@ -60,7 +62,7 @@ public class MapInterface extends Stage implements EventListener
 	{
 		InputManager.get_instance().addProcessor(this);
 		EventManager.get_instance().register(PingAssetsEvent.class, this);
-		
+
 		kcInput = new Array<String>();
 		mouseX = mouseY = mouseWheelRotation = 0;
 		mouseLeft = mouseRight = mouseMiddle = false;
@@ -76,11 +78,9 @@ public class MapInterface extends Stage implements EventListener
 		tmr.setView(camera);
 		this.getViewport().setCamera(camera);
 
-		WorldConfiguration config = new WorldConfigurationBuilder()
-				.with(spriteRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(),
-						new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(),
-						new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem())
-				.build().register(camera).register(assetManager);
+		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(),
+				new ProcessQueueSystem(), new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(),
+				new ActivitySpriteSystem()).build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
 
 		EntityFactoryJSON entityFactory = new EntityFactoryJSON(artemisWorld);
@@ -177,7 +177,7 @@ public class MapInterface extends Stage implements EventListener
 	{
 		super.keyDown(keycode);
 
-		if (!kcInput.contains(""+keycode, false))
+		if (!kcInput.contains("" + keycode, false))
 		{
 			kcInput.add(keycode + "");
 			// System.out.println("Adding: " + keycode);
@@ -192,9 +192,9 @@ public class MapInterface extends Stage implements EventListener
 	{
 		super.keyUp(keycode);
 
-		if (kcInput.contains(""+keycode, false))
+		if (kcInput.contains("" + keycode, false))
 		{
-			kcInput.removeValue(""+keycode, false);
+			kcInput.removeValue("" + keycode, false);
 			// System.out.println("Removing: " + keycode);
 		}
 		EventManager.get_instance().broadcast(new KeyReleasedEvent(keycode));

@@ -8,7 +8,7 @@ import com.custardgames.sudokil.ui.UserInterface;
 
 public class Play implements Screen
 {
-	private MapInterface worldInput;
+	private MapInterface mapWorld;
 	private UserInterface ui;
 
 	public static final float TICK_STEP = 1 / 60f;
@@ -19,7 +19,9 @@ public class Play implements Screen
 	public Play()
 	{
 		ui = new UserInterface();
-		worldInput = new MapInterface();
+		mapWorld = new MapInterface();
+		
+		tickCounter = TICK_STEP;
 	}
 
 	@Override
@@ -47,7 +49,7 @@ public class Play implements Screen
 	@Override
 	public void resize(int width, int height)
 	{
-		worldInput.resize(width, height);
+		mapWorld.resize(width, height);
 		ui.resize(width, height);
 	}
 
@@ -83,19 +85,19 @@ public class Play implements Screen
 	public void dispose()
 	{
 		ui.dispose();
-		worldInput.dispose();
+		mapWorld.dispose();
 	}
 
 	public void update(float dt)
 	{
-		worldInput.update(dt);
+		mapWorld.update(dt);
 		ui.act(dt);
 	}
 
 	public void render()
 	{
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		worldInput.render();
+		mapWorld.render();
 		ui.draw();
 	}
 }
