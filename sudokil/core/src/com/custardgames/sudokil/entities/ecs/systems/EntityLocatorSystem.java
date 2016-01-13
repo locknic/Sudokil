@@ -19,26 +19,40 @@ public class EntityLocatorSystem extends EntityProcessingSystem implements Event
 	public EntityLocatorSystem()
 	{
 		super(Aspect.all(EntityComponent.class));
+		
 		EventManager.get_instance().register(PingEntityEvent.class, this);
+	}
+	
+	@Override
+	public void dispose()
+	{
+		super.dispose();
+		
+		EventManager.get_instance().deregister(PingEntityEvent.class, this);
 	}
 
 	@Override
-	protected void process(Entity arg0)
+	public boolean checkProcessing()
 	{
-		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
+	protected void process(Entity entity)
+	{
 
 	}
 
 	public PingEntityEvent handleInquiryPingEntityEvent(PingEntityEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (int x = 0; x < entities.size(); x++)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entities.get(x));
+			EntityComponent entityComponent = entityComponents.get(entity);
 			String entityID = entityComponent.getId();
 			if (event.getEntityID().equals(entityID))
 			{
-				event.setEntity(entities.get(x));
+				event.setEntity(entity);
 				return event;
 			}
 		}

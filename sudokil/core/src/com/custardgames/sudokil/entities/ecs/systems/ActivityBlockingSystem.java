@@ -23,11 +23,25 @@ public class ActivityBlockingSystem extends EntityProcessingSystem implements Ev
 		EventManager.get_instance().register(BlockActivityEvent.class, this);
 		EventManager.get_instance().register(UnblockActivityEvent.class, this);
 	}
+	
+	@Override
+	public void dispose()
+	{
+		super.dispose();
+		
+		EventManager.get_instance().deregister(BlockActivityEvent.class, this);
+		EventManager.get_instance().deregister(UnblockActivityEvent.class, this);
+	}
 
+	@Override
+	public boolean checkProcessing()
+	{
+		return false;
+	}
+	
 	@Override
 	protected void process(Entity e)
 	{
-		// TODO Auto-generated method stub
 		
 	}
 

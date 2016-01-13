@@ -9,8 +9,9 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.custardgames.sudokil.entities.ecs.components.CharacterInputComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
+import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
-import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
+import com.custardgames.sudokil.entities.ecs.components.VelocityComponent;
 import com.custardgames.sudokil.entities.ecs.processes.MoveProcess;
 import com.custardgames.sudokil.entities.ecs.processes.TurnProcess;
 import com.custardgames.sudokil.events.entities.ProcessEvent;
@@ -27,16 +28,35 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 	@SuppressWarnings("unchecked")
 	public CharacterMovementSystem()
 	{
-		super(Aspect.all(EntityComponent.class, SpriteComponent.class, CharacterInputComponent.class, ProcessQueueComponent.class));
+		super(Aspect.all(EntityComponent.class, CharacterInputComponent.class, ProcessQueueComponent.class, PositionComponent.class, VelocityComponent.class));
+		
 		EventManager.get_instance().register(ForwardEvent.class, this);
 		EventManager.get_instance().register(BackwardEvent.class, this);
 		EventManager.get_instance().register(LeftEvent.class, this);
 		EventManager.get_instance().register(RightEvent.class, this);
 	}
+	
+	@Override
+	public void dispose()
+	{
+		super.dispose();
+		
+		EventManager.get_instance().deregister(ForwardEvent.class, this);
+		EventManager.get_instance().deregister(BackwardEvent.class, this);
+		EventManager.get_instance().deregister(LeftEvent.class, this);
+		EventManager.get_instance().deregister(RightEvent.class, this);
+	}
+	
+	@Override
+	public boolean checkProcessing()
+	{
+		return false;
+	}
 
 	@Override
 	protected void process(Entity e)
 	{
+		
 	}
 
 	public void moveCommand(String owner, String[] args, int direction)

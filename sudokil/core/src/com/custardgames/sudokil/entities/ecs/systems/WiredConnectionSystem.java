@@ -31,6 +31,20 @@ public class WiredConnectionSystem extends EntityProcessingSystem implements Eve
 	}
 
 	@Override
+	public void dispose()
+	{
+		super.dispose();
+
+		EventManager.get_instance().deregister(WiredConnectEvent.class, this);
+	}
+
+	@Override
+	public boolean checkProcessing()
+	{
+		return false;
+	}
+
+	@Override
 	protected void process(Entity entity)
 	{
 

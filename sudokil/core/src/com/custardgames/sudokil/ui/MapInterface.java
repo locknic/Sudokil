@@ -67,7 +67,7 @@ public class MapInterface extends Stage implements EventListener
 
 		assetManager = new PlayLoadAssets().loadAssets(new AssetManager());
 
-		spriteRenderSystem = new SpriteRenderSystem(assetManager);
+		spriteRenderSystem = new SpriteRenderSystem();
 
 		tileMap = new TmxMapLoader().load("maps/test.tmx");
 		new MapManager(tileMap);
@@ -77,10 +77,10 @@ public class MapInterface extends Stage implements EventListener
 		this.getViewport().setCamera(camera);
 
 		WorldConfiguration config = new WorldConfigurationBuilder()
-				.with(spriteRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(camera),
+				.with(spriteRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(),
 						new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(),
 						new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem())
-				.build();
+				.build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
 
 		EntityFactoryJSON entityFactory = new EntityFactoryJSON(artemisWorld);

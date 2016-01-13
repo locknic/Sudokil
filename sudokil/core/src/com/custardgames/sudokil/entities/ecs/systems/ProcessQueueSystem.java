@@ -23,15 +23,24 @@ public class ProcessQueueSystem extends EntityProcessingSystem implements EventL
 	@SuppressWarnings("unchecked")
 	public ProcessQueueSystem()
 	{
-		super(Aspect.all(ProcessQueueComponent.class, EntityComponent.class));
+		super(Aspect.all(EntityComponent.class, ProcessQueueComponent.class));
+		
 		EventManager.get_instance().register(ProcessEvent.class, this);
 		EventManager.get_instance().register(StopCommandsEvent.class, this);
 	}
 
 	@Override
-	protected void process(Entity e)
+	public void dispose()
 	{
-		processQueueComponents.get(e).process();
+		super.dispose();
+		
+		EventManager.get_instance().deregister(ProcessEvent.class, this);
+		EventManager.get_instance().deregister(StopCommandsEvent.class, this);
+	}
+	@Override
+	protected void process(Entity entity)
+	{
+		processQueueComponents.get(entity).process();
 	}
 
 	public void handleProcess(ProcessEvent event)
@@ -61,10 +70,10 @@ public class ProcessQueueSystem extends EntityProcessingSystem implements EventL
 	public void stopCommand(String owner)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (int x = 0; x < entities.size(); x++)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entities.get(x));
-			ProcessQueueComponent processQueueComponent = processQueueComponents.get(entities.get(x));
+			EntityComponent entityComponent = entityComponents.get(entity);
+			ProcessQueueComponent processQueueComponent = processQueueComponents.get(entity);
 
 			if (owner == null || owner.equals("") || entityComponent.getId().equals(owner))
 			{

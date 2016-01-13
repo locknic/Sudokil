@@ -14,11 +14,10 @@ public class MoveProcess extends EntityProcess
 	private float targetX, targetY;
 	private boolean setTarget;
 
-	public MoveProcess(Entity e, int direction)
+	public MoveProcess(Entity entity, int direction)
 	{
-		super(e);
+		super(entity);
 		this.direction = direction;
-
 	}
 
 	@Override

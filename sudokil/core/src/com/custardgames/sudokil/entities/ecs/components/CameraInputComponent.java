@@ -11,11 +11,6 @@ public class CameraInputComponent extends Component
 	private boolean up, down, left, right, zoomIn, zoomOut, reset;
 	private float panSpeed;
 
-	public CameraInputComponent()
-	{
-
-	}
-
 	public String getTargetID()
 	{
 		return targetID;

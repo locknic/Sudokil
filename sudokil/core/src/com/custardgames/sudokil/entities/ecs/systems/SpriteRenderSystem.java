@@ -3,6 +3,7 @@ package com.custardgames.sudokil.entities.ecs.systems;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
+import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.assets.AssetManager;
@@ -17,20 +18,24 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 	private ComponentMapper<SpriteComponent> spriteComponents;
 	private ComponentMapper<PositionComponent> positionComponents;
 
+	@Wire
 	private AssetManager assetManager;
 
 	@SuppressWarnings("unchecked")
-	public SpriteRenderSystem(AssetManager assetManager)
+	public SpriteRenderSystem()
 	{
-		super(Aspect.all(SpriteComponent.class));
+		super(Aspect.all(SpriteComponent.class, PositionComponent.class));
+	}
 
-		this.assetManager = assetManager;
+	@Override
+	public boolean checkProcessing()
+	{
+		return false;
 	}
 
 	@Override
 	protected void process(Entity arg0)
 	{
-		// TODO Auto-generated method stub
 
 	}
 
@@ -39,14 +44,13 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 		spriteBatch.begin();
 		Sprite sprite;
 		ImmutableBag<Entity> entities = getEntities();
-		for (int x = 0; x < entities.size(); x++)
+		for (Entity entity : entities)
 		{
-			SpriteComponent spriteComponent = spriteComponents.get(entities.get(x));
-			PositionComponent positionComponent = positionComponents.get(entities.get(x));
+			SpriteComponent spriteComponent = spriteComponents.get(entity);
+			PositionComponent positionComponent = positionComponents.get(entity);
 			if (spriteComponent.isShouldRender())
 			{
-				sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()),
-						(int) positionComponent.getWidth(), (int) positionComponent.getHeight());
+				sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()), (int) positionComponent.getWidth(), (int) positionComponent.getHeight());
 				sprite.setPosition(positionComponent.getX(), positionComponent.getY());
 				sprite.rotate(positionComponent.getAngle());
 				sprite.draw(spriteBatch);

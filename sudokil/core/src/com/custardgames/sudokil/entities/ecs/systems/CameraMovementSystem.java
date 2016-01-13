@@ -5,6 +5,7 @@ import java.util.EventListener;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
+import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -22,10 +23,12 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 {
 	private ComponentMapper<CameraInputComponent> cameraInputComponents;
 	private ComponentMapper<EntityComponent> entityComponents;
+	
+	@Wire
 	private OrthographicCamera camera;
 
 	@SuppressWarnings("unchecked")
-	public CameraMovementSystem(OrthographicCamera camera)
+	public CameraMovementSystem()
 	{
 		super(Aspect.all(CameraInputComponent.class, EntityComponent.class));
 
@@ -33,8 +36,17 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		EventManager.get_instance().register(KeyReleasedEvent.class, this);
 		EventManager.get_instance().register(CameraResetEvent.class, this);
 		EventManager.get_instance().register(CameraTargetEvent.class, this);
-
-		this.camera = camera;
+	}
+	
+	@Override
+	public void dispose()
+	{
+		super.dispose();
+		
+		EventManager.get_instance().deregister(KeyPressedEvent.class, this);
+		EventManager.get_instance().deregister(KeyReleasedEvent.class, this);
+		EventManager.get_instance().deregister(CameraResetEvent.class, this);
+		EventManager.get_instance().deregister(CameraTargetEvent.class, this);
 	}
 
 	@Override

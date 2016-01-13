@@ -23,15 +23,34 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 {
 	private ComponentMapper<EntityComponent> entityComponents;
 	private ComponentMapper<LifterComponent> lifterComponents;
-
+	private ComponentMapper<PositionComponent> positionComponents;
+	
 	@SuppressWarnings("unchecked")
 	public LiftSystem()
 	{
 		super(Aspect.all(EntityComponent.class, LifterComponent.class, PositionComponent.class));
+		
 		EventManager.get_instance().register(LiftEvent.class, this);
 		EventManager.get_instance().register(LowerEvent.class, this);
 		EventManager.get_instance().register(EntityTurnedEvent.class, this);
 		EventManager.get_instance().register(EntityMovedEvent.class, this);
+	}
+	
+	@Override
+	public void dispose()
+	{
+		super.dispose();
+		
+		EventManager.get_instance().deregister(LiftEvent.class, this);
+		EventManager.get_instance().deregister(LowerEvent.class, this);
+		EventManager.get_instance().deregister(EntityTurnedEvent.class, this);
+		EventManager.get_instance().deregister(EntityMovedEvent.class, this);
+	}
+	
+	@Override
+	public boolean checkProcessing()
+	{
+		return false;
 	}
 
 	@Override
@@ -79,7 +98,7 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 				Entity lifted = lifterComponent.getLifted();
 				if (lifted != null)
 				{
-					PositionComponent liftedPositionComponent = lifted.getComponent(PositionComponent.class);
+					PositionComponent liftedPositionComponent = positionComponents.getSafe(lifted);
 					if (liftedPositionComponent != null)
 					{
 						liftedPositionComponent.setAngle(liftedPositionComponent.getAngle() + event.getAngle());
@@ -100,7 +119,7 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 				Entity lifted = lifterComponent.getLifted();
 				if (lifted != null)
 				{
-					PositionComponent liftedPositionComponent = lifted.getComponent(PositionComponent.class);
+					PositionComponent liftedPositionComponent = positionComponents.getSafe(lifted);
 					if (liftedPositionComponent != null)
 					{
 						liftedPositionComponent.setPosition(liftedPositionComponent.getX() + event.getDeltaX(), liftedPositionComponent.getY() + event.getDeltaY());

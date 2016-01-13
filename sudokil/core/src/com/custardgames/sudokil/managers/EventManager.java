@@ -31,6 +31,17 @@ public class EventManager
 
 		listeners.get(eventType).add(listener);
 	}
+	
+	public void deregister(Class<?> eventType, EventListener listener)
+	{
+		if (listeners.containsKey(eventType))
+		{
+			if (listeners.get(eventType).contains(listener))
+			{
+				listeners.get(eventType).remove(listener);
+			}
+		}
+	}
 
 	public void broadcast(Object event)
 	{

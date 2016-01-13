@@ -9,7 +9,6 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent;
-import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.PowerConsumerComponent;
 import com.custardgames.sudokil.entities.ecs.components.PowerGeneratorComponent;
@@ -31,25 +30,43 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 	@SuppressWarnings("unchecked")
 	public PowerConsumptionSystem()
 	{
-		super(Aspect.all(EntityComponent.class, PowerConsumerComponent.class, PowerInputComponent.class, PositionComponent.class));
-		// TODO Auto-generated constructor stub
+		super(Aspect.all(PowerConsumerComponent.class, PowerInputComponent.class, PositionComponent.class, ActivityBlockingComponent.class));
+		
+		EventManager.get_instance().register(PowerStorageEvent.class, this);
+		EventManager.get_instance().register(AddToMapEvent.class, this);
+		EventManager.get_instance().register(RemoveFromMapEvent.class, this);
+	}
+	
+	@Override
+	public void dispose()
+	{
+		super.dispose();
+		
+		EventManager.get_instance().deregister(PowerStorageEvent.class, this);
+		EventManager.get_instance().deregister(AddToMapEvent.class, this);
+		EventManager.get_instance().deregister(RemoveFromMapEvent.class, this);
+	}
+	
+	@Override
+	public boolean checkProcessing()
+	{
+		return false;
 	}
 
 	@Override
 	protected void process(Entity e)
 	{
-		// TODO Auto-generated method stub
 
 	}
 
-	public boolean isConnectedToGenerator(Entity entity)
+	public boolean isConnectedToGenerator(Entity sourceEntity)
 	{
 		Array<Entity> searchEntities = new Array<Entity>();
-		searchEntities.add(entity);
+		searchEntities.add(sourceEntity);
 
-		for (int x = 0; x < searchEntities.size; x++)
+		for (Entity entity : searchEntities)
 		{
-			PowerGeneratorComponent powerGeneratorComponent = searchEntities.get(x).getComponent(PowerGeneratorComponent.class);
+			PowerGeneratorComponent powerGeneratorComponent = entity.getComponent(PowerGeneratorComponent.class);
 			if (powerGeneratorComponent != null)
 			{
 				if (powerGeneratorComponent.isGeneratingPower())
@@ -57,7 +74,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 					return true;
 				}
 			}
-			findGeneratorConnections(searchEntities.get(x), searchEntities);
+			findGeneratorConnections(entity, searchEntities);
 		}
 		return false;
 	}

@@ -7,9 +7,9 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
+import com.custardgames.sudokil.entities.ecs.components.BlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.DoorGroupComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
-import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
 import com.custardgames.sudokil.entities.ecs.processes.DoorToggleProcess;
 import com.custardgames.sudokil.events.PingEntityEvent;
@@ -25,10 +25,23 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 	@SuppressWarnings("unchecked")
 	public DoorToggleSystem()
 	{
-		super(Aspect.all(EntityComponent.class, DoorGroupComponent.class, SpriteComponent.class,
-				PositionComponent.class));
+		super(Aspect.all(EntityComponent.class, DoorGroupComponent.class, SpriteComponent.class, BlockingComponent.class));
 
 		EventManager.get_instance().register(ToggleEvent.class, this);
+	}
+
+	@Override
+	public void dispose()
+	{
+		super.dispose();
+		
+		EventManager.get_instance().deregister(ToggleEvent.class, this);
+	}
+	
+	@Override
+	public boolean checkProcessing()
+	{
+		return false;
 	}
 
 	@Override
@@ -43,17 +56,18 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 
 		if (doorGroupComponent.getDoorTilesEntities().size <= 0)
 		{
-			for (String s : doorGroupComponent.getDoorTiles())
+			for (String doorName : doorGroupComponent.getDoorTiles())
 			{
-				PingEntityEvent event = (PingEntityEvent) EventManager.get_instance()
-						.broadcastInquiry(new PingEntityEvent(s));
+				PingEntityEvent event = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(doorName));
 
 				if (event != null && event instanceof PingEntityEvent)
 				{
 					Entity doorTile = event.getEntity();
-					DoorToggleProcess doorToggleProcess = new DoorToggleProcess(doorTile);
-					EventManager.get_instance()
-							.broadcast(new ProcessEvent(entity, doorToggleProcess));
+					if (doorTile != null)
+					{
+						DoorToggleProcess doorToggleProcess = new DoorToggleProcess(doorTile);
+						EventManager.get_instance().broadcast(new ProcessEvent(entity, doorToggleProcess));
+					}
 				}
 			}
 		}
@@ -65,13 +79,13 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 	public void handleToggleEvent(ToggleEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
-		for (int x = 0; x < entities.size(); x++)
+		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entities.get(x));
+			EntityComponent entityComponent = entityComponents.get(entity);
 			String entityID = entityComponent.getId();
 			if (event.getEntityName().equals(entityID))
 			{
-				toggleDoor(entities.get(x));
+				toggleDoor(entity);
 			}
 		}
 	}

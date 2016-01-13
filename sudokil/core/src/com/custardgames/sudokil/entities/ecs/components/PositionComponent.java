@@ -8,17 +8,6 @@ public class PositionComponent extends Component
 	private float width, height;
 	private float angle;
 
-	public PositionComponent()
-	{
-		
-	}
-	
-	public PositionComponent(int x, int y)
-	{
-		setX(x);
-		setY(y);
-	}
-
 	public float getX()
 	{
 		return x;
