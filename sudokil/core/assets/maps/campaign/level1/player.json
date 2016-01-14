@@ -337,6 +337,86 @@
 		[
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
+				id : wire2
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
+				x : 256,
+				y : 32,
+				width : 32,
+				height : 32,
+				angle : 0
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
+				spriteLocation : images/entities/wire2.png
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PowerInputComponent,
+				activated: true,
+				left: true,
+				right: true,
+				up: true,
+				down: true,
+				centre: true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PowerOutputComponent,
+				activated: true,
+				left: true,
+				right: true,
+				up: true,
+				down: true,
+				centre: true
+			}
+		],
+		[
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
+				id : wire1
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
+				x : 224,
+				y : 32,
+				width : 32,
+				height : 32,
+				angle : 0
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
+				spriteLocation : images/entities/wire.png
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PowerInputComponent,
+				activated: true,
+				left: true,
+				right: true,
+				up: true,
+				down: true,
+				centre: true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PowerOutputComponent,
+				activated: true,
+				left: true,
+				right: true,
+				up: true,
+				down: true,
+				centre: true
+			}
+		],
+		[
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
 				id : camera
 			},
 			{
