@@ -299,7 +299,7 @@
 		[
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
-				id : computer2
+				id : computer1
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,

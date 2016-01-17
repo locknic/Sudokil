@@ -4,6 +4,7 @@ import java.util.EventListener;
 import java.util.UUID;
 
 import com.artemis.Entity;
+import com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.ConnectableComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
@@ -23,39 +24,41 @@ public class ConnectProcess extends EntityProcess implements EventListener
 		super(connectedWith);
 		this.consoleUUID = consoleUUID;
 		this.connectedTo = connectedTo;
-		disconnect = false;
+		this.disconnect = false;
 
-		ConnectableComponent connectableComponent = connectedTo.getComponent(ConnectableComponent.class);
+		ActivityBlockingComponent activityBlockingComponent = connectedTo.getComponent(ActivityBlockingComponent.class);
 
-		if (connectableComponent != null)
+		if (activityBlockingComponent == null
+				|| (activityBlockingComponent != null && activityBlockingComponent.isActive()))
 		{
+			ConnectableComponent connectableComponent = connectedTo.getComponent(ConnectableComponent.class);
 
-			if (connectableComponent.getFileLocation() != null || !connectableComponent.getFileLocation().equals(""))
+			if (connectableComponent != null)
 			{
-				PingFileSystemEvent event = (PingFileSystemEvent) EventManager.get_instance()
-						.broadcastInquiry(new PingFileSystemEvent(connectableComponent.getFileLocation()));
+				if (connectableComponent.getFileLocation() != null
+						|| !connectableComponent.getFileLocation().equals(""))
+				{
+					PingFileSystemEvent event = (PingFileSystemEvent) EventManager.get_instance()
+							.broadcastInquiry(new PingFileSystemEvent(connectableComponent.getFileLocation()));
 
-				event.getFileSystem();
-				if (event.getFileSystem() != null)
-				{
-					EventManager.get_instance().broadcast(new ConsoleConnectEvent(consoleUUID, event.getFileSystem()));
-				}
-				else
-				{
-					disconnect();
+					event.getFileSystem();
+					if (event.getFileSystem() != null)
+					{
+						EventManager.get_instance()
+								.broadcast(new ConsoleConnectEvent(consoleUUID, event.getFileSystem()));
+						EventManager.get_instance().register(DisconnectEvent.class, this);
+						return;
+					}
 				}
 			}
-			else
-			{
-				disconnect();
-			}
 		}
-		else
-		{
-			disconnect();
-		}
+		this.disconnect = true;
+	}
 
-		EventManager.get_instance().register(DisconnectEvent.class, this);
+	@Override
+	public void dispose()
+	{
+		EventManager.get_instance().deregister(DisconnectEvent.class, this);
 	}
 
 	@Override
@@ -70,6 +73,7 @@ public class ConnectProcess extends EntityProcess implements EventListener
 		ProcessQueueComponent processQueueComponent = entity.getComponent(ProcessQueueComponent.class);
 		processQueueComponent.clearQueue();
 		disconnect = true;
+		EventManager.get_instance().deregister(DisconnectEvent.class, this);
 	}
 
 	public void handleDisconnectEvent(DisconnectEvent event)

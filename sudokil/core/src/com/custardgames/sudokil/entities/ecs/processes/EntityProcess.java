@@ -13,4 +13,9 @@ public abstract class EntityProcess
 
 	public abstract boolean process();
 
+	public void dispose()
+	{
+		
+	}
+
 }
