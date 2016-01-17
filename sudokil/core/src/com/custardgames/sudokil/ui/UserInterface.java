@@ -76,6 +76,7 @@ public class UserInterface extends Stage implements EventListener
 
 	public void resize(int width, int height)
 	{
+		this.getViewport().setWorldSize(width, height);
 		this.getViewport().update(width, height, true);
 	}
 

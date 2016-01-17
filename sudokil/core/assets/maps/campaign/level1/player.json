@@ -230,7 +230,7 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
 				x : 256,
-				y : 64,
+				y : 128,
 				width : 32,
 				height : 32,
 				angle : 0
@@ -299,12 +299,61 @@
 		[
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
+				id : computer2
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
+				x : 128,
+				y : 32,
+				width : 32,
+				height : 32,
+				angle : 180
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
+				spriteLocation : images/entities/computer-on.png
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.SpriteDeactiveComponent,
+				onSpriteLocation : images/entities/computer-on.png,
+				offSpriteLocation : images/entities/computer-off.png
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent,
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.ConnectableComponent,
+				fileLocation : maps/campaign/level1/computer1.json
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PowerConsumerComponent,
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PowerInputComponent,
+				activated: true,
+				left: true,
+				right: true,
+				up: true,
+				down: true,
+				centre: true
+			}
+		],
+		[
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
 				id : generator1
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
-				x : 256,
-				y : 128,
+				x : 192,
+				y : 96,
 				width : 32,
 				height : 32,
 				angle : 0
@@ -382,6 +431,46 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
 				x : 224,
+				y : 32,
+				width : 32,
+				height : 32,
+				angle : 0
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
+				spriteLocation : images/entities/wire.png
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PowerInputComponent,
+				activated: true,
+				left: true,
+				right: true,
+				up: true,
+				down: true,
+				centre: true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PowerOutputComponent,
+				activated: true,
+				left: true,
+				right: true,
+				up: true,
+				down: true,
+				centre: true
+			}
+		],
+		[
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
+				id : wire3
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
+				x : 160,
 				y : 32,
 				width : 32,
 				height : 32,
