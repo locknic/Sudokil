@@ -8,8 +8,8 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
 
@@ -39,9 +39,8 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 
 	}
 
-	public void render(SpriteBatch spriteBatch)
+	public void render(Batch spriteBatch)
 	{
-		spriteBatch.begin();
 		Sprite sprite;
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
@@ -56,7 +55,6 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 				sprite.draw(spriteBatch);
 			}
 		}
-		spriteBatch.end();
 	}
 
 }

@@ -6,7 +6,7 @@ import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -24,6 +24,7 @@ import com.custardgames.sudokil.entities.ecs.systems.LiftSystem;
 import com.custardgames.sudokil.entities.ecs.systems.PowerConsumptionSystem;
 import com.custardgames.sudokil.entities.ecs.systems.ProcessQueueSystem;
 import com.custardgames.sudokil.entities.ecs.systems.SpriteRenderSystem;
+import com.custardgames.sudokil.entities.ecs.systems.TextRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.UpdatePhysicalCharacterInputSystem;
 import com.custardgames.sudokil.entities.ecs.systems.WiredConnectionSystem;
 import com.custardgames.sudokil.events.PingAssetsEvent;
@@ -46,6 +47,7 @@ public class MapInterface extends Stage implements EventListener
 	private OrthogonalTiledMapRenderer tmr;
 	private OrthographicCamera camera;
 	private SpriteRenderSystem spriteRenderSystem;
+	private TextRenderSystem textRenderSystem;
 	private Actor map;
 
 	private Array<String> kcInput;
@@ -70,6 +72,7 @@ public class MapInterface extends Stage implements EventListener
 		assetManager = new PlayLoadAssets().loadAssets(new AssetManager());
 
 		spriteRenderSystem = new SpriteRenderSystem();
+		textRenderSystem = new TextRenderSystem();
 
 		tileMap = new TmxMapLoader().load("maps/test.tmx");
 		new MapManager(tileMap);
@@ -78,7 +81,7 @@ public class MapInterface extends Stage implements EventListener
 		tmr.setView(camera);
 		this.getViewport().setCamera(camera);
 
-		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(),
+		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, textRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(),
 				new ProcessQueueSystem(), new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(),
 				new ActivitySpriteSystem()).build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
@@ -103,7 +106,11 @@ public class MapInterface extends Stage implements EventListener
 	{
 		tmr.setView(camera);
 		tmr.render();
-		spriteRenderSystem.render((SpriteBatch) this.getSpriteBatch());
+		Batch spriteBatch = getBatch();
+		spriteBatch.begin();
+		spriteRenderSystem.render(spriteBatch);
+		textRenderSystem.render(spriteBatch);
+		spriteBatch.end();
 		this.draw();
 	}
 

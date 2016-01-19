@@ -79,7 +79,7 @@ public class CommandLineInterface implements EventListener
 		dialog.setBounds(10 + random.nextInt(50), 100 + random.nextInt(50), 400, 200);
 		dialog.setResizable(true);
 		dialog.setKeepWithinStage(true);
-		dialog.getButtonTable().add(closeButton).height(dialog.getPadTop());
+		dialog.getTitleTable().add(closeButton).height(dialog.getPadTop());
 		dialog.left().top();
 		dialog.setResizeBorder(5);
 

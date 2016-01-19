@@ -47,9 +47,9 @@ public class UserInterface extends Stage implements EventListener
 			{
 				boolean foundFocus = false;
 
-				for (CommandLineInterface e : windows)
+				for (CommandLineInterface window : windows)
 				{
-					foundFocus = e.touchDown(event, x, y, pointer, button);
+					foundFocus = window.touchDown(event, x, y, pointer, button);
 					if (foundFocus)
 					{
 						break;
@@ -65,6 +65,9 @@ public class UserInterface extends Stage implements EventListener
 				return false;
 			}
 		});
+		
+		this.setKeyboardFocus(null);
+		this.setKeyboardFocus(null);
 
 		generateUI();
 	}

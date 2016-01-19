@@ -27,6 +27,13 @@
 				spriteLocation : images/player/robot1.png
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
+				shouldRender : true,
+				text: "robot1",
+				deltaX : 0,
+				deltaY : 44
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
 				blocking : true
 			},
@@ -66,6 +73,13 @@
 				spriteLocation : images/player/robot1.png
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
+				shouldRender : true,
+				text: "robot2",
+				deltaX : 0,
+				deltaY : 44
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
 				blocking : true
 			},
@@ -103,6 +117,13 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
 				spriteLocation : images/player/robot1.png
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
+				shouldRender : true,
+				text: "robot3",
+				deltaX : 0,
+				deltaY : 44
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
@@ -284,6 +305,13 @@
 				fileLocation : maps/campaign/level1/computer1.json
 			},
 			{
+				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
+				shouldRender : true,
+				text: "computer1",
+				deltaX : 0,
+				deltaY : 44
+			},
+			{
 				class : com.custardgames.sudokil.entities.ecs.components.PowerConsumerComponent,
 			},
 			{
@@ -331,6 +359,13 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.ConnectableComponent,
 				fileLocation : maps/campaign/level1/computer1.json
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
+				shouldRender : true,
+				text: "computer1",
+				deltaX : 0,
+				deltaY : 44
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PowerConsumerComponent,
