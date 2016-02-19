@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="50" height="50" tilewidth="32" tileheight="32">
- <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32" tilecount="256" columns="16">
   <image source="../images/tiles/tileset1.png" width="512" height="512"/>
   <tile id="16">
    <properties>
@@ -15,12 +15,12 @@
  </tileset>
  <layer name="floor" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3WQQ7AIAhEUe9Qe/+rdk9qEEuFyJ9kVjXIS1y0tXNyKbWcjSiOXMWRqzhy9TTHaEeP4MAR/c5x4MjU1Vjm4MBRxbEyDwcOHDgiHKPddsX73lMcXXRXNIfc6+/iyOXoLzvNvHscOCo4rPtVc4w8u+LtyP6/gWNPZu+9RbU5Xz3Wedp3uf/IU8URWc2AA0e0wxrvedUcJ+QBhcgnZhAnAAA=
+   H4sIAAAAAAAAC+3VSw6AIAwAUe7g5/5HdUVwIZSmFSrOJF2pyEsMprROpzCae2cMjliDI9bgiDWrOWp79AgHjtnfOQ4ckWZEOHDg0IUDxxvhwBGpr+8/h6O0N2ZUOEotx+Y80v4tHhzfcVjDYfuPHIZnn/J2SOvlcDzX+17LekdlPBvleDsvh/Y8915Put46K+/n5V8cM0cy4MAx26HNe72oDu3/tNexQhegW1RNECcAAA==
   </data>
  </layer>
  <layer name="tiles" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2ZQQ7DIAwEfW1v9Af9/yerqEXiAGFtTDDpWtoTxHjANlGSROTVUZKvpcA64nyfSH5zMsfZ3FUiRyyRI5bIEUt34sgstRjLMRH93XQVd46vtdfluMUicYwqAscuIkcs3ZXDWruR6hw1TX8mxzwONK924ND6Iwc5yEGOVRyWvuspdF2UZ2Q/rNZbt2Sqfdcdfb9qaQbHFTk8en5RObTnFZHDcl7kIMe/cCB9fBcOND4Nh/Z+Q+9LpK96cWjneRs5bHmliQvJP+/4ymeQukQ4POsc9VeLEa33ltB10X324ngAvlaq/GfWY4msM46dWFCOZ4BYPfJqdp17+UM4UNP2XS9/2nsLWXeFvw+eJJaCECcAAA==
+   H4sIAAAAAAAAC+2WWQ7DIAxE+evyRyQO0PtfsqpUJBcZPCZAmnaeZFXBMHhSloRACCGEEEIIIYQQQggh5FeJ79iUyLkzYNV5Fh+bkY8TYgaWDw8PIOijzb/42LsXVvmYeV6N9tE6N+T98fpNxfO3+QhCS7aV/VIl1zvvaB+anhajfSBtHj3NR6rEEf+HXCuaTo6L6HsNn+8evXNlvvYtFov+LR+onhwz4jzX6rLq9OZr678E3SfofWDpefM9Pnqwxt6A2jyR1xhSC6LX0in7rfKR59LqsUD9HuEDqR3lLsasWlfavtuzz8NgvdY+13ygIPPK+xT5lkZ9eO4txAeiJ9tG6D0BxiZqwxAnAAA=
   </data>
  </layer>
  <layer name="objects" width="50" height="50">

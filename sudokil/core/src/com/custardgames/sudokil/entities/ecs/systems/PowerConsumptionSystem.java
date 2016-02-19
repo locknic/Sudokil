@@ -83,7 +83,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 	{
 		PositionComponent positionComponent = positionComponents.get(entity);
 		PowerInputComponent powerInputComponent = powerInputComponents.getSafe(entity);
-
+		System.out.println("looking for connections");
 		if (powerInputComponent != null)
 		{
 			for (int x = 0; x < 5; x++)
@@ -119,6 +119,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 						{
 							willInput = true;
 							yDir = -1;
+							System.out.println("checking down");
 						}
 						break;
 					case 4:
@@ -135,26 +136,33 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 
 				if (willInput)
 				{
+					System.out.println(xDir + ",, " + yDir);
 					xDir = (int) positionComponent.orientateDirectionX(xDir, yDir);
 					yDir = (int) positionComponent.orientateDirectionY(xDir, yDir);
+					System.out.println(xDir + ", " + yDir);
 					Entity inputEntity = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, xDir, yDir))).getCellEntity();
 					if (inputEntity != null)
 					{
-						if (!entities.contains(inputEntity, true))
+						System.out.println("found down tile");
+						if (!entities.contains(inputEntity, false))
 						{
+							System.out.println("haven't checked before");
 							PowerOutputComponent inputEntityPowerOutputComponent = inputEntity.getComponent(PowerOutputComponent.class);
 							PositionComponent inputEntityPositionComponent = inputEntity.getComponent(PositionComponent.class);
 
 							if (inputEntityPowerOutputComponent != null)
 							{
+								System.out.println("has output");
 								if (inputEntityPositionComponent != null)
 								{
+									System.out.println("has position");
 									int inputEntityXDir = (int) inputEntityPositionComponent.orientateDirectionX(xDir, yDir);
 									int inputEntityYDir = (int) inputEntityPositionComponent.orientateDirectionY(xDir, yDir);
 									
 									if (inputEntityPowerOutputComponent.isOutputting(inputEntityXDir, inputEntityYDir))
 									{
 										entities.add(inputEntity);
+										System.out.println("found down");
 									}
 								}
 							}
@@ -168,6 +176,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 
 	public void checkPowerActivityBlocker()
 	{
+		System.out.println("checking");
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
 		{
@@ -176,6 +185,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 
 			if (isConnectedToGenerator(entity))
 			{
+				System.out.println("connected");
 				powerConsumerComponent.setPowered(true);
 				if (activityBlockingComponent != null)
 				{
@@ -185,6 +195,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 			}
 			else
 			{
+				System.out.println("not connected");
 				powerConsumerComponent.setPowered(false);
 				if (activityBlockingComponent != null)
 				{

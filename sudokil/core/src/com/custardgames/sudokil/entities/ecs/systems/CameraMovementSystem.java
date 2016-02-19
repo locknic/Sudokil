@@ -126,35 +126,35 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		for (int x = 0; x < entities.size(); x++)
 		{
 			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
-
-			if (keyEvent.getKeyCode() == 152)
+			
+			if (keyEvent.getKeyCode() == 152 || keyEvent.getKeyCode() == 19)
 			{
 				cameraInput.setUp(true);
 			}
-			else if (keyEvent.getKeyCode() == 146)
+			else if (keyEvent.getKeyCode() == 146 || keyEvent.getKeyCode() == 20)
 			{
 				cameraInput.setDown(true);
 			}
 
-			if (keyEvent.getKeyCode() == 148)
+			if (keyEvent.getKeyCode() == 148 || keyEvent.getKeyCode() == 21)
 			{
 				cameraInput.setLeft(true);
 			}
-			else if (keyEvent.getKeyCode() == 150)
+			else if (keyEvent.getKeyCode() == 150 || keyEvent.getKeyCode() == 22)
 			{
 				cameraInput.setRight(true);
 			}
 
-			if (keyEvent.getKeyCode() == 151)
+			if (keyEvent.getKeyCode() == 151 || keyEvent.getKeyCode() == 69)
 			{
 				cameraInput.setZoomIn(true);
 			}
-			else if (keyEvent.getKeyCode() == 153)
+			else if (keyEvent.getKeyCode() == 153 || keyEvent.getKeyCode() == 70)
 			{
 				cameraInput.setZoomOut(true);
 			}
 
-			if (keyEvent.getKeyCode() == 149)
+			if (keyEvent.getKeyCode() == 149 || keyEvent.getKeyCode() == 7)
 			{
 				cameraInput.setReset(true);
 			}
@@ -168,29 +168,29 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		{
 			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
 
-			if (keyEvent.getKeyCode() == 152)
+			if (keyEvent.getKeyCode() == 152 || keyEvent.getKeyCode() == 19)
 			{
 				cameraInput.setUp(false);
 			}
-			else if (keyEvent.getKeyCode() == 146)
+			else if (keyEvent.getKeyCode() == 146 || keyEvent.getKeyCode() == 20)
 			{
 				cameraInput.setDown(false);
 			}
 
-			if (keyEvent.getKeyCode() == 148)
+			if (keyEvent.getKeyCode() == 148 || keyEvent.getKeyCode() == 21)
 			{
 				cameraInput.setLeft(false);
 			}
-			else if (keyEvent.getKeyCode() == 150)
+			else if (keyEvent.getKeyCode() == 150 || keyEvent.getKeyCode() == 22)
 			{
 				cameraInput.setRight(false);
 			}
 
-			if (keyEvent.getKeyCode() == 151)
+			if (keyEvent.getKeyCode() == 151 || keyEvent.getKeyCode() == 69)
 			{
 				cameraInput.setZoomIn(false);
 			}
-			else if (keyEvent.getKeyCode() == 153)
+			else if (keyEvent.getKeyCode() == 153 || keyEvent.getKeyCode() == 70)
 			{
 				cameraInput.setZoomOut(false);
 			}
