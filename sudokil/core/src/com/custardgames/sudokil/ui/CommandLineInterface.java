@@ -119,6 +119,21 @@ public class CommandLineInterface implements EventListener
 
 		return false;
 	}
+	
+	public boolean hasKeyboardFocus()
+	{
+		if (stage.getKeyboardFocus() == consoleField)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	public void setKeyboardFocus()
+	{
+		stage.setKeyboardFocus(consoleField);
+		stage.setScrollFocus(consoleScroll);
+	}
 
 	public void enterClicked()
 	{

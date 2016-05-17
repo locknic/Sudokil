@@ -104,6 +104,7 @@ public class MapInterface extends Stage implements EventListener
 
 	public void render()
 	{
+		camera.update();
 		tmr.setView(camera);
 		tmr.render();
 		Batch spriteBatch = getBatch();

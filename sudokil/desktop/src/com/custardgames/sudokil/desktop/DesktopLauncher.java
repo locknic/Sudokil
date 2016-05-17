@@ -15,8 +15,8 @@ public class DesktopLauncher
 		config.height = Core.HEIGHT * Core.SCALE;
 		config.backgroundFPS = 0;
 		config.foregroundFPS = 0;
-		config.vSyncEnabled = false;
-		config.fullscreen = false;
+		config.vSyncEnabled = Core.VSYNC;
+		config.fullscreen = Core.FULLSCREEN;
 		new LwjglApplication(new Core(), config);
 	}
 }

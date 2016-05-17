@@ -3,6 +3,7 @@ package com.custardgames.sudokil.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.custardgames.sudokil.ui.EscapeMenu;
 import com.custardgames.sudokil.ui.MapInterface;
 import com.custardgames.sudokil.ui.UserInterface;
 
@@ -10,17 +11,20 @@ public class Play implements Screen
 {
 	private MapInterface mapWorld;
 	private UserInterface ui;
+	private EscapeMenu escapeMenu;
 
 	public static final float TICK_STEP = 1 / 60f;
 	private float tickCounter;
 	private float frameCounter;
 	private float secondCounter;
 
+
 	public Play()
 	{
 		ui = new UserInterface();
 		mapWorld = new MapInterface();
-		
+		escapeMenu = new EscapeMenu();
+
 		tickCounter = TICK_STEP;
 	}
 
@@ -51,6 +55,7 @@ public class Play implements Screen
 	{
 		mapWorld.resize(width, height);
 		ui.resize(width, height);
+		escapeMenu.resize(width, height);
 	}
 
 	@Override
@@ -86,12 +91,20 @@ public class Play implements Screen
 	{
 		ui.dispose();
 		mapWorld.dispose();
+		escapeMenu.dispose();
 	}
 
 	public void update(float dt)
 	{
-		mapWorld.update(dt);
-		ui.act(dt);
+		if (!escapeMenu.isInMenu())
+		{
+			mapWorld.update(dt);
+			ui.act(dt);
+		}
+		else
+		{
+			escapeMenu.act(dt);
+		}
 	}
 
 	public void render()
@@ -99,5 +112,9 @@ public class Play implements Screen
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		mapWorld.render();
 		ui.draw();
+		if (escapeMenu.isInMenu())
+		{
+			escapeMenu.draw();
+		}
 	}
 }

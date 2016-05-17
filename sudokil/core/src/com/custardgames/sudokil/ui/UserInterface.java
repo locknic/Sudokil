@@ -4,6 +4,7 @@ import java.util.EventListener;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -22,6 +23,7 @@ public class UserInterface extends Stage implements EventListener
 {
 	private String root;
 	private Array<CommandLineInterface> windows;
+	private CommandLineInterface previousFocus;
 	private int maxWindows;
 	private Button newTerminalWindow;
 
@@ -52,6 +54,7 @@ public class UserInterface extends Stage implements EventListener
 					foundFocus = window.touchDown(event, x, y, pointer, button);
 					if (foundFocus)
 					{
+						previousFocus = window;
 						break;
 					}
 				}
@@ -64,9 +67,33 @@ public class UserInterface extends Stage implements EventListener
 
 				return false;
 			}
+			
+			public boolean keyDown(InputEvent event, int keycode)
+			{
+				for (CommandLineInterface window : windows)
+				{
+					if (window.hasKeyboardFocus())
+					{
+						if (keycode == Input.Keys.ESCAPE)
+						{
+							getOuter().setKeyboardFocus(null);
+							getOuter().setScrollFocus(null);
+						}
+						return true;
+					}
+				}
+				if (keycode == Input.Keys.ENTER)
+				{
+					if (previousFocus != null)
+					{
+						previousFocus.setKeyboardFocus();
+						return true;
+					}
+				}
+				return false;
+			}
 		});
 		
-		this.setKeyboardFocus(null);
 		this.setKeyboardFocus(null);
 
 		generateUI();
@@ -87,7 +114,9 @@ public class UserInterface extends Stage implements EventListener
 	{	
 		if (windows.size < maxWindows)
 		{
-			windows.add(new CommandLineInterface(this, fileSystemManager.getFileSystem(root)));
+			CommandLineInterface newInterface = new CommandLineInterface(this, fileSystemManager.getFileSystem(root));
+			windows.add(newInterface);
+			previousFocus = newInterface;
 		}
 	}
 

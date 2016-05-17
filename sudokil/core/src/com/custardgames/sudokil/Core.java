@@ -13,17 +13,19 @@ public class Core extends Game
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
 	public static final int SCALE = 1;
-
+	public static final boolean FULLSCREEN = true;
+	public static final boolean VSYNC = true;
+	
 	private Array<Screen> screens;
 
 	@Override
 	public void create()
 	{
-		Gdx.input.setInputProcessor(InputManager.get_instance());
-
 		screens = new Array<Screen>();
 		screens.add(new Play());
 		setScreen(screens.get(0));
+		
+		Gdx.input.setInputProcessor(InputManager.get_instance());
 	}
 
 }
