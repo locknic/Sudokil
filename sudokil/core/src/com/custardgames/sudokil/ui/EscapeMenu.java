@@ -2,6 +2,9 @@ package com.custardgames.sudokil.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -10,8 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.custardgames.sudokil.managers.InputManager;
-
-import javafx.scene.input.KeyCode;
 
 public class EscapeMenu extends Stage
 {
@@ -87,4 +88,19 @@ public class EscapeMenu extends Stage
 		Gdx.input.setInputProcessor(InputManager.get_instance());
 		inMenu = false;
 	}
+	
+	public void draw()
+	{
+		Gdx.gl20.glEnable(GL20.GL_BLEND);
+		Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		ShapeRenderer shapeRenderer = new ShapeRenderer();
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+	    shapeRenderer.setColor(new Color(0, 0, 0, 0.75f));
+	    shapeRenderer.rect(0, 0, this.getWidth(), this.getHeight());
+
+	    shapeRenderer.end();
+		super.draw();
+	}
+	
 }

@@ -85,7 +85,7 @@ public class MapInterface extends Stage implements EventListener
 				new ProcessQueueSystem(), new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(),
 				new ActivitySpriteSystem()).build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
-
+		
 		EntityFactoryJSON entityFactory = new EntityFactoryJSON(artemisWorld);
 		entityFactory.createEntities("maps/campaign/level1/player.json");
 
