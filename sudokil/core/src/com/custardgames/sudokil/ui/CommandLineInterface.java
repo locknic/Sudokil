@@ -35,7 +35,7 @@ public class CommandLineInterface implements EventListener
 	private Label consoleDialog;
 	private Label consoleArrow;
 	private ScrollPane consoleScroll;
-	private boolean updateScroll;
+	private int updateScroll;
 
 	private CircularArray<String> previousCommands;
 	private String tempStore;
@@ -47,7 +47,7 @@ public class CommandLineInterface implements EventListener
 		EventManager.get_instance().register(AutocompleteResponseEvent.class, this);
 
 		this.ownerUI = UUID.randomUUID();
-		
+
 		this.stage = stage;
 		this.commandLocation = -1;
 		this.tempStore = "";
@@ -110,7 +110,8 @@ public class CommandLineInterface implements EventListener
 
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 	{
-		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleField || event.getTarget() == consoleDialog || event.getTarget() == consoleArrow)
+		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleField || event.getTarget() == consoleDialog
+				|| event.getTarget() == consoleArrow)
 		{
 			stage.setKeyboardFocus(consoleField);
 			stage.setScrollFocus(consoleScroll);
@@ -119,7 +120,7 @@ public class CommandLineInterface implements EventListener
 
 		return false;
 	}
-	
+
 	public boolean hasKeyboardFocus()
 	{
 		if (stage.getKeyboardFocus() == consoleField)
@@ -128,7 +129,7 @@ public class CommandLineInterface implements EventListener
 		}
 		return false;
 	}
-	
+
 	public void setKeyboardFocus()
 	{
 		stage.setKeyboardFocus(consoleField);
@@ -213,7 +214,7 @@ public class CommandLineInterface implements EventListener
 				}
 			}
 
-			updateScroll = true;
+			updateScroll += 2;
 			return true;
 		}
 		else
@@ -224,12 +225,12 @@ public class CommandLineInterface implements EventListener
 
 	public void act()
 	{
-		if (updateScroll)
+		if (updateScroll > 0)
 		{
 			consoleScroll.setScrollPercentX(0);
 			consoleScroll.setScrollPercentY(100);
 			consoleScroll.updateVisualScroll();
-			updateScroll = false;
+			updateScroll--;
 		}
 
 	}
@@ -249,7 +250,7 @@ public class CommandLineInterface implements EventListener
 		if (keyEvent.getOwnerUI() == ownerUI)
 		{
 			consoleDialog.setText(consoleDialog.getText() + "\n" + keyEvent.getText());
-			updateScroll = true;
+			updateScroll += 2;
 		}
 	}
 

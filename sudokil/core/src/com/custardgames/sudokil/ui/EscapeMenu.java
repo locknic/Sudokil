@@ -55,7 +55,10 @@ public class EscapeMenu extends Stage
 			@Override
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				Gdx.app.exit();
+				if (inMenu)
+				{
+					Gdx.app.exit();
+				}
 			}
 		});
 		this.addActor(exitButton);
