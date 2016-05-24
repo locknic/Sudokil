@@ -1,12 +1,19 @@
 package com.custardgames.sudokil.entities.ecs.components;
 
 import com.artemis.Component;
+import com.badlogic.gdx.math.Vector2;
 
 public class PositionComponent extends Component
 {
 	private float x, y;
 	private float width, height;
 	private float angle;
+	private Vector2 tempVector;
+	
+	public PositionComponent()
+	{
+		tempVector = new Vector2();
+	}
 
 	public float getX()
 	{
@@ -64,14 +71,18 @@ public class PositionComponent extends Component
 		this.angle = angle;
 	}
 	
-	public float orientateDirectionX(int xDir, int yDir)
+	public float orientateDirectionX(float xDir, float yDir)
 	{
-		return xDir;
+		tempVector.x = xDir;
+		tempVector.y = yDir;
+		return tempVector.rotate(angle).x;
 	}
 	
-	public float orientateDirectionY(int xDir, int yDir)
+	public float orientateDirectionY(float xDir, float yDir)
 	{
-		return yDir;
+		tempVector.x = xDir;
+		tempVector.y = yDir;
+		return tempVector.rotate(angle).y;
 	}
 
 }
