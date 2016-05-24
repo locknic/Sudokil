@@ -83,7 +83,6 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 	{
 		PositionComponent positionComponent = positionComponents.get(entity);
 		PowerInputComponent powerInputComponent = powerInputComponents.getSafe(entity);
-		System.out.println("looking for connections");
 		if (powerInputComponent != null)
 		{
 			for (int x = 0; x < 5; x++)
@@ -119,7 +118,6 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 						{
 							willInput = true;
 							yDir = -1;
-							System.out.println("checking down");
 						}
 						break;
 					case 4:
@@ -171,7 +169,6 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 
 	public void checkPowerActivityBlocker()
 	{
-		System.out.println("checking");
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
 		{
@@ -180,7 +177,6 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 
 			if (isConnectedToGenerator(entity))
 			{
-				System.out.println("connected");
 				powerConsumerComponent.setPowered(true);
 				if (activityBlockingComponent != null)
 				{
@@ -190,7 +186,6 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 			}
 			else
 			{
-				System.out.println("not connected");
 				powerConsumerComponent.setPowered(false);
 				if (activityBlockingComponent != null)
 				{
