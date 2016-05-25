@@ -1,5 +1,7 @@
 package com.custardgames.sudokil.ui;
 
+import java.util.EventListener;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,8 +13,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.custardgames.sudokil.events.commandLine.DialogueEvent;
+import com.custardgames.sudokil.events.entities.BlockActivityEvent;
+import com.custardgames.sudokil.events.entities.UnblockActivityEvent;
+import com.custardgames.sudokil.managers.EventManager;
 
-public class DialogueInterface
+public class DialogueInterface implements EventListener
 {
 	private Stage stage;
 
@@ -23,8 +29,14 @@ public class DialogueInterface
 
 	public DialogueInterface(Stage stage)
 	{
+		EventManager.get_instance().register(DialogueEvent.class, this);
 		this.stage = stage;
 		createWindow();
+	}
+	
+	public void dispose()
+	{		
+		EventManager.get_instance().deregister(DialogueEvent.class, this);
 	}
 
 	public void createWindow()
@@ -96,5 +108,9 @@ public class DialogueInterface
 		dialogueWindowButton.setVisible(false);
 		dialog.setBounds(stage.getWidth() - 410, 10, 400, 200);
 	}
-
+	
+	public void handleDialogue(DialogueEvent event)
+	{
+		consoleDialog.setText(consoleDialog.getText() + "\n" + event.getDialogue());
+	}
 }
