@@ -26,7 +26,7 @@ public class UserInterface extends Stage implements EventListener
 	private CommandLineInterface previousFocus;
 	private int maxWindows;
 	private Button newTerminalWindow;
-	private DialogueInterface dialogueInterface;
+//	private DialogueInterface dialogueInterface;
 	private FileSystemManager fileSystemManager;
 
 	public UserInterface()
@@ -43,7 +43,7 @@ public class UserInterface extends Stage implements EventListener
 		windows = new Array<CommandLineInterface>();
 		maxWindows = 5;
 		
-		dialogueInterface = new DialogueInterface(this);
+		new DialogueInterface(this);
 
 		this.getRoot().addCaptureListener(new InputListener()
 		{

@@ -3,16 +3,18 @@ package com.custardgames.sudokil.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.custardgames.sudokil.managers.TimerManager;
 import com.custardgames.sudokil.ui.EscapeMenu;
 import com.custardgames.sudokil.ui.MapInterface;
 import com.custardgames.sudokil.ui.UserInterface;
 
 public class Play implements Screen
 {
+	private TimerManager timerManager;
 	private MapInterface mapWorld;
 	private UserInterface ui;
 	private EscapeMenu escapeMenu;
-
+	
 	public static final float TICK_STEP = 1 / 60f;
 	private float tickCounter;
 	private float frameCounter;
@@ -21,10 +23,10 @@ public class Play implements Screen
 
 	public Play()
 	{
+		timerManager = new TimerManager();
 		ui = new UserInterface();
 		mapWorld = new MapInterface();
 		escapeMenu = new EscapeMenu();
-
 		tickCounter = TICK_STEP;
 	}
 
@@ -92,12 +94,14 @@ public class Play implements Screen
 		ui.dispose();
 		mapWorld.dispose();
 		escapeMenu.dispose();
+		timerManager.dispose();
 	}
 
 	public void update(float dt)
 	{
 		if (!escapeMenu.isInMenu())
 		{
+			timerManager.update(dt);
 			mapWorld.update(dt);
 			ui.act(dt);
 		}

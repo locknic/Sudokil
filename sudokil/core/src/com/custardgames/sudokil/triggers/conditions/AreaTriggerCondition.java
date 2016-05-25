@@ -16,7 +16,7 @@ public class AreaTriggerCondition extends BaseTriggerCondition
 	
 	public AreaTriggerCondition()
 	{
-		
+		super();
 	}
 	
 	@Override

@@ -14,8 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.custardgames.sudokil.events.commandLine.DialogueEvent;
-import com.custardgames.sudokil.events.entities.BlockActivityEvent;
-import com.custardgames.sudokil.events.entities.UnblockActivityEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class DialogueInterface implements EventListener
