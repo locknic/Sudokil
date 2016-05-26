@@ -5,12 +5,12 @@ import com.artemis.Component;
 public class LiftableComponent extends Component
 {
 	private boolean lifted;
-	
+
 	public LiftableComponent()
 	{
 		lifted = false;
 	}
-	
+
 	public boolean isLifted()
 	{
 		return lifted;
@@ -21,5 +21,4 @@ public class LiftableComponent extends Component
 		this.lifted = lifted;
 	}
 
-	
 }

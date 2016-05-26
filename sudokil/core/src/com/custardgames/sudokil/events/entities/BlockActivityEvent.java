@@ -5,7 +5,7 @@ import com.artemis.Entity;
 public class BlockActivityEvent extends EntityEvent
 {
 	private Class<?> componentClass;
-	
+
 	public BlockActivityEvent(Entity entity, Class<?> component)
 	{
 		super(entity);

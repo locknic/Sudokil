@@ -12,7 +12,7 @@ public class TriggerReactionsComponent extends Component
 	{
 		this.triggerReactions = new Array<BaseTriggerReaction>();
 	}
-	
+
 	public Array<BaseTriggerReaction> getTriggerReactions()
 	{
 		return triggerReactions;
@@ -22,7 +22,7 @@ public class TriggerReactionsComponent extends Component
 	{
 		this.triggerReactions.add(triggerReaction);
 	}
-	
+
 	public void triggerReactions()
 	{
 		for (BaseTriggerReaction triggerReaction : triggerReactions)

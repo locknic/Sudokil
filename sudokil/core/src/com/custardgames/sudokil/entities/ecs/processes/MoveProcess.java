@@ -53,11 +53,9 @@ public class MoveProcess extends EntityProcess
 			deltaY = (float) (direction * Math.sin(Math.toRadians(angle)));
 			targetX = positionX;
 			targetY = positionY;
-			RequestMoveEvent event = (RequestMoveEvent) EventManager.get_instance()
-					.broadcastInquiry(new RequestMoveEvent(entity, (int) deltaX, (int) deltaY));
+			RequestMoveEvent event = (RequestMoveEvent) EventManager.get_instance().broadcastInquiry(new RequestMoveEvent(entity, (int) deltaX, (int) deltaY));
 
-			if (event != null && event instanceof RequestMoveEvent
-					&& event.getEntity() == entity)
+			if (event != null && event instanceof RequestMoveEvent && event.getEntity() == entity)
 			{
 				if (event.isAllowedMove())
 				{
@@ -84,7 +82,7 @@ public class MoveProcess extends EntityProcess
 		if (Math.abs(deltaX) + Math.abs(deltaY) > maxVelocity)
 		{
 			double travelDirection = Math.atan2(deltaY, deltaX);
-			
+
 			deltaX = ((float) ((maxVelocity * Math.cos(travelDirection))));
 			deltaY = ((float) ((maxVelocity * Math.sin(travelDirection))));
 			positionX += deltaX;
@@ -92,7 +90,7 @@ public class MoveProcess extends EntityProcess
 
 			position.setX(positionX);
 			position.setY(positionY);
-			
+
 			EventManager.get_instance().broadcast(new EntityMovedEvent(entity, deltaX, deltaY));
 
 			return false;

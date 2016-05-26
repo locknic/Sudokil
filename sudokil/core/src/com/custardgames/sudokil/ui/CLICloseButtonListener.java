@@ -8,14 +8,14 @@ import com.custardgames.sudokil.managers.EventManager;
 public class CLICloseButtonListener extends CloseButtonListener
 {
 	private CommandLineInterface cli;
-	
+
 	public CLICloseButtonListener(CommandLineInterface cli, Actor actor)
 	{
 		super(actor);
-		
+
 		this.cli = cli;
 	}
-	
+
 	@Override
 	public void clicked(InputEvent event, float x, float y)
 	{

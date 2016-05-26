@@ -15,7 +15,7 @@ public class LifterComponent extends Component
 		lifted = null;
 		setLiftSpeed(0.5f);
 	}
-	
+
 	public boolean isLifting()
 	{
 		return lifting;
@@ -45,5 +45,5 @@ public class LifterComponent extends Component
 	{
 		this.liftSpeed = liftSpeed;
 	}
-	
+
 }

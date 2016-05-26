@@ -1,0 +1,64 @@
+{
+	entities :
+	[
+		[
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerEntityComponent,
+				looping : false,
+				needsAllConditions : false,
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerConditionsComponent,
+				triggerConditions : 
+				[
+					{
+						class : com.custardgames.sudokil.triggers.conditions.AreaTriggerCondition,
+						entityID : robot1,
+						triggerAreaMinX : 128,
+						triggerAreaMinY : 96,
+						triggerAreaMaxX : 192,
+						triggerAreaMaxY : 256,
+					}
+				]
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerReactionsComponent,
+				triggerReactions : 
+				[
+					{
+						class : com.custardgames.sudokil.triggers.reactions.PrintDialogueReaction,
+						dialogueMessage : "You made it!",
+					}
+				]
+			},
+		],
+		[
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerEntityComponent,
+				looping : false,
+				needsAllConditions : false,
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerConditionsComponent,
+				triggerConditions : 
+				[
+					{
+						class : com.custardgames.sudokil.triggers.conditions.TimedTriggerCondition,
+						duration : 3,
+					}
+				]
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerReactionsComponent,
+				triggerReactions : 
+				[
+					{
+						class : com.custardgames.sudokil.triggers.reactions.PrintDialogueReaction,
+						dialogueMessage : "Pssst, 3 seconds has passed",
+					}
+				]
+			},
+		],
+	]
+	
+}

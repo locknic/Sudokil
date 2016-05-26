@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Array;
 public class FolderCLI extends ItemCLI
 {
 	private Array<ItemCLI> children;
-	
+
 	public FolderCLI()
 	{
 		super("", null);
@@ -16,7 +16,7 @@ public class FolderCLI extends ItemCLI
 		super(name, parent);
 		children = new Array<ItemCLI>();
 	}
-	
+
 	public boolean nameTaken(String name)
 	{
 		for (ItemCLI existingChild : children)
@@ -28,19 +28,19 @@ public class FolderCLI extends ItemCLI
 		}
 		return false;
 	}
-	
+
 	public void addChild(ItemCLI child)
 	{
 		children.add(child);
 		child.setParent(this);
 	}
-	
+
 	public void removeChild(ItemCLI child)
 	{
 		children.removeValue(child, true);
 		child.setParent(null);
 	}
-	
+
 	public Array<ItemCLI> getChildren()
 	{
 		return children;

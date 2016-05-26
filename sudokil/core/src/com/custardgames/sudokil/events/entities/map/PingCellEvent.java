@@ -6,7 +6,7 @@ import com.custardgames.sudokil.events.entities.EntityEvent;
 public class PingCellEvent extends EntityEvent
 {
 	private int xDir, yDir;
-	
+
 	private Entity cellEntity;
 	private float xCo, yCo;
 	private boolean floor;

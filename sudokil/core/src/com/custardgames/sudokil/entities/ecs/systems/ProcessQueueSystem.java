@@ -19,12 +19,12 @@ public class ProcessQueueSystem extends EntityProcessingSystem implements EventL
 	private ComponentMapper<ProcessQueueComponent> processQueueComponents;
 	private ComponentMapper<EntityComponent> entityComponents;
 	private ComponentMapper<ActivityBlockingComponent> activityBlockingComponents;
-	
+
 	@SuppressWarnings("unchecked")
 	public ProcessQueueSystem()
 	{
 		super(Aspect.all(EntityComponent.class, ProcessQueueComponent.class));
-		
+
 		EventManager.get_instance().register(ProcessEvent.class, this);
 		EventManager.get_instance().register(StopCommandsEvent.class, this);
 	}
@@ -33,10 +33,11 @@ public class ProcessQueueSystem extends EntityProcessingSystem implements EventL
 	public void dispose()
 	{
 		super.dispose();
-		
+
 		EventManager.get_instance().deregister(ProcessEvent.class, this);
 		EventManager.get_instance().deregister(StopCommandsEvent.class, this);
 	}
+
 	@Override
 	protected void process(Entity entity)
 	{

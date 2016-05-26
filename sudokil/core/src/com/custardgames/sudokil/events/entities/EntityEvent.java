@@ -6,7 +6,7 @@ import com.custardgames.sudokil.events.BaseEvent;
 public class EntityEvent extends BaseEvent
 {
 	private Entity entity;
-	
+
 	public EntityEvent(Entity entity)
 	{
 		this.setEntity(entity);

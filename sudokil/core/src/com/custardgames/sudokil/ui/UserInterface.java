@@ -26,7 +26,7 @@ public class UserInterface extends Stage implements EventListener
 	private CommandLineInterface previousFocus;
 	private int maxWindows;
 	private Button newTerminalWindow;
-//	private DialogueInterface dialogueInterface;
+	// private DialogueInterface dialogueInterface;
 	private FileSystemManager fileSystemManager;
 
 	public UserInterface()
@@ -34,7 +34,7 @@ public class UserInterface extends Stage implements EventListener
 		InputManager.get_instance().addProcessor(this);
 		EventManager.get_instance().register(ConsoleConnectEvent.class, this);
 		EventManager.get_instance().register(CloseCommandLineWindowEvent.class, this);
-		
+
 		root = "maps/campaign/level1/filesystem.json";
 
 		fileSystemManager = new FileSystemManager();
@@ -42,7 +42,7 @@ public class UserInterface extends Stage implements EventListener
 
 		windows = new Array<CommandLineInterface>();
 		maxWindows = 5;
-		
+
 		new DialogueInterface(this);
 
 		this.getRoot().addCaptureListener(new InputListener()
@@ -69,7 +69,7 @@ public class UserInterface extends Stage implements EventListener
 
 				return false;
 			}
-			
+
 			public boolean keyDown(InputEvent event, int keycode)
 			{
 				for (CommandLineInterface window : windows)
@@ -95,7 +95,7 @@ public class UserInterface extends Stage implements EventListener
 				return false;
 			}
 		});
-		
+
 		this.setKeyboardFocus(null);
 
 		generateUI();
@@ -113,7 +113,7 @@ public class UserInterface extends Stage implements EventListener
 	}
 
 	public void addCLI()
-	{	
+	{
 		if (windows.size < maxWindows)
 		{
 			CommandLineInterface newInterface = new CommandLineInterface(this, fileSystemManager.getFileSystem(root));
@@ -158,11 +158,11 @@ public class UserInterface extends Stage implements EventListener
 			e.act();
 		}
 	}
-	
+
 	public void handleCloseCommandLineWindow(CloseCommandLineWindowEvent event)
 	{
 		Iterator<CommandLineInterface> iterator = windows.iterator();
-		while(iterator.hasNext())
+		while (iterator.hasNext())
 		{
 			CommandLineInterface window = iterator.next();
 			if (event.getOwnerUI().equals(window.getUUID()))

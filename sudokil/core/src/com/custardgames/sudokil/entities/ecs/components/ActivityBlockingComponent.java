@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 public class ActivityBlockingComponent extends Component
 {
 	private Array<Class<?>> activityBlockers;
-	
+
 	public ActivityBlockingComponent()
 	{
 		activityBlockers = new Array<Class<?>>();

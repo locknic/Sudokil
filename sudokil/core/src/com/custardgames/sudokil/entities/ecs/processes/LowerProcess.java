@@ -50,7 +50,8 @@ public class LowerProcess extends EntityProcess
 
 						float deltaX = (float) (1 * Math.cos(Math.toRadians(angle)));
 						float deltaY = (float) (1 * Math.sin(Math.toRadians(angle)));
-						PingCellEvent event = (PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, (int) deltaX, (int) deltaY));
+						PingCellEvent event = (PingCellEvent) EventManager.get_instance()
+								.broadcastInquiry(new PingCellEvent(entity, (int) deltaX, (int) deltaY));
 						if (event != null && event instanceof PingCellEvent && event.getEntity() != null && event.getEntity() == entity)
 						{
 							targetX = event.getxCo();
@@ -84,14 +85,14 @@ public class LowerProcess extends EntityProcess
 			}
 			PositionComponent liftedPosition = lifted.getComponent(PositionComponent.class);
 			float maxVelocity = lifterComponent.getLiftSpeed();
-			
+
 			if (liftedPosition != null)
 			{
 				float positionX = liftedPosition.getX();
 				float positionY = liftedPosition.getY();
 				float deltaX = positionX - targetX;
 				float deltaY = positionY - targetY;
-				
+
 				if (Math.abs(deltaX) <= maxVelocity && Math.abs(deltaY) <= maxVelocity)
 				{
 					liftedPosition.setX(targetX);
@@ -99,11 +100,11 @@ public class LowerProcess extends EntityProcess
 					EventManager.get_instance().broadcast(new AddToMapEvent(lifted));
 					return true;
 				}
-				
+
 				if (deltaX != 0)
 					positionX = ((float) (positionX + (-maxVelocity * (deltaX / Math.abs(deltaX)))));
 				if (deltaY != 0)
-				positionY = ((float) (positionY + (-maxVelocity * (deltaY / Math.abs(deltaY)))));
+					positionY = ((float) (positionY + (-maxVelocity * (deltaY / Math.abs(deltaY)))));
 
 				liftedPosition.setX(positionX);
 				liftedPosition.setY(positionY);

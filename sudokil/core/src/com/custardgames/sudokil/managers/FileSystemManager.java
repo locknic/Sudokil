@@ -29,7 +29,7 @@ public class FileSystemManager implements EventListener
 		linkChildren(root);
 		fileSystems.put(location, root);
 	}
-	
+
 	public void linkChildren(FolderCLI parent)
 	{
 		ItemCLI[] children = parent.getChildren().toArray(ItemCLI.class);
@@ -37,8 +37,7 @@ public class FileSystemManager implements EventListener
 		{
 			parent.removeChild(children[x]);
 			parent.addChild(children[x]);
-			
-			System.out.println("Adding " + children[x].getName() + " to " + parent.getName());
+
 			if (children[x] instanceof FolderCLI)
 			{
 				linkChildren((FolderCLI) children[x]);

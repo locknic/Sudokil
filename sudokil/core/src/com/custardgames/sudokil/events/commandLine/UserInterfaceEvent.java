@@ -12,7 +12,7 @@ public abstract class UserInterfaceEvent extends BaseEvent
 	{
 		setOwnerUI(ownerUI);
 	}
-	
+
 	public UUID getOwnerUI()
 	{
 		return ownerUI;

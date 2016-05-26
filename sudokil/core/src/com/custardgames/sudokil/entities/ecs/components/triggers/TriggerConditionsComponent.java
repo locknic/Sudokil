@@ -7,7 +7,7 @@ import com.custardgames.sudokil.triggers.conditions.BaseTriggerCondition;
 public class TriggerConditionsComponent extends Component
 {
 	private Array<BaseTriggerCondition> triggerConditions;
-	
+
 	public TriggerConditionsComponent()
 	{
 		triggerConditions = new Array<BaseTriggerCondition>();
@@ -22,10 +22,10 @@ public class TriggerConditionsComponent extends Component
 	{
 		this.triggerConditions.add(triggerConditions);
 	}
-	
+
 	public boolean isTriggered()
 	{
-		for(BaseTriggerCondition triggerCondition : triggerConditions)
+		for (BaseTriggerCondition triggerCondition : triggerConditions)
 		{
 			if (triggerCondition.checkConditions())
 			{
@@ -34,10 +34,10 @@ public class TriggerConditionsComponent extends Component
 		}
 		return false;
 	}
-	
+
 	public boolean isAllTriggered()
 	{
-		for(BaseTriggerCondition triggerCondition : triggerConditions)
+		for (BaseTriggerCondition triggerCondition : triggerConditions)
 		{
 			if (!triggerCondition.checkConditions())
 			{
@@ -46,6 +46,5 @@ public class TriggerConditionsComponent extends Component
 		}
 		return true;
 	}
-	
-	
+
 }

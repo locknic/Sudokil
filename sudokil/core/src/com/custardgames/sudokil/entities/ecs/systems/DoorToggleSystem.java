@@ -34,10 +34,10 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 	public void dispose()
 	{
 		super.dispose();
-		
+
 		EventManager.get_instance().deregister(ToggleEvent.class, this);
 	}
-	
+
 	@Override
 	public boolean checkProcessing()
 	{

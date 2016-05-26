@@ -50,7 +50,8 @@ public class LiftProcess extends EntityProcess
 				{
 					positionX = (float) (1 * Math.cos(Math.toRadians(angle)));
 					positionY = (float) (1 * Math.sin(Math.toRadians(angle)));
-					PingCellEvent event = (PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, (int) positionX, (int) positionY));
+					PingCellEvent event = (PingCellEvent) EventManager.get_instance()
+							.broadcastInquiry(new PingCellEvent(entity, (int) positionX, (int) positionY));
 					if (event != null && event instanceof PingCellEvent && event.getEntity() != null && event.getEntity() == entity)
 					{
 						lifted = event.getCellEntity();

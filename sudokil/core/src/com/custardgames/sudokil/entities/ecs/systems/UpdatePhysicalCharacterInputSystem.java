@@ -28,12 +28,12 @@ public class UpdatePhysicalCharacterInputSystem extends EntityProcessingSystem i
 		EventManager.get_instance().register(MousePressedEvent.class, this);
 		EventManager.get_instance().register(MouseReleasedEvent.class, this);
 	}
-	
+
 	@Override
 	public void dispose()
 	{
 		super.dispose();
-		
+
 		EventManager.get_instance().deregister(KeyPressedEvent.class, this);
 		EventManager.get_instance().deregister(KeyReleasedEvent.class, this);
 		EventManager.get_instance().deregister(MousePressedEvent.class, this);

@@ -13,29 +13,29 @@ import com.custardgames.sudokil.managers.EventManager;
 public class TimedTriggerCondition extends BaseTriggerCondition implements EventListener, Serializable
 {
 	private float duration;
-	
+
 	private UUID owner;
-	
+
 	public TimedTriggerCondition()
 	{
 		super();
 	}
-	
+
 	public void init()
 	{
 		EventManager.get_instance().register(TimerDoneEvent.class, this);
-		
+
 		owner = UUID.randomUUID();
-		
+
 		EventManager.get_instance().broadcast(new TimerRegisterEvent(owner, duration));
 	}
-	
+
 	@Override
 	public boolean checkConditions()
 	{
 		return isDone;
 	}
-	
+
 	public void handleTimerDoneEvent(TimerDoneEvent event)
 	{
 		if (owner == event.getOwner())
@@ -60,4 +60,3 @@ public class TimedTriggerCondition extends BaseTriggerCondition implements Event
 	}
 
 }
-

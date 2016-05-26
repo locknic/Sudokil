@@ -31,7 +31,7 @@ public class ActivitySpriteSystem extends EntityProcessingSystem implements Even
 	public void dispose()
 	{
 		super.dispose();
-		
+
 		EventManager.get_instance().deregister(PowerStorageEvent.class, this);
 	}
 
@@ -62,7 +62,7 @@ public class ActivitySpriteSystem extends EntityProcessingSystem implements Even
 			spriteComponent.setSpriteLocation(spriteDeactiveComponent.getOffSpriteLocation());
 		}
 	}
-	
+
 	public void handlePowerStorage(PowerStorageEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();

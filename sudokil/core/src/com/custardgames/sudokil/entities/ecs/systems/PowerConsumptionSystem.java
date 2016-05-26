@@ -152,7 +152,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 								{
 									int inputEntityXDir = (int) inputEntityPositionComponent.orientateDirectionX(xDir, yDir);
 									int inputEntityYDir = (int) inputEntityPositionComponent.orientateDirectionY(xDir, yDir);
-									
+
 									if (inputEntityPowerOutputComponent.isOutputting(inputEntityXDir, inputEntityYDir))
 									{
 										entities.add(inputEntity);

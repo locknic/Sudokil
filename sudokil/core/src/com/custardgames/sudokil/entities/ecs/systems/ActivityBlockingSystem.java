@@ -15,7 +15,7 @@ import com.custardgames.sudokil.managers.EventManager;
 public class ActivityBlockingSystem extends EntityProcessingSystem implements EventListener
 {
 	private ComponentMapper<ActivityBlockingComponent> activityBlockingComponents;
-	
+
 	@SuppressWarnings("unchecked")
 	public ActivityBlockingSystem()
 	{
@@ -23,12 +23,12 @@ public class ActivityBlockingSystem extends EntityProcessingSystem implements Ev
 		EventManager.get_instance().register(BlockActivityEvent.class, this);
 		EventManager.get_instance().register(UnblockActivityEvent.class, this);
 	}
-	
+
 	@Override
 	public void dispose()
 	{
 		super.dispose();
-		
+
 		EventManager.get_instance().deregister(BlockActivityEvent.class, this);
 		EventManager.get_instance().deregister(UnblockActivityEvent.class, this);
 	}
@@ -38,11 +38,11 @@ public class ActivityBlockingSystem extends EntityProcessingSystem implements Ev
 	{
 		return false;
 	}
-	
+
 	@Override
 	protected void process(Entity e)
 	{
-		
+
 	}
 
 	public void handleBlockActivity(BlockActivityEvent event)
@@ -57,7 +57,7 @@ public class ActivityBlockingSystem extends EntityProcessingSystem implements Ev
 			}
 		}
 	}
-	
+
 	public void handleUnblockActivity(UnblockActivityEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();

@@ -19,15 +19,15 @@ public class EntityLocatorSystem extends EntityProcessingSystem implements Event
 	public EntityLocatorSystem()
 	{
 		super(Aspect.all(EntityComponent.class));
-		
+
 		EventManager.get_instance().register(PingEntityEvent.class, this);
 	}
-	
+
 	@Override
 	public void dispose()
 	{
 		super.dispose();
-		
+
 		EventManager.get_instance().deregister(PingEntityEvent.class, this);
 	}
 
@@ -36,7 +36,7 @@ public class EntityLocatorSystem extends EntityProcessingSystem implements Event
 	{
 		return false;
 	}
-	
+
 	@Override
 	protected void process(Entity entity)
 	{

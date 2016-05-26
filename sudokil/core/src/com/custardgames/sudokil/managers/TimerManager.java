@@ -9,24 +9,24 @@ import com.custardgames.sudokil.events.TimerRegisterEvent;
 import com.custardgames.sudokil.utils.TimeNode;
 
 public class TimerManager implements EventListener
-{	
+{
 	private Array<TimeNode> timeNodes;
-	
+
 	public TimerManager()
 	{
 		EventManager.get_instance().register(TimerRegisterEvent.class, this);
 		timeNodes = new Array<TimeNode>();
 	}
-	
+
 	public void dispose()
 	{
 		EventManager.get_instance().deregister(TimerRegisterEvent.class, this);
 	}
-	
+
 	public void update(float time)
 	{
 		Iterator<TimeNode> iterator = timeNodes.iterator();
-		while(iterator.hasNext())
+		while (iterator.hasNext())
 		{
 			TimeNode timeNode = iterator.next();
 			timeNode.process(time);
@@ -37,7 +37,7 @@ public class TimerManager implements EventListener
 			}
 		}
 	}
-	
+
 	public void handleTimerRegisterEvent(TimerRegisterEvent event)
 	{
 		timeNodes.add(new TimeNode(event.getOwner(), event.getDuration()));

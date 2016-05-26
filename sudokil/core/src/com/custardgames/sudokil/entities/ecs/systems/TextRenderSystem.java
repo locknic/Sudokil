@@ -23,7 +23,7 @@ public class TextRenderSystem extends EntityProcessingSystem
 	private FreeTypeFontGenerator generator;
 	private FreeTypeFontParameter parameter;
 	private BitmapFont font;
-	
+
 	@Wire
 	private AssetManager assetManager;
 
@@ -31,7 +31,7 @@ public class TextRenderSystem extends EntityProcessingSystem
 	public TextRenderSystem()
 	{
 		super(Aspect.all(TextTagComponent.class, PositionComponent.class));
-		
+
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("data/fonts/TerminusTTF-4.39.ttf"));
 		parameter = new FreeTypeFontParameter();
 		parameter.size = 32;
@@ -61,7 +61,8 @@ public class TextRenderSystem extends EntityProcessingSystem
 			if (textTagComponent.isShouldRender())
 			{
 				font.getData().setScale(0.3f);
-				font.draw(spriteBatch, textTagComponent.getText(), positionComponent.getX() + textTagComponent.getDeltaX(), positionComponent.getY() + textTagComponent.getDeltaY());
+				font.draw(spriteBatch, textTagComponent.getText(), positionComponent.getX() + textTagComponent.getDeltaX(),
+						positionComponent.getY() + textTagComponent.getDeltaY());
 			}
 		}
 	}

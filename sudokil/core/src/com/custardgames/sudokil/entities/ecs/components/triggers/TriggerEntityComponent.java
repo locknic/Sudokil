@@ -7,7 +7,7 @@ public class TriggerEntityComponent extends Component
 	private boolean triggered;
 	private boolean looping;
 	private boolean needsAllConditions;
-	
+
 	public TriggerEntityComponent()
 	{
 		triggered = false;

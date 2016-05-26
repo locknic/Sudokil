@@ -23,7 +23,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 {
 	private ComponentMapper<CameraInputComponent> cameraInputComponents;
 	private ComponentMapper<EntityComponent> entityComponents;
-	
+
 	@Wire
 	private OrthographicCamera camera;
 
@@ -37,12 +37,12 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		EventManager.get_instance().register(CameraResetEvent.class, this);
 		EventManager.get_instance().register(CameraTargetEvent.class, this);
 	}
-	
+
 	@Override
 	public void dispose()
 	{
 		super.dispose();
-		
+
 		EventManager.get_instance().deregister(KeyPressedEvent.class, this);
 		EventManager.get_instance().deregister(KeyReleasedEvent.class, this);
 		EventManager.get_instance().deregister(CameraResetEvent.class, this);
@@ -59,8 +59,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 
 		if (cameraInput.getTargetID() != null && !cameraInput.getTargetID().equals(""))
 		{
-			PingEntityEvent event = (PingEntityEvent) EventManager.get_instance()
-					.broadcastInquiry(new PingEntityEvent(cameraInput.getTargetID()));
+			PingEntityEvent event = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(cameraInput.getTargetID()));
 			if (event != null && event instanceof PingEntityEvent)
 			{
 				cameraInput.setTarget(event.getEntity().getComponent(PositionComponent.class));
@@ -126,7 +125,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		for (int x = 0; x < entities.size(); x++)
 		{
 			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
-			
+
 			if (keyEvent.getKeyCode() == 152 || keyEvent.getKeyCode() == 19)
 			{
 				cameraInput.setUp(true);
@@ -205,10 +204,11 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			EntityComponent entityComponent = entityComponents.get(entity);
 			CameraInputComponent cameraInput = cameraInputComponents.get(entity);
 
-			if (entityComponent.getId().equals(event.getEntityName()) && event.getArgs() != null
-					&& event.getArgs().length > 1)
+			if (entityComponent.getId().equals(event.getEntityName()) && event.getArgs() != null && event.getArgs().length > 1)
 			{
 				cameraInput.setTargetID(event.getArgs()[1]);
+				cameraInput.setTargetOffsetX(0);
+				cameraInput.setTargetOffsetY(0);
 			}
 			else
 			{

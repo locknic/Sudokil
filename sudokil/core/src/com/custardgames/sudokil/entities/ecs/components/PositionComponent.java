@@ -9,7 +9,7 @@ public class PositionComponent extends Component
 	private float width, height;
 	private float angle;
 	private Vector2 tempVector;
-	
+
 	public PositionComponent()
 	{
 		tempVector = new Vector2();
@@ -70,14 +70,14 @@ public class PositionComponent extends Component
 	{
 		this.angle = angle;
 	}
-	
+
 	public float orientateDirectionX(float xDir, float yDir)
 	{
 		tempVector.x = xDir;
 		tempVector.y = yDir;
 		return tempVector.rotate(angle).x;
 	}
-	
+
 	public float orientateDirectionY(float xDir, float yDir)
 	{
 		tempVector.x = xDir;

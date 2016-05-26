@@ -13,7 +13,7 @@ public class EventTriggerSystem extends EntityProcessingSystem
 	private ComponentMapper<TriggerEntityComponent> triggerEntityComponents;
 	private ComponentMapper<TriggerConditionsComponent> triggerConditionsComponents;
 	private ComponentMapper<TriggerReactionsComponent> triggerReactionsComponents;
-	
+
 	@SuppressWarnings("unchecked")
 	public EventTriggerSystem()
 	{
@@ -27,10 +27,10 @@ public class EventTriggerSystem extends EntityProcessingSystem
 		TriggerEntityComponent triggerEntityComponent = triggerEntityComponents.get(e);
 		TriggerConditionsComponent triggerConditionsComponent = triggerConditionsComponents.get(e);
 		TriggerReactionsComponent triggerReactionsComponent = triggerReactionsComponents.get(e);
-		
+
 		if (!triggerEntityComponent.isTriggered() || triggerEntityComponent.isLooping())
 		{
-			if(triggerEntityComponent.isNeedsAllConditions())
+			if (triggerEntityComponent.isNeedsAllConditions())
 			{
 				if (triggerConditionsComponent.isAllTriggered())
 				{
@@ -47,7 +47,7 @@ public class EventTriggerSystem extends EntityProcessingSystem
 				}
 			}
 		}
-		
+
 	}
 
 }

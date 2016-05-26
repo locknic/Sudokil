@@ -14,7 +14,7 @@ public class EntityMovedEvent extends EntityEvent
 		this.setDeltaX(deltaX);
 		this.setDeltaY(deltaY);
 	}
-	
+
 	public Entity getEntity()
 	{
 		return entity;
@@ -24,7 +24,7 @@ public class EntityMovedEvent extends EntityEvent
 	{
 		this.entity = entity;
 	}
-	
+
 	public float getDeltaX()
 	{
 		return deltaX;

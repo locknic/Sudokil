@@ -6,19 +6,19 @@ public class CircularArray<T> extends Array<T>
 {
 	private int maxSize;
 	private int currentSize;
-	
+
 	public CircularArray(int maxSize)
 	{
 		super(true, maxSize);
 		this.maxSize = maxSize;
 		this.currentSize = 0;
 	}
-	
+
 	public int getCurrentSize()
 	{
 		return currentSize;
 	}
-	
+
 	@Override
 	public void add(T value)
 	{
@@ -30,6 +30,6 @@ public class CircularArray<T> extends Array<T>
 		{
 			currentSize++;
 		}
-		insert(0, value);	
+		insert(0, value);
 	}
 }

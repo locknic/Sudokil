@@ -6,7 +6,7 @@ import com.custardgames.sudokil.managers.EventManager;
 public class PrintDialogueReaction extends BaseTriggerReaction
 {
 	private String dialogueMessage;
-	
+
 	@Override
 	public void initialiseReaction()
 	{

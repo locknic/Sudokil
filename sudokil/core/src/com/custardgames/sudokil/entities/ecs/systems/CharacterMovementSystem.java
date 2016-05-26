@@ -29,24 +29,24 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 	public CharacterMovementSystem()
 	{
 		super(Aspect.all(EntityComponent.class, CharacterInputComponent.class, ProcessQueueComponent.class, PositionComponent.class, VelocityComponent.class));
-		
+
 		EventManager.get_instance().register(ForwardEvent.class, this);
 		EventManager.get_instance().register(BackwardEvent.class, this);
 		EventManager.get_instance().register(LeftEvent.class, this);
 		EventManager.get_instance().register(RightEvent.class, this);
 	}
-	
+
 	@Override
 	public void dispose()
 	{
 		super.dispose();
-		
+
 		EventManager.get_instance().deregister(ForwardEvent.class, this);
 		EventManager.get_instance().deregister(BackwardEvent.class, this);
 		EventManager.get_instance().deregister(LeftEvent.class, this);
 		EventManager.get_instance().deregister(RightEvent.class, this);
 	}
-	
+
 	@Override
 	public boolean checkProcessing()
 	{
@@ -56,7 +56,7 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 	@Override
 	protected void process(Entity e)
 	{
-		
+
 	}
 
 	public void moveCommand(String owner, String[] args, int direction)

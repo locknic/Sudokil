@@ -82,18 +82,21 @@ public class MapInterface extends Stage implements EventListener
 		tmr.setView(camera);
 		this.getViewport().setCamera(camera);
 
-		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, textRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(),
-				new ProcessQueueSystem(), new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(),
-				new ActivitySpriteSystem(), new EventTriggerSystem()).build().register(camera).register(assetManager);
+		WorldConfiguration config = new WorldConfigurationBuilder()
+				.with(spriteRenderSystem, textRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(),
+						new ProcessQueueSystem(), new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(),
+						new ActivityBlockingSystem(), new PowerConsumptionSystem(), new ActivitySpriteSystem(), new EventTriggerSystem())
+				.build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
-		
+
 		EntityFactoryJSON entityFactory = new EntityFactoryJSON(artemisWorld);
-		entityFactory.createEntities("maps/campaign/level1/player.json");
+		entityFactory.createEntities("maps/campaign/level1/robots.json");
+		entityFactory.createEntities("maps/campaign/level1/entities.json");
+		entityFactory.createEntities("maps/campaign/level1/triggers.json");
 
 		map = new Actor();
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
 		this.addActor(map);
-
 	}
 
 	public void update(float dt)
@@ -109,6 +112,7 @@ public class MapInterface extends Stage implements EventListener
 		tmr.setView(camera);
 		tmr.render();
 		Batch spriteBatch = getBatch();
+		spriteBatch.setProjectionMatrix(camera.combined);
 		spriteBatch.begin();
 		spriteRenderSystem.render(spriteBatch);
 		textRenderSystem.render(spriteBatch);
@@ -189,7 +193,6 @@ public class MapInterface extends Stage implements EventListener
 		if (!kcInput.contains("" + keycode, false))
 		{
 			kcInput.add(keycode + "");
-			// System.out.println("Adding: " + keycode);
 		}
 		EventManager.get_instance().broadcast(new KeyPressedEvent(keycode));
 
@@ -204,7 +207,6 @@ public class MapInterface extends Stage implements EventListener
 		if (kcInput.contains("" + keycode, false))
 		{
 			kcInput.removeValue("" + keycode, false);
-			// System.out.println("Removing: " + keycode);
 		}
 		EventManager.get_instance().broadcast(new KeyReleasedEvent(keycode));
 

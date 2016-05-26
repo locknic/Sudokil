@@ -15,7 +15,7 @@ public class Core extends Game
 	public static final int SCALE = 1;
 	public static final boolean FULLSCREEN = false;
 	public static final boolean VSYNC = true;
-	
+
 	private Array<Screen> screens;
 
 	@Override
@@ -24,7 +24,7 @@ public class Core extends Game
 		screens = new Array<Screen>();
 		screens.add(new Play());
 		setScreen(screens.get(0));
-		
+
 		Gdx.input.setInputProcessor(InputManager.get_instance());
 	}
 

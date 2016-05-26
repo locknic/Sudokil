@@ -14,7 +14,7 @@ public class ConsoleLogEvent extends CommandLineEvent
 	{
 		this(owner, parseTexts(texts));
 	}
-	
+
 	public static String parseTexts(String[] texts)
 	{
 		String message = "";

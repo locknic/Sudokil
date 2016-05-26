@@ -3,6 +3,7 @@ package com.custardgames.sudokil.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.custardgames.sudokil.Core;
 import com.custardgames.sudokil.managers.TimerManager;
 import com.custardgames.sudokil.ui.EscapeMenu;
 import com.custardgames.sudokil.ui.MapInterface;
@@ -14,12 +15,11 @@ public class Play implements Screen
 	private MapInterface mapWorld;
 	private UserInterface ui;
 	private EscapeMenu escapeMenu;
-	
+
 	public static final float TICK_STEP = 1 / 60f;
 	private float tickCounter;
 	private float frameCounter;
 	private float secondCounter;
-
 
 	public Play()
 	{
@@ -33,7 +33,7 @@ public class Play implements Screen
 	@Override
 	public void render(float delta)
 	{
-		tickCounter += Gdx.graphics.getDeltaTime();
+		tickCounter += delta;
 		while (tickCounter >= TICK_STEP)
 		{
 			tickCounter -= TICK_STEP;

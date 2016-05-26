@@ -28,15 +28,13 @@ public class ConnectProcess extends EntityProcess implements EventListener
 
 		ActivityBlockingComponent activityBlockingComponent = connectedTo.getComponent(ActivityBlockingComponent.class);
 
-		if (activityBlockingComponent == null
-				|| (activityBlockingComponent != null && activityBlockingComponent.isActive()))
+		if (activityBlockingComponent == null || (activityBlockingComponent != null && activityBlockingComponent.isActive()))
 		{
 			ConnectableComponent connectableComponent = connectedTo.getComponent(ConnectableComponent.class);
 
 			if (connectableComponent != null)
 			{
-				if (connectableComponent.getFileLocation() != null
-						|| !connectableComponent.getFileLocation().equals(""))
+				if (connectableComponent.getFileLocation() != null || !connectableComponent.getFileLocation().equals(""))
 				{
 					PingFileSystemEvent event = (PingFileSystemEvent) EventManager.get_instance()
 							.broadcastInquiry(new PingFileSystemEvent(connectableComponent.getFileLocation()));
@@ -44,8 +42,7 @@ public class ConnectProcess extends EntityProcess implements EventListener
 					event.getFileSystem();
 					if (event.getFileSystem() != null)
 					{
-						EventManager.get_instance()
-								.broadcast(new ConsoleConnectEvent(consoleUUID, event.getFileSystem()));
+						EventManager.get_instance().broadcast(new ConsoleConnectEvent(consoleUUID, event.getFileSystem()));
 						EventManager.get_instance().register(DisconnectEvent.class, this);
 						return;
 					}
@@ -79,8 +76,7 @@ public class ConnectProcess extends EntityProcess implements EventListener
 	public void handleDisconnectEvent(DisconnectEvent event)
 	{
 		EntityComponent entityComponent = entity.getComponent(EntityComponent.class);
-		if (event.getEntityName().equals(entityComponent.getId())
-				|| event.getEntityName().equals(connectedTo.getComponent(EntityComponent.class).getId()))
+		if (event.getEntityName().equals(entityComponent.getId()) || event.getEntityName().equals(connectedTo.getComponent(EntityComponent.class).getId()))
 		{
 			disconnect();
 		}

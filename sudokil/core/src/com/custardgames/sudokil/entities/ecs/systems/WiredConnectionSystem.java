@@ -60,8 +60,8 @@ public class WiredConnectionSystem extends EntityProcessingSystem implements Eve
 
 			if (entityComponent.getId().equals(connectingWith))
 			{
-				PingCellEvent pingCell = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(
-						new PingCellEvent(entity, (int) Math.cos(Math.toRadians(positionComponent.getAngle())), (int) Math.sin(Math.toRadians(positionComponent.getAngle())))));
+				PingCellEvent pingCell = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity,
+						(int) Math.cos(Math.toRadians(positionComponent.getAngle())), (int) Math.sin(Math.toRadians(positionComponent.getAngle())))));
 				if (pingCell != null)
 				{
 					Entity targetEntity = pingCell.getCellEntity();

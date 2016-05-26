@@ -4,7 +4,7 @@ public class ItemCLI
 {
 	private String name;
 	private FolderCLI parent;
-	
+
 	public ItemCLI()
 	{
 		this("", null);
@@ -34,18 +34,18 @@ public class ItemCLI
 	{
 		this.parent = parent;
 	}
-	
+
 	public void changeParent(FolderCLI newParent)
 	{
 		parent.removeChild(this);
 		newParent.addChild(this);
 	}
-	
+
 	public String getParentName()
 	{
 		return parent.getName();
 	}
-	
+
 	public String getLocation()
 	{
 		if (parent != null)
@@ -54,12 +54,12 @@ public class ItemCLI
 		}
 		return "";
 	}
-	
+
 	public String getPath()
 	{
 		if (parent != null)
 		{
-			if(!parent.getPath().equals(""))
+			if (!parent.getPath().equals(""))
 			{
 				return parent.getPath() + "/" + getName();
 			}
@@ -68,5 +68,4 @@ public class ItemCLI
 		return "";
 	}
 
-	
 }

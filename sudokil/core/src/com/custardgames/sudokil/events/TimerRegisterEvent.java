@@ -6,7 +6,7 @@ public class TimerRegisterEvent extends BaseEvent
 {
 	private UUID owner;
 	private float duration;
-	
+
 	public TimerRegisterEvent(UUID owner, float duration)
 	{
 		this.owner = owner;
@@ -22,6 +22,5 @@ public class TimerRegisterEvent extends BaseEvent
 	{
 		return duration;
 	}
-	
-	
+
 }

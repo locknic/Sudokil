@@ -72,7 +72,8 @@ public class MapManager implements EventListener
 		if (((TiledMapTileLayer) map.getLayers().get("floor")).getCell(xPosition, yPosition) != null)
 		{
 			Entity blockingEntity = getCellEntity(xPosition, yPosition);
-			if (blockingEntity == null || (entity.getComponent(BlockingComponent.class) == null || !entity.getComponent(BlockingComponent.class).isBlocking()) || (blockingEntity.getComponent(BlockingComponent.class) == null || !blockingEntity.getComponent(BlockingComponent.class).isBlocking()))
+			if (blockingEntity == null || (entity.getComponent(BlockingComponent.class) == null || !entity.getComponent(BlockingComponent.class).isBlocking())
+					|| (blockingEntity.getComponent(BlockingComponent.class) == null || !blockingEntity.getComponent(BlockingComponent.class).isBlocking()))
 			{
 				removeFromMap(entity);
 				addToMap(entity, xPosition, yPosition);
@@ -98,8 +99,6 @@ public class MapManager implements EventListener
 
 		return getCellEntity(xPosition, yPosition);
 	}
-	
-	
 
 	public void handleAddToMapEvent(AddToMapEvent event)
 	{

@@ -31,7 +31,7 @@ public class EventManager
 
 		listeners.get(eventType).add(listener);
 	}
-	
+
 	public void deregister(Class<?> eventType, EventListener listener)
 	{
 		if (listeners.containsKey(eventType))

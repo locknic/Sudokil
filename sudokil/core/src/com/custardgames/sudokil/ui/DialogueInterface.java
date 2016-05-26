@@ -31,9 +31,9 @@ public class DialogueInterface implements EventListener
 		this.stage = stage;
 		createWindow();
 	}
-	
+
 	public void dispose()
-	{		
+	{
 		EventManager.get_instance().deregister(DialogueEvent.class, this);
 	}
 
@@ -106,7 +106,7 @@ public class DialogueInterface implements EventListener
 		dialogueWindowButton.setVisible(false);
 		dialog.setBounds(stage.getWidth() - 410, 10, 400, 200);
 	}
-	
+
 	public void handleDialogue(DialogueEvent event)
 	{
 		consoleDialog.setText(consoleDialog.getText() + "\n" + event.getDialogue());

@@ -49,7 +49,8 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 			PositionComponent positionComponent = positionComponents.get(entity);
 			if (spriteComponent.isShouldRender())
 			{
-				sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()), (int) positionComponent.getWidth(), (int) positionComponent.getHeight());
+				sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()), (int) positionComponent.getWidth(),
+						(int) positionComponent.getHeight());
 				sprite.setPosition(positionComponent.getX(), positionComponent.getY());
 				sprite.rotate(positionComponent.getAngle());
 				sprite.draw(spriteBatch);
