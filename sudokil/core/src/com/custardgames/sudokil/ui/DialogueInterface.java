@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.custardgames.sudokil.events.commandLine.DialogueEvent;
+import com.custardgames.sudokil.events.ui.ToggleDialogueWindowEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class DialogueInterface implements EventListener
@@ -28,6 +29,7 @@ public class DialogueInterface implements EventListener
 	public DialogueInterface(Stage stage)
 	{
 		EventManager.get_instance().register(DialogueEvent.class, this);
+		EventManager.get_instance().register(ToggleDialogueWindowEvent.class, this);
 		this.stage = stage;
 		createWindow();
 	}
@@ -110,5 +112,10 @@ public class DialogueInterface implements EventListener
 	public void handleDialogue(DialogueEvent event)
 	{
 		consoleDialog.setText(consoleDialog.getText() + "\n" + event.getDialogue());
+	}
+	
+	public void handleToggleDialogueWindow(ToggleDialogueWindowEvent event)
+	{
+		showWindow();
 	}
 }

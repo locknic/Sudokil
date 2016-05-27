@@ -3,7 +3,6 @@ package com.custardgames.sudokil.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.custardgames.sudokil.Core;
 import com.custardgames.sudokil.managers.TimerManager;
 import com.custardgames.sudokil.ui.EscapeMenu;
 import com.custardgames.sudokil.ui.MapInterface;

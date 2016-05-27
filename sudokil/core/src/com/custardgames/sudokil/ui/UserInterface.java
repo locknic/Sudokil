@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.events.commandLine.CloseCommandLineWindowEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
+import com.custardgames.sudokil.events.ui.ToggleTerminalButtonEvent;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.FileSystemManager;
 import com.custardgames.sudokil.managers.InputManager;
@@ -26,7 +27,7 @@ public class UserInterface extends Stage implements EventListener
 	private CommandLineInterface previousFocus;
 	private int maxWindows;
 	private Button newTerminalWindow;
-	// private DialogueInterface dialogueInterface;
+	private DialogueInterface dialogueInterface;
 	private FileSystemManager fileSystemManager;
 
 	public UserInterface()
@@ -34,7 +35,8 @@ public class UserInterface extends Stage implements EventListener
 		InputManager.get_instance().addProcessor(this);
 		EventManager.get_instance().register(ConsoleConnectEvent.class, this);
 		EventManager.get_instance().register(CloseCommandLineWindowEvent.class, this);
-
+		EventManager.get_instance().register(ToggleTerminalButtonEvent.class, this);
+		
 		root = "maps/campaign/level1/filesystem.json";
 
 		fileSystemManager = new FileSystemManager();
@@ -43,7 +45,7 @@ public class UserInterface extends Stage implements EventListener
 		windows = new Array<CommandLineInterface>();
 		maxWindows = 5;
 
-		new DialogueInterface(this);
+		dialogueInterface = new DialogueInterface(this);
 
 		this.getRoot().addCaptureListener(new InputListener()
 		{
@@ -100,6 +102,15 @@ public class UserInterface extends Stage implements EventListener
 
 		generateUI();
 	}
+	
+	public void dispose()
+	{
+		EventManager.get_instance().deregister(ConsoleConnectEvent.class, this);
+		EventManager.get_instance().deregister(CloseCommandLineWindowEvent.class, this);
+		EventManager.get_instance().deregister(ToggleTerminalButtonEvent.class, this);
+		
+		dialogueInterface.dispose();
+	}
 
 	public UserInterface getOuter()
 	{
@@ -110,6 +121,7 @@ public class UserInterface extends Stage implements EventListener
 	{
 		this.getViewport().setWorldSize(width, height);
 		this.getViewport().update(width, height, true);
+		dialogueInterface.resize(width, height);
 	}
 
 	public void addCLI()
@@ -188,7 +200,12 @@ public class UserInterface extends Stage implements EventListener
 				}
 			}
 		}
-
+	}
+	
+	public void handleToggleTerminalButton(ToggleTerminalButtonEvent event)
+	{
+		newTerminalWindow.setVisible(event.isButtonVisible());
+		newTerminalWindow.setDisabled(event.isButtonVisible());
 	}
 
 }

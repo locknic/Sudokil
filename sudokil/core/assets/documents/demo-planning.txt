@@ -1,0 +1,26 @@
+Demo level tutorial planning
+
+SCREEN : Blank screen with message icon in bottom right
+TRIGGER : User clicks on message icon
+SCREEN : Message window opens
+MESSAGE : "Hello, my name is Rob. Welcome to your first robot scripting class."
+TIMER : 3 seconds
+MESSAGE : "Let's go ahead and get you started with the terminal window."
+SCREEN : Terminal icon appears at the bottom left
+TRIGGER : User clicks on terminal icon
+MESSAGE : "OK. Let's get the camera turned on first of all."
+MESSAGE : "Go ahead and type 'ls' to list the files and directories in your current folder."
+TRIGGER : User types ls 
+MESSAGE : "Great, now we can see that there is a folder called camera."
+MESSAGE : "Go ahead and type 'cd camera' to change directory into camera."
+TRIGGER : User types cd camera 
+MESSAGE : "Now if you type ls again, you will see all the files inside the camera directory."
+MESSAGE : "We want to run the stript called 'start.sh', so go ahead and type start.sh"
+TRIGGER : User types start.sh
+SCREEN : Map becomes visible 
+MESSAGE : "There we go! You can now see our scenario."
+MESSAGE : "Poor ol Greg has locked itself in the supply closet, you have to help it out."
+MESSAGE : "Control the camera by dragging the mouse around, and scrolling to zoom."
+MESSAGE : "If you type 'cd ..', it will return you back to the parent directory (where we started from)."
+TRIGGER : User goes into parent directory 
+MESSAGE : 

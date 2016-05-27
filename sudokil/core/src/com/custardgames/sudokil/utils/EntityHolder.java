@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.entities.ecs.factories;
+package com.custardgames.sudokil.utils;
 
 import com.artemis.Component;
 import com.badlogic.gdx.utils.Array;
