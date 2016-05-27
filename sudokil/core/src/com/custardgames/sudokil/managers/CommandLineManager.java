@@ -71,11 +71,16 @@ public class CommandLineManager implements EventListener
 		cd.setOptionalArg(true);
 		options.addOption(cd);
 
-		Option mv = new Option("mv", "Move");
+		Option mv = new Option("mv", "Moves a file or directory into another directory.");
 		mv.setArgs(2);
 		mv.setOptionalArg(false);
 		options.addOption(mv);
-
+		
+		Option cp = new Option("cp", "Copies a file or directory into another directory.");
+		cp.setArgs(2);
+		cp.setOptionalArg(false);
+		options.addOption(cp);
+		
 		Option sh = new Option("sh", "Run the script using shell script.");
 		sh.setArgs(Option.UNLIMITED_VALUES);
 		sh.setOptionalArg(false);
@@ -295,6 +300,74 @@ public class CommandLineManager implements EventListener
 			EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! No such file or directory."));
 		}
 	}
+	
+	public void copyItem(String[] args)
+	{
+		if (args[0] != null && args[0].length() > 0 && args[1] != null && args[1].length() > 0)
+		{
+			ItemCLI sourceItem = findItem(args[0]);
+
+			ItemCLI destinationItem = findItem(args[1]);
+
+			if (sourceItem != null && sourceItem != root)
+			{
+				if (destinationItem != null)
+				{
+					if (destinationItem instanceof FolderCLI)
+					{
+						if (!((FolderCLI) destinationItem).nameTaken(sourceItem.getName()))
+						{
+							((FolderCLI) destinationItem).addChild(sourceItem.copy());
+						}
+						else
+						{
+							EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! Name already in use."));
+						}
+					}
+					else
+					{
+						EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! Destination not a directory."));
+					}
+				}
+				else
+				{
+					String location = "";
+					String[] locations;
+					locations = args[1].split("(?<=/)");
+					for (int x = 0; x < locations.length - 1; x++)
+					{
+						location += locations[x];
+					}
+					ItemCLI parent = findItem(location);
+					if (parent != null && parent instanceof FolderCLI)
+					{
+						if (!((FolderCLI) parent).nameTaken(locations[locations.length - 1]))
+						{
+							ItemCLI newItem = sourceItem.copy();
+							newItem.setName(locations[locations.length - 1]);
+							((FolderCLI) parent).addChild(newItem);
+						}
+						else
+						{
+							EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! Name already in use."));
+						}
+					}
+					else
+					{
+						EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! No such destination file or directory."));
+					}
+				}
+			}
+			else
+			{
+				EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! No such source file or directory."));
+			}
+		}
+		else
+		{
+			EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! No such file or directory."));
+		}
+	}
 
 	public void parseCommands(String[] args)
 	{
@@ -325,6 +398,10 @@ public class CommandLineManager implements EventListener
 			else if (commandLine.hasOption("mv"))
 			{
 				moveItem(commandLine.getOptionValues("mv"));
+			}
+			else if (commandLine.hasOption("cp"))
+			{
+				copyItem(commandLine.getOptionValues("cp"));
 			}
 			else if (commandLine.hasOption("sh"))
 			{

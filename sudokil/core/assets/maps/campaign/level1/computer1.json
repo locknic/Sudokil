@@ -1,5 +1,6 @@
 {
-deviceName: computer1,
+deviceName : computer1,
+name : computer1,
 children: [
 	{
 		class: com.custardgames.sudokil.ui.cli.FolderCLI,

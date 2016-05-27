@@ -2,7 +2,7 @@ package com.custardgames.sudokil.events;
 
 import com.custardgames.sudokil.ui.cli.RootCLI;
 
-public class PingFileSystemEvent
+public class PingFileSystemEvent extends BaseEvent
 {
 	private String assetLocation;
 	private RootCLI fileSystem;

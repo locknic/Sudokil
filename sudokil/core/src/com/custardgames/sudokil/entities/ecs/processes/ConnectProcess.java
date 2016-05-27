@@ -39,7 +39,6 @@ public class ConnectProcess extends EntityProcess implements EventListener
 					PingFileSystemEvent event = (PingFileSystemEvent) EventManager.get_instance()
 							.broadcastInquiry(new PingFileSystemEvent(connectableComponent.getFileLocation()));
 
-					event.getFileSystem();
 					if (event.getFileSystem() != null)
 					{
 						EventManager.get_instance().broadcast(new ConsoleConnectEvent(consoleUUID, event.getFileSystem()));

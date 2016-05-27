@@ -1,5 +1,6 @@
 {
-deviceName: pip-boy,
+deviceName : pip-boy,
+name : pip-boy,
 children: 
 [
 	{

@@ -205,7 +205,7 @@ public class UserInterface extends Stage implements EventListener
 	public void handleToggleTerminalButton(ToggleTerminalButtonEvent event)
 	{
 		newTerminalWindow.setVisible(event.isButtonVisible());
-		newTerminalWindow.setDisabled(event.isButtonVisible());
+		newTerminalWindow.setDisabled(!event.isButtonVisible());
 	}
 
 }
