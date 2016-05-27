@@ -30,21 +30,10 @@ public class EventTriggerSystem extends EntityProcessingSystem
 
 		if (!triggerEntityComponent.isTriggered() || triggerEntityComponent.isLooping())
 		{
-			if (triggerEntityComponent.isNeedsAllConditions())
+			if (triggerConditionsComponent.isTriggered())
 			{
-				if (triggerConditionsComponent.isAllTriggered())
-				{
-					triggerEntityComponent.setTriggered(true);
-					triggerReactionsComponent.triggerReactions();
-				}
-			}
-			else
-			{
-				if (triggerConditionsComponent.isTriggered())
-				{
-					triggerEntityComponent.setTriggered(true);
-					triggerReactionsComponent.triggerReactions();
-				}
+				triggerEntityComponent.setTriggered(true);
+				triggerReactionsComponent.triggerReactions();
 			}
 		}
 
