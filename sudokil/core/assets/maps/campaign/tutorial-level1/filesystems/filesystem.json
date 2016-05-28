@@ -1,0 +1,39 @@
+{
+deviceName : pip-boy,
+name : pip-boy,
+children: 
+[
+	{
+		class: FolderCLI,
+		name: camera,
+		children: 
+		[
+			{
+				class: ScriptCLI,
+				name: start.sh,
+				event:
+				{
+					class : ToggleMapRenderEvent,
+					shouldRender : true,
+				}
+			},
+			{
+				class: ScriptCLI,
+				name: target.sh,
+				event:
+				{
+					class: CameraTargetEvent,
+				}
+			},
+			{
+				class: ScriptCLI,
+				name: reset.sh,
+				event:
+				{
+					class: CameraResetEvent,
+				}
+			},
+		]
+	},
+]
+}

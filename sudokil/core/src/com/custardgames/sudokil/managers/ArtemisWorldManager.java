@@ -33,6 +33,7 @@ import com.custardgames.sudokil.entities.ecs.systems.WiredConnectionSystem;
 import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.entities.CreateEntityEvent;
 import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
+import com.custardgames.sudokil.states.JsonTags;
 import com.custardgames.sudokil.states.LevelData;
 import com.custardgames.sudokil.utils.EntityHolder;
 
@@ -117,6 +118,8 @@ public class ArtemisWorldManager implements EventListener
 	public void createEntitiesFromJson(String fileLocation)
 	{
 		Json json = new Json();
+		JsonTags jsonTags = json.fromJson(JsonTags.class, Gdx.files.internal("data/tags.json"));
+		jsonTags.addTags(json);
 		EntityHolder componentFactory = json.fromJson(EntityHolder.class, Gdx.files.internal(fileLocation));
 		Array<Array<Component>> entities = componentFactory.getComponents();
 		for (Array<Component> components : entities)

@@ -37,7 +37,7 @@ public class AreaTriggerCondition extends BaseTriggerCondition implements EventL
 	{
 		return triggered;
 	}
-	
+
 	public void handleAddToMap(AddToMapEvent event)
 	{
 		EntityComponent entityComponent = event.getEntity().getComponent(EntityComponent.class);
@@ -46,7 +46,7 @@ public class AreaTriggerCondition extends BaseTriggerCondition implements EventL
 			positionComponent = event.getEntity().getComponent(PositionComponent.class);
 		}
 	}
-	
+
 	public void handleRemoveFromMap(RemoveFromMapEvent event)
 	{
 		EntityComponent entityComponent = event.getEntity().getComponent(EntityComponent.class);
@@ -58,21 +58,24 @@ public class AreaTriggerCondition extends BaseTriggerCondition implements EventL
 
 	public void handleEntityMoved(EntityMovedEvent event)
 	{
-		EntityComponent entityComponent = event.getEntity().getComponent(EntityComponent.class);
-		if (entityComponent.getId().equals(entityID))
+		if (isRunning())
 		{
-			if (positionComponent != null && positionComponent.getX() >= triggerAreaMinX && positionComponent.getY() >= triggerAreaMinY
-					&& positionComponent.getX() <= triggerAreaMaxX && positionComponent.getY() <= triggerAreaMaxY)
+			EntityComponent entityComponent = event.getEntity().getComponent(EntityComponent.class);
+			if (entityComponent.getId().equals(entityID))
 			{
-				triggered = true;
-			}
-			else
-			{
-				triggered = false;
+				if (positionComponent != null && positionComponent.getX() >= triggerAreaMinX && positionComponent.getY() >= triggerAreaMinY
+						&& positionComponent.getX() <= triggerAreaMaxX && positionComponent.getY() <= triggerAreaMaxY)
+				{
+					triggered = true;
+				}
+				else
+				{
+					triggered = false;
+				}
 			}
 		}
 	}
-	
+
 	public void handleDisposeWorld(DisposeWorldEvent event)
 	{
 		EventManager.get_instance().deregister(DisposeWorldEvent.class, this);

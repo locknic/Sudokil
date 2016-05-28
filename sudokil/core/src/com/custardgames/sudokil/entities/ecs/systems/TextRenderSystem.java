@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
@@ -32,11 +33,12 @@ public class TextRenderSystem extends EntityProcessingSystem
 	{
 		super(Aspect.all(TextTagComponent.class, PositionComponent.class));
 
-		generator = new FreeTypeFontGenerator(Gdx.files.internal("data/fonts/TerminusTTF-4.39.ttf"));
+		generator = new FreeTypeFontGenerator(Gdx.files.internal("data/fonts/TerminusTTF-Bold-4.39.ttf"));
 		parameter = new FreeTypeFontParameter();
-		parameter.size = 32;
+		parameter.size = 16;
 		font = generator.generateFont(parameter);
 		generator.dispose();
+
 	}
 
 	@Override
@@ -60,9 +62,9 @@ public class TextRenderSystem extends EntityProcessingSystem
 			PositionComponent positionComponent = positionComponents.get(entity);
 			if (textTagComponent.isShouldRender())
 			{
-				font.getData().setScale(0.3f);
-				font.draw(spriteBatch, textTagComponent.getText(), positionComponent.getX() + textTagComponent.getDeltaX(),
-						positionComponent.getY() + textTagComponent.getDeltaY());
+				GlyphLayout layout = new GlyphLayout(font, textTagComponent.getText());
+				font.draw(spriteBatch, textTagComponent.getText(), positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2,
+						positionComponent.getY() + positionComponent.getHeight() + textTagComponent.getDeltaY() + layout.height);
 			}
 		}
 	}

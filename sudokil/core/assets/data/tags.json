@@ -1,0 +1,137 @@
+{
+	tags : 
+	[
+		{
+			name : EntityComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
+		},
+		{
+			name : PositionComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
+		},
+		{
+			name : VelocityComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.VelocityComponent,
+		},
+		{
+			name : CharacterInputComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.CharacterInputComponent,
+		},
+		{
+			name : SpriteComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
+		},
+		{
+			name : TextTagComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
+		},
+		{
+			name : BlockingComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+		},
+		{
+			name : LifterComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.LifterComponent,
+		},
+		{
+			name : ActivityBlockingComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent,
+		},
+		{
+			name : ProcessQueueComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
+		},
+		{
+			name : CameraInputComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.CameraInputComponent,
+		},
+		{
+			name : TriggerEntityComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerEntityComponent,
+		},
+		{
+			name : TriggerConditionsComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerConditionsComponent,
+		},
+		{
+			name : TriggerReactionsComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerReactionsComponent,
+		},
+		{
+			name : ChangeLevelEvent,
+			className : com.custardgames.sudokil.events.ChangeLevelEvent,
+		},
+		{
+			name : CopyItemBetweenFileSystemsEvent,
+			className : com.custardgames.sudokil.events.CopyItemBetweenFileSystemsEvent,
+		},
+		{
+			name : SetTriggerEvent,
+			className : com.custardgames.sudokil.events.entities.SetTriggerEvent,
+		},
+		{
+			name : ForwardEvent,
+			className : com.custardgames.sudokil.events.entities.commands.ForwardEvent,
+		},
+		{
+			name : BackwardEvent,
+			className : com.custardgames.sudokil.events.entities.commands.BackwardEvent,
+		},
+		{
+			name : CameraTargetEvent,
+			className : com.custardgames.sudokil.events.entities.commands.camera.CameraTargetEvent,
+		},
+		{
+			name : CameraResetEvent,
+			className : com.custardgames.sudokil.events.entities.commands.camera.CameraResetEvent,
+		},
+		{
+			name : ToggleMapRenderEvent,
+			className : com.custardgames.sudokil.events.ui.ToggleMapRenderEvent,
+		},
+		{
+			name : ToggleTerminalButtonEvent,
+			className : com.custardgames.sudokil.events.ui.ToggleTerminalButtonEvent,
+		},
+		{
+			name : ToggleDialogueWindowEvent,
+			className : com.custardgames.sudokil.events.ui.ToggleDialogueWindowEvent,
+		},
+		{
+			name : EventHappenedCondition,
+			className : com.custardgames.sudokil.triggers.conditions.EventHappenedCondition,
+		},
+		{
+			name : ChangeDirectoryCondition,
+			className : com.custardgames.sudokil.triggers.conditions.ChangeDirectoryCondition,
+		},
+		{
+			name : TimedTriggerCondition,
+			className : com.custardgames.sudokil.triggers.conditions.TimedTriggerCondition,
+		},
+		{
+			name : EntityCommandCondition,
+			className : com.custardgames.sudokil.triggers.conditions.EntityCommandCondition,
+		},
+		{
+			name : PrintDialogueReaction,
+			className : com.custardgames.sudokil.triggers.reactions.PrintDialogueReaction,
+		},
+		{
+			name : TriggerReactionArray,
+			className : com.custardgames.sudokil.triggers.reactions.TriggerReactionArray,
+		},
+		{
+			name : BroadcastEventReaction,
+			className : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+		},
+		{
+			name : FolderCLI,
+			className : com.custardgames.sudokil.ui.cli.FolderCLI,
+		},
+		{
+			name : ScriptCLI,
+			className : com.custardgames.sudokil.ui.cli.ScriptCLI,
+		},
+	],
+}

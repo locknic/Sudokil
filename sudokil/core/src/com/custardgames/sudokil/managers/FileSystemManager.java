@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 import com.custardgames.sudokil.events.CopyItemBetweenFileSystemsEvent;
 import com.custardgames.sudokil.events.PingFileSystemEvent;
+import com.custardgames.sudokil.states.JsonTags;
 import com.custardgames.sudokil.ui.cli.FolderCLI;
 import com.custardgames.sudokil.ui.cli.ItemCLI;
 import com.custardgames.sudokil.ui.cli.RootCLI;
@@ -32,6 +33,8 @@ public class FileSystemManager implements EventListener
 	public void addFileSystem(String location)
 	{
 		Json json = new Json();
+		JsonTags jsonTags = json.fromJson(JsonTags.class, Gdx.files.internal("data/tags.json"));
+		jsonTags.addTags(json);
 		RootCLI root = json.fromJson(RootCLI.class, Gdx.files.internal(location));
 		linkChildren(root);
 		fileSystems.put(location, root);

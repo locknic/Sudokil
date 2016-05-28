@@ -23,6 +23,7 @@ import com.custardgames.sudokil.events.commandLine.AutocompleteResponseEvent;
 import com.custardgames.sudokil.events.commandLine.ChangedDirectoryEvent;
 import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
+import com.custardgames.sudokil.events.commandLine.ListDirectoryEvent;
 import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
 import com.custardgames.sudokil.events.entities.commands.StopCommandsEvent;
 import com.custardgames.sudokil.ui.cli.FolderCLI;
@@ -188,6 +189,7 @@ public class CommandLineManager implements EventListener
 		{
 			output += child.getName() + "\n";
 		}
+		EventManager.get_instance().broadcast(new ListDirectoryEvent(ownerUI));
 		EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, output));
 	}
 

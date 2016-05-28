@@ -1,0 +1,470 @@
+{
+	entities :
+	[
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 0,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ToggleMapRenderEvent,
+								shouldRender : false,
+							}
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ToggleTerminalButtonEvent,
+								buttonVisible : false,
+							}
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ToggleDialogueWindowEvent,
+								open : false,
+							}
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 1,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ToggleDialogueWindowEvent,
+								open : true,
+							}
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 2.5,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Hello, and welcome to your first robot scripting class",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 4,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ToggleTerminalButtonEvent,
+								buttonVisible : true,
+							}
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 5,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Go ahead and open a terminal window",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : true,
+					className : com.custardgames.sudokil.events.ui.TerminalOpenedEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger1,
+								running : true,
+							},
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : trigger1
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : false,
+					duration : 1,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: OK. Let's get the camera turned on first of all",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : trigger1
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : false,
+					duration : 2,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Go ahead and type 'ls' to list the files and directories in your current folder",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : true,
+					className : com.custardgames.sudokil.events.commandLine.ListDirectoryEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger2,
+								running : true,
+							},
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : trigger2
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : false,
+					duration : 1,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "We can see that there is a folder called camera",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : trigger2
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : false,
+					duration : 2,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Type 'cd camera' to change directory into camera",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : ChangeDirectoryCondition,
+					running : true,
+					triggerDirectory : camera,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Now if you type ls again, you will see all the files inside the camera directory",
+						},
+					]
+				}
+			},
+		],
+		
+		
+		
+		
+		
+		
+		
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					duration : 10,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : CopyItemBetweenFileSystemsEvent,
+								sourceFileSystem : maps/campaign/level1/filesystems/stash.json,
+								targetFileSystem : maps/campaign/level1/filesystems/filesystem.json,
+								sourceItemLocation : "robot1",
+								targetItemLocation : "/",
+							}
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EntityCommandCondition,
+					className : com.custardgames.sudokil.events.entities.commands.ForwardEvent,
+					entityName : robot1,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ChangeLevelEvent,
+								levelDataLocation : "maps/campaign/level1/level1.json",
+							}
+						},
+					]
+				}
+			},
+		],
+	]
+	
+}

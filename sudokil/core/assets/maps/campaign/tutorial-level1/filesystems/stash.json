@@ -1,0 +1,30 @@
+{
+deviceName : stash,
+name : stash,
+children: 
+[
+	{
+		class: FolderCLI,
+		name: robot1,
+		children: 
+		[
+			{
+				class: ScriptCLI,
+				name: forward.sh,
+				event:
+				{
+					class: ForwardEvent,
+				}
+			},
+			{
+				class: ScriptCLI,
+				name: backward.sh,
+				event:
+				{
+					class: BackwardEvent,
+				}
+			},
+		]
+	},
+]
+}

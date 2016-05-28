@@ -1,5 +1,6 @@
 package com.custardgames.sudokil.ui;
 
+import java.util.Calendar;
 import java.util.EventListener;
 
 import com.badlogic.gdx.Gdx;
@@ -26,6 +27,8 @@ public class DialogueInterface implements EventListener
 	private ScrollPane consoleScroll;
 	private Button dialogueWindowButton;
 
+	private int updateScroll;
+	
 	public DialogueInterface(Stage stage)
 	{
 		EventManager.get_instance().register(DialogueEvent.class, this);
@@ -45,7 +48,7 @@ public class DialogueInterface implements EventListener
 
 		TextButton closeButton = new TextButton("X", skin);
 
-		dialog = new Window("Custard Chat", skin);
+		dialog = new Window("irc", skin);
 		dialog.setBounds(stage.getWidth() - 410, 10, 400, 200);
 		dialog.setResizable(true);
 		dialog.setKeepWithinStage(true);
@@ -53,7 +56,7 @@ public class DialogueInterface implements EventListener
 		dialog.left().top();
 		dialog.setResizeBorder(5);
 
-		consoleDialog = new Label("Connecting... \n Connection succesful", skin);
+		consoleDialog = new Label("Connecting... Connection successful", skin);
 		consoleDialog.setWrap(true);
 
 		Table scrollTable = new Table();
@@ -106,16 +109,37 @@ public class DialogueInterface implements EventListener
 	{
 		dialog.setVisible(true);
 		dialogueWindowButton.setVisible(false);
-		dialog.setBounds(stage.getWidth() - 410, 10, 400, 200);
+//		dialog.setBounds(stage.getWidth() - 410, 10, 400, 200);
+	}
+	
+	public void act()
+	{
+		if (updateScroll > 0)
+		{
+			consoleScroll.setScrollPercentX(0);
+			consoleScroll.setScrollPercentY(100);
+			consoleScroll.updateVisualScroll();
+			updateScroll--;
+		}
 	}
 
 	public void handleDialogue(DialogueEvent event)
 	{
-		consoleDialog.setText(consoleDialog.getText() + "\n" + event.getDialogue());
+		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		int min = Calendar.getInstance().get(Calendar.MINUTE);
+		consoleDialog.setText(consoleDialog.getText() + "\n" + "[" + String.format("%02d", hour) + ":" + String.format("%02d", min) + "] " +  event.getDialogue());
+		updateScroll += 2;
 	}
 	
 	public void handleToggleDialogueWindow(ToggleDialogueWindowEvent event)
 	{
-		showWindow();
+		if(event.isOpen())
+		{
+			showWindow();
+		}
+		else
+		{
+			hideWindow();
+		}
 	}
 }

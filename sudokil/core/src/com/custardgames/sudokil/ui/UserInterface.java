@@ -17,10 +17,12 @@ import com.badlogic.gdx.utils.Json;
 import com.custardgames.sudokil.events.ChangeLevelEvent;
 import com.custardgames.sudokil.events.commandLine.CloseCommandLineWindowEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
+import com.custardgames.sudokil.events.ui.TerminalOpenedEvent;
 import com.custardgames.sudokil.events.ui.ToggleTerminalButtonEvent;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.FileSystemManager;
 import com.custardgames.sudokil.managers.InputManager;
+import com.custardgames.sudokil.states.JsonTags;
 import com.custardgames.sudokil.states.LevelData;
 
 public class UserInterface extends Stage implements EventListener
@@ -152,6 +154,7 @@ public class UserInterface extends Stage implements EventListener
 	{
 		if (windows.size < maxWindows)
 		{
+			EventManager.get_instance().broadcast(new TerminalOpenedEvent());
 			CommandLineInterface newInterface = new CommandLineInterface(this, fileSystemManager.getFileSystem(root));
 			windows.add(newInterface);
 			previousFocus = newInterface;
@@ -193,6 +196,7 @@ public class UserInterface extends Stage implements EventListener
 		{
 			e.act();
 		}
+		dialogueInterface.act();
 	}
 
 	public void handleCloseCommandLineWindow(CloseCommandLineWindowEvent event)
@@ -246,6 +250,8 @@ public class UserInterface extends Stage implements EventListener
 	public void handleChangeLevel(ChangeLevelEvent event)
 	{		
 		Json json = new Json();
+		JsonTags jsonTags = json.fromJson(JsonTags.class, Gdx.files.internal("data/tags.json"));
+		jsonTags.addTags(json);
 		LevelData levelData = json.fromJson(LevelData.class, Gdx.files.internal(event.getLevelDataLocation()));
 		changeLevel(levelData);
 	}

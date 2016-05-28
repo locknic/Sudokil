@@ -17,6 +17,28 @@ public class AndTriggerConditionArray extends BaseTriggerCondition
 	}
 	
 	@Override
+	public void start()
+	{
+		super.start();
+		
+		for (BaseTriggerCondition trigger : triggerConditions)
+		{
+			trigger.start();
+		}
+	}
+	
+	@Override
+	public void stop()
+	{
+		super.start();
+		
+		for (BaseTriggerCondition trigger : triggerConditions)
+		{
+			trigger.stop();
+		}
+	}
+	
+	@Override
 	public boolean checkConditions()
 	{
 		for (BaseTriggerCondition trigger : triggerConditions)

@@ -20,7 +20,7 @@ public class TimedTriggerCondition extends BaseTriggerCondition implements Event
 	public TimedTriggerCondition()
 	{
 		super();
-		
+
 		EventManager.get_instance().register(DisposeWorldEvent.class, this);
 	}
 
@@ -28,7 +28,18 @@ public class TimedTriggerCondition extends BaseTriggerCondition implements Event
 	{
 		EventManager.get_instance().register(TimerDoneEvent.class, this);
 		owner = UUID.randomUUID();
-
+		
+		if(isRunning())
+		{
+			EventManager.get_instance().broadcast(new TimerRegisterEvent(owner, duration));
+		}
+	}
+	
+	@Override
+	public void start()
+	{
+		super.start();
+		System.out.println("All part of the plan");
 		EventManager.get_instance().broadcast(new TimerRegisterEvent(owner, duration));
 	}
 
@@ -40,18 +51,20 @@ public class TimedTriggerCondition extends BaseTriggerCondition implements Event
 
 	public void handleTimerDoneEvent(TimerDoneEvent event)
 	{
-		if (owner == event.getOwner())
+		if (isRunning())
 		{
-			isDone = true;
+			if (owner == event.getOwner())
+			{
+				isDone = true;
+			}
 		}
 	}
-	
+
 	public void handleDisposeWorld(DisposeWorldEvent event)
 	{
 		EventManager.get_instance().deregister(DisposeWorldEvent.class, this);
 		EventManager.get_instance().deregister(TimerDoneEvent.class, this);
 	}
-
 
 	@Override
 	public void write(Json json)

@@ -25,6 +25,7 @@ import com.custardgames.sudokil.managers.ArtemisWorldManager;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.InputManager;
 import com.custardgames.sudokil.managers.MapManager;
+import com.custardgames.sudokil.states.JsonTags;
 import com.custardgames.sudokil.states.LevelData;
 import com.custardgames.sudokil.states.PlayLoadAssets;
 
@@ -303,6 +304,8 @@ public class MapInterface extends Stage implements EventListener
 	public void handleChangeLevel(ChangeLevelEvent event)
 	{		
 		Json json = new Json();
+		JsonTags jsonTags = json.fromJson(JsonTags.class, Gdx.files.internal("data/tags.json"));
+		jsonTags.addTags(json);
 		LevelData levelData = json.fromJson(LevelData.class, Gdx.files.internal(event.getLevelDataLocation()));
 		changeLevel(levelData);
 	}

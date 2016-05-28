@@ -5,20 +5,19 @@ import java.util.EventListener;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Json.Serializable;
 import com.badlogic.gdx.utils.JsonValue;
+import com.custardgames.sudokil.events.BaseEvent;
 import com.custardgames.sudokil.events.DisposeWorldEvent;
-import com.custardgames.sudokil.events.entities.commands.EntityCommandEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
-public class EntityCommandCondition extends BaseTriggerCondition implements EventListener, Serializable
+public class EventHappenedCondition extends BaseTriggerCondition implements EventListener, Serializable
 {
 	private boolean triggered;
 
-	private String entityName;
 	private String className;
 
 	private Class<?> eventType;
 
-	public EntityCommandCondition()
+	public EventHappenedCondition()
 	{
 		EventManager.get_instance().register(DisposeWorldEvent.class, this);
 	}
@@ -48,11 +47,11 @@ public class EntityCommandCondition extends BaseTriggerCondition implements Even
 		EventManager.get_instance().deregister(eventType, this);
 	}
 
-	public void handleEvent(EntityCommandEvent event)
+	public void handleEvent(BaseEvent event)
 	{
 		if (isRunning())
 		{
-			if (event.getEntityName().equals(entityName))
+			if (eventType.isInstance(event))
 			{
 				triggered = true;
 			}

@@ -1,0 +1,16 @@
+{
+	entities :
+	[	
+		[
+			{
+				class : EntityComponent,
+				id : camera,
+			},
+			{
+				class : CameraInputComponent,
+				panSpeed : 1,
+			}
+		],
+	]
+	
+}

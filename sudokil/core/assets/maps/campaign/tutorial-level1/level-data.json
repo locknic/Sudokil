@@ -1,0 +1,27 @@
+{
+	mapLocation : "maps/campaign/tutorial-level1/level.tmx",
+	entities : 
+	[
+		"maps/campaign/tutorial-level1/entities/robots.json", 
+		"maps/campaign/tutorial-level1/entities/entities.json", 
+		"maps/campaign/tutorial-level1/entities/triggers.json",
+	],
+	playerFilesystem : "maps/campaign/tutorial-level1/filesystems/filesystem.json",
+	filesystems : 
+	[
+		"maps/campaign/tutorial-level1/filesystems/stash.json",
+	],
+	images : 
+	[
+		"images/player/robot1.png"
+		"images/entities/door-on-1.png",
+		"images/entities/door-on-2.png",
+		"images/entities/door-off.png",
+		"images/entities/computer-off.png",
+		"images/entities/computer-on.png",
+		"images/entities/crate.png",
+		"images/entities/generator.png",
+		"images/entities/wire.png",
+		"images/entities/wire2.png",
+	],
+}

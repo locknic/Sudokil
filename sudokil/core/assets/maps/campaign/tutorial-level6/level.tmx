@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32" tilecount="256" columns="16">
+  <image source="../../../images/tiles/tileset1.png" width="512" height="512"/>
+  <tile id="16">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="solid" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="floor" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2VSwqAMBBDewj1/kcVF4UYMpJWR2TwQTZ++jqmYGvvsEEUS/CsG/VeX9fJjIP3zrO567pzZDmcOdS+nnKM9lDR0VEOJroeoRx8rqo48LtiH3xvpA/XcWSFZDjunKtsB6K65T4cvuiYoYrjigyH+lf/nNkBMlzdLsQJAAA=
+  </data>
+ </layer>
+ <layer name="tiles" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+WUUQrAMAhDvYKF3f+q+xqEzBWtYWNbQEqF9jWoNZvLIZRyO9/NuS67cm6VMWDNeOoyUE5rRxEj8tFR9F72xPu/Mu6ox1f66ophtB8QVWbEiGq8QVQZmb7q+sgyOnpyPqJ3qBmKP33GUEs5z3jn0Ys8z0pGJb/KQB/s5w3aATIdXCTECQAA
+  </data>
+ </layer>
+ <layer name="objects" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwWAE7lOYYUFeMglEwCgYjAABsCDLNxAkAAA==
+  </data>
+ </layer>
+</map>

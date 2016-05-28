@@ -28,6 +28,8 @@ public class Play implements Screen
 		timerManager = new TimerManager();
 		
 		Json json = new Json();
+		JsonTags jsonTags = json.fromJson(JsonTags.class, Gdx.files.internal("data/tags.json"));
+		jsonTags.addTags(json);
 		levelData = json.fromJson(LevelData.class, Gdx.files.internal(levelDataLocation));
 		ui = new UserInterface(levelData);
 		mapWorld = new MapInterface(levelData);
