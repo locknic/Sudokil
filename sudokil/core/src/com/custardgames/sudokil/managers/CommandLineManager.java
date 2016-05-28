@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.events.BaseEvent;
 import com.custardgames.sudokil.events.commandLine.AutocompleteRequestEvent;
 import com.custardgames.sudokil.events.commandLine.AutocompleteResponseEvent;
+import com.custardgames.sudokil.events.commandLine.ChangedDirectoryEvent;
 import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
 import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
@@ -196,6 +197,7 @@ public class CommandLineManager implements EventListener
 			if (newItem instanceof FolderCLI)
 			{
 				currentItem = (FolderCLI) newItem;
+				EventManager.get_instance().broadcast(new ChangedDirectoryEvent(newItem.getName()));
 			}
 			else if (newItem instanceof ItemCLI)
 			{

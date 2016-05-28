@@ -10,10 +10,10 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerConditionsComponent,
 				triggerCondition : 
-					{
-						class : com.custardgames.sudokil.triggers.conditions.TimedTriggerCondition,
-						duration : 0.1,
-					}
+				{
+					class : com.custardgames.sudokil.triggers.conditions.TimedTriggerCondition,
+					duration : 0.1,
+				}
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerReactionsComponent,
@@ -59,10 +59,10 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerConditionsComponent,
 				triggerCondition : 
-					{
-						class : com.custardgames.sudokil.triggers.conditions.TimedTriggerCondition,
-						duration : 5,
-					}
+				{
+					class : com.custardgames.sudokil.triggers.conditions.TimedTriggerCondition,
+					duration : 5,
+				}
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerReactionsComponent,
@@ -71,14 +71,6 @@
 					class : com.custardgames.sudokil.triggers.reactions.TriggerReactionArray
 					triggerReactions : 
 					[
-						{
-							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
-							event : 
-							{
-								class : com.custardgames.sudokil.events.ui.ToggleMapRenderEvent,
-								shouldRender : true,
-							}
-						},
 						{
 							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
 							event : 
@@ -100,10 +92,10 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerConditionsComponent,
 				triggerCondition : 
-					{
-						class : com.custardgames.sudokil.triggers.conditions.TimedTriggerCondition,
-						duration : 10,
-					}
+				{
+					class : com.custardgames.sudokil.triggers.conditions.TimedTriggerCondition,
+					duration : 10,
+				}
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerReactionsComponent,
@@ -117,9 +109,46 @@
 							event : 
 							{
 								class : com.custardgames.sudokil.events.CopyItemBetweenFileSystemsEvent,
-								sourceFileSystem : maps/campaign/level1/computer1.json,
-								targetFileSystem : maps/campaign/level1/filesystem.json,
-								sourceItemLocation : "/",
+								sourceFileSystem : maps/campaign/level1/filesystems/stash.json,
+								targetFileSystem : maps/campaign/level1/filesystems/filesystem.json,
+								sourceItemLocation : "robot1",
+								targetItemLocation : "/",
+							}
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerEntityComponent,
+				looping : false,
+				needsAllConditions : false,
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : com.custardgames.sudokil.triggers.conditions.EntityCommandCondition,
+					className : com.custardgames.sudokil.events.entities.commands.ForwardEvent,
+					entityName : robot1,
+				}
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : com.custardgames.sudokil.triggers.reactions.TriggerReactionArray
+					triggerReactions : 
+					[
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : com.custardgames.sudokil.events.CopyItemBetweenFileSystemsEvent,
+								sourceFileSystem : maps/campaign/level1/filesystems/stash.json,
+								targetFileSystem : maps/campaign/level1/filesystems/filesystem.json,
+								sourceItemLocation : "robot2",
 								targetItemLocation : "/",
 							}
 						},

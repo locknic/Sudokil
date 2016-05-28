@@ -7,13 +7,13 @@ public class TimeNode
 	private UUID owner;
 
 	private float currentTimer;
-	private float endTime;
+	private float duration;
 
 	public TimeNode(UUID owner, float duration)
 	{
 		this.owner = owner;
 
-		endTime = duration;
+		this.duration = duration;
 		currentTimer = 0;
 	}
 
@@ -29,7 +29,7 @@ public class TimeNode
 
 	public boolean isFinished()
 	{
-		if (currentTimer > endTime)
+		if (currentTimer > duration)
 		{
 			return true;
 		}

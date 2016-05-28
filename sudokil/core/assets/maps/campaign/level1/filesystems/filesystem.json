@@ -1,0 +1,39 @@
+{
+deviceName : pip-boy,
+name : pip-boy,
+children: 
+[
+	{
+		class: com.custardgames.sudokil.ui.cli.FolderCLI,
+		name: camera,
+		children: 
+		[
+			{
+				class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+				name: start.sh,
+				event:
+				{
+					class : com.custardgames.sudokil.events.ui.ToggleMapRenderEvent,
+					shouldRender : true,
+				}
+			},
+			{
+				class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+				name: target.sh,
+				event:
+				{
+					class: com.custardgames.sudokil.events.entities.commands.camera.CameraTargetEvent
+				}
+			},
+			{
+				class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+				name: reset.sh,
+				event:
+				{
+					class: com.custardgames.sudokil.events.entities.commands.camera.CameraResetEvent
+				}
+			},
+		]
+	},
+]
+}

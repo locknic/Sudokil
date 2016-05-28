@@ -4,29 +4,35 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.EventListener;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
+
+import com.badlogic.gdx.utils.Array;
 
 public class EventManager
 {
 	private static EventManager _instance = new EventManager();
-	private Map<Class<?>, LinkedList<EventListener>> listeners;
+	private Map<Class<?>, Array<EventListener>> listeners;
 
 	public EventManager()
 	{
-		listeners = new HashMap<Class<?>, LinkedList<EventListener>>();
+		listeners = new HashMap<Class<?>, Array<EventListener>>();
 	}
 
 	public static EventManager get_instance()
 	{
 		return _instance;
 	}
+	
+	public void dispose()
+	{
+		listeners.clear();
+	}
 
 	public void register(Class<?> eventType, EventListener listener)
 	{
 		if (!listeners.containsKey(eventType))
 		{
-			listeners.put(eventType, new LinkedList<EventListener>());
+			listeners.put(eventType, new Array<EventListener>());
 		}
 
 		listeners.get(eventType).add(listener);
@@ -36,16 +42,16 @@ public class EventManager
 	{
 		if (listeners.containsKey(eventType))
 		{
-			if (listeners.get(eventType).contains(listener))
+			if (listeners.get(eventType).contains(listener, true))
 			{
-				listeners.get(eventType).remove(listener);
+				listeners.get(eventType).removeValue(listener, true);
 			}
 		}
 	}
 
 	public void broadcast(Object event)
 	{
-		LinkedList<EventListener> currentListeners = listeners.get(event.getClass());
+		Array<EventListener> currentListeners = listeners.get(event.getClass());
 		if (currentListeners != null)
 		{
 			for (EventListener l : currentListeners)
@@ -76,7 +82,7 @@ public class EventManager
 
 	public Object broadcastInquiry(Object event)
 	{
-		LinkedList<EventListener> currentListeners = listeners.get(event.getClass());
+		Array<EventListener> currentListeners = listeners.get(event.getClass());
 		if (currentListeners != null)
 		{
 			for (EventListener l : currentListeners)
@@ -115,6 +121,17 @@ public class EventManager
 			{
 				Class<?>[] params = m.getParameterTypes();
 				if (params.length == 1 && params[0] == eventType)
+				{
+					return m;
+				}
+			}
+		}
+		for (Method m : methods)
+		{
+			if (m.getName().startsWith("handle"))
+			{
+				Class<?>[] params = m.getParameterTypes();
+				if (params.length == 1 && params[0].isAssignableFrom(eventType))
 				{
 					return m;
 				}

@@ -66,7 +66,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 
 		for (Entity entity : searchEntities)
 		{
-			PowerGeneratorComponent powerGeneratorComponent = powerGeneratorComponents.getSafe(entity);
+			PowerGeneratorComponent powerGeneratorComponent = powerGeneratorComponents.get(entity);
 			if (powerGeneratorComponent != null)
 			{
 				if (powerGeneratorComponent.isGeneratingPower())
@@ -82,7 +82,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 	public Array<Entity> findGeneratorConnections(Entity entity, Array<Entity> entities)
 	{
 		PositionComponent positionComponent = positionComponents.get(entity);
-		PowerInputComponent powerInputComponent = powerInputComponents.getSafe(entity);
+		PowerInputComponent powerInputComponent = powerInputComponents.get(entity);
 		if (powerInputComponent != null)
 		{
 			for (int x = 0; x < 5; x++)
@@ -201,8 +201,8 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 		Entity entity = event.getEntity();
 		if (entity != null)
 		{
-			PowerInputComponent powerInputComponent = powerInputComponents.getSafe(entity);
-			PowerOutputComponent powerOutputComponent = powerOutputComponents.getSafe(entity);
+			PowerInputComponent powerInputComponent = powerInputComponents.get(entity);
+			PowerOutputComponent powerOutputComponent = powerOutputComponents.get(entity);
 			if (powerInputComponent != null || powerOutputComponent != null)
 			{
 				checkPowerActivityBlocker();
@@ -215,8 +215,8 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 		Entity entity = event.getEntity();
 		if (entity != null)
 		{
-			PowerInputComponent powerInputComponent = powerInputComponents.getSafe(entity);
-			PowerOutputComponent powerOutputComponent = powerOutputComponents.getSafe(entity);
+			PowerInputComponent powerInputComponent = powerInputComponents.get(entity);
+			PowerOutputComponent powerOutputComponent = powerOutputComponents.get(entity);
 			if (powerInputComponent != null || powerOutputComponent != null)
 			{
 				checkPowerActivityBlocker();

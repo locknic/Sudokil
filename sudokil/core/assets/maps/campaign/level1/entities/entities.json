@@ -267,7 +267,7 @@
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.ConnectableComponent,
-				fileLocation : maps/campaign/level1/computer1.json
+				fileLocation : maps/campaign/level1/filesystems/computer1.json
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
@@ -323,7 +323,7 @@
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.ConnectableComponent,
-				fileLocation : maps/campaign/level1/computer2.json
+				fileLocation : maps/campaign/level1/filesystems/computer2.json
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,

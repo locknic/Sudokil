@@ -21,6 +21,7 @@ public class TimerManager implements EventListener
 	public void dispose()
 	{
 		EventManager.get_instance().deregister(TimerRegisterEvent.class, this);
+		timeNodes.clear();
 	}
 
 	public void update(float time)

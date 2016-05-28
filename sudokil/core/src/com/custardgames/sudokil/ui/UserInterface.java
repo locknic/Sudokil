@@ -19,6 +19,7 @@ import com.custardgames.sudokil.events.ui.ToggleTerminalButtonEvent;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.FileSystemManager;
 import com.custardgames.sudokil.managers.InputManager;
+import com.custardgames.sudokil.states.LevelData;
 
 public class UserInterface extends Stage implements EventListener
 {
@@ -30,14 +31,14 @@ public class UserInterface extends Stage implements EventListener
 	private DialogueInterface dialogueInterface;
 	private FileSystemManager fileSystemManager;
 
-	public UserInterface()
+	public UserInterface(LevelData levelData)
 	{
 		InputManager.get_instance().addProcessor(this);
 		EventManager.get_instance().register(ConsoleConnectEvent.class, this);
 		EventManager.get_instance().register(CloseCommandLineWindowEvent.class, this);
 		EventManager.get_instance().register(ToggleTerminalButtonEvent.class, this);
 		
-		root = "maps/campaign/level1/filesystem.json";
+		root = levelData.getPlayerFilesystem();
 
 		fileSystemManager = new FileSystemManager();
 		fileSystemManager.addFileSystem(root);

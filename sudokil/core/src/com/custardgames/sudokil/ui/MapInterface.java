@@ -22,6 +22,7 @@ import com.custardgames.sudokil.managers.ArtemisWorldManager;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.InputManager;
 import com.custardgames.sudokil.managers.MapManager;
+import com.custardgames.sudokil.states.LevelData;
 import com.custardgames.sudokil.states.PlayLoadAssets;
 
 public class MapInterface extends Stage implements EventListener
@@ -41,12 +42,7 @@ public class MapInterface extends Stage implements EventListener
 	private boolean mouseLeft, mouseRight, mouseMiddle;
 	private boolean shouldRender;
 
-	public MapInterface()
-	{
-		init();
-	}
-
-	public void init()
+	public MapInterface(LevelData levelData)
 	{
 		InputManager.get_instance().addProcessor(this);
 		EventManager.get_instance().register(PingAssetsEvent.class, this);
@@ -56,16 +52,16 @@ public class MapInterface extends Stage implements EventListener
 		mouseX = mouseY = mouseWheelRotation = 0;
 		mouseLeft = mouseRight = mouseMiddle = false;
 
-		assetManager = new PlayLoadAssets().loadAssets(new AssetManager());
+		assetManager = new PlayLoadAssets().loadAssets(new AssetManager(), levelData);
 
-		tileMap = new TmxMapLoader().load("maps/test.tmx");
+		tileMap = new TmxMapLoader().load(levelData.getMapLocation());
 		new MapManager(tileMap);
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
 		camera = new OrthographicCamera();
 		tmr.setView(camera);
 		this.getViewport().setCamera(camera);
 
-		worldManager = new ArtemisWorldManager(camera, assetManager);
+		worldManager = new ArtemisWorldManager(camera, assetManager, levelData);
 
 		map = new Actor();
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
@@ -98,11 +94,6 @@ public class MapInterface extends Stage implements EventListener
 		camera.viewportHeight = height;
 		camera.update();
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
-	}
-
-	public void releaseAll()
-	{
-		init();
 	}
 
 	public Array<String> getKbInput()

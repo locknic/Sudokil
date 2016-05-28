@@ -6,18 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 public class PlayLoadAssets
 {
 
-	public AssetManager loadAssets(AssetManager assets)
+	public AssetManager loadAssets(AssetManager assets, LevelData levelData)
 	{
-		assets.load("images/player/robot1.png", Texture.class);
-		assets.load("images/entities/door-on-1.png", Texture.class);
-		assets.load("images/entities/door-on-2.png", Texture.class);
-		assets.load("images/entities/door-off.png", Texture.class);
-		assets.load("images/entities/computer-off.png", Texture.class);
-		assets.load("images/entities/computer-on.png", Texture.class);
-		assets.load("images/entities/crate.png", Texture.class);
-		assets.load("images/entities/generator.png", Texture.class);
-		assets.load("images/entities/wire.png", Texture.class);
-		assets.load("images/entities/wire2.png", Texture.class);
+		for (String image : levelData.getImages())
+		{
+			assets.load(image, Texture.class);
+		}
 		assets.finishLoading();
 		return assets;
 	}
