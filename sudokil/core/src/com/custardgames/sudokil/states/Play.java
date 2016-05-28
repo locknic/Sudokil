@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.Json;
-import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.TimerManager;
 import com.custardgames.sudokil.ui.EscapeMenu;
 import com.custardgames.sudokil.ui.MapInterface;
@@ -24,12 +23,12 @@ public class Play implements Screen
 	private float frameCounter;
 	private float secondCounter;
 
-	public Play()
+	public Play(String levelDataLocation)
 	{
 		timerManager = new TimerManager();
 		
 		Json json = new Json();
-		levelData = json.fromJson(LevelData.class, Gdx.files.internal("maps/campaign/level1/level1.json"));
+		levelData = json.fromJson(LevelData.class, Gdx.files.internal(levelDataLocation));
 		ui = new UserInterface(levelData);
 		mapWorld = new MapInterface(levelData);
 		escapeMenu = new EscapeMenu();
@@ -101,7 +100,6 @@ public class Play implements Screen
 		mapWorld.dispose();
 		escapeMenu.dispose();
 		timerManager.dispose();
-		EventManager.get_instance().dispose();
 	}
 
 	public void update(float dt)
@@ -128,4 +126,5 @@ public class Play implements Screen
 			escapeMenu.draw();
 		}
 	}
+	
 }

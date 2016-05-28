@@ -107,7 +107,15 @@ public class CommandLineInterface implements EventListener
 		stage.setKeyboardFocus(consoleField);
 		stage.setScrollFocus(consoleScroll);
 	}
-
+	
+	public void dispose()
+	{
+		dialog.remove();
+		parser.dispose();
+		EventManager.get_instance().deregister(ConsoleLogEvent.class, this);
+		EventManager.get_instance().deregister(AutocompleteResponseEvent.class, this);
+	}
+	
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 	{
 		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleField || event.getTarget() == consoleDialog

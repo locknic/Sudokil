@@ -8,6 +8,7 @@ import com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponen
 import com.custardgames.sudokil.entities.ecs.components.ConnectableComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
+import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.PingFileSystemEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
 import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
@@ -18,10 +19,13 @@ public class ConnectProcess extends EntityProcess implements EventListener
 	private Entity connectedTo;
 	private UUID consoleUUID;
 	private boolean disconnect;
-
+	
 	public ConnectProcess(UUID consoleUUID, Entity connectedWith, Entity connectedTo)
 	{
 		super(connectedWith);
+		
+		EventManager.get_instance().register(DisposeWorldEvent.class, this);
+
 		this.consoleUUID = consoleUUID;
 		this.connectedTo = connectedTo;
 		this.disconnect = false;
@@ -81,4 +85,9 @@ public class ConnectProcess extends EntityProcess implements EventListener
 		}
 	}
 
+	public void handleDisposeWorld(DisposeWorldEvent event)
+	{
+		EventManager.get_instance().deregister(DisposeWorldEvent.class, this);
+		EventManager.get_instance().deregister(DisconnectEvent.class, this);
+	}
 }

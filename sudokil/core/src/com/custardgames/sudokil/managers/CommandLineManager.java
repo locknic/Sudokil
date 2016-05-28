@@ -94,6 +94,12 @@ public class CommandLineManager implements EventListener
 		options.addOption("help", false, "Show the help screen.");
 
 	}
+	
+	public void dispose()
+	{
+		EventManager.get_instance().deregister(CommandLineEvent.class, this);
+		EventManager.get_instance().deregister(AutocompleteRequestEvent.class, this);
+	}
 
 	public void setRoot(RootCLI root)
 	{

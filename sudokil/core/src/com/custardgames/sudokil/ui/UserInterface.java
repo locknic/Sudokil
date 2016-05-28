@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
+import com.custardgames.sudokil.events.ChangeLevelEvent;
 import com.custardgames.sudokil.events.commandLine.CloseCommandLineWindowEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
 import com.custardgames.sudokil.events.ui.ToggleTerminalButtonEvent;
@@ -37,12 +39,18 @@ public class UserInterface extends Stage implements EventListener
 		EventManager.get_instance().register(ConsoleConnectEvent.class, this);
 		EventManager.get_instance().register(CloseCommandLineWindowEvent.class, this);
 		EventManager.get_instance().register(ToggleTerminalButtonEvent.class, this);
-		
+		EventManager.get_instance().register(ChangeLevelEvent.class, this);
+
 		root = levelData.getPlayerFilesystem();
 
 		fileSystemManager = new FileSystemManager();
 		fileSystemManager.addFileSystem(root);
 
+		for(String newFileSystem : levelData.getFilesystems())
+		{
+			fileSystemManager.addFileSystem(newFileSystem);
+		}
+		
 		windows = new Array<CommandLineInterface>();
 		maxWindows = 5;
 
@@ -102,6 +110,21 @@ public class UserInterface extends Stage implements EventListener
 		this.setKeyboardFocus(null);
 
 		generateUI();
+	}
+	
+	public void changeLevel(LevelData levelData)
+	{
+		fileSystemManager.deleteFileSystems();
+		root = levelData.getPlayerFilesystem();
+		fileSystemManager.addFileSystem(root);
+		for(String newFileSystem : levelData.getFilesystems())
+		{
+			fileSystemManager.addFileSystem(newFileSystem);
+		}
+		for(CommandLineInterface cli : windows)
+		{
+			cli.setRoot(fileSystemManager.getFileSystem(root));
+		}
 	}
 	
 	public void dispose()
@@ -180,6 +203,7 @@ public class UserInterface extends Stage implements EventListener
 			CommandLineInterface window = iterator.next();
 			if (event.getOwnerUI().equals(window.getUUID()))
 			{
+				window.dispose();
 				iterator.remove();
 			}
 		}
@@ -207,6 +231,23 @@ public class UserInterface extends Stage implements EventListener
 	{
 		newTerminalWindow.setVisible(event.isButtonVisible());
 		newTerminalWindow.setDisabled(!event.isButtonVisible());
+		
+		if (!event.isButtonVisible())
+		{
+			Iterator<CommandLineInterface> iterator = windows.iterator();
+			while (iterator.hasNext())
+			{
+				iterator.next().dispose();
+				iterator.remove();
+			}
+		}
+	}
+	
+	public void handleChangeLevel(ChangeLevelEvent event)
+	{		
+		Json json = new Json();
+		LevelData levelData = json.fromJson(LevelData.class, Gdx.files.internal(event.getLevelDataLocation()));
+		changeLevel(levelData);
 	}
 
 }

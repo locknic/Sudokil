@@ -29,6 +29,11 @@ public class MapManager implements EventListener
 		EventManager.get_instance().register(RequestMoveEvent.class, this);
 		EventManager.get_instance().register(PingCellEvent.class, this);
 
+		setMap(map);
+	}
+	
+	public void setMap(TiledMap map)
+	{
 		this.map = map;
 
 		tileWidth = map.getProperties().get("tilewidth", Integer.class);

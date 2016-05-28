@@ -22,11 +22,6 @@ public class EventManager
 	{
 		return _instance;
 	}
-	
-	public void dispose()
-	{
-		listeners.clear();
-	}
 
 	public void register(Class<?> eventType, EventListener listener)
 	{
@@ -36,6 +31,8 @@ public class EventManager
 		}
 
 		listeners.get(eventType).add(listener);
+		
+		System.out.println("REGISTERING : " + listener + ", " + eventType);
 	}
 
 	public void deregister(Class<?> eventType, EventListener listener)
@@ -47,6 +44,7 @@ public class EventManager
 				listeners.get(eventType).removeValue(listener, true);
 			}
 		}
+		System.out.println("DEREGISTERING : " + listener + ", " + eventType);
 	}
 
 	public void broadcast(Object event)
@@ -54,12 +52,15 @@ public class EventManager
 		Array<EventListener> currentListeners = listeners.get(event.getClass());
 		if (currentListeners != null)
 		{
-			for (EventListener l : currentListeners)
+			// This is janky because some event broadcasts cause classes to deregister themselves 
+			// which causes issues when trying to iterate in a for each
+			EventListener[] currentListenersArray = currentListeners.toArray(EventListener.class);
+			for (int x = 0; x < currentListenersArray.length; x++)
 			{
-				Method m = findMethod(l, event.getClass());
+				Method m = findMethod(currentListenersArray[x], event.getClass());
 				try
 				{
-					m.invoke(l, event);
+					m.invoke(currentListenersArray[x], event);
 				}
 				catch (IllegalAccessException e)
 				{

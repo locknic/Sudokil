@@ -36,6 +36,13 @@ public class FileSystemManager implements EventListener
 		linkChildren(root);
 		fileSystems.put(location, root);
 	}
+	
+	public void deleteFileSystems()
+	{
+		fileSystems.clear();
+		commandLineManager.dispose();
+		commandLineManager = new CommandLineManager(new RootCLI(), uuid);
+	}
 
 	public void linkChildren(FolderCLI parent)
 	{

@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Json.Serializable;
 import com.badlogic.gdx.utils.JsonValue;
+import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.TimerDoneEvent;
 import com.custardgames.sudokil.events.TimerRegisterEvent;
 import com.custardgames.sudokil.managers.EventManager;
@@ -19,12 +20,13 @@ public class TimedTriggerCondition extends BaseTriggerCondition implements Event
 	public TimedTriggerCondition()
 	{
 		super();
+		
+		EventManager.get_instance().register(DisposeWorldEvent.class, this);
 	}
 
 	public void init()
 	{
 		EventManager.get_instance().register(TimerDoneEvent.class, this);
-
 		owner = UUID.randomUUID();
 
 		EventManager.get_instance().broadcast(new TimerRegisterEvent(owner, duration));
@@ -43,6 +45,13 @@ public class TimedTriggerCondition extends BaseTriggerCondition implements Event
 			isDone = true;
 		}
 	}
+	
+	public void handleDisposeWorld(DisposeWorldEvent event)
+	{
+		EventManager.get_instance().deregister(DisposeWorldEvent.class, this);
+		EventManager.get_instance().deregister(TimerDoneEvent.class, this);
+	}
+
 
 	@Override
 	public void write(Json json)

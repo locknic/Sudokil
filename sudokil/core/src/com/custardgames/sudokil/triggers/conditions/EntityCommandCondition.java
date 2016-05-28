@@ -5,6 +5,7 @@ import java.util.EventListener;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Json.Serializable;
 import com.badlogic.gdx.utils.JsonValue;
+import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.entities.commands.EntityCommandEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
@@ -19,6 +20,7 @@ public class EntityCommandCondition extends BaseTriggerCondition implements Even
 	
 	public EntityCommandCondition()
 	{
+		EventManager.get_instance().register(DisposeWorldEvent.class, this);
 	}
 	
 	public void init()
@@ -38,6 +40,12 @@ public class EntityCommandCondition extends BaseTriggerCondition implements Even
 	public boolean checkConditions()
 	{
 		return triggered;
+	}
+	
+	public void handleDisposeWorld(DisposeWorldEvent event)
+	{
+		EventManager.get_instance().deregister(DisposeWorldEvent.class, this);
+		EventManager.get_instance().deregister(eventType, this);
 	}
 	
 	public void handleEvent(EntityCommandEvent event)

@@ -2,11 +2,13 @@ package com.custardgames.sudokil.managers;
 
 import java.util.EventListener;
 
+import com.artemis.Aspect;
 import com.artemis.Component;
 import com.artemis.Entity;
 import com.artemis.World;
 import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
+import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
@@ -28,25 +30,26 @@ import com.custardgames.sudokil.entities.ecs.systems.SpriteRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.TextRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.UpdatePhysicalCharacterInputSystem;
 import com.custardgames.sudokil.entities.ecs.systems.WiredConnectionSystem;
+import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.entities.CreateEntityEvent;
 import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
 import com.custardgames.sudokil.states.LevelData;
 import com.custardgames.sudokil.utils.EntityHolder;
 
-public class ArtemisWorldManager implements EventListener	
+public class ArtemisWorldManager implements EventListener
 {
 	private World artemisWorld;
-	
+
 	private SpriteRenderSystem spriteRenderSystem;
 	private TextRenderSystem textRenderSystem;
-	
+
 	public ArtemisWorldManager(Camera camera, AssetManager assetManager, LevelData levelData)
 	{
 		EventManager.get_instance().register(CreateEntityEvent.class, this);
-		
+
 		spriteRenderSystem = new SpriteRenderSystem();
 		textRenderSystem = new TextRenderSystem();
-		
+
 		WorldConfiguration config = new WorldConfigurationBuilder()
 				.with(spriteRenderSystem, textRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(),
 						new ProcessQueueSystem(), new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(),
@@ -54,13 +57,30 @@ public class ArtemisWorldManager implements EventListener
 				.build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
 
-		
+		loadLevelData(levelData);
+	}
+	
+	public void loadLevelData(LevelData levelData)
+	{
 		for (String entityLocation : levelData.getEntities())
 		{
 			createEntitiesFromJson(entityLocation);
 		}
 	}
-	
+
+	public void dispose()
+	{
+		EventManager.get_instance().broadcast(new DisposeWorldEvent());
+
+		IntBag entities = artemisWorld.getAspectSubscriptionManager().get(Aspect.all()).getEntities();
+
+		int[] ids = entities.getData();
+		for (int i = 0, s = entities.size(); s > i; i++)
+		{
+			artemisWorld.delete(ids[i]);
+		}
+	}
+
 	public void update(float dt)
 	{
 		artemisWorld.setDelta(dt);
@@ -74,7 +94,7 @@ public class ArtemisWorldManager implements EventListener
 		textRenderSystem.render(spriteBatch);
 		spriteBatch.end();
 	}
-	
+
 	public void createEntity(Array<Component> components)
 	{
 		Entity entity = artemisWorld.createEntity();
@@ -93,7 +113,7 @@ public class ArtemisWorldManager implements EventListener
 			EventManager.get_instance().broadcast(new AddToMapEvent(entity));
 		}
 	}
-	
+
 	public void createEntitiesFromJson(String fileLocation)
 	{
 		Json json = new Json();

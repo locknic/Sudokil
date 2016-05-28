@@ -6,13 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 public class PlayLoadAssets
 {
 
-	public AssetManager loadAssets(AssetManager assets, LevelData levelData)
+	public static void loadAssets(AssetManager assets, LevelData levelData)
 	{
 		for (String image : levelData.getImages())
 		{
 			assets.load(image, Texture.class);
 		}
 		assets.finishLoading();
-		return assets;
 	}
 }

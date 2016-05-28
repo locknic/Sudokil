@@ -4,6 +4,7 @@ import java.util.EventListener;
 
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
+import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.entities.EntityMovedEvent;
 import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
 import com.custardgames.sudokil.events.entities.map.RemoveFromMapEvent;
@@ -25,6 +26,7 @@ public class AreaTriggerCondition extends BaseTriggerCondition implements EventL
 	{
 		super();
 
+		EventManager.get_instance().register(DisposeWorldEvent.class, this);
 		EventManager.get_instance().register(AddToMapEvent.class, this);
 		EventManager.get_instance().register(RemoveFromMapEvent.class, this);
 		EventManager.get_instance().register(EntityMovedEvent.class, this);
@@ -69,6 +71,14 @@ public class AreaTriggerCondition extends BaseTriggerCondition implements EventL
 				triggered = false;
 			}
 		}
+	}
+	
+	public void handleDisposeWorld(DisposeWorldEvent event)
+	{
+		EventManager.get_instance().deregister(DisposeWorldEvent.class, this);
+		EventManager.get_instance().deregister(AddToMapEvent.class, this);
+		EventManager.get_instance().deregister(RemoveFromMapEvent.class, this);
+		EventManager.get_instance().deregister(EntityMovedEvent.class, this);
 	}
 
 }

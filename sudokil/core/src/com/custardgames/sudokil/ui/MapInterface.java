@@ -2,6 +2,7 @@ package com.custardgames.sudokil.ui;
 
 import java.util.EventListener;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
+import com.custardgames.sudokil.events.ChangeLevelEvent;
 import com.custardgames.sudokil.events.PingAssetsEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyPressedEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyReleasedEvent;
@@ -31,6 +34,7 @@ public class MapInterface extends Stage implements EventListener
 	private ArtemisWorldManager worldManager;
 
 	private TiledMap tileMap;
+	private MapManager mapManager;
 	private OrthogonalTiledMapRenderer tmr;
 	private OrthographicCamera camera;
 
@@ -47,15 +51,17 @@ public class MapInterface extends Stage implements EventListener
 		InputManager.get_instance().addProcessor(this);
 		EventManager.get_instance().register(PingAssetsEvent.class, this);
 		EventManager.get_instance().register(ToggleMapRenderEvent.class, this);
-
+		EventManager.get_instance().register(ChangeLevelEvent.class, this);
+		
 		kcInput = new Array<String>();
 		mouseX = mouseY = mouseWheelRotation = 0;
 		mouseLeft = mouseRight = mouseMiddle = false;
 
-		assetManager = new PlayLoadAssets().loadAssets(new AssetManager(), levelData);
+		assetManager = new AssetManager();
+		PlayLoadAssets.loadAssets(assetManager, levelData);
 
 		tileMap = new TmxMapLoader().load(levelData.getMapLocation());
-		new MapManager(tileMap);
+		mapManager = new MapManager(tileMap);
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
 		camera = new OrthographicCamera();
 		tmr.setView(camera);
@@ -66,6 +72,30 @@ public class MapInterface extends Stage implements EventListener
 		map = new Actor();
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
 		this.addActor(map);
+	}
+	
+	@Override 
+	public void dispose()
+	{
+		super.dispose();
+		assetManager.dispose();
+		worldManager.dispose();
+		tileMap.dispose();
+		tmr.dispose();
+	}
+	
+	public void changeLevel(LevelData levelData)
+	{
+		assetManager.clear();
+		PlayLoadAssets.loadAssets(assetManager, levelData);
+		
+		tileMap.dispose();
+		tileMap = new TmxMapLoader().load(levelData.getMapLocation());
+		mapManager.setMap(tileMap);
+		tmr.setMap(tileMap);
+		
+		worldManager.dispose();
+		worldManager.loadLevelData(levelData);
 	}
 
 	public void update(float dt)
@@ -268,6 +298,13 @@ public class MapInterface extends Stage implements EventListener
 	public void handleToggleMapRender(ToggleMapRenderEvent event)
 	{
 		this.shouldRender = event.isShouldRender();
+	}
+	
+	public void handleChangeLevel(ChangeLevelEvent event)
+	{		
+		Json json = new Json();
+		LevelData levelData = json.fromJson(LevelData.class, Gdx.files.internal(event.getLevelDataLocation()));
+		changeLevel(levelData);
 	}
 
 }
