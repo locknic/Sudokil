@@ -27,10 +27,20 @@ public class EscapeMenu extends Stage
 	{
 		InputManager.get_instance().addProcessor(1, this);
 
-		hide();
 
 		this.getRoot().addCaptureListener(new InputListener()
 		{
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+			{
+				if (inMenu)
+				{
+					return true;
+				}
+				return false;
+			}
+			
+			@Override
 			public boolean keyDown(InputEvent event, int keycode)
 			{
 				if (keycode == Input.Keys.ESCAPE)
@@ -63,6 +73,8 @@ public class EscapeMenu extends Stage
 			}
 		});
 		this.addActor(exitButton);
+		
+		hide();
 	}
 
 	public void resize(int width, int height)
@@ -81,12 +93,14 @@ public class EscapeMenu extends Stage
 	{
 		Gdx.input.setInputProcessor(this);
 		inMenu = true;
+		exitButton.setVisible(true);
 	}
 
 	public void hide()
 	{
 		Gdx.input.setInputProcessor(InputManager.get_instance());
 		inMenu = false;
+		exitButton.setVisible(false);
 	}
 
 	public void draw()

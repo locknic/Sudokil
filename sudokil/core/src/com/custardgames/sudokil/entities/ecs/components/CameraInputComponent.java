@@ -10,6 +10,15 @@ public class CameraInputComponent extends Component
 	private float targetOffsetX, targetOffsetY;
 	private boolean up, down, left, right, zoomIn, zoomOut, reset;
 	private float panSpeed;
+	private float zoomAmount;
+	
+	private float mouseX, mouseY;
+	private boolean mousePressing;
+	
+	public CameraInputComponent()
+	{
+		reset = true;
+	}
 
 	public String getTargetID()
 	{
@@ -149,6 +158,46 @@ public class CameraInputComponent extends Component
 	public void setPanSpeed(float panSpeed)
 	{
 		this.panSpeed = panSpeed;
+	}
+
+	public float getMouseY()
+	{
+		return mouseY;
+	}
+
+	public void setMouseY(float mouseY)
+	{
+		this.mouseY = mouseY;
+	}
+
+	public float getMouseX()
+	{
+		return mouseX;
+	}
+
+	public void setMouseX(float mouseX)
+	{
+		this.mouseX = mouseX;
+	}
+
+	public boolean isMousePressing()
+	{
+		return mousePressing;
+	}
+
+	public void setMousePressing(boolean mousePressing)
+	{
+		this.mousePressing = mousePressing;
+	}
+
+	public float getZoomAmount()
+	{
+		return zoomAmount;
+	}
+
+	public void setZoomAmount(float zoomAmount)
+	{
+		this.zoomAmount = zoomAmount;
 	}
 
 }

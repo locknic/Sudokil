@@ -17,6 +17,10 @@ import com.custardgames.sudokil.events.entities.commands.camera.CameraResetEvent
 import com.custardgames.sudokil.events.entities.commands.camera.CameraTargetEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyPressedEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyReleasedEvent;
+import com.custardgames.sudokil.events.physicalinput.MouseDraggedEvent;
+import com.custardgames.sudokil.events.physicalinput.MousePressedEvent;
+import com.custardgames.sudokil.events.physicalinput.MouseReleasedEvent;
+import com.custardgames.sudokil.events.physicalinput.MouseWheelMovedEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class CameraMovementSystem extends EntityProcessingSystem implements EventListener
@@ -36,6 +40,10 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		EventManager.get_instance().register(KeyReleasedEvent.class, this);
 		EventManager.get_instance().register(CameraResetEvent.class, this);
 		EventManager.get_instance().register(CameraTargetEvent.class, this);
+		EventManager.get_instance().register(MousePressedEvent.class, this);
+		EventManager.get_instance().register(MouseReleasedEvent.class, this);
+		EventManager.get_instance().register(MouseDraggedEvent.class, this);
+		EventManager.get_instance().register(MouseWheelMovedEvent.class, this);
 	}
 
 	@Override
@@ -47,6 +55,10 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		EventManager.get_instance().deregister(KeyReleasedEvent.class, this);
 		EventManager.get_instance().deregister(CameraResetEvent.class, this);
 		EventManager.get_instance().deregister(CameraTargetEvent.class, this);
+		EventManager.get_instance().deregister(MousePressedEvent.class, this);
+		EventManager.get_instance().deregister(MouseReleasedEvent.class, this);
+		EventManager.get_instance().deregister(MouseDraggedEvent.class, this);
+		EventManager.get_instance().deregister(MouseWheelMovedEvent.class, this);
 	}
 
 	@Override
@@ -81,20 +93,20 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 
 		if (cameraInput.isUp())
 		{
-			cameraInput.setTargetOffsetY((float) (cameraInput.getTargetOffsetY() + cameraInput.getPanSpeed()));
+			cameraInput.setTargetOffsetY((float) (cameraInput.getTargetOffsetY() + (cameraInput.getPanSpeed() * camera.zoom)));
 		}
 		else if (cameraInput.isDown())
 		{
-			cameraInput.setTargetOffsetY((float) (cameraInput.getTargetOffsetY() - cameraInput.getPanSpeed()));
+			cameraInput.setTargetOffsetY((float) (cameraInput.getTargetOffsetY() - (cameraInput.getPanSpeed() * camera.zoom)));
 		}
 
 		if (cameraInput.isLeft())
 		{
-			cameraInput.setTargetOffsetX((float) (cameraInput.getTargetOffsetX() - cameraInput.getPanSpeed()));
+			cameraInput.setTargetOffsetX((float) (cameraInput.getTargetOffsetX() - (cameraInput.getPanSpeed() * camera.zoom)));
 		}
 		else if (cameraInput.isRight())
 		{
-			cameraInput.setTargetOffsetX((float) (cameraInput.getTargetOffsetX() + cameraInput.getPanSpeed()));
+			cameraInput.setTargetOffsetX((float) (cameraInput.getTargetOffsetX() + (cameraInput.getPanSpeed() * camera.zoom)));
 		}
 
 		double zoomSpeed = 0.03;
@@ -107,12 +119,22 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		{
 			camera.zoom -= zoomSpeed;
 		}
+		
+		if (cameraInput.getZoomAmount() != 0)
+		{
+			camera.zoom += cameraInput.getZoomAmount() / 10;
+			if (camera.zoom < 0)
+			{
+				camera.zoom -= cameraInput.getZoomAmount() / 10;
+			}
+			cameraInput.setZoomAmount(0);
+		}
 
 		if (cameraInput.isReset())
 		{
 			cameraInput.setTargetOffsetX(0);
 			cameraInput.setTargetOffsetY(0);
-			camera.zoom = 1;
+			camera.zoom = 0.5f;
 			cameraInput.setReset(false);
 		}
 
@@ -231,5 +253,62 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			}
 		}
 	}
+	
+	public void handleMousePressed(MousePressedEvent event)
+	{
+		if (event.getButtonNumber() == 0)
+		{
 
+			ImmutableBag<Entity> entities = getEntities();
+			for (int x = 0; x < entities.size(); x++)
+			{
+				CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
+				cameraInput.setMousePressing(true);
+				cameraInput.setMouseX(event.getX());
+				cameraInput.setMouseY(event.getY());
+			}
+		}
+		System.out.println("MOUSE PRESSED AT " + event.getX() + ", " + event.getY());
+	}
+	
+	public void handleMouseReleased(MouseReleasedEvent event)
+	{
+		if (event.getButtonNumber() == 0)
+		{
+			ImmutableBag<Entity> entities = getEntities();
+			for (int x = 0; x < entities.size(); x++)
+			{
+				CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
+				cameraInput.setMousePressing(false);
+				cameraInput.setMouseX(0);
+				cameraInput.setMouseY(0);
+			}
+		}
+	}
+	
+	public void handleMouseDragged(MouseDraggedEvent event)
+	{
+		ImmutableBag<Entity> entities = getEntities();
+		for (int x = 0; x < entities.size(); x++)
+		{
+			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
+			if(event.getButton() == 0)
+			{
+				cameraInput.setTargetX(cameraInput.getTargetX() - ((event.getX() - cameraInput.getMouseX()) * camera.zoom));
+				cameraInput.setTargetY(cameraInput.getTargetY() + ((event.getY() - cameraInput.getMouseY()) * camera.zoom));
+				cameraInput.setMouseX(event.getX());
+				cameraInput.setMouseY(event.getY());;
+			}
+		}
+	}
+	
+	public void handleMouseWheelMoved(MouseWheelMovedEvent event)
+	{
+		ImmutableBag<Entity> entities = getEntities();
+		for (int x = 0; x < entities.size(); x++)
+		{
+			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
+			cameraInput.setZoomAmount(event.getMouseWheelAmount());
+		}
+	}
 }

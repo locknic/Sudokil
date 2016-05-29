@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.entities.ecs.systems;
+package com.custardgames.sudokil.entities.ecs.systems.rendering;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;

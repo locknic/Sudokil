@@ -48,11 +48,11 @@ public class UserInterface extends Stage implements EventListener
 		fileSystemManager = new FileSystemManager();
 		fileSystemManager.addFileSystem(root);
 
-		for(String newFileSystem : levelData.getFilesystems())
+		for (String newFileSystem : levelData.getFilesystems())
 		{
 			fileSystemManager.addFileSystem(newFileSystem);
 		}
-		
+
 		windows = new Array<CommandLineInterface>();
 		maxWindows = 5;
 
@@ -60,6 +60,39 @@ public class UserInterface extends Stage implements EventListener
 
 		this.getRoot().addCaptureListener(new InputListener()
 		{
+			@Override
+			public boolean mouseMoved(InputEvent event, float x, float y)
+			{
+				boolean foundFocus = false;
+
+				for (CommandLineInterface window : windows)
+				{
+					foundFocus = window.mouseMoved(event, x, y);
+					if (foundFocus)
+					{
+						window.setScrollFocus();
+						break;
+					}
+				}
+				
+				if(!foundFocus)
+				{
+					foundFocus = dialogueInterface.mouseMoved(event, x, y);
+					if (foundFocus)
+					{
+						dialogueInterface.setScrollFocus();
+					}
+				}
+				
+				if(!foundFocus)
+				{
+					setScrollFocus(null);
+				}
+				
+				return false;
+			}
+
+			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 			{
 				boolean foundFocus = false;
@@ -83,6 +116,7 @@ public class UserInterface extends Stage implements EventListener
 				return false;
 			}
 
+			@Override
 			public boolean keyDown(InputEvent event, int keycode)
 			{
 				for (CommandLineInterface window : windows)
@@ -113,28 +147,28 @@ public class UserInterface extends Stage implements EventListener
 
 		generateUI();
 	}
-	
+
 	public void changeLevel(LevelData levelData)
 	{
 		fileSystemManager.deleteFileSystems();
 		root = levelData.getPlayerFilesystem();
 		fileSystemManager.addFileSystem(root);
-		for(String newFileSystem : levelData.getFilesystems())
+		for (String newFileSystem : levelData.getFilesystems())
 		{
 			fileSystemManager.addFileSystem(newFileSystem);
 		}
-		for(CommandLineInterface cli : windows)
+		for (CommandLineInterface cli : windows)
 		{
 			cli.setRoot(fileSystemManager.getFileSystem(root));
 		}
 	}
-	
+
 	public void dispose()
 	{
 		EventManager.get_instance().deregister(ConsoleConnectEvent.class, this);
 		EventManager.get_instance().deregister(CloseCommandLineWindowEvent.class, this);
 		EventManager.get_instance().deregister(ToggleTerminalButtonEvent.class, this);
-		
+
 		dialogueInterface.dispose();
 	}
 
@@ -230,12 +264,12 @@ public class UserInterface extends Stage implements EventListener
 			}
 		}
 	}
-	
+
 	public void handleToggleTerminalButton(ToggleTerminalButtonEvent event)
 	{
 		newTerminalWindow.setVisible(event.isButtonVisible());
 		newTerminalWindow.setDisabled(!event.isButtonVisible());
-		
+
 		if (!event.isButtonVisible())
 		{
 			Iterator<CommandLineInterface> iterator = windows.iterator();
@@ -246,9 +280,9 @@ public class UserInterface extends Stage implements EventListener
 			}
 		}
 	}
-	
+
 	public void handleChangeLevel(ChangeLevelEvent event)
-	{		
+	{
 		Json json = new Json();
 		JsonTags jsonTags = json.fromJson(JsonTags.class, Gdx.files.internal("data/tags.json"));
 		jsonTags.addTags(json);

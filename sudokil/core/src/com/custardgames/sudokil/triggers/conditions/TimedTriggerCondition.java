@@ -39,7 +39,6 @@ public class TimedTriggerCondition extends BaseTriggerCondition implements Event
 	public void start()
 	{
 		super.start();
-		System.out.println("All part of the plan");
 		EventManager.get_instance().broadcast(new TimerRegisterEvent(owner, duration));
 	}
 

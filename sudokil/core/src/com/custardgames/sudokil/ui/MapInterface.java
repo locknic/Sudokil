@@ -17,6 +17,7 @@ import com.custardgames.sudokil.events.ChangeLevelEvent;
 import com.custardgames.sudokil.events.PingAssetsEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyPressedEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyReleasedEvent;
+import com.custardgames.sudokil.events.physicalinput.MouseDraggedEvent;
 import com.custardgames.sudokil.events.physicalinput.MousePressedEvent;
 import com.custardgames.sudokil.events.physicalinput.MouseReleasedEvent;
 import com.custardgames.sudokil.events.physicalinput.MouseWheelMovedEvent;
@@ -233,7 +234,7 @@ public class MapInterface extends Stage implements EventListener
 			mouseMiddle = true;
 		}
 
-		EventManager.get_instance().broadcast(new MousePressedEvent(button));
+		EventManager.get_instance().broadcast(new MousePressedEvent(button, screenX, screenY));
 		return true;
 	}
 
@@ -266,6 +267,18 @@ public class MapInterface extends Stage implements EventListener
 
 		mouseX = screenX;
 		mouseY = screenY;
+		if (mouseLeft)
+		{
+			EventManager.get_instance().broadcast(new MouseDraggedEvent(0, screenX, screenY));
+		}
+		else if (mouseRight)
+		{
+			EventManager.get_instance().broadcast(new MouseDraggedEvent(1, screenX, screenY));
+		}
+		else if (mouseMiddle)
+		{
+			EventManager.get_instance().broadcast(new MouseDraggedEvent(2, screenX, screenY));
+		}
 		return true;
 	}
 

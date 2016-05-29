@@ -216,7 +216,7 @@
 				{
 					class : TimedTriggerCondition,
 					running : false,
-					duration : 1,
+					duration : 0.5,
 				}
 			},
 			{
@@ -248,7 +248,7 @@
 				{
 					class : TimedTriggerCondition,
 					running : false,
-					duration : 2,
+					duration : 2.5,
 				}
 			},
 			{
@@ -260,7 +260,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Go ahead and type 'ls' to list the files and directories in your current folder",
+							dialogueMessage : "Rob: Type 'ls' to list the files and directories in your current folder",
 						},
 					]
 				}
@@ -313,7 +313,7 @@
 				{
 					class : TimedTriggerCondition,
 					running : false,
-					duration : 1,
+					duration : 0.5,
 				}
 			},
 			{
@@ -325,7 +325,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "We can see that there is a folder called camera",
+							dialogueMessage : "Rob: We can see that there is a folder called camera",
 						},
 					]
 				}
@@ -345,7 +345,7 @@
 				{
 					class : TimedTriggerCondition,
 					running : false,
-					duration : 2,
+					duration : 2.5,
 				}
 			},
 			{
@@ -357,7 +357,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Type 'cd camera' to change directory into camera",
+							dialogueMessage : "Rob: Type 'cd camera' to change directory into camera",
 						},
 					]
 				}
@@ -385,7 +385,81 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Now if you type ls again, you will see all the files inside the camera directory",
+							dialogueMessage : "Rob: Now if you type ls again, you will see all the files inside the camera directory",
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger3,
+								running : true,
+							}
+						}
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : trigger3
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : false,
+					className : com.custardgames.sudokil.events.commandLine.ListDirectoryEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: We want to run the script called start.sh, so go ahead and type 'start.sh'",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : trigger3
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : false,
+					className : com.custardgames.sudokil.events.ui.ToggleMapRenderEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Fantastic. We now have the map loaded up.",
 						},
 					]
 				}
@@ -432,39 +506,7 @@
 				}
 			},
 		],
-		[
-			{
-				class : TriggerEntityComponent,
-			},
-			{
-				class : TriggerConditionsComponent,
-				triggerCondition : 
-				{
-					class : EntityCommandCondition,
-					className : com.custardgames.sudokil.events.entities.commands.ForwardEvent,
-					entityName : robot1,
-				}
-			},
-			{
-				class : TriggerReactionsComponent,
-				triggerReaction :
-				{ 
-					class : TriggerReactionArray,
-					triggerReactions : 
-					[
-						
-						{
-							class : BroadcastEventReaction,
-							event : 
-							{
-								class : ChangeLevelEvent,
-								levelDataLocation : "maps/campaign/level1/level1.json",
-							}
-						},
-					]
-				}
-			},
-		],
+		
 	]
 	
 }

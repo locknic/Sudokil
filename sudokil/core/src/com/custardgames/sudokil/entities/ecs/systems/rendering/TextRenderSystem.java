@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.entities.ecs.systems;
+package com.custardgames.sudokil.entities.ecs.systems.rendering;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -8,6 +8,8 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -36,6 +38,8 @@ public class TextRenderSystem extends EntityProcessingSystem
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("data/fonts/TerminusTTF-Bold-4.39.ttf"));
 		parameter = new FreeTypeFontParameter();
 		parameter.size = 16;
+		parameter.minFilter = Texture.TextureFilter.Nearest;
+		parameter.magFilter = Texture.TextureFilter.MipMapLinearNearest;
 		font = generator.generateFont(parameter);
 		generator.dispose();
 
@@ -63,7 +67,22 @@ public class TextRenderSystem extends EntityProcessingSystem
 			if (textTagComponent.isShouldRender())
 			{
 				GlyphLayout layout = new GlyphLayout(font, textTagComponent.getText());
-				font.draw(spriteBatch, textTagComponent.getText(), positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2,
+				font.setColor(Color.BLACK);
+				font.draw(spriteBatch, textTagComponent.getText(),
+						positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2 - 1,
+						positionComponent.getY() + positionComponent.getHeight() + textTagComponent.getDeltaY() + layout.height);
+				font.draw(spriteBatch, textTagComponent.getText(),
+						positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2,
+						positionComponent.getY() + positionComponent.getHeight() + textTagComponent.getDeltaY() + layout.height - 1);
+				font.draw(spriteBatch, textTagComponent.getText(),
+						positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2 + 1,
+						positionComponent.getY() + positionComponent.getHeight() + textTagComponent.getDeltaY() + layout.height);
+				font.draw(spriteBatch, textTagComponent.getText(),
+						positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2,
+						positionComponent.getY() + positionComponent.getHeight() + textTagComponent.getDeltaY() + layout.height + 1);
+				font.setColor(Color.WHITE);
+				font.draw(spriteBatch, textTagComponent.getText(),
+						positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2,
 						positionComponent.getY() + positionComponent.getHeight() + textTagComponent.getDeltaY() + layout.height);
 			}
 		}

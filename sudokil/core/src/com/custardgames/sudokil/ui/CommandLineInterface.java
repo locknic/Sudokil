@@ -1,5 +1,8 @@
 package com.custardgames.sudokil.ui;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.EventListener;
 import java.util.Random;
 import java.util.UUID;
@@ -15,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
+import com.badlogic.gdx.utils.Align;
 import com.custardgames.sudokil.events.commandLine.AutocompleteRequestEvent;
 import com.custardgames.sudokil.events.commandLine.AutocompleteResponseEvent;
 import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
@@ -70,35 +74,49 @@ public class CommandLineInterface implements EventListener
 	public void createWindow()
 	{
 		Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-
-		TextButton closeButton = new TextButton("X", skin);
-
+		TextButton closeButton = new TextButton("", skin, "close-toggle");
+		
 		Random random = new Random();
 
 		dialog = new Window("Terminal", skin);
 		dialog.setBounds(10 + random.nextInt(50), 100 + random.nextInt(50), 400, 200);
 		dialog.setResizable(true);
 		dialog.setKeepWithinStage(true);
-		dialog.getTitleTable().add(closeButton).height(dialog.getPadTop());
+		dialog.getTitleTable().add(closeButton).size(dialog.getPadTop() * 4 / 5, dialog.getPadTop() * 4 / 5).padRight(dialog.getPadRight());
 		dialog.left().top();
 		dialog.setResizeBorder(5);
+		dialog.padRight(0);
+		dialog.padBottom(1);
+		
 
-		consoleDialog = new Label("Welcome to Terminal", skin);
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("E"); // the day of the week abbreviated
+		String day = simpleDateformat.format(new Date());
+		String month = new SimpleDateFormat("MMM").format(Calendar.getInstance().getTime());
+		int date = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		int min = Calendar.getInstance().get(Calendar.MINUTE);
+		int sec = Calendar.getInstance().get(Calendar.SECOND);
+		String textTest = "Last login: " + day + " " + month + " " + String.format("%02d", date) + " " + String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
+		
+		consoleDialog = new Label(textTest, skin);
 		consoleDialog.setWrap(true);
-
+		consoleDialog.setAlignment(Align.topLeft, Align.topLeft);
+		
 		consoleArrow = new Label(parser.getInputPrefix(), skin);
 		consoleField = new TextField("", skin);
 		consoleField.setFocusTraversal(false);
 
 		Table scrollTable = new Table();
 		scrollTable.top();
-		scrollTable.add(consoleDialog).colspan(2).expandX().fill().left().top();
+		scrollTable.add(consoleDialog).colspan(2).growX().fill().left().top();
 		scrollTable.row();
 		scrollTable.add(consoleArrow).left().top();
 		scrollTable.add(consoleField).expand(true, false).fill().left().top();
-
-		consoleScroll = new ScrollPane(scrollTable);
-
+		scrollTable.padBottom(1);
+		
+		consoleScroll = new ScrollPane(scrollTable, skin);
+		consoleScroll.setFadeScrollBars(false);
+		consoleScroll.setVariableSizeKnobs(true);
 		dialog.add(consoleScroll).fill().expand();
 		this.stage.addActor(dialog);
 
@@ -121,11 +139,22 @@ public class CommandLineInterface implements EventListener
 		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleField || event.getTarget() == consoleDialog
 				|| event.getTarget() == consoleArrow)
 		{
-			stage.setKeyboardFocus(consoleField);
 			stage.setScrollFocus(consoleScroll);
+			stage.setKeyboardFocus(consoleField);
 			return true;
 		}
 
+		return false;
+	}
+	
+	public boolean mouseMoved(InputEvent event, float x, float y)
+	{
+		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleField || event.getTarget() == consoleDialog
+				|| event.getTarget() == consoleArrow)
+		{
+			stage.setScrollFocus(consoleScroll);
+			return true;
+		}
 		return false;
 	}
 
@@ -141,6 +170,11 @@ public class CommandLineInterface implements EventListener
 	public void setKeyboardFocus()
 	{
 		stage.setKeyboardFocus(consoleField);
+		stage.setScrollFocus(consoleScroll);
+	}
+	
+	public void setScrollFocus()
+	{
 		stage.setScrollFocus(consoleScroll);
 	}
 
