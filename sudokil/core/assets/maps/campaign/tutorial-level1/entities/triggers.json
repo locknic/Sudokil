@@ -1,6 +1,7 @@
 {
 	entities :
 	[
+		// TIME 0.0 >>> HIDE MAP && HIDE TERMINAL BUTTON && HIDE DIALOGUE WINDOW
 		[
 			{
 				class : TriggerEntityComponent,
@@ -49,6 +50,7 @@
 				}
 			},
 		],
+		// TIME 1.0 >>> SHOW DIALOGUE WINDOW
 		[
 			{
 				class : TriggerEntityComponent,
@@ -81,6 +83,7 @@
 				}
 			},
 		],
+		// TIME 2.5 >>> "hello"
 		[
 			{
 				class : TriggerEntityComponent,
@@ -103,12 +106,13 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Hello, and welcome to your first robot scripting class",
+							dialogueMessage : "Rob: Hello, and welcome to your first robot scripting class.",
 						},
 					]
 				}
 			},
 		],
+		// TIME 4.0 >>> SHOW TERMINAL BUTTON
 		[
 			{
 				class : TriggerEntityComponent,
@@ -141,6 +145,7 @@
 				}
 			},
 		],
+		// TIME 5.0 >>> "open terminal"
 		[
 			{
 				class : TriggerEntityComponent,
@@ -163,12 +168,13 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Go ahead and open a terminal window",
+							dialogueMessage : "Rob: Go ahead and open a terminal window.",
 						},
 					]
 				}
 			},
 		],
+		// TERMINAL OPENED >>> TRIGGER1
 		[
 			{
 				class : TriggerEntityComponent,
@@ -202,6 +208,7 @@
 				}
 			},
 		],
+		// TRIGGER1 > TIME 0.5 >>> "turn on camera"
 		[
 			{
 				class : EntityComponent,
@@ -228,12 +235,13 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: OK. Let's get the camera turned on first of all",
+							dialogueMessage : "Rob: OK. Let's get the camera turned on first of all.",
 						},
 					]
 				}
 			},
 		],
+		// TRIGGER1 > TIME 2.5 >>> "type ls"
 		[
 			{
 				class : EntityComponent,
@@ -260,13 +268,18 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Type 'ls' to list the files and directories in your current folder",
+							dialogueMessage : "Rob: Type 'ls' in the terminal to list the files and directories in your current folder.",
 						},
 					]
 				}
 			},
 		],
+		// TRIGGER1 > LIST DIRECTORY >>> TRIGGER2 && *TRIGGER1*
 		[
+			{
+				class : EntityComponent,
+				id : trigger1
+			},
 			{
 				class : TriggerEntityComponent,
 			},
@@ -275,7 +288,7 @@
 				triggerCondition : 
 				{
 					class : EventHappenedCondition,
-					running : true,
+					running : false,
 					className : com.custardgames.sudokil.events.commandLine.ListDirectoryEvent,
 				}
 			},
@@ -295,10 +308,20 @@
 								running : true,
 							},
 						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger1,
+								running : false,
+							},
+						},
 					]
 				}
 			},
 		],
+		// TRIGGER2 > TIME 0.5 >>> "folder called camera"
 		[
 			{
 				class : EntityComponent,
@@ -325,12 +348,13 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: We can see that there is a folder called camera",
+							dialogueMessage : "Rob: We can see that there is a folder called camera.",
 						},
 					]
 				}
 			},
 		],
+		// TRIGGER2 > TIME 3.0 >>> "type cd camera"
 		[
 			{
 				class : EntityComponent,
@@ -345,7 +369,7 @@
 				{
 					class : TimedTriggerCondition,
 					running : false,
-					duration : 2.5,
+					duration : 3,
 				}
 			},
 			{
@@ -357,12 +381,13 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Type 'cd camera' to change directory into camera",
+							dialogueMessage : "Rob: Type 'cd camera' to change directory into camera.",
 						},
 					]
 				}
 			},
 		],
+		// TRIGGER2 > CHANGED DIRECTORY (camera) >>> TRIGGER3 && *TRIGGER2* && "type ls again"
 		[
 			{
 				class : EntityComponent,
@@ -388,10 +413,6 @@
 					triggerReactions : 
 					[
 						{
-							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Now if you type ls again, you will see all the files inside the camera directory",
-						},
-						{
 							class : BroadcastEventReaction,
 							event : 
 							{
@@ -399,11 +420,25 @@
 								entityName : trigger3,
 								running : true,
 							}
-						}
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger2,
+								running : false,
+							},
+						},
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Now if you type 'ls' again, you will see all the files inside the camera directory.",
+						},					
 					]
 				}
 			},
 		],
+		// TRIGGER3 > LIST DIRECTORY >>> TRIGGER4 && "type start.sh"
 		[
 			{
 				class : EntityComponent,
@@ -430,7 +465,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: We want to run the script called start.sh, so go ahead and type 'start.sh'",
+							dialogueMessage : "Rob: We want to run the script called start.sh, so go ahead and type 'start.sh'.",
 						},
 						{
 							class : BroadcastEventReaction,
@@ -445,6 +480,7 @@
 				}
 			},
 		],
+		// TRIGGER4 > TOGGLE MAP RENDER >>> TRIGGER5 && "map loaded"
 		[
 			{
 				class : EntityComponent,
@@ -469,11 +505,6 @@
 					class : TriggerReactionArray,
 					triggerReactions : 
 					[
-						
-						{
-							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Fantastic. We now have the map loaded up.",
-						},
 						{
 							class : BroadcastEventReaction,
 							event : 
@@ -482,11 +513,16 @@
 								entityName : trigger5,
 								running : true,
 							}
-						}
+						},
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Fantastic. We now have the map loaded up.",
+						},						
 					]
 				}
 			},
 		],
+		// TRIGGER5 > TIME 2.5 >>> "move camera mouse/arrows"
 		[
 			{
 				class : EntityComponent,
@@ -501,7 +537,133 @@
 				{
 					class : TimedTriggerCondition,
 					running : false,
-					duration : 2,
+					duration : 2.5,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Move the camera by left clicking and dragging the map, or using the arrow keys.",
+						},
+					]
+				}
+			},
+		],
+		// TRIGGER5 > MAP MOVED >>> TRIGGER6 && *TRIGGER5* && "zoom camera wheel/-+"
+		[
+			{
+				class : EntityComponent,
+				id : trigger5
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : false,
+					className : com.custardgames.sudokil.events.entities.camera.CameraMovedEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Zoom with the mouse wheel, or the +/- keys.",
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger6,
+								running : true,
+							}
+						}
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger5,
+								running : false,
+							},
+						},
+					]
+				}
+			},
+		],
+		// TRIGGER6 > MAP ZOOMED >>> TRIGGER7 && "back to terminal"
+		[
+			{
+				class : EntityComponent,
+				id : trigger6
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : false,
+					className : com.custardgames.sudokil.events.entities.camera.CameraZoomedEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Great, now back to the terminal window.",
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger7,
+								running : true,
+							}
+						}
+					]
+				}
+			},
+		],
+		// TRIGGER7 > TIME 2.5 >>> Dialogue "cd .."
+		[
+			{
+				class : EntityComponent,
+				id : trigger7
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : false,
+					duration : 2.5,
 				}
 			},
 			{
@@ -514,16 +676,17 @@
 						
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Now let's get back out of the camera directory. Type 'cd ..' to go up one level, and return to the parent of the current directory (where we started)",
+							dialogueMessage : "Rob: Type 'cd ..' to return to the parent directory of the current directory, which is where we started",
 						},
 					]
 				}
 			},
 		],
+		// TRIGGER7 > CHANGED DIRECTORY (root) >>> COPY 'stash.robot1' TO 'filesystem.root' && "ls again" && "copied robot1, ls again"
 		[
 			{
 				class : EntityComponent,
-				id : trigger5
+				id : trigger7
 			},
 			{
 				class : TriggerEntityComponent,
@@ -547,7 +710,7 @@
 						
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: I've copied the files for robot1 into your directory, so if you 'ls' again, you should see it",
+							dialogueMessage : "Rob: I've copied the files for robot1 into your directory, so if you 'ls' again, you should see it.",
 						},
 						{
 							class : BroadcastEventReaction,

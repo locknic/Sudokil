@@ -9,9 +9,11 @@ import java.util.UUID;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -102,10 +104,15 @@ public class CommandLineInterface implements EventListener
 		consoleDialog.setWrap(true);
 		consoleDialog.setAlignment(Align.topLeft, Align.topLeft);
 		
-		consoleArrow = new Label(parser.getInputPrefix(), skin);
+		consoleArrow = new Label(parser.getInputPrefix(), new LabelStyle(skin.get(LabelStyle.class)));
 		consoleField = new TextField("", skin);
 		consoleField.setFocusTraversal(false);
-
+		Color colour = Color.ORANGE;
+		colour.a = 0.8f;
+		consoleField.getStyle().cursor = skin.newDrawable("white", colour);
+		consoleField.getStyle().cursor.setMinWidth(10);
+		consoleField.setBlinkTime(0.6f);
+		
 		Table scrollTable = new Table();
 		scrollTable.top();
 		scrollTable.add(consoleDialog).colspan(2).growX().fill().left().top();
@@ -117,6 +124,7 @@ public class CommandLineInterface implements EventListener
 		consoleScroll = new ScrollPane(scrollTable, skin);
 		consoleScroll.setFadeScrollBars(false);
 		consoleScroll.setVariableSizeKnobs(true);
+		consoleScroll.setFlickScroll(false);
 		dialog.add(consoleScroll).fill().expand();
 		this.stage.addActor(dialog);
 

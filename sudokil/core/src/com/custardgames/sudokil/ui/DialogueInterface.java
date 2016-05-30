@@ -2,20 +2,25 @@ package com.custardgames.sudokil.ui;
 
 import java.util.Calendar;
 import java.util.EventListener;
+import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.events.commandLine.DialogueEvent;
 import com.custardgames.sudokil.events.ui.ToggleDialogueWindowEvent;
 import com.custardgames.sudokil.managers.EventManager;
@@ -28,6 +33,10 @@ public class DialogueInterface implements EventListener
 	private Label consoleDialog;
 	private ScrollPane consoleScroll;
 	private Button dialogueWindowButton;
+	private Table scrollTable;
+	private Skin skin;
+
+	private Array<Label> fadingBackgrounds;
 
 	private int updateScroll;
 
@@ -46,7 +55,8 @@ public class DialogueInterface implements EventListener
 
 	public void createWindow()
 	{
-		Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+		fadingBackgrounds = new Array<Label>();
+		skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
 		TextButton closeButton = new TextButton("", skin, "min-toggle");
 
@@ -64,7 +74,7 @@ public class DialogueInterface implements EventListener
 		consoleDialog.setWrap(true);
 		consoleDialog.setAlignment(Align.topLeft, Align.topLeft);
 
-		Table scrollTable = new Table();
+		scrollTable = new Table();
 		scrollTable.top();
 		scrollTable.add(consoleDialog).expandX().fill().left().top();
 		scrollTable.row();
@@ -98,7 +108,7 @@ public class DialogueInterface implements EventListener
 
 		hideWindow();
 	}
-	
+
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 	{
 		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleDialog)
@@ -112,7 +122,7 @@ public class DialogueInterface implements EventListener
 
 	public boolean mouseMoved(InputEvent event, float x, float y)
 	{
-		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleDialog)
+		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleDialog || event.getTarget() instanceof Label)
 		{
 			stage.setScrollFocus(consoleScroll);
 			return true;
@@ -153,14 +163,44 @@ public class DialogueInterface implements EventListener
 			consoleScroll.updateVisualScroll();
 			updateScroll--;
 		}
+
+		Iterator<Label> it = fadingBackgrounds.iterator();
+		while (it.hasNext())
+		{
+			Label label = it.next();
+			Color color = ((SpriteDrawable) label.getStyle().background).getSprite().getColor();
+			float min = 0;
+			if (!it.hasNext())
+			{
+				min = 0.1f;
+			}
+			if (color.a - 0.005 > min)
+			{
+				color.a -= 0.005;
+				label.getStyle().background = ((SpriteDrawable) label.getStyle().background).tint(color);
+			}
+			else
+			{
+				color.a = min;
+				label.getStyle().background = ((SpriteDrawable) label.getStyle().background).tint(color);
+				if (min == 0)
+				{
+					it.remove();
+				}
+			}
+		}
 	}
 
 	public void handleDialogue(DialogueEvent event)
 	{
 		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 		int min = Calendar.getInstance().get(Calendar.MINUTE);
-		consoleDialog
-				.setText(consoleDialog.getText() + "\n" + "[" + String.format("%02d", hour) + ":" + String.format("%02d", min) + "] " + event.getDialogue());
+		Label newConsoleDialog = new Label("[" + String.format("%02d", hour) + ":" + String.format("%02d", min) + "] " + event.getDialogue(), new LabelStyle(skin.get("orange", LabelStyle.class)));
+		newConsoleDialog.setWrap(true);
+		newConsoleDialog.setAlignment(Align.topLeft, Align.topLeft);
+		scrollTable.row();
+		scrollTable.add(newConsoleDialog).expandX().fill().left().top();
+		fadingBackgrounds.add(newConsoleDialog);
 		updateScroll += 2;
 	}
 

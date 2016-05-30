@@ -13,6 +13,8 @@ import com.custardgames.sudokil.entities.ecs.components.CameraInputComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.events.PingEntityEvent;
+import com.custardgames.sudokil.events.entities.camera.CameraMovedEvent;
+import com.custardgames.sudokil.events.entities.camera.CameraZoomedEvent;
 import com.custardgames.sudokil.events.entities.commands.camera.CameraResetEvent;
 import com.custardgames.sudokil.events.entities.commands.camera.CameraTargetEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyPressedEvent;
@@ -91,8 +93,14 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			}
 		}
 
-		camera.position.x += (targetX - camera.position.x) * 0.1 + cameraInput.getTargetOffsetX();
-		camera.position.y += (targetY - camera.position.y) * 0.1 + cameraInput.getTargetOffsetY();
+		float deltaX = (float) ((targetX - camera.position.x) * 0.1 + cameraInput.getTargetOffsetX());
+		float deltaY = (float) ((targetY - camera.position.y) * 0.1 + cameraInput.getTargetOffsetY());
+		if (Math.abs(deltaX) > 0.1 || Math.abs(deltaY) > 0.1)
+		{
+			camera.position.x += deltaX;
+			camera.position.y += deltaY;
+			EventManager.get_instance().broadcast(new CameraMovedEvent(deltaX, deltaY));
+		}
 
 		if (cameraInput.isUp())
 		{
@@ -117,10 +125,12 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		if (cameraInput.isZoomIn())
 		{
 			camera.zoom += zoomSpeed;
+			EventManager.get_instance().broadcast(new CameraZoomedEvent((float) zoomSpeed));
 		}
 		else if (cameraInput.isZoomOut() && camera.zoom > zoomSpeed)
 		{
 			camera.zoom -= zoomSpeed;
+			EventManager.get_instance().broadcast(new CameraZoomedEvent((float) -zoomSpeed));
 		}
 		
 		if (cameraInput.getZoomAmount() != 0)
@@ -326,6 +336,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		{
 			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
 			cameraInput.setZoomAmount(event.getMouseWheelAmount());
+			EventManager.get_instance().broadcast(new CameraZoomedEvent((float) event.getMouseWheelAmount()));
 		}
 	}
 	

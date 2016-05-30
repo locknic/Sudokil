@@ -5,9 +5,11 @@ com.badlogic.gdx.graphics.Color: {
 	white: { a: 1, b: 1, g: 1, r: 1 },
 	red: { a: 1, b: 0, g: 0, r: 1 },
 	black: { a: 1, b: 0, g: 0, r: 0 }
+	orange: { a: 1, b: 0, g:0.64705884, r: 1.0 }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	transparent: { name: white, color: { r: 0, g: 0, b: 0, a: 0 } }
+	orange: { name: white, color: { a: 0.8, b: 0, g:0.64705884, r: 1.0 } }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: { down: default-round-down, up: default-round },
@@ -47,10 +49,12 @@ com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 	default-vertical: { background: default-slider, knob: default-round-large }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
-	default: { font: default-font, fontColor: green }
+	default: { font: default-font, fontColor: orange }
+	orange: { font: default-font, fontColor: orange, background: orange }
+	white: { font: default-font, fontColor: white }
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
-	default: { selection: selection, font: default-font, fontColor: green, cursor: cursor }
+	default: { selection: selection, font: default-font, fontColor: orange, cursor: orange-rect }
 },
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: { checkboxOn: check-on, checkboxOff: check-off, font: default-font, fontColor: white }
