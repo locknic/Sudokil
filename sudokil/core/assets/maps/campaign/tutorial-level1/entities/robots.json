@@ -29,7 +29,7 @@
 			{
 				class : TextTagComponent,
 				shouldRender : true,
-				text: "robot",
+				text: "robot1",
 				deltaX : 0,
 				deltaY : 2,
 			},

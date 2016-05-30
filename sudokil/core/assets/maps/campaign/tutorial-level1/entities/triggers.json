@@ -365,6 +365,10 @@
 		],
 		[
 			{
+				class : EntityComponent,
+				id : trigger2
+			},
+			{
 				class : TriggerEntityComponent,
 			},
 			{
@@ -372,7 +376,7 @@
 				triggerCondition : 
 				{
 					class : ChangeDirectoryCondition,
-					running : true,
+					running : false,
 					triggerDirectory : camera,
 				}
 			},
@@ -428,6 +432,15 @@
 							class : PrintDialogueReaction,
 							dialogueMessage : "Rob: We want to run the script called start.sh, so go ahead and type 'start.sh'",
 						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger4,
+								running : true,
+							}
+						}
 					]
 				}
 			},
@@ -435,7 +448,7 @@
 		[
 			{
 				class : EntityComponent,
-				id : trigger3
+				id : trigger4
 			},
 			{
 				class : TriggerEntityComponent,
@@ -461,18 +474,24 @@
 							class : PrintDialogueReaction,
 							dialogueMessage : "Rob: Fantastic. We now have the map loaded up.",
 						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger5,
+								running : true,
+							}
+						}
 					]
 				}
 			},
 		],
-		
-		
-		
-		
-		
-		
-		
 		[
+			{
+				class : EntityComponent,
+				id : trigger5
+			},
 			{
 				class : TriggerEntityComponent,
 			},
@@ -481,7 +500,8 @@
 				triggerCondition : 
 				{
 					class : TimedTriggerCondition,
-					duration : 10,
+					running : false,
+					duration : 2,
 				}
 			},
 			{
@@ -491,13 +511,51 @@
 					class : TriggerReactionArray,
 					triggerReactions : 
 					[
+						
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Now let's get back out of the camera directory. Type 'cd ..' to go up one level, and return to the parent of the current directory (where we started)",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : trigger5
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : ChangeDirectoryCondition,
+					running : false,
+					triggerDirectory : pip-boy,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: I've copied the files for robot1 into your directory, so if you 'ls' again, you should see it",
+						},
 						{
 							class : BroadcastEventReaction,
 							event : 
 							{
 								class : CopyItemBetweenFileSystemsEvent,
-								sourceFileSystem : maps/campaign/level1/filesystems/stash.json,
-								targetFileSystem : maps/campaign/level1/filesystems/filesystem.json,
+								sourceFileSystem : maps/campaign/tutorial-level1/filesystems/stash.json,
+								targetFileSystem : maps/campaign/tutorial-level1/filesystems/filesystem.json,
 								sourceItemLocation : "robot1",
 								targetItemLocation : "/",
 							}
@@ -506,7 +564,5 @@
 				}
 			},
 		],
-		
 	]
-	
 }

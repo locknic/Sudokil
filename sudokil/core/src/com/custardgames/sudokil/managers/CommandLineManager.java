@@ -125,6 +125,11 @@ public class CommandLineManager implements EventListener
 					selectedItem = selectedItem.getParent();
 				}
 			}
+			else if (currentLocation.equals("."))
+			{
+				foundItem = true;
+				selectedItem = currentItem;
+			}
 			else
 			{
 				for (ItemCLI child : ((FolderCLI) selectedItem).getChildren())

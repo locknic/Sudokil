@@ -21,6 +21,7 @@ import com.custardgames.sudokil.events.physicalinput.MouseDraggedEvent;
 import com.custardgames.sudokil.events.physicalinput.MousePressedEvent;
 import com.custardgames.sudokil.events.physicalinput.MouseReleasedEvent;
 import com.custardgames.sudokil.events.physicalinput.MouseWheelMovedEvent;
+import com.custardgames.sudokil.events.ui.ToggleMapRenderEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class CameraMovementSystem extends EntityProcessingSystem implements EventListener
@@ -40,11 +41,12 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		EventManager.get_instance().register(KeyReleasedEvent.class, this);
 		EventManager.get_instance().register(CameraResetEvent.class, this);
 		EventManager.get_instance().register(CameraTargetEvent.class, this);
+		EventManager.get_instance().register(ToggleMapRenderEvent.class, this);
 		EventManager.get_instance().register(MousePressedEvent.class, this);
 		EventManager.get_instance().register(MouseReleasedEvent.class, this);
 		EventManager.get_instance().register(MouseDraggedEvent.class, this);
 		EventManager.get_instance().register(MouseWheelMovedEvent.class, this);
-	}
+	}	
 
 	@Override
 	public void dispose()
@@ -55,6 +57,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		EventManager.get_instance().deregister(KeyReleasedEvent.class, this);
 		EventManager.get_instance().deregister(CameraResetEvent.class, this);
 		EventManager.get_instance().deregister(CameraTargetEvent.class, this);
+		EventManager.get_instance().deregister(ToggleMapRenderEvent.class, this);
 		EventManager.get_instance().deregister(MousePressedEvent.class, this);
 		EventManager.get_instance().deregister(MouseReleasedEvent.class, this);
 		EventManager.get_instance().deregister(MouseDraggedEvent.class, this);
@@ -134,6 +137,10 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		{
 			cameraInput.setTargetOffsetX(0);
 			cameraInput.setTargetOffsetY(0);
+			cameraInput.setTargetX(0);
+			cameraInput.setTargetY(0);
+			camera.position.x = 0;
+			camera.position.y = 0;
 			camera.zoom = 0.5f;
 			cameraInput.setReset(false);
 		}
@@ -254,6 +261,17 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		}
 	}
 	
+	public void handleToggleMapRender(ToggleMapRenderEvent event)
+	{
+		ImmutableBag<Entity> entities = getEntities();
+		for (int x = 0; x < entities.size(); x++)
+		{
+			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
+
+			cameraInput.setReset(true);
+		}
+	}
+	
 	public void handleMousePressed(MousePressedEvent event)
 	{
 		if (event.getButtonNumber() == 0)
@@ -268,7 +286,6 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 				cameraInput.setMouseY(event.getY());
 			}
 		}
-		System.out.println("MOUSE PRESSED AT " + event.getX() + ", " + event.getY());
 	}
 	
 	public void handleMouseReleased(MouseReleasedEvent event)
@@ -311,4 +328,5 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			cameraInput.setZoomAmount(event.getMouseWheelAmount());
 		}
 	}
+	
 }

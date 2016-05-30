@@ -50,7 +50,7 @@ public class DialogueInterface implements EventListener
 
 		TextButton closeButton = new TextButton("", skin, "min-toggle");
 
-		dialog = new Window("irc", skin);
+		dialog = new Window("CG Telnet Client", skin);
 		dialog.setBounds(stage.getWidth() - 410, 10, 400, 200);
 		dialog.setResizable(true);
 		dialog.setKeepWithinStage(true);

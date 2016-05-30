@@ -77,6 +77,7 @@ public class FileSystemManager implements EventListener
 	
 	public void copyItemBetweenFileSystems(String sourceFileSystemLocation, String targetFileSystemLocation, String sourceItemLocation, String targetItemLocation)
 	{
+		System.out.println("trying");
 		RootCLI sourceFileSystem = getFileSystem(sourceFileSystemLocation);
 		commandLineManager.setRoot(sourceFileSystem);
 		ItemCLI sourceItem = commandLineManager.findItem(sourceItemLocation);
