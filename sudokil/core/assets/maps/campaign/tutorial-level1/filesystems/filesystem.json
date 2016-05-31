@@ -11,6 +11,7 @@ children:
 			{
 				class: ScriptCLI,
 				name: start.sh,
+				usage: "start.sh \n\t description: camera starts render to screen",
 				event:
 				{
 					class : ToggleMapRenderEvent,
@@ -20,6 +21,7 @@ children:
 			{
 				class: ScriptCLI,
 				name: target.sh,
+				usage: "target.sh entity_id \n\t description: camera targets and follows an entity \n\t entity_id: name of target entity",
 				event:
 				{
 					class: CameraTargetEvent,
@@ -28,6 +30,7 @@ children:
 			{
 				class: ScriptCLI,
 				name: reset.sh,
+				usage: "reset.sh \n\t description: reset camera to original zoom and position",
 				event:
 				{
 					class: CameraResetEvent,

@@ -91,6 +91,7 @@ public class DialogueInterface implements EventListener
 		consoleScroll = new ScrollPane(scrollTable, skin);
 		consoleScroll.setFadeScrollBars(false);
 		consoleScroll.setVariableSizeKnobs(true);
+		consoleScroll.setFlickScroll(false);
 		dialog.add(consoleScroll).fill().expand();
 		this.stage.addActor(dialog);
 

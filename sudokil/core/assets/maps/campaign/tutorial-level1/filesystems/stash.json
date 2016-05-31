@@ -11,6 +11,7 @@ children:
 			{
 				class: ScriptCLI,
 				name: forward.sh,
+				usage: "forward.sh [distance] \n\t description: robot moves forwards \n\t distance: distance to move",
 				event:
 				{
 					class: ForwardEvent,
@@ -19,6 +20,7 @@ children:
 			{
 				class: ScriptCLI,
 				name: backward.sh,
+				usage: "backward.sh [distance] \n\t description: robot moves backwards \n\t distance: distance to move",
 				event:
 				{
 					class: BackwardEvent,
