@@ -79,6 +79,7 @@ public class EventManager
 				}
 			}
 		}
+		System.out.println("BROADCASTING EVENT : " + event.getClass().getSimpleName());
 	}
 
 	public Object broadcastInquiry(Object event)

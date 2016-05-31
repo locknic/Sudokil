@@ -114,6 +114,10 @@
 			className : com.custardgames.sudokil.triggers.conditions.EntityCommandCondition,
 		},
 		{
+			name : AreaTriggerCondition,
+			className : com.custardgames.sudokil.triggers.conditions.AreaTriggerCondition,
+		},
+		{
 			name : PrintDialogueReaction,
 			className : com.custardgames.sudokil.triggers.reactions.PrintDialogueReaction,
 		},

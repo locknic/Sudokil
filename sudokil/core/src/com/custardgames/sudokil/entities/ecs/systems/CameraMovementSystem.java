@@ -99,7 +99,6 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		{
 			camera.position.x += deltaX;
 			camera.position.y += deltaY;
-			EventManager.get_instance().broadcast(new CameraMovedEvent(deltaX, deltaY));
 		}
 
 		if (cameraInput.isUp())
@@ -309,6 +308,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 				cameraInput.setMousePressing(false);
 				cameraInput.setMouseX(0);
 				cameraInput.setMouseY(0);
+				EventManager.get_instance().broadcast(new CameraMovedEvent());
 			}
 		}
 	}
