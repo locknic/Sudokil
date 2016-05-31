@@ -62,6 +62,14 @@
 			className : com.custardgames.sudokil.events.ChangeLevelEvent,
 		},
 		{
+			name : ChangeMapEvent,
+			className : com.custardgames.sudokil.events.ChangeMapEvent,
+		},
+		{
+			name : AddEntitiesEvent,
+			className : com.custardgames.sudokil.events.AddEntitiesEvent,
+		},
+		{
 			name : CopyItemBetweenFileSystemsEvent,
 			className : com.custardgames.sudokil.events.CopyItemBetweenFileSystemsEvent,
 		},
@@ -76,6 +84,14 @@
 		{
 			name : BackwardEvent,
 			className : com.custardgames.sudokil.events.entities.commands.BackwardEvent,
+		},
+		{
+			name : LeftEvent,
+			className : com.custardgames.sudokil.events.entities.commands.LeftEvent,
+		},
+		{
+			name : RightEvent,
+			className : com.custardgames.sudokil.events.entities.commands.RightEvent,
 		},
 		{
 			name : CameraTargetEvent,

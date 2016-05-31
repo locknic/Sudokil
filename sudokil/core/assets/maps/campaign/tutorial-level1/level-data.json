@@ -10,6 +10,7 @@
 	filesystems : 
 	[
 		"maps/campaign/tutorial-level1/filesystems/stash.json",
+		"maps/campaign/tutorial-level1-2/stash.json",
 	],
 	images : 
 	[

@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.custardgames.sudokil.events.ChangeLevelEvent;
+import com.custardgames.sudokil.events.ChangeMapEvent;
 import com.custardgames.sudokil.events.PingAssetsEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyPressedEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyReleasedEvent;
@@ -54,6 +55,7 @@ public class MapInterface extends Stage implements EventListener
 		EventManager.get_instance().register(PingAssetsEvent.class, this);
 		EventManager.get_instance().register(ToggleMapRenderEvent.class, this);
 		EventManager.get_instance().register(ChangeLevelEvent.class, this);
+		EventManager.get_instance().register(ChangeMapEvent.class, this);
 		
 		kcInput = new Array<String>();
 		mouseX = mouseY = mouseWheelRotation = 0;
@@ -84,6 +86,11 @@ public class MapInterface extends Stage implements EventListener
 		worldManager.dispose();
 		tileMap.dispose();
 		tmr.dispose();
+		
+		EventManager.get_instance().deregister(PingAssetsEvent.class, this);
+		EventManager.get_instance().deregister(ToggleMapRenderEvent.class, this);
+		EventManager.get_instance().deregister(ChangeLevelEvent.class, this);
+		EventManager.get_instance().deregister(ChangeMapEvent.class, this);
 	}
 	
 	public void changeLevel(LevelData levelData)
@@ -91,13 +98,18 @@ public class MapInterface extends Stage implements EventListener
 		assetManager.clear();
 		PlayLoadAssets.loadAssets(assetManager, levelData);
 		
-		tileMap.dispose();
-		tileMap = new TmxMapLoader().load(levelData.getMapLocation());
-		mapManager.setMap(tileMap);
-		tmr.setMap(tileMap);
+		changeMap(levelData.getMapLocation());
 		
 		worldManager.dispose();
 		worldManager.loadLevelData(levelData);
+	}
+	
+	public void changeMap(String mapLocation)
+	{
+		tileMap.dispose();
+		tileMap = new TmxMapLoader().load(mapLocation);
+		mapManager.setMap(tileMap);
+		tmr.setMap(tileMap);
 	}
 
 	public void update(float dt)
@@ -321,6 +333,11 @@ public class MapInterface extends Stage implements EventListener
 		jsonTags.addTags(json);
 		LevelData levelData = json.fromJson(LevelData.class, Gdx.files.internal(event.getLevelDataLocation()));
 		changeLevel(levelData);
+	}
+	
+	public void handleChangeMap(ChangeMapEvent event)
+	{
+		changeMap(event.getNewMapLocation());
 	}
 
 }

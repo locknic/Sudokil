@@ -1,0 +1,23 @@
+{
+	deviceName : stash,
+	name : stash,
+	children: 
+	[	
+		{
+			class: ScriptCLI,
+			name: left.sh,
+			event:
+			{
+				class: LeftEvent
+			}
+		},
+		{
+			class: ScriptCLI,
+			name: right.sh,
+			event:
+			{
+				class: RightEvent
+			}
+		},
+	]
+}

@@ -264,7 +264,7 @@ public class CommandLineInterface implements EventListener
 				}
 			}
 
-			updateScroll += 2;
+			updateScroll += 5;
 			return true;
 		}
 		else
@@ -300,7 +300,7 @@ public class CommandLineInterface implements EventListener
 		if (keyEvent.getOwnerUI() == ownerUI)
 		{
 			consoleDialog.setText(consoleDialog.getText() + "\n" + keyEvent.getText());
-			updateScroll += 2;
+			updateScroll += 20;
 		}
 	}
 

@@ -865,13 +865,13 @@
 						},
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Perfect. Now run 'forward.sh' again to get the robot into the trigger area. If you press the up arrow, it will paste your previous command.",
+							dialogueMessage : "Rob: Perfect. Now run 'forward.sh' again to get the robot to the end. If you press the up arrow, it will paste your previous command.",
 						},					
 					]
 				}
 			},
 		],
-		// AREA TRIGGER (robot1) >>> ADD LOAD LEVEL 2
+		// AREA TRIGGER (robot1) >>> ADD LOAD LEVEL 2 && "left turn"
 		[
 			{
 				class : TriggerEntityComponent,
@@ -897,16 +897,20 @@
 					triggerReactions : 
 					[
 						{
-							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: YAY YOU FINISHED THE LEVEL.",
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : ChangeMapEvent,
+								newMapLocation : "maps/campaign/tutorial-level1-2/level.tmx",
+							},
 						},
 						{
 							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
 							event : 
 							{
-								class : com.custardgames.sudokil.events.ChangeLevelEvent,
-								levelDataLocation : "maps/campaign/tutorial-level2/level.json",
-							}
+								class : AddEntitiesEvent,
+								entitiesLocation : "maps/campaign/tutorial-level1-2/triggers.json",
+							},
 						},						
 					]
 				}

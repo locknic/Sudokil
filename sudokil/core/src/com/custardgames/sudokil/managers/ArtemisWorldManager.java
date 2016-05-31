@@ -30,6 +30,7 @@ import com.custardgames.sudokil.entities.ecs.systems.UpdatePhysicalCharacterInpu
 import com.custardgames.sudokil.entities.ecs.systems.WiredConnectionSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.SpriteRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.TextRenderSystem;
+import com.custardgames.sudokil.events.AddEntitiesEvent;
 import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.entities.CreateEntityEvent;
 import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
@@ -47,7 +48,8 @@ public class ArtemisWorldManager implements EventListener
 	public ArtemisWorldManager(Camera camera, AssetManager assetManager, LevelData levelData)
 	{
 		EventManager.get_instance().register(CreateEntityEvent.class, this);
-
+		EventManager.get_instance().register(AddEntitiesEvent.class, this);
+		
 		spriteRenderSystem = new SpriteRenderSystem();
 		textRenderSystem = new TextRenderSystem();
 
@@ -131,6 +133,11 @@ public class ArtemisWorldManager implements EventListener
 	public void handleCreateEntity(CreateEntityEvent event)
 	{
 		createEntity(event.getComponents());
+	}
+	
+	public void handleAddEntities(AddEntitiesEvent event)
+	{
+		createEntitiesFromJson(event.getEntitiesLocation());
 	}
 
 }

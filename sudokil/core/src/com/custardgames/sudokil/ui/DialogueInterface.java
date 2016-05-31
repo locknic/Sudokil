@@ -201,7 +201,7 @@ public class DialogueInterface implements EventListener
 		scrollTable.row();
 		scrollTable.add(newConsoleDialog).expandX().fill().left().top();
 		fadingBackgrounds.add(newConsoleDialog);
-		updateScroll += 2;
+		updateScroll += 10;
 	}
 
 	public void handleToggleDialogueWindow(ToggleDialogueWindowEvent event)

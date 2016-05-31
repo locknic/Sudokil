@@ -38,24 +38,19 @@ public class AreaTriggerCondition extends BaseTriggerCondition implements EventL
 
 	public void handleEntityMoved(EntityMovedEvent event)
 	{
-		System.out.println("PASS 0");
 		if (isRunning())
 		{
-			System.out.println("PASS 1");
 			EntityComponent entityComponent = event.getEntity().getComponent(EntityComponent.class);
 			if (entityComponent.getId().equals(entityID))
 			{
-				System.out.println("PASS 2");
 				PositionComponent positionComponent = event.getEntity().getComponent(PositionComponent.class);
 				if (positionComponent != null && positionComponent.getX() >= triggerAreaMinX && positionComponent.getY() >= triggerAreaMinY
 						&& positionComponent.getX() <= triggerAreaMaxX && positionComponent.getY() <= triggerAreaMaxY)
 				{
-					System.out.println("PASS 3");
 					triggered = true;
 				}
 				else
 				{
-					System.out.println("PASS -1 : " + positionComponent.getX() + ", " + positionComponent.getY());
 					triggered = false;
 				}
 			}
