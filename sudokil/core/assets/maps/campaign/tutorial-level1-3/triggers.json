@@ -104,5 +104,45 @@
 				}
 			},
 		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : AreaTriggerCondition,
+					running : true,
+					entityID : robot1,
+					triggerAreaMinX : 191,
+					triggerAreaMinY : 799,
+					triggerAreaMaxX : 224,
+					triggerAreaMaxY : 832,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Oh gosh there's a crate in our way now.",
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : ChangeMapEvent,
+								newMapLocation : "maps/campaign/tutorial-level1-4/level.tmx",
+							},
+						},				
+					]
+				}
+			},
+		],
 	]
 }
