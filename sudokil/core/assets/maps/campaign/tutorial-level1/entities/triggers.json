@@ -874,7 +874,24 @@
 		// AREA TRIGGER (robot1) >>> ADD LOAD LEVEL 2 && "left turn"
 		[
 			{
+				class : EntityComponent,
+				id : "trigger_area1",
+			},
+			{
 				class : TriggerEntityComponent,
+			},
+			{
+				class : PositionComponent,
+				x : 128,
+				y : 64,
+				width : 32,
+				height : 32,
+				angle : 0,
+			},
+			{
+				class : ShapeRenderableComponent,
+				fill : true,
+				shouldRender : true,
 			},
 			{
 				class : TriggerConditionsComponent,
@@ -910,6 +927,15 @@
 							{
 								class : AddEntitiesEvent,
 								entitiesLocation : "maps/campaign/tutorial-level1-2/triggers.json",
+							},
+						},	
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : SetShapeRenderEvent,
+								entityID : "trigger_area1",
+								shouldRender : false, 
 							},
 						},						
 					]

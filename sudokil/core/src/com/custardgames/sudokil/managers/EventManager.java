@@ -60,7 +60,8 @@ public class EventManager
 				Method m = findMethod(currentListenersArray[x], event.getClass());
 				try
 				{
-					m.invoke(currentListenersArray[x], event);
+//					if (m != null)
+						m.invoke(currentListenersArray[x], event);
 				}
 				catch (IllegalAccessException e)
 				{

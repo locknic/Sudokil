@@ -46,6 +46,10 @@
 			className : com.custardgames.sudokil.entities.ecs.components.CameraInputComponent,
 		},
 		{
+			name : ShapeRenderableComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.ShapeRenderableComponent,
+		},
+		{
 			name : TriggerEntityComponent,
 			className : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerEntityComponent,
 		},
@@ -76,6 +80,10 @@
 		{
 			name : SetTriggerEvent,
 			className : com.custardgames.sudokil.events.entities.SetTriggerEvent,
+		},
+		{
+			name : SetShapeRenderEvent,
+			className : com.custardgames.sudokil.events.entities.SetShapeRenderEvent,
 		},
 		{
 			name : ForwardEvent,

@@ -28,6 +28,7 @@ import com.custardgames.sudokil.entities.ecs.systems.PowerConsumptionSystem;
 import com.custardgames.sudokil.entities.ecs.systems.ProcessQueueSystem;
 import com.custardgames.sudokil.entities.ecs.systems.UpdatePhysicalCharacterInputSystem;
 import com.custardgames.sudokil.entities.ecs.systems.WiredConnectionSystem;
+import com.custardgames.sudokil.entities.ecs.systems.rendering.ShapeRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.SpriteRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.TextRenderSystem;
 import com.custardgames.sudokil.events.AddEntitiesEvent;
@@ -43,6 +44,7 @@ public class ArtemisWorldManager implements EventListener
 	private World artemisWorld;
 
 	private SpriteRenderSystem spriteRenderSystem;
+	private ShapeRenderSystem shapeRenderSystem;
 	private TextRenderSystem textRenderSystem;
 
 	public ArtemisWorldManager(Camera camera, AssetManager assetManager, LevelData levelData)
@@ -51,10 +53,11 @@ public class ArtemisWorldManager implements EventListener
 		EventManager.get_instance().register(AddEntitiesEvent.class, this);
 		
 		spriteRenderSystem = new SpriteRenderSystem();
+		shapeRenderSystem = new ShapeRenderSystem();
 		textRenderSystem = new TextRenderSystem();
 
 		WorldConfiguration config = new WorldConfigurationBuilder()
-				.with(spriteRenderSystem, textRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(),
+				.with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(),
 						new ProcessQueueSystem(), new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(),
 						new ActivityBlockingSystem(), new PowerConsumptionSystem(), new ActivitySpriteSystem(), new EventTriggerSystem())
 				.build().register(camera).register(assetManager);
@@ -93,6 +96,7 @@ public class ArtemisWorldManager implements EventListener
 	public void render(Batch spriteBatch)
 	{
 		spriteBatch.begin();
+		shapeRenderSystem.render(spriteBatch);
 		spriteRenderSystem.render(spriteBatch);
 		textRenderSystem.render(spriteBatch);
 		spriteBatch.end();

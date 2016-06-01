@@ -87,7 +87,24 @@
 		],
 		[
 			{
+				class : EntityComponent,
+				id : "trigger_area2",
+			},
+			{
 				class : TriggerEntityComponent,
+			},
+			{
+				class : PositionComponent,
+				x : 192,
+				y : 128,
+				width : 32,
+				height : 32,
+				angle : 0,
+			},
+			{
+				class : ShapeRenderableComponent,
+				fill : true,
+				shouldRender : true,
 			},
 			{
 				class : TriggerConditionsComponent,
@@ -127,6 +144,15 @@
 							{
 								class : AddEntitiesEvent,
 								entitiesLocation : "maps/campaign/tutorial-level1-3/triggers.json",
+							},
+						},		
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : SetShapeRenderEvent,
+								entityID : "trigger_area2",
+								shouldRender : false, 
 							},
 						},						
 					]

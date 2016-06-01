@@ -203,6 +203,7 @@ public class CommandLineManager implements EventListener
 		if (location == null || location.equals(""))
 		{
 			currentItem = root;
+			EventManager.get_instance().broadcast(new ChangedDirectoryEvent(currentItem.getName()));
 		}
 		else
 		{
