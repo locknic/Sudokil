@@ -25,7 +25,7 @@ public class Core extends Game implements EventListener
 	@Override
 	public void create()
 	{
-		playScreen = new Play("maps/campaign/level1/level-data.json");
+		playScreen = new Play("maps/campaign/tutorial-level1/level-data.json");
 		setScreen(playScreen);
 		Gdx.input.setInputProcessor(InputManager.get_instance());
 	}
