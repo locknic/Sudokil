@@ -51,7 +51,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 	@Override
 	public boolean checkProcessing()
 	{
-		return true;
+		return false;
 	}
 
 	@Override

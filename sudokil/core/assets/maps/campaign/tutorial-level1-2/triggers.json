@@ -52,39 +52,6 @@
 				}
 			},
 		],
-		// AREA TRIGGER (robot1) >>> "press TAB autocomplete"
-		[
-			{
-				class : TriggerEntityComponent,
-			},
-			{
-				class : TriggerConditionsComponent,
-				triggerCondition : 
-				{
-					class : AreaTriggerCondition,
-					running : true,
-					entityID : robot1,
-					triggerAreaMinX : 191,
-					triggerAreaMinY : 63,
-					triggerAreaMaxX : 224,
-					triggerAreaMaxY : 96,
-				}
-			},
-			{
-				class : TriggerReactionsComponent,
-				triggerReaction :
-				{ 
-					class : TriggerReactionArray,
-					triggerReactions : 
-					[
-						{
-							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: By the way, if you hit TAB while typing, the terminal will try to autocomplete your sentence.",
-						},					
-					]
-				}
-			},
-		],
 		[
 			{
 				class : EntityComponent,

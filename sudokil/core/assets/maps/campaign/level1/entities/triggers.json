@@ -3,48 +3,27 @@
 	[
 		[
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerEntityComponent,
-				looping : false,
-				needsAllConditions : false,
+				class : TriggerEntityComponent,
 			},
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerConditionsComponent,
+				class : TriggerConditionsComponent,
 				triggerCondition : 
 				{
-					class : com.custardgames.sudokil.triggers.conditions.TimedTriggerCondition,
-					duration : 0.1,
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 20,
 				}
 			},
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerReactionsComponent,
+				class : TriggerReactionsComponent,
 				triggerReaction :
 				{ 
-					class : com.custardgames.sudokil.triggers.reactions.TriggerReactionArray
+					class : TriggerReactionArray,
 					triggerReactions : 
 					[
 						{
-							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
-							event : 
-							{
-								class : com.custardgames.sudokil.events.ui.ToggleMapRenderEvent,
-								shouldRender : false,
-							}
-						},
-						{
-							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
-							event : 
-							{
-								class : com.custardgames.sudokil.events.ui.ToggleTerminalButtonEvent,
-								buttonVisible : false,
-							}
-						},
-						{
-							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
-							event : 
-							{
-								class : com.custardgames.sudokil.events.ui.ToggleDialogueWindowEvent,
-								open : true,
-							}
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: By the way, you can chain directory navigation commands with '/'. For example if you are in robot1, '../robot2' will move you to robot2's directory.",
 						},
 					]
 				}
@@ -52,32 +31,27 @@
 		],
 		[
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerEntityComponent,
-				looping : false,
-				needsAllConditions : false,
+				class : TriggerEntityComponent,
 			},
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerConditionsComponent,
+				class : TriggerConditionsComponent,
 				triggerCondition : 
 				{
-					class : com.custardgames.sudokil.triggers.conditions.TimedTriggerCondition,
-					duration : 5,
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 60,
 				}
 			},
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerReactionsComponent,
+				class : TriggerReactionsComponent,
 				triggerReaction :
 				{ 
-					class : com.custardgames.sudokil.triggers.reactions.TriggerReactionArray
+					class : TriggerReactionArray,
 					triggerReactions : 
 					[
 						{
-							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
-							event : 
-							{
-								class : com.custardgames.sudokil.events.ui.ToggleTerminalButtonEvent,
-								buttonVisible : true,
-							}
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Remember to use TAB to autocomplete while you're typing.",
 						},
 					]
 				}
@@ -85,35 +59,27 @@
 		],
 		[
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerEntityComponent,
-				looping : false,
-				needsAllConditions : false,
+				class : TriggerEntityComponent,
 			},
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerConditionsComponent,
+				class : TriggerConditionsComponent,
 				triggerCondition : 
 				{
-					class : com.custardgames.sudokil.triggers.conditions.TimedTriggerCondition,
-					duration : 10,
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 90,
 				}
 			},
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerReactionsComponent,
+				class : TriggerReactionsComponent,
 				triggerReaction :
 				{ 
-					class : com.custardgames.sudokil.triggers.reactions.TriggerReactionArray
+					class : TriggerReactionArray,
 					triggerReactions : 
 					[
 						{
-							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
-							event : 
-							{
-								class : com.custardgames.sudokil.events.CopyItemBetweenFileSystemsEvent,
-								sourceFileSystem : maps/campaign/level1/filesystems/stash.json,
-								targetFileSystem : maps/campaign/level1/filesystems/filesystem.json,
-								sourceItemLocation : "robot1",
-								targetItemLocation : "/",
-							}
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: If you don't know what a script does, try running '-h' behind the script to print out it's usage. For example 'connect.sh -h'.",
 						},
 					]
 				}
@@ -121,39 +87,99 @@
 		],
 		[
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerEntityComponent,
-				looping : false,
-				needsAllConditions : false,
+				class : TriggerEntityComponent,
 			},
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerConditionsComponent,
+				class : TriggerConditionsComponent,
 				triggerCondition : 
 				{
-					class : com.custardgames.sudokil.triggers.conditions.EntityCommandCondition,
-					className : com.custardgames.sudokil.events.entities.commands.ForwardEvent,
-					entityName : robot1,
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 120,
 				}
 			},
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerReactionsComponent,
+				class : TriggerReactionsComponent,
 				triggerReaction :
 				{ 
-					class : com.custardgames.sudokil.triggers.reactions.TriggerReactionArray
+					class : TriggerReactionArray,
 					triggerReactions : 
 					[
-						
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Pressing the up or down arrow keys will show you your history of commands.",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : "trigger_area1",
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : PositionComponent,
+				x : 128,
+				y : 224,
+				width : 32,
+				height : 32,
+				angle : 0,
+			},
+			{
+				class : ShapeRenderableComponent,
+				fill : true,
+				shouldRender : true,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : AreaTriggerCondition,
+					running : true,
+					entityID : robot3,
+					triggerAreaMinX : 127,
+					triggerAreaMinY : 223,
+					triggerAreaMaxX : 160,
+					triggerAreaMaxY : 256,
+				}
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
+				shouldRender : true,
+				text: ">>> robot3 <<<",
+				deltaX : 0,
+				deltaY : -16
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
 						{
 							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
 							event : 
 							{
-								class : com.custardgames.sudokil.events.ChangeLevelEvent,
-								levelDataLocation : "maps/campaign/level1/level1.json",
-							}
-						},
+								class : com.custardgames.sudokil.events.EndGameEvent,
+							},
+						},	
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : SetShapeRenderEvent,
+								entityID : "trigger_area1",
+								shouldRender : false, 
+							},
+						},						
 					]
 				}
 			},
 		],
 	]
-	
 }

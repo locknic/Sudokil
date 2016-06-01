@@ -1,0 +1,47 @@
+
+uiscreens.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+end
+  rotate: false
+  xy: 1, 789
+  size: 1280, 720
+  orig: 1280, 720
+  offset: 0, 0
+  index: -1
+intro
+  rotate: false
+  xy: 1, 67
+  size: 1280, 720
+  orig: 1280, 720
+  offset: 0, 0
+  index: -1
+mail-down
+  rotate: false
+  xy: 1283, 1445
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+mail
+  rotate: false
+  xy: 1, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+terminal-down
+  rotate: false
+  xy: 1283, 1379
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+terminal
+  rotate: false
+  xy: 1349, 1445
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1

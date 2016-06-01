@@ -274,7 +274,7 @@
 				shouldRender : true,
 				text: "computer1",
 				deltaX : 0,
-				deltaY : 44
+				deltaY : 2
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PowerConsumerComponent,
@@ -330,7 +330,7 @@
 				shouldRender : true,
 				text: "computer2",
 				deltaX : 0,
-				deltaY : 44
+				deltaY : 2
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PowerConsumerComponent,

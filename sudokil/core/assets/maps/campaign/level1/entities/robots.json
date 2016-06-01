@@ -31,7 +31,7 @@
 				shouldRender : true,
 				text: "robot1",
 				deltaX : 0,
-				deltaY : 44
+				deltaY : 2
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
@@ -51,52 +51,6 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
 				id : robot2
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
-				x : 128,
-				y : 352,
-				width : 32,
-				height : 32,
-				angle : 180
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.VelocityComponent,
-				maxTravelVelocity : 2,
-				maxTurnVelocity : 1.5
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.CharacterInputComponent
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
-				spriteLocation : images/player/robot1.png
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
-				shouldRender : true,
-				text: "robot2",
-				deltaX : 0,
-				deltaY : 44
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
-				blocking : true
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.LiftableComponent,
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent,
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
-			}
-		],
-		[
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
-				id : robot3
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
@@ -121,13 +75,59 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
 				shouldRender : true,
-				text: "robot3",
+				text: "robot2",
 				deltaX : 0,
-				deltaY : 44
+				deltaY : 2
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
 				blocking : true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent,
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
+			}
+		],
+		[
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
+				id : robot3
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
+				x : 128,
+				y : 352,
+				width : 32,
+				height : 32,
+				angle : 180
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.VelocityComponent,
+				maxTravelVelocity : 2,
+				maxTurnVelocity : 1.5
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.CharacterInputComponent
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
+				spriteLocation : images/player/robot1.png
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
+				shouldRender : true,
+				text: "robot3",
+				deltaX : 0,
+				deltaY : 2
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.LiftableComponent,
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent,

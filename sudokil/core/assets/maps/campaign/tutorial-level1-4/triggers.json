@@ -1,0 +1,177 @@
+{
+	entities :
+	[
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 3,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: I've written the scripts 'lift.sh' and 'lower.sh' for you. Move robot1 up to the crate and run 'lift.sh'.",
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : CopyItemBetweenFileSystemsEvent,
+								sourceFileSystem : maps/campaign/tutorial-level1-4/stash.json,
+								targetFileSystem : maps/campaign/tutorial-level1/filesystems/filesystem.json,
+								sourceItemLocation : "lift.sh",
+								targetItemLocation : "/robot1",
+							}
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : CopyItemBetweenFileSystemsEvent,
+								sourceFileSystem : maps/campaign/tutorial-level1-4/stash.json,
+								targetFileSystem : maps/campaign/tutorial-level1/filesystems/filesystem.json,
+								sourceItemLocation : "lower.sh",
+								targetItemLocation : "/robot1",
+							}
+						},						
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EntityCommandCondition,
+					running : true,
+					className : com.custardgames.sudokil.events.entities.commands.LiftEvent,
+					entityName : robot1,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Great. You can put the crate down with 'lower.sh'.",
+						},					
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : "trigger_area4",
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : PositionComponent,
+				x : 352,
+				y : 704,
+				width : 32,
+				height : 32,
+				angle : 0,
+			},
+			{
+				class : ShapeRenderableComponent,
+				fill : true,
+				shouldRender : true,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : AreaTriggerCondition,
+					running : true,
+					entityID : robot1,
+					triggerAreaMinX : 351,
+					triggerAreaMinY : 703,
+					triggerAreaMaxX : 384,
+					triggerAreaMaxY : 732,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Ah, there's robot2. I've added it to your parent directory. Use 'cd ..' to get there.",
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : ChangeMapEvent,
+								newMapLocation : "maps/campaign/tutorial-level1-5/level.tmx",
+							},
+						},	
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : AddEntitiesEvent,
+								entitiesLocation : "maps/campaign/tutorial-level1-5/triggers.json",
+							},
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : AddEntitiesEvent,
+								entitiesLocation : "maps/campaign/tutorial-level1-5/entities.json",
+							},
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : SetShapeRenderEvent,
+								entityID : "trigger_area4",
+								shouldRender : false, 
+							},
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : CopyItemBetweenFileSystemsEvent,
+								sourceFileSystem : maps/campaign/tutorial-level1-5/stash.json,
+								targetFileSystem : maps/campaign/tutorial-level1/filesystems/filesystem.json,
+								sourceItemLocation : "robot2",
+								targetItemLocation : "/",
+							}
+						},						
+					]
+				}
+			},
+		],
+	]
+}

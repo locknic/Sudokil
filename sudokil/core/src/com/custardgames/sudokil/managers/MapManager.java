@@ -31,7 +31,7 @@ public class MapManager implements EventListener
 
 		setMap(map);
 	}
-	
+
 	public void setMap(TiledMap map)
 	{
 		this.map = map;
@@ -51,7 +51,10 @@ public class MapManager implements EventListener
 	public void addToMap(Entity entity)
 	{
 		PositionComponent position = entity.getComponent(PositionComponent.class);
-		addToMap(entity, (int) (position.getX() / tileWidth), (int) (position.getY() / tileHeight));
+		if (position != null)
+		{
+			addToMap(entity, (int) (position.getX() / tileWidth), (int) (position.getY() / tileHeight));
+		}
 	}
 
 	public void removeFromMap(Entity entity, int x, int y)
@@ -64,7 +67,10 @@ public class MapManager implements EventListener
 	public void removeFromMap(Entity entity)
 	{
 		PositionComponent position = entity.getComponent(PositionComponent.class);
-		removeFromMap(entity, (int) (position.getX() / tileWidth), (int) (position.getY() / tileHeight));
+		if (position != null)
+		{
+			removeFromMap(entity, (int) (position.getX() / tileWidth), (int) (position.getY() / tileHeight));
+		}
 	}
 
 	public boolean requestMove(Entity entity, int xDir, int yDir)

@@ -1,5 +1,5 @@
 {
-	mapLocation : "maps/campaign/level1/test.tmx",
+	mapLocation : "maps/campaign/level1/level.tmx",
 	entities : 
 	[
 		"maps/campaign/level1/entities/robots.json", 
@@ -11,7 +11,6 @@
 	[
 		"maps/campaign/level1/filesystems/computer1.json",
 		"maps/campaign/level1/filesystems/computer2.json",
-		"maps/campaign/level1/filesystems/stash.json",
 	],
 	images : 
 	[

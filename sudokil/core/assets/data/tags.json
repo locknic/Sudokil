@@ -102,6 +102,14 @@
 			className : com.custardgames.sudokil.events.entities.commands.RightEvent,
 		},
 		{
+			name : LiftEvent,
+			className : com.custardgames.sudokil.events.entities.commands.LiftEvent,
+		},
+		{
+			name : LowerEvent,
+			className : com.custardgames.sudokil.events.entities.commands.LowerEvent,
+		},
+		{
 			name : CameraTargetEvent,
 			className : com.custardgames.sudokil.events.entities.commands.camera.CameraTargetEvent,
 		},
@@ -140,6 +148,14 @@
 		{
 			name : AreaTriggerCondition,
 			className : com.custardgames.sudokil.triggers.conditions.AreaTriggerCondition,
+		},
+		{
+			name : AndTriggerConditionArray,
+			className : com.custardgames.sudokil.triggers.conditions.AndTriggerConditionArray,
+		},
+		{
+			name : OrTriggerConditionArray,
+			className : com.custardgames.sudokil.triggers.conditions.OrTriggerConditionArray,
 		},
 		{
 			name : PrintDialogueReaction,

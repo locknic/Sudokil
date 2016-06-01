@@ -15,12 +15,12 @@
  </tileset>
  <layer name="floor" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2VSwqAMBBDewj1/kcVF4UYMpJWR2TwQTZ++jqmYGvvsEEUS/CsG/VeX9fJjIP3zrO567pzZDmcOdS+nnKM9lDR0VEOJroeoRx8rqo48LtiH3xvpA/XcWSFZDjunKtsB6K65T4cvuiYoYrjigyH+lf/nNkBMlzdLsQJAAA=
+   H4sIAAAAAAAAC2NgoA8QQ8LYgAgOtcRibPpg5hKDybED3e3oYqSYTYw/aGUHPfwxagd+O2AAmx0MaGIiOORwAWx2oKer4WIHcrii20FufBBrBwiLImFa2EFJuqK1HciAVnE+GOwgBwwXO/ABWtiBra4eBagAAKI6N3fECQAA
   </data>
  </layer>
  <layer name="tiles" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+WUUQrAMAhDvYKF3f+q+xqEzBWtYWNbQEqF9jWoNZvLIZRyO9/NuS67cm6VMWDNeOoyUE5rRxEj8tFR9F72xPu/Mu6ox1f66ophtB8QVWbEiGq8QVQZmb7q+sgyOnpyPqJ3qBmKP33GUEs5z3jn0Ys8z0pGJb/KQB/s5w3aATIdXCTECQAA
+   H4sIAAAAAAAAC2NgwA8EkTA1gSADptnoYpTaTYo+cu0QQqJxuZdSfwih0TAz0e2gBNDDDkE0Gt0+bPyRasdwifPBZIcQEibVTmx2EIpjUu3Ala7YoWwOBsr9QUzaHQr5fCDTFTXqJnx2UBtgiw9qmAlLi+h1ODXtIEWcXDuQ/YHun6EAANJKwnnECQAA
   </data>
  </layer>
  <layer name="objects" width="25" height="25">

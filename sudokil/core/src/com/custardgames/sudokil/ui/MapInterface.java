@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.custardgames.sudokil.events.ChangeLevelEvent;
 import com.custardgames.sudokil.events.ChangeMapEvent;
+import com.custardgames.sudokil.events.ChangedMapEvent;
 import com.custardgames.sudokil.events.PingAssetsEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyPressedEvent;
 import com.custardgames.sudokil.events.physicalinput.KeyReleasedEvent;
@@ -110,6 +111,7 @@ public class MapInterface extends Stage implements EventListener
 		tileMap = new TmxMapLoader().load(mapLocation);
 		mapManager.setMap(tileMap);
 		tmr.setMap(tileMap);
+		EventManager.get_instance().broadcast(new ChangedMapEvent());
 	}
 
 	public void update(float dt)

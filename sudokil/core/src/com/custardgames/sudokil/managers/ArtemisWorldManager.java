@@ -24,6 +24,7 @@ import com.custardgames.sudokil.entities.ecs.systems.DoorToggleSystem;
 import com.custardgames.sudokil.entities.ecs.systems.EntityLocatorSystem;
 import com.custardgames.sudokil.entities.ecs.systems.EventTriggerSystem;
 import com.custardgames.sudokil.entities.ecs.systems.LiftSystem;
+import com.custardgames.sudokil.entities.ecs.systems.MapRefresherSystem;
 import com.custardgames.sudokil.entities.ecs.systems.PowerConsumptionSystem;
 import com.custardgames.sudokil.entities.ecs.systems.ProcessQueueSystem;
 import com.custardgames.sudokil.entities.ecs.systems.UpdatePhysicalCharacterInputSystem;
@@ -59,7 +60,7 @@ public class ArtemisWorldManager implements EventListener
 		WorldConfiguration config = new WorldConfigurationBuilder()
 				.with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(),
 						new ProcessQueueSystem(), new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(),
-						new ActivityBlockingSystem(), new PowerConsumptionSystem(), new ActivitySpriteSystem(), new EventTriggerSystem())
+						new ActivityBlockingSystem(), new PowerConsumptionSystem(), new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem())
 				.build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
 

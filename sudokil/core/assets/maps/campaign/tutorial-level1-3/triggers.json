@@ -86,7 +86,7 @@
 				{
 					class : TimedTriggerCondition,
 					running : false,
-					duration : 5,
+					duration : 8,
 				}
 			},
 			{
@@ -98,7 +98,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Get the robot to the end of the room.",
+							dialogueMessage : "Rob: By the way, if you hit TAB while typing, the terminal will try to autocomplete your sentence. Get the robot to the highlighted area at the end of the room.",
 						},					
 					]
 				}
@@ -156,7 +156,23 @@
 								class : ChangeMapEvent,
 								newMapLocation : "maps/campaign/tutorial-level1-4/level.tmx",
 							},
-						},	
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : AddEntitiesEvent,
+								entitiesLocation : "maps/campaign/tutorial-level1-4/triggers.json",
+							},
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : AddEntitiesEvent,
+								entitiesLocation : "maps/campaign/tutorial-level1-4/entities.json",
+							},
+						},							
 						{
 							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
 							event : 
@@ -165,7 +181,16 @@
 								entityID : "trigger_area3",
 								shouldRender : false, 
 							},
-						},						
+						},		
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger2-1,
+								running : false,
+							}
+						}	
 					]
 				}
 			},

@@ -6,10 +6,12 @@ import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -32,7 +34,7 @@ public class DialogueInterface implements EventListener
 	private Window dialog;
 	private Label consoleDialog;
 	private ScrollPane consoleScroll;
-	private Button dialogueWindowButton;
+	private ImageButton dialogueWindowButton;
 	private Table scrollTable;
 	private Skin skin;
 
@@ -94,8 +96,14 @@ public class DialogueInterface implements EventListener
 		consoleScroll.setFlickScroll(false);
 		dialog.add(consoleScroll).fill().expand();
 		this.stage.addActor(dialog);
-
-		dialogueWindowButton = new Button(skin);
+		
+		TextureAtlas buttonAtlas = new TextureAtlas("data/uibuttons.atlas");
+		Skin buttonSkin = new Skin(buttonAtlas);
+        ImageButtonStyle style = new ImageButtonStyle();
+        style.up = buttonSkin.getDrawable("mail");
+        style.down = buttonSkin.getDrawable("mail-down");
+        
+		dialogueWindowButton = new ImageButton(style);
 		dialogueWindowButton.setBounds(stage.getWidth() - 74, 10, 64, 64);
 		dialogueWindowButton.addListener(new ChangeListener()
 		{

@@ -15,12 +15,12 @@
  </tileset>
  <layer name="floor" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoA8QQ8LYgAgOtcRibPpg5hKDybED3e3ofiPWXGL9QSs7iPEHNndRyw5S42E42gED2OygFGCzAz1dDRc7SM0LxMTHqB3E2YEMaBXno3YMrB34AC3swFZXjwJUAAAk8wWCxAkAAA==
+   H4sIAAAAAAAAC2NgoA8QQ8LYgAgOtcRibPpg5hKDybED3e3oYqSYTYw/aGUHPfwxagd+O2AAmx2UAmx2oKer4WIHOWUHofgYtYM4O5ABreJ81I6BtQMfoIUd2OrqUYAKACdTSgbECQAA
   </data>
  </layer>
  <layer name="tiles" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgwA8EkTA1gSADptnoYpTaTYo+cu0QQqKJ8ROldiADQTSaEoDNDmz+oARgcy+6n9D5I9UOfPFBrTyJK11RE4zaQTygZn4e7nYMlzgfqukKVv4g13u0sIMUcXLtQPYHun+GAgAAk7hlVcQJAAA=
+   H4sIAAAAAAAAC2NgwA8EkTA1gSADptnoYpTaTYo+cu0QQqJxuZdSfwih0TAz0e2gBNDDDkE0Gt0+bPyRageu+KBGvsBnB7XBqB3EA2zpatQO7GC4xPlQTVew8ge53qOFHaSIk2sHsj/Q/TMUAADdh4ylxAkAAA==
   </data>
  </layer>
  <layer name="objects" width="25" height="25" visible="0">

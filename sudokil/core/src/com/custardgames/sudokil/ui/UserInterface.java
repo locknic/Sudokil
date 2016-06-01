@@ -5,12 +5,14 @@ import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
@@ -31,7 +33,7 @@ public class UserInterface extends Stage implements EventListener
 	private Array<CommandLineInterface> windows;
 	private CommandLineInterface previousFocus;
 	private int maxWindows;
-	private Button newTerminalWindow;
+	private ImageButton newTerminalWindow;
 	private DialogueInterface dialogueInterface;
 	private FileSystemManager fileSystemManager;
 
@@ -197,8 +199,12 @@ public class UserInterface extends Stage implements EventListener
 
 	public void generateUI()
 	{
-		Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-		newTerminalWindow = new Button(skin);
+		TextureAtlas buttonAtlas = new TextureAtlas("data/uibuttons.atlas");
+		Skin buttonSkin = new Skin(buttonAtlas);
+        ImageButtonStyle style = new ImageButtonStyle(); //** Button properties **//
+        style.up = buttonSkin.getDrawable("terminal");
+        style.down = buttonSkin.getDrawable("terminal-down");
+		newTerminalWindow = new ImageButton(style);
 		newTerminalWindow.setBounds(10, 10, 64, 64);
 		newTerminalWindow.addListener(new ChangeListener()
 		{

@@ -1,0 +1,30 @@
+{
+	entities :
+	[
+		[
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
+				id : crate1
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
+				x : 320,
+				y : 704,
+				width : 32,
+				height : 32,
+				angle : 0
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
+				spriteLocation : images/entities/crate.png
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
+				blocking : true
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.LiftableComponent,
+			}
+		],
+	]
+}

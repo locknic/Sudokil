@@ -5,7 +5,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.Json;
 import com.custardgames.sudokil.managers.TimerManager;
+import com.custardgames.sudokil.ui.EndScreen;
 import com.custardgames.sudokil.ui.EscapeMenu;
+import com.custardgames.sudokil.ui.IntroScreen;
 import com.custardgames.sudokil.ui.MapInterface;
 import com.custardgames.sudokil.ui.UserInterface;
 
@@ -17,7 +19,9 @@ public class Play implements Screen
 	private MapInterface mapWorld;
 	private UserInterface ui;
 	private EscapeMenu escapeMenu;
-
+	private IntroScreen introScreen;
+	private EndScreen endScreen;
+	
 	public static final float TICK_STEP = 1 / 60f;
 	private float tickCounter;
 	private float frameCounter;
@@ -34,6 +38,8 @@ public class Play implements Screen
 		ui = new UserInterface(levelData);
 		mapWorld = new MapInterface(levelData);
 		escapeMenu = new EscapeMenu();
+		introScreen = new IntroScreen();
+		endScreen = new EndScreen();
 		tickCounter = TICK_STEP;
 	}
 
@@ -111,6 +117,8 @@ public class Play implements Screen
 			timerManager.update(dt);
 			mapWorld.update(dt);
 			ui.act(dt);
+			introScreen.act(dt);
+			endScreen.act(dt);
 		}
 		else
 		{
@@ -127,6 +135,8 @@ public class Play implements Screen
 		{
 			escapeMenu.draw();
 		}
+		introScreen.draw();
+		endScreen.draw();
 	}
 	
 }
