@@ -50,7 +50,7 @@ public class IntroScreen extends Stage
 	{
 		this.getViewport().setWorldSize(width, height);
 		this.getViewport().update(width, height, true);
-		playButton.setBounds(this.getWidth() / 2 - (WIDTH / 2), this.getHeight() / 2 - (HEIGHT / 2), WIDTH, HEIGHT);
+		playButton.setBounds(this.getWidth() / 2 - (WIDTH / 2), this.getHeight() / 4 - (HEIGHT / 2), WIDTH, HEIGHT);
 		image.setBounds(0, 0, width, height);
 	}
 

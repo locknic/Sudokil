@@ -36,8 +36,6 @@ public class EndScreen extends Stage implements EventListener
 	{
 		this.getViewport().setWorldSize(width, height);
 		this.getViewport().update(width, height, true);
-		playButton.setBounds(this.getWidth() / 2 - (WIDTH / 2), this.getHeight() / 2 - (HEIGHT / 2), WIDTH, HEIGHT);
-		image.setBounds(0, 0, width, height);
 	}
 
 	public void show()

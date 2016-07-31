@@ -71,6 +71,8 @@ public class Play implements Screen
 		mapWorld.resize(width, height);
 		ui.resize(width, height);
 		escapeMenu.resize(width, height);
+		introScreen.resize(width, height);
+		endScreen.resize(width, height);
 	}
 
 	@Override
