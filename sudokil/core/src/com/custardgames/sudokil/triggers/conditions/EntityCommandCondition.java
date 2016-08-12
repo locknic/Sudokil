@@ -52,7 +52,7 @@ public class EntityCommandCondition extends BaseTriggerCondition implements Even
 	{
 		if (isRunning())
 		{
-			if (event.getEntityName().equals(entityName))
+			if (event.getEntityName() != null && event.getEntityName().equals(entityName))
 			{
 				triggered = true;
 			}

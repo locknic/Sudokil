@@ -46,6 +46,36 @@ public class FolderCLI extends ItemCLI
 		return children;
 	}
 
+	public Array<String> getDevices()
+	{
+		Array<String> devices = new Array<String>();
+		for (ItemCLI child : children)
+		{
+			if (child.getName().substring(child.getName().length() - 4).equals(".dev"))
+			{
+				devices.add(child.getName().substring(0, child.getName().length() - 4));
+			}
+		}
+		return devices;
+	}
+	
+	public Array<String> getSubDevices()
+	{
+		Array<String> devices = new Array<String>();
+		for (ItemCLI child : children)
+		{
+			if (child instanceof FolderCLI)
+			{
+				devices.addAll(((FolderCLI) child).getSubDevices());
+			}
+			else
+			{
+				getDevices();
+			}
+		}
+		return devices;
+	}
+
 	@Override
 	public ItemCLI copy()
 	{

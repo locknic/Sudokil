@@ -29,9 +29,16 @@ public class ScriptCLI extends ItemCLI
 	{
 		if (event instanceof EntityCommandEvent)
 		{
-			((EntityCommandEvent) event).setEntityName(getParentName());
+			for (String device : getParent().getDevices())
+			{
+				((EntityCommandEvent) event).setEntityName(device);
+				EventManager.get_instance().broadcast(event);
+			}
 		}
-		EventManager.get_instance().broadcast(event);
+		else
+		{
+			EventManager.get_instance().broadcast(event);
+		}
 	}
 
 	public void run(UUID ownerUI, String[] args)
@@ -44,11 +51,18 @@ public class ScriptCLI extends ItemCLI
 		{
 			if (event instanceof EntityCommandEvent)
 			{
-				((EntityCommandEvent) event).setEntityName(getParentName());
-				((EntityCommandEvent) event).setArgs(args);
-				((EntityCommandEvent) event).setOwnerUI(ownerUI);
+				for (String device : getParent().getDevices())
+				{
+					((EntityCommandEvent) event).setEntityName(device);
+					((EntityCommandEvent) event).setArgs(args);
+					((EntityCommandEvent) event).setOwnerUI(ownerUI);
+					EventManager.get_instance().broadcast(event);
+				}
 			}
-			EventManager.get_instance().broadcast(event);
+			else
+			{
+				EventManager.get_instance().broadcast(event);
+			}
 		}
 	}
 

@@ -15,7 +15,7 @@
  </tileset>
  <layer name="floor" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoA8QQ8LYgAgOtcRibPpg5mLD1LAD3e3ofqO2P2hlBz38MWoHfjuQ9aPbQSnA5cbhaAc54U8oPkbtIM4OZECrOB+1Y2DtwAdoYQe2unsUoAIAb75i4sQJAAA=
+   H4sIAAAAAAAAC2NgGBxAhIbmYsPUtoPWYNSOUTtG7Ri1Y9SOUTtGkh20rruHAwAAi+x7qsQJAAA=
   </data>
  </layer>
  <layer name="tiles" width="25" height="25">
