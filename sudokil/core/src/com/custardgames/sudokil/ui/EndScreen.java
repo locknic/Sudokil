@@ -40,7 +40,7 @@ public class EndScreen extends Stage implements EventListener
 
 	public void show()
 	{
-		InputManager.get_instance().addProcessor(1, this);
+		InputManager.get_instance().addProcessor(this);
 
 		Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 		playButton = new TextButton("EXIT", skin);

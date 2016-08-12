@@ -25,7 +25,7 @@ public class EscapeMenu extends Stage
 
 	public EscapeMenu()
 	{
-		InputManager.get_instance().addProcessor(1, this);
+		InputManager.get_instance().addProcessor(this);
 
 		this.getRoot().addCaptureListener(new InputListener()
 		{

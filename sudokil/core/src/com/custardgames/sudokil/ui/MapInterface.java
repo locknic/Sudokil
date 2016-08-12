@@ -5,6 +5,7 @@ import java.util.EventListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -30,7 +31,6 @@ import com.custardgames.sudokil.managers.InputManager;
 import com.custardgames.sudokil.managers.MapManager;
 import com.custardgames.sudokil.states.JsonTags;
 import com.custardgames.sudokil.states.LevelData;
-import com.custardgames.sudokil.states.PlayLoadAssets;
 
 public class MapInterface extends Stage implements EventListener
 {
@@ -63,7 +63,7 @@ public class MapInterface extends Stage implements EventListener
 		mouseLeft = mouseRight = mouseMiddle = false;
 
 		assetManager = new AssetManager();
-		PlayLoadAssets.loadAssets(assetManager, levelData);
+		loadAssets(assetManager, levelData);
 
 		tileMap = new TmxMapLoader().load(levelData.getMapLocation());
 		mapManager = new MapManager(tileMap);
@@ -93,11 +93,20 @@ public class MapInterface extends Stage implements EventListener
 		EventManager.get_instance().deregister(ChangeLevelEvent.class, this);
 		EventManager.get_instance().deregister(ChangeMapEvent.class, this);
 	}
+	
+	private void loadAssets(AssetManager assets, LevelData levelData)
+	{
+		for (String image : levelData.getImages())
+		{
+			assets.load(image, Texture.class);
+		}
+		assets.finishLoading();
+	}
 
 	public void changeLevel(LevelData levelData)
 	{
 		assetManager.clear();
-		PlayLoadAssets.loadAssets(assetManager, levelData);
+		loadAssets(assetManager, levelData);
 
 		changeMap(levelData.getMapLocation());
 

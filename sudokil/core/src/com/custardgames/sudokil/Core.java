@@ -6,6 +6,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.custardgames.sudokil.managers.InputManager;
 import com.custardgames.sudokil.states.Play;
+import com.custardgames.sudokil.states.Start;
 
 public class Core extends Game implements EventListener
 {
@@ -16,7 +17,10 @@ public class Core extends Game implements EventListener
 	public static final boolean FULLSCREEN = false;
 	public static final boolean VSYNC = true;
 
-	private Play playScreen;
+	public enum Screens
+	{
+		START, PLAY, END
+	}
 
 	public Core()
 	{
@@ -25,9 +29,23 @@ public class Core extends Game implements EventListener
 	@Override
 	public void create()
 	{
-		playScreen = new Play("maps/campaign/tutorial-level1/level-data.json");
-		setScreen(playScreen);
 		Gdx.input.setInputProcessor(InputManager.get_instance());
+		changeScreen(Screens.START);
+	}
+
+	public void changeScreen(Screens newScreen)
+	{
+		switch (newScreen)
+		{
+			case START:
+				setScreen(new Start(this));
+				break;
+			case PLAY:
+				setScreen(new Play("maps/campaign/tutorial-level1/level-data.json"));
+				break;
+			case END:
+				break;
+		}
 	}
 
 }
