@@ -5,7 +5,7 @@ public class MouseDraggedEvent
 	private int button;
 	private float x;
 	private float y;
-	
+
 	public MouseDraggedEvent(int button, float x, float y)
 	{
 		this.setButton(button);
@@ -32,6 +32,5 @@ public class MouseDraggedEvent
 	{
 		this.button = button;
 	}
-	
-	
+
 }

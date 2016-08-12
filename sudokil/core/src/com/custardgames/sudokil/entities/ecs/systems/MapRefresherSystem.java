@@ -13,14 +13,14 @@ import com.custardgames.sudokil.managers.EventManager;
 
 public class MapRefresherSystem extends EntityProcessingSystem implements EventListener
 {
-	
+
 	@SuppressWarnings("unchecked")
 	public MapRefresherSystem()
 	{
 		super(Aspect.all(PositionComponent.class));
 		EventManager.get_instance().register(ChangedMapEvent.class, this);
 	}
-	
+
 	@Override
 	public void dispose()
 	{
@@ -34,14 +34,14 @@ public class MapRefresherSystem extends EntityProcessingSystem implements EventL
 	{
 		return false;
 	}
-	
+
 	@Override
 	protected void process(Entity e)
 	{
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public void handleChangedMap(ChangedMapEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();

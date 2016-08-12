@@ -48,7 +48,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		EventManager.get_instance().register(MouseReleasedEvent.class, this);
 		EventManager.get_instance().register(MouseDraggedEvent.class, this);
 		EventManager.get_instance().register(MouseWheelMovedEvent.class, this);
-	}	
+	}
 
 	@Override
 	public void dispose()
@@ -131,7 +131,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			camera.zoom -= zoomSpeed;
 			EventManager.get_instance().broadcast(new CameraZoomedEvent((float) -zoomSpeed));
 		}
-		
+
 		if (cameraInput.getZoomAmount() != 0)
 		{
 			camera.zoom += cameraInput.getZoomAmount() / 10;
@@ -269,7 +269,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			}
 		}
 	}
-	
+
 	public void handleToggleMapRender(ToggleMapRenderEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
@@ -280,7 +280,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			cameraInput.setReset(true);
 		}
 	}
-	
+
 	public void handleMousePressed(MousePressedEvent event)
 	{
 		if (event.getButtonNumber() == 0)
@@ -296,7 +296,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			}
 		}
 	}
-	
+
 	public void handleMouseReleased(MouseReleasedEvent event)
 	{
 		if (event.getButtonNumber() == 0)
@@ -312,23 +312,24 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			}
 		}
 	}
-	
+
 	public void handleMouseDragged(MouseDraggedEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
 		for (int x = 0; x < entities.size(); x++)
 		{
 			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
-			if(event.getButton() == 0)
+			if (event.getButton() == 0)
 			{
 				cameraInput.setTargetX(cameraInput.getTargetX() - ((event.getX() - cameraInput.getMouseX()) * camera.zoom));
 				cameraInput.setTargetY(cameraInput.getTargetY() + ((event.getY() - cameraInput.getMouseY()) * camera.zoom));
 				cameraInput.setMouseX(event.getX());
-				cameraInput.setMouseY(event.getY());;
+				cameraInput.setMouseY(event.getY());
+				;
 			}
 		}
 	}
-	
+
 	public void handleMouseWheelMoved(MouseWheelMovedEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
@@ -339,5 +340,5 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			EventManager.get_instance().broadcast(new CameraZoomedEvent((float) event.getMouseWheelAmount()));
 		}
 	}
-	
+
 }

@@ -19,7 +19,7 @@ public class LevelData
 	{
 		return entities;
 	}
-	
+
 	public String getPlayerFilesystem()
 	{
 		return playerFilesystem;
@@ -35,5 +35,4 @@ public class LevelData
 		return images;
 	}
 
-	
 }

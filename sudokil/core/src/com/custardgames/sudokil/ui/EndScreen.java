@@ -53,7 +53,7 @@ public class EndScreen extends Stage implements EventListener
 				Gdx.app.exit();
 			}
 		});
-		
+
 		TextureAtlas buttonAtlas = new TextureAtlas("data/uiscreens.atlas");
 		image = new Image(buttonAtlas.findRegion("end"));
 		this.addActor(image);
@@ -70,15 +70,15 @@ public class EndScreen extends Stage implements EventListener
 			Gdx.gl20.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 			ShapeRenderer shapeRenderer = new ShapeRenderer();
 			shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-	
+
 			shapeRenderer.setColor(new Color(0, 0, 0, 1f));
 			shapeRenderer.rect(0, 0, this.getWidth(), this.getHeight());
-	
+
 			shapeRenderer.end();
 			super.draw();
 		}
 	}
-	
+
 	public void handleEndGame(EndGameEvent event)
 	{
 		show();

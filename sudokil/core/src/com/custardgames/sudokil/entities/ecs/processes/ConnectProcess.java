@@ -19,11 +19,11 @@ public class ConnectProcess extends EntityProcess implements EventListener
 	private Entity connectedTo;
 	private UUID consoleUUID;
 	private boolean disconnect;
-	
+
 	public ConnectProcess(UUID consoleUUID, Entity connectedWith, Entity connectedTo)
 	{
 		super(connectedWith);
-		
+
 		EventManager.get_instance().register(DisposeWorldEvent.class, this);
 
 		this.consoleUUID = consoleUUID;

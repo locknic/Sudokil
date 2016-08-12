@@ -77,12 +77,12 @@ public class CommandLineManager implements EventListener
 		mv.setArgs(2);
 		mv.setOptionalArg(false);
 		options.addOption(mv);
-		
+
 		Option cp = new Option("cp", "Copies a file or directory into another directory.");
 		cp.setArgs(2);
 		cp.setOptionalArg(false);
 		options.addOption(cp);
-		
+
 		Option sh = new Option("sh", "Run the script using shell script.");
 		sh.setArgs(Option.UNLIMITED_VALUES);
 		sh.setOptionalArg(false);
@@ -95,7 +95,7 @@ public class CommandLineManager implements EventListener
 		options.addOption("help", false, "Show the help screen.");
 
 	}
-	
+
 	public void dispose()
 	{
 		EventManager.get_instance().deregister(CommandLineEvent.class, this);
@@ -316,7 +316,7 @@ public class CommandLineManager implements EventListener
 			EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "ERROR! No such file or directory."));
 		}
 	}
-	
+
 	public void copyItem(String[] args)
 	{
 		if (args[0] != null && args[0].length() > 0 && args[1] != null && args[1].length() > 0)

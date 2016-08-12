@@ -14,14 +14,14 @@ import com.custardgames.sudokil.ui.UserInterface;
 public class Play implements Screen
 {
 	private TimerManager timerManager;
-	
+
 	private LevelData levelData;
 	private MapInterface mapWorld;
 	private UserInterface ui;
 	private EscapeMenu escapeMenu;
 	private IntroScreen introScreen;
 	private EndScreen endScreen;
-	
+
 	public static final float TICK_STEP = 1 / 60f;
 	private float tickCounter;
 	private float frameCounter;
@@ -30,7 +30,7 @@ public class Play implements Screen
 	public Play(String levelDataLocation)
 	{
 		timerManager = new TimerManager();
-		
+
 		Json json = new Json();
 		JsonTags jsonTags = json.fromJson(JsonTags.class, Gdx.files.internal("data/tags.json"));
 		jsonTags.addTags(json);
@@ -140,5 +140,5 @@ public class Play implements Screen
 		introScreen.draw();
 		endScreen.draw();
 	}
-	
+
 }

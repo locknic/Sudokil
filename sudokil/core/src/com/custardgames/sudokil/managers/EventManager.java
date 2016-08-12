@@ -31,7 +31,7 @@ public class EventManager
 		}
 
 		listeners.get(eventType).add(listener);
-		
+
 		System.out.println("REGISTERING : " + listener + ", " + eventType);
 	}
 
@@ -52,7 +52,8 @@ public class EventManager
 		Array<EventListener> currentListeners = listeners.get(event.getClass());
 		if (currentListeners != null)
 		{
-			// This is janky because some event broadcasts cause classes to deregister themselves 
+			// This is janky because some event broadcasts cause classes to
+			// deregister themselves
 			// which causes issues when trying to iterate in a for each
 			EventListener[] currentListenersArray = currentListeners.toArray(EventListener.class);
 			for (int x = 0; x < currentListenersArray.length; x++)
@@ -60,8 +61,8 @@ public class EventManager
 				Method m = findMethod(currentListenersArray[x], event.getClass());
 				try
 				{
-//					if (m != null)
-						m.invoke(currentListenersArray[x], event);
+					// if (m != null)
+					m.invoke(currentListenersArray[x], event);
 				}
 				catch (IllegalAccessException e)
 				{

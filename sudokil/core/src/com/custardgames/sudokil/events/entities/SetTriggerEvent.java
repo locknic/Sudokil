@@ -6,7 +6,7 @@ public class SetTriggerEvent extends BaseEvent
 {
 	private boolean running;
 	private String entityName;
-	
+
 	public String getEntityName()
 	{
 		return entityName;
@@ -16,5 +16,5 @@ public class SetTriggerEvent extends BaseEvent
 	{
 		return running;
 	}
-	
+
 }

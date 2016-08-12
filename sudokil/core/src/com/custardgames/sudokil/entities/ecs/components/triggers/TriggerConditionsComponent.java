@@ -11,17 +11,17 @@ public class TriggerConditionsComponent extends Component
 	{
 		return triggerCondition;
 	}
-	
+
 	public void start()
 	{
 		triggerCondition.start();
 	}
-	
+
 	public void stop()
 	{
 		triggerCondition.stop();
 	}
-	
+
 	public boolean isTriggered()
 	{
 		return triggerCondition.checkConditions();

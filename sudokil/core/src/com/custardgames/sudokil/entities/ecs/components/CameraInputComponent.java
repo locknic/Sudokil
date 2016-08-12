@@ -11,10 +11,10 @@ public class CameraInputComponent extends Component
 	private boolean up, down, left, right, zoomIn, zoomOut, reset;
 	private float panSpeed;
 	private float zoomAmount;
-	
+
 	private float mouseX, mouseY;
 	private boolean mousePressing;
-	
+
 	public CameraInputComponent()
 	{
 		reset = true;

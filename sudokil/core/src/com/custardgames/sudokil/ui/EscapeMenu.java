@@ -27,7 +27,6 @@ public class EscapeMenu extends Stage
 	{
 		InputManager.get_instance().addProcessor(1, this);
 
-
 		this.getRoot().addCaptureListener(new InputListener()
 		{
 			@Override
@@ -39,7 +38,7 @@ public class EscapeMenu extends Stage
 				}
 				return false;
 			}
-			
+
 			@Override
 			public boolean keyDown(InputEvent event, int keycode)
 			{
@@ -73,7 +72,7 @@ public class EscapeMenu extends Stage
 			}
 		});
 		this.addActor(exitButton);
-		
+
 		hide();
 	}
 

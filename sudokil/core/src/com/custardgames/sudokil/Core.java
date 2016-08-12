@@ -21,7 +21,7 @@ public class Core extends Game implements EventListener
 	public Core()
 	{
 	}
-	
+
 	@Override
 	public void create()
 	{

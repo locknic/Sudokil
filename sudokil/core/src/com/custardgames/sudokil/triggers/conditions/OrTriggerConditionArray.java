@@ -20,24 +20,24 @@ public class OrTriggerConditionArray extends BaseTriggerCondition
 	public void start()
 	{
 		super.start();
-		
+
 		for (BaseTriggerCondition trigger : triggerConditions)
 		{
 			trigger.start();
 		}
 	}
-	
+
 	@Override
 	public void stop()
 	{
 		super.start();
-		
+
 		for (BaseTriggerCondition trigger : triggerConditions)
 		{
 			trigger.stop();
 		}
 	}
-	
+
 	@Override
 	public boolean checkConditions()
 	{

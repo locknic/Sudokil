@@ -76,8 +76,8 @@ public class UserInterface extends Stage implements EventListener
 						break;
 					}
 				}
-				
-				if(!foundFocus)
+
+				if (!foundFocus)
 				{
 					foundFocus = dialogueInterface.mouseMoved(event, x, y);
 					if (foundFocus)
@@ -85,12 +85,12 @@ public class UserInterface extends Stage implements EventListener
 						dialogueInterface.setScrollFocus();
 					}
 				}
-				
-				if(!foundFocus)
+
+				if (!foundFocus)
 				{
 					setScrollFocus(null);
 				}
-				
+
 				return false;
 			}
 
@@ -201,9 +201,10 @@ public class UserInterface extends Stage implements EventListener
 	{
 		TextureAtlas buttonAtlas = new TextureAtlas("data/uibuttons.atlas");
 		Skin buttonSkin = new Skin(buttonAtlas);
-        ImageButtonStyle style = new ImageButtonStyle(); //** Button properties **//
-        style.up = buttonSkin.getDrawable("terminal");
-        style.down = buttonSkin.getDrawable("terminal-down");
+		ImageButtonStyle style = new ImageButtonStyle(); // ** Button properties
+															// **//
+		style.up = buttonSkin.getDrawable("terminal");
+		style.down = buttonSkin.getDrawable("terminal-down");
 		newTerminalWindow = new ImageButton(style);
 		newTerminalWindow.setBounds(10, 10, 64, 64);
 		newTerminalWindow.addListener(new ChangeListener()

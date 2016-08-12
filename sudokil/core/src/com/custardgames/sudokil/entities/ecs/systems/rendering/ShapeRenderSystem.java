@@ -24,14 +24,14 @@ public class ShapeRenderSystem extends EntityProcessingSystem implements EventLi
 	private ComponentMapper<ShapeRenderableComponent> shapeComponents;
 	private ComponentMapper<PositionComponent> positionComponents;
 	private ComponentMapper<EntityComponent> entityComponents;
-	
+
 	private ShapeRenderer shapeRenderer;
-	
+
 	@SuppressWarnings("unchecked")
 	public ShapeRenderSystem()
 	{
 		super(Aspect.all(ShapeRenderableComponent.class, PositionComponent.class));
-		
+
 		EventManager.get_instance().register(SetShapeRenderEvent.class, this);
 
 		shapeRenderer = new ShapeRenderer();
@@ -42,14 +42,13 @@ public class ShapeRenderSystem extends EntityProcessingSystem implements EventLi
 	{
 		return false;
 	}
-	
+
 	@Override
 	protected void process(Entity e)
 	{
-		
-		
+
 	}
-	
+
 	@Override
 	public void dispose()
 	{
@@ -57,7 +56,7 @@ public class ShapeRenderSystem extends EntityProcessingSystem implements EventLi
 		shapeRenderer.dispose();
 		EventManager.get_instance().deregister(SetShapeRenderEvent.class, this);
 	}
-	
+
 	public void render(Batch spriteBatch)
 	{
 		spriteBatch.end();
@@ -73,9 +72,9 @@ public class ShapeRenderSystem extends EntityProcessingSystem implements EventLi
 			PositionComponent positionComponent = positionComponents.get(entity);
 			if (shapeComponent.isShouldRender())
 			{
-				if(shapeComponent.isFill())
+				if (shapeComponent.isFill())
 				{
-				    shapeRenderer.rect(positionComponent.getX(), positionComponent.getY(), positionComponent.getWidth(), positionComponent.getHeight());
+					shapeRenderer.rect(positionComponent.getX(), positionComponent.getY(), positionComponent.getWidth(), positionComponent.getHeight());
 				}
 			}
 		}
@@ -92,10 +91,10 @@ public class ShapeRenderSystem extends EntityProcessingSystem implements EventLi
 				shapeRenderer.rect(positionComponent.getX(), positionComponent.getY(), positionComponent.getWidth(), positionComponent.getHeight());
 			}
 		}
-	    shapeRenderer.end();
+		shapeRenderer.end();
 		spriteBatch.begin();
 	}
-	
+
 	public void handleSetShapeRender(SetShapeRenderEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
@@ -103,7 +102,7 @@ public class ShapeRenderSystem extends EntityProcessingSystem implements EventLi
 		{
 			ShapeRenderableComponent shapeComponent = shapeComponents.get(entity);
 			EntityComponent entityComponent = entityComponents.get(entity);
-			
+
 			if (entityComponent != null && event.getEntityID().equals(entityComponent.getId()))
 			{
 				shapeComponent.setShouldRender(event.isShouldRender());

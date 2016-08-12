@@ -77,7 +77,7 @@ public class CommandLineInterface implements EventListener
 	{
 		Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 		TextButton closeButton = new TextButton("", skin, "close-toggle");
-		
+
 		Random random = new Random();
 
 		dialog = new Window("Terminal", skin);
@@ -89,21 +89,26 @@ public class CommandLineInterface implements EventListener
 		dialog.setResizeBorder(5);
 		dialog.padRight(0);
 		dialog.padBottom(1);
-		
 
-		SimpleDateFormat simpleDateformat = new SimpleDateFormat("E"); // the day of the week abbreviated
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("E"); // the
+																		// day
+																		// of
+																		// the
+																		// week
+																		// abbreviated
 		String day = simpleDateformat.format(new Date());
 		String month = new SimpleDateFormat("MMM").format(Calendar.getInstance().getTime());
 		int date = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 		int min = Calendar.getInstance().get(Calendar.MINUTE);
 		int sec = Calendar.getInstance().get(Calendar.SECOND);
-		String textTest = "Last login: " + day + " " + month + " " + String.format("%02d", date) + " " + String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
-		
+		String textTest = "Last login: " + day + " " + month + " " + String.format("%02d", date) + " " + String.format("%02d", hour) + ":"
+				+ String.format("%02d", min) + ":" + String.format("%02d", sec);
+
 		consoleDialog = new Label(textTest, skin);
 		consoleDialog.setWrap(true);
 		consoleDialog.setAlignment(Align.topLeft, Align.topLeft);
-		
+
 		consoleArrow = new Label(parser.getInputPrefix(), new LabelStyle(skin.get(LabelStyle.class)));
 		consoleField = new TextField("", skin);
 		consoleField.setFocusTraversal(false);
@@ -112,7 +117,7 @@ public class CommandLineInterface implements EventListener
 		consoleField.getStyle().cursor = skin.newDrawable("white", colour);
 		consoleField.getStyle().cursor.setMinWidth(10);
 		consoleField.setBlinkTime(0.6f);
-		
+
 		Table scrollTable = new Table();
 		scrollTable.top();
 		scrollTable.add(consoleDialog).colspan(2).growX().fill().left().top();
@@ -120,7 +125,7 @@ public class CommandLineInterface implements EventListener
 		scrollTable.add(consoleArrow).left().top();
 		scrollTable.add(consoleField).expand(true, false).fill().left().top();
 		scrollTable.padBottom(1);
-		
+
 		consoleScroll = new ScrollPane(scrollTable, skin);
 		consoleScroll.setFadeScrollBars(false);
 		consoleScroll.setVariableSizeKnobs(true);
@@ -133,7 +138,7 @@ public class CommandLineInterface implements EventListener
 		stage.setKeyboardFocus(consoleField);
 		stage.setScrollFocus(consoleScroll);
 	}
-	
+
 	public void dispose()
 	{
 		dialog.remove();
@@ -141,7 +146,7 @@ public class CommandLineInterface implements EventListener
 		EventManager.get_instance().deregister(ConsoleLogEvent.class, this);
 		EventManager.get_instance().deregister(AutocompleteResponseEvent.class, this);
 	}
-	
+
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
 	{
 		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleField || event.getTarget() == consoleDialog
@@ -154,7 +159,7 @@ public class CommandLineInterface implements EventListener
 
 		return false;
 	}
-	
+
 	public boolean mouseMoved(InputEvent event, float x, float y)
 	{
 		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleField || event.getTarget() == consoleDialog
@@ -180,7 +185,7 @@ public class CommandLineInterface implements EventListener
 		stage.setKeyboardFocus(consoleField);
 		stage.setScrollFocus(consoleScroll);
 	}
-	
+
 	public void setScrollFocus()
 	{
 		stage.setScrollFocus(consoleScroll);

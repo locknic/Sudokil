@@ -8,7 +8,7 @@ import com.custardgames.sudokil.managers.EventManager;
 public class CreateTriggerReaction extends BaseTriggerReaction
 {
 	private Array<Component> components;
-	
+
 	@Override
 	public void initialiseReaction()
 	{

@@ -8,7 +8,7 @@ public class RootCLI extends FolderCLI
 	{
 		super();
 	}
-	
+
 	public RootCLI(String name, FolderCLI parent, String deviceName)
 	{
 		super(name, parent);
@@ -19,12 +19,12 @@ public class RootCLI extends FolderCLI
 	{
 		return deviceName;
 	}
-	
+
 	@Override
 	public ItemCLI copy()
 	{
 		RootCLI newItem = new RootCLI(super.getName(), super.getParent(), deviceName);
-		for(ItemCLI child : getChildren())
+		for (ItemCLI child : getChildren())
 		{
 			newItem.addChild(child.copy());
 		}

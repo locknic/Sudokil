@@ -52,21 +52,20 @@ public class ArtemisWorldManager implements EventListener
 	{
 		EventManager.get_instance().register(CreateEntityEvent.class, this);
 		EventManager.get_instance().register(AddEntitiesEvent.class, this);
-		
+
 		spriteRenderSystem = new SpriteRenderSystem();
 		shapeRenderSystem = new ShapeRenderSystem();
 		textRenderSystem = new TextRenderSystem();
 
-		WorldConfiguration config = new WorldConfigurationBuilder()
-				.with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(),
-						new ProcessQueueSystem(), new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(),
-						new ActivityBlockingSystem(), new PowerConsumptionSystem(), new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem())
-				.build().register(camera).register(assetManager);
+		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, new CharacterMovementSystem(),
+				new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(),
+				new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(),
+				new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem()).build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
 
 		loadLevelData(levelData);
 	}
-	
+
 	public void loadLevelData(LevelData levelData)
 	{
 		for (String entityLocation : levelData.getEntities())
@@ -139,7 +138,7 @@ public class ArtemisWorldManager implements EventListener
 	{
 		createEntity(event.getComponents());
 	}
-	
+
 	public void handleAddEntities(AddEntitiesEvent event)
 	{
 		createEntitiesFromJson(event.getEntitiesLocation());

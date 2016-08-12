@@ -67,7 +67,7 @@ public class ItemCLI
 		}
 		return "";
 	}
-	
+
 	public ItemCLI copy()
 	{
 		ItemCLI newItem = new ItemCLI(name, parent);

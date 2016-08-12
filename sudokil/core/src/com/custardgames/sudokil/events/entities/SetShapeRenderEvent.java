@@ -26,6 +26,5 @@ public class SetShapeRenderEvent extends BaseEvent
 	{
 		this.entityID = entityID;
 	}
-	
-	
+
 }

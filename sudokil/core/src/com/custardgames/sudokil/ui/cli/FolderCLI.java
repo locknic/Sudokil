@@ -45,12 +45,12 @@ public class FolderCLI extends ItemCLI
 	{
 		return children;
 	}
-	
+
 	@Override
 	public ItemCLI copy()
 	{
 		FolderCLI newItem = new FolderCLI(super.getName(), super.getParent());
-		for(ItemCLI child : children)
+		for (ItemCLI child : children)
 		{
 			newItem.addChild(child.copy());
 		}

@@ -28,13 +28,13 @@ public class TimedTriggerCondition extends BaseTriggerCondition implements Event
 	{
 		EventManager.get_instance().register(TimerDoneEvent.class, this);
 		owner = UUID.randomUUID();
-		
-		if(isRunning())
+
+		if (isRunning())
 		{
 			EventManager.get_instance().broadcast(new TimerRegisterEvent(owner, duration));
 		}
 	}
-	
+
 	@Override
 	public void start()
 	{

@@ -96,13 +96,13 @@ public class DialogueInterface implements EventListener
 		consoleScroll.setFlickScroll(false);
 		dialog.add(consoleScroll).fill().expand();
 		this.stage.addActor(dialog);
-		
+
 		TextureAtlas buttonAtlas = new TextureAtlas("data/uibuttons.atlas");
 		Skin buttonSkin = new Skin(buttonAtlas);
-        ImageButtonStyle style = new ImageButtonStyle();
-        style.up = buttonSkin.getDrawable("mail");
-        style.down = buttonSkin.getDrawable("mail-down");
-        
+		ImageButtonStyle style = new ImageButtonStyle();
+		style.up = buttonSkin.getDrawable("mail");
+		style.down = buttonSkin.getDrawable("mail-down");
+
 		dialogueWindowButton = new ImageButton(style);
 		dialogueWindowButton.setBounds(stage.getWidth() - 74, 10, 64, 64);
 		dialogueWindowButton.addListener(new ChangeListener()
@@ -204,7 +204,8 @@ public class DialogueInterface implements EventListener
 	{
 		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 		int min = Calendar.getInstance().get(Calendar.MINUTE);
-		Label newConsoleDialog = new Label("[" + String.format("%02d", hour) + ":" + String.format("%02d", min) + "] " + event.getDialogue(), new LabelStyle(skin.get("orange", LabelStyle.class)));
+		Label newConsoleDialog = new Label("[" + String.format("%02d", hour) + ":" + String.format("%02d", min) + "] " + event.getDialogue(),
+				new LabelStyle(skin.get("orange", LabelStyle.class)));
 		newConsoleDialog.setWrap(true);
 		newConsoleDialog.setAlignment(Align.topLeft, Align.topLeft);
 		scrollTable.row();

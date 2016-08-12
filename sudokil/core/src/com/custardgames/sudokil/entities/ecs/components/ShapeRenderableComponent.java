@@ -11,12 +11,12 @@ public class ShapeRenderableComponent extends Component
 	{
 		return fill;
 	}
-	
+
 	public void setShouldRender(boolean shouldRender)
 	{
 		this.shouldRender = shouldRender;
 	}
-	
+
 	public boolean isShouldRender()
 	{
 		return shouldRender;

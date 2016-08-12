@@ -25,7 +25,7 @@ public class FileSystemManager implements EventListener
 		fileSystems = new HashMap<String, RootCLI>();
 		uuid = UUID.randomUUID();
 		commandLineManager = new CommandLineManager(new RootCLI(), uuid);
-		
+
 		EventManager.get_instance().register(PingFileSystemEvent.class, this);
 		EventManager.get_instance().register(CopyItemBetweenFileSystemsEvent.class, this);
 	}
@@ -39,7 +39,7 @@ public class FileSystemManager implements EventListener
 		linkChildren(root);
 		fileSystems.put(location, root);
 	}
-	
+
 	public void deleteFileSystems()
 	{
 		fileSystems.clear();
@@ -74,8 +74,9 @@ public class FileSystemManager implements EventListener
 			return fileSystems.get(location);
 		}
 	}
-	
-	public void copyItemBetweenFileSystems(String sourceFileSystemLocation, String targetFileSystemLocation, String sourceItemLocation, String targetItemLocation)
+
+	public void copyItemBetweenFileSystems(String sourceFileSystemLocation, String targetFileSystemLocation, String sourceItemLocation,
+			String targetItemLocation)
 	{
 		RootCLI sourceFileSystem = getFileSystem(sourceFileSystemLocation);
 		commandLineManager.setRoot(sourceFileSystem);
@@ -94,7 +95,7 @@ public class FileSystemManager implements EventListener
 		event.setFileSystem(getFileSystem(event.getAssetLocation()));
 		return event;
 	}
-	
+
 	public void handleCopyItemBetweenFileSystem(CopyItemBetweenFileSystemsEvent event)
 	{
 		copyItemBetweenFileSystems(event.getSourceFileSystem(), event.getTargetFileSystem(), event.getSourceItemLocation(), event.getTargetItemLocation());

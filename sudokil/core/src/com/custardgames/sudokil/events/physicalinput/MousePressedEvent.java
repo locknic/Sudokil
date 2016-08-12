@@ -7,7 +7,7 @@ public class MousePressedEvent extends BaseEvent
 	private int buttonNumber;
 	private float x;
 	private float y;
-	
+
 	public MousePressedEvent(int buttonNumber, float x, float y)
 	{
 		this.setButtonNumber(buttonNumber);

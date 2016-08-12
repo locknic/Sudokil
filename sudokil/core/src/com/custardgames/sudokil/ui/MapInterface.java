@@ -57,7 +57,7 @@ public class MapInterface extends Stage implements EventListener
 		EventManager.get_instance().register(ToggleMapRenderEvent.class, this);
 		EventManager.get_instance().register(ChangeLevelEvent.class, this);
 		EventManager.get_instance().register(ChangeMapEvent.class, this);
-		
+
 		kcInput = new Array<String>();
 		mouseX = mouseY = mouseWheelRotation = 0;
 		mouseLeft = mouseRight = mouseMiddle = false;
@@ -78,8 +78,8 @@ public class MapInterface extends Stage implements EventListener
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
 		this.addActor(map);
 	}
-	
-	@Override 
+
+	@Override
 	public void dispose()
 	{
 		super.dispose();
@@ -87,24 +87,24 @@ public class MapInterface extends Stage implements EventListener
 		worldManager.dispose();
 		tileMap.dispose();
 		tmr.dispose();
-		
+
 		EventManager.get_instance().deregister(PingAssetsEvent.class, this);
 		EventManager.get_instance().deregister(ToggleMapRenderEvent.class, this);
 		EventManager.get_instance().deregister(ChangeLevelEvent.class, this);
 		EventManager.get_instance().deregister(ChangeMapEvent.class, this);
 	}
-	
+
 	public void changeLevel(LevelData levelData)
 	{
 		assetManager.clear();
 		PlayLoadAssets.loadAssets(assetManager, levelData);
-		
+
 		changeMap(levelData.getMapLocation());
-		
+
 		worldManager.dispose();
 		worldManager.loadLevelData(levelData);
 	}
-	
+
 	public void changeMap(String mapLocation)
 	{
 		tileMap.dispose();
@@ -327,16 +327,16 @@ public class MapInterface extends Stage implements EventListener
 	{
 		this.shouldRender = event.isShouldRender();
 	}
-	
+
 	public void handleChangeLevel(ChangeLevelEvent event)
-	{		
+	{
 		Json json = new Json();
 		JsonTags jsonTags = json.fromJson(JsonTags.class, Gdx.files.internal("data/tags.json"));
 		jsonTags.addTags(json);
 		LevelData levelData = json.fromJson(LevelData.class, Gdx.files.internal(event.getLevelDataLocation()));
 		changeLevel(levelData);
 	}
-	
+
 	public void handleChangeMap(ChangeMapEvent event)
 	{
 		changeMap(event.getNewMapLocation());
