@@ -9,6 +9,10 @@ children:
 		children: 
 		[
 			{
+				class: ItemCLI,
+				name: camera.dev,
+			},
+			{
 				class: ScriptCLI,
 				name: start.sh,
 				usage: "start.sh \n\t description: camera starts render to screen",
@@ -43,6 +47,10 @@ children:
 		name: robot1,
 		children: 
 		[
+			{
+				class: ItemCLI,
+				name: robot1.dev,
+			},
 			{
 				class: ScriptCLI,
 				name: forward.sh,
@@ -105,6 +113,10 @@ children:
 		children: 
 		[
 			{
+				class: ItemCLI,
+				name: robot2.dev,
+			},
+			{
 				class: ScriptCLI,
 				name: forward.sh,
 				usage: "forward.sh [distance] \n\t description: robot moves forwards \n\t distance: distance to move",
@@ -165,6 +177,10 @@ children:
 		name: robot3,
 		children: 
 		[
+			{
+				class: ItemCLI,
+				name: robot3.dev,
+			},
 			{
 				class: ScriptCLI,
 				name: forward.sh,

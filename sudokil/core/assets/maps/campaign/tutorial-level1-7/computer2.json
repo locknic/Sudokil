@@ -1,10 +1,20 @@
 {
 deviceName: computer2,
-children: [
+children: 
+[
+	{
+		class: ItemCLI,
+		name: computer2.dev,
+	},
 	{
 		class: com.custardgames.sudokil.ui.cli.FolderCLI,
 		name: door2-1,
-		children: [
+		children: 
+		[
+			{
+				class: ItemCLI,
+				name: door2-1.dev,
+			},
 			{
 				class: com.custardgames.sudokil.ui.cli.ScriptCLI,
 				name: toggle.sh,

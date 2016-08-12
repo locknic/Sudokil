@@ -778,7 +778,7 @@
 				}
 			},
 		],
-		// TRIGGER8 > CHANGED DIRECTORY (robot1) >>> TRIGGER9 && *TRIGGER8* && "If you 'ls' in this directory, you should see a script called 'forward.sh'. Go ahead and run that."
+		// TRIGGER8 > CHANGED DIRECTORY (robot1) >>> TRIGGER9 && *TRIGGER8* && "If you 'ls' in this directory, you should see a script called 'forward.sh'. Go ahead and run it by simply typing out 'forward.sh'."
 		[
 			{
 				class : EntityComponent,

@@ -177,5 +177,9 @@
 			name : ScriptCLI,
 			className : com.custardgames.sudokil.ui.cli.ScriptCLI,
 		},
+		{
+			name : ItemCLI,
+			className : com.custardgames.sudokil.ui.cli.ItemCLI,
+		},
 	],
 }

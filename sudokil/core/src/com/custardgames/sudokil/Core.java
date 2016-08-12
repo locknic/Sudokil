@@ -22,10 +22,6 @@ public class Core extends Game implements EventListener
 		START, PLAY, END
 	}
 
-	public Core()
-	{
-	}
-
 	@Override
 	public void create()
 	{

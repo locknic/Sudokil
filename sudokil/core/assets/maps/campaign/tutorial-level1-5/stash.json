@@ -9,6 +9,10 @@
 			children: 
 			[
 				{
+					class: ItemCLI,
+					name: robot2.dev,
+				},
+				{
 					class: com.custardgames.sudokil.ui.cli.ScriptCLI,
 					name: forward.sh,
 					usage: "forward.sh [distance] \n\t description: robot moves forwards \n\t distance: distance to move",

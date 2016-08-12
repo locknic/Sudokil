@@ -9,6 +9,10 @@ children:
 		children: 
 		[
 			{
+				class: ItemCLI,
+				name: camera.dev,
+			},
+			{
 				class: ScriptCLI,
 				name: start.sh,
 				usage: "start.sh \n\t description: camera starts render to screen",

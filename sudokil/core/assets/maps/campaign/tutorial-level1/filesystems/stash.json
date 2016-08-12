@@ -9,6 +9,10 @@ children:
 		children: 
 		[
 			{
+				class: ItemCLI,
+				name: robot1.dev,
+			},
+			{
 				class: ScriptCLI,
 				name: forward.sh,
 				usage: "forward.sh [distance] \n\t description: robot moves forwards \n\t distance: distance to move",
