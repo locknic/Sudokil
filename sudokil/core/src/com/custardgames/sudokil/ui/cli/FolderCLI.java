@@ -66,13 +66,17 @@ public class FolderCLI extends ItemCLI
 		{
 			if (child instanceof FolderCLI)
 			{
-				devices.addAll(((FolderCLI) child).getSubDevices());
-			}
-			else
-			{
-				getDevices();
+				devices.addAll(((FolderCLI) child).getAllDevices());
 			}
 		}
+		return devices;
+	}
+	
+	public Array<String> getAllDevices()
+	{
+		Array<String> devices = new Array<String>();
+		devices.addAll(getDevices());
+		devices.addAll(getSubDevices());
 		return devices;
 	}
 

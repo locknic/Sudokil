@@ -25,6 +25,8 @@ import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
 import com.custardgames.sudokil.events.commandLine.ListDirectoryEvent;
 import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
+import com.custardgames.sudokil.events.entities.commands.HighlightEvent;
+import com.custardgames.sudokil.events.entities.commands.ResetHighlightEvent;
 import com.custardgames.sudokil.events.entities.commands.StopCommandsEvent;
 import com.custardgames.sudokil.ui.cli.FolderCLI;
 import com.custardgames.sudokil.ui.cli.ItemCLI;
@@ -526,28 +528,73 @@ public class CommandLineManager implements EventListener
 		}
 		return matches;
 	}
+	
+	public void highlightEntities(String text)
+	{
+		EventManager.get_instance().broadcast(new ResetHighlightEvent());
+		
+		Array<String> entities = currentItem.getDevices();
+		for (String entity : entities)
+		{
+			HighlightEvent event = new HighlightEvent();
+			event.setPossibleSelection(false);
+			event.setOwnerUI(ownerUI);
+			event.setEntityName(entity);
+			EventManager.get_instance().broadcast(event);
+		}
+		
+		entities = currentItem.getSubDevices();
+		for (String entity : entities)
+		{
+			HighlightEvent event = new HighlightEvent();
+			event.setPossibleSelection(true);
+			event.setOwnerUI(ownerUI);
+			event.setEntityName(entity);
+			EventManager.get_instance().broadcast(event);
+		}
+	}
 
 	public void handleAutocompleteRequest(AutocompleteRequestEvent event)
 	{
 		if (event.getOwnerUI().equals(ownerUI))
 		{
-			String[] commands = event.getText().split(";| ");
-			Array<String> matches = autoComplete(commands[commands.length - 1]);
-			if (matches != null)
+			if (!event.getText().substring(event.getText().length() - 1).equals(";") && !event.getText().substring(event.getText().length() - 1).equals(" "))
 			{
-				if (matches.size == 1)
+				String[] commands = event.getText().split(";| ");
+				Array<String> matches = autoComplete(commands[commands.length - 1]);
+				if (matches != null)
 				{
-					String result = event.getText().substring(0, event.getText().length() - commands[commands.length - 1].length()) + matches.first();
-					EventManager.get_instance().broadcast(new AutocompleteResponseEvent(ownerUI, result));
-				}
-				else if (matches.size > 1)
-				{
-					String output = "";
-					for (String match : matches)
+					if (matches.size == 1)
 					{
-						output += match + " ";
+						String result = event.getText().substring(0, event.getText().length() - commands[commands.length - 1].length()) + matches.first();
+						EventManager.get_instance().broadcast(new AutocompleteResponseEvent(ownerUI, result));
 					}
-					EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, getInputPrefix() + event.getText() + "\n" + output));
+					else if (matches.size > 1)
+					{
+						String output = "";
+						String result = "";
+						for (String match : matches)
+						{
+							if (result.equals(""))
+							{
+								result = match;
+							}
+							else
+							{
+								for (int x = 0; x < result.length(); x++)
+								{
+									if (result.charAt(x) != match.charAt(x))
+									{
+										result = result.substring(0, x);
+										break;
+									}
+								}
+							}
+							output += match + " ";
+						}
+						EventManager.get_instance().broadcast(new AutocompleteResponseEvent(ownerUI, event.getText().substring(0, event.getText().length() - commands[commands.length - 1].length()) + result));
+						EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, getInputPrefix() + event.getText() + "\n" + output));
+					}
 				}
 			}
 		}

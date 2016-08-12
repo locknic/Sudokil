@@ -135,8 +135,7 @@ public class CommandLineInterface implements EventListener
 
 		closeButton.addListener(new CLICloseButtonListener(this, dialog));
 
-		stage.setKeyboardFocus(consoleField);
-		stage.setScrollFocus(consoleScroll);
+		setKeyboardFocus();
 	}
 
 	public void dispose()
@@ -152,8 +151,7 @@ public class CommandLineInterface implements EventListener
 		if (event.getTarget() == dialog || event.getTarget() == consoleScroll || event.getTarget() == consoleField || event.getTarget() == consoleDialog
 				|| event.getTarget() == consoleArrow)
 		{
-			stage.setScrollFocus(consoleScroll);
-			stage.setKeyboardFocus(consoleField);
+			setKeyboardFocus();
 			return true;
 		}
 
@@ -184,6 +182,8 @@ public class CommandLineInterface implements EventListener
 	{
 		stage.setKeyboardFocus(consoleField);
 		stage.setScrollFocus(consoleScroll);
+		
+		parser.highlightEntities(consoleField.getText());
 	}
 
 	public void setScrollFocus()
@@ -197,15 +197,13 @@ public class CommandLineInterface implements EventListener
 		previousCommands.add(consoleField.getText());
 		consoleArrow.setText(parser.getInputPrefix());
 		consoleField.setText("");
-		stage.setKeyboardFocus(consoleField);
-		stage.setScrollFocus(consoleScroll);
+		setKeyboardFocus();
 	}
 
 	public void tabClicked()
 	{
 		EventManager.get_instance().broadcast(new AutocompleteRequestEvent(ownerUI, consoleField.getText()));
-		stage.setKeyboardFocus(consoleField);
-		stage.setScrollFocus(consoleScroll);
+		setKeyboardFocus();
 	}
 
 	public boolean keyUp(int keycode)

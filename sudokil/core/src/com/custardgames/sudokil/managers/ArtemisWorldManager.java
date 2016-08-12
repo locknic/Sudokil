@@ -29,6 +29,7 @@ import com.custardgames.sudokil.entities.ecs.systems.PowerConsumptionSystem;
 import com.custardgames.sudokil.entities.ecs.systems.ProcessQueueSystem;
 import com.custardgames.sudokil.entities.ecs.systems.UpdatePhysicalCharacterInputSystem;
 import com.custardgames.sudokil.entities.ecs.systems.WiredConnectionSystem;
+import com.custardgames.sudokil.entities.ecs.systems.rendering.ConsoleHighlightRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.ShapeRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.SpriteRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.TextRenderSystem;
@@ -47,6 +48,7 @@ public class ArtemisWorldManager implements EventListener
 	private SpriteRenderSystem spriteRenderSystem;
 	private ShapeRenderSystem shapeRenderSystem;
 	private TextRenderSystem textRenderSystem;
+	private ConsoleHighlightRenderSystem consoleHighlightRenderSystem;
 
 	public ArtemisWorldManager(Camera camera, AssetManager assetManager, LevelData levelData)
 	{
@@ -56,11 +58,13 @@ public class ArtemisWorldManager implements EventListener
 		spriteRenderSystem = new SpriteRenderSystem();
 		shapeRenderSystem = new ShapeRenderSystem();
 		textRenderSystem = new TextRenderSystem();
+		consoleHighlightRenderSystem = new ConsoleHighlightRenderSystem();
 
-		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, new CharacterMovementSystem(),
-				new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(),
-				new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(),
-				new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem()).build().register(camera).register(assetManager);
+		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, consoleHighlightRenderSystem,
+				new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(),
+				new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(),
+				new PowerConsumptionSystem(), new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem()).build().register(camera)
+				.register(assetManager);
 		artemisWorld = new com.artemis.World(config);
 
 		loadLevelData(levelData);
@@ -99,6 +103,7 @@ public class ArtemisWorldManager implements EventListener
 		shapeRenderSystem.render(spriteBatch);
 		spriteRenderSystem.render(spriteBatch);
 		textRenderSystem.render(spriteBatch);
+		consoleHighlightRenderSystem.render(spriteBatch);
 		spriteBatch.end();
 	}
 
