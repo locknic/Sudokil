@@ -24,8 +24,8 @@ import com.custardgames.sudokil.events.ui.ToggleTerminalButtonEvent;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.FileSystemManager;
 import com.custardgames.sudokil.managers.InputManager;
-import com.custardgames.sudokil.states.JsonTags;
-import com.custardgames.sudokil.states.LevelData;
+import com.custardgames.sudokil.utils.JsonTags;
+import com.custardgames.sudokil.utils.LevelData;
 
 public class UserInterface extends Stage implements EventListener
 {

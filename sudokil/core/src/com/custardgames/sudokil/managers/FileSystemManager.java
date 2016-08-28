@@ -9,10 +9,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Json;
 import com.custardgames.sudokil.events.CopyItemBetweenFileSystemsEvent;
 import com.custardgames.sudokil.events.PingFileSystemEvent;
-import com.custardgames.sudokil.states.JsonTags;
 import com.custardgames.sudokil.ui.cli.FolderCLI;
 import com.custardgames.sudokil.ui.cli.ItemCLI;
 import com.custardgames.sudokil.ui.cli.RootCLI;
+import com.custardgames.sudokil.utils.JsonTags;
 
 public class FileSystemManager implements EventListener
 {

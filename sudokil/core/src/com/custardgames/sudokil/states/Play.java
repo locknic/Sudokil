@@ -9,6 +9,8 @@ import com.custardgames.sudokil.ui.EndScreen;
 import com.custardgames.sudokil.ui.EscapeMenu;
 import com.custardgames.sudokil.ui.MapInterface;
 import com.custardgames.sudokil.ui.UserInterface;
+import com.custardgames.sudokil.utils.JsonTags;
+import com.custardgames.sudokil.utils.LevelData;
 
 public class Play implements Screen
 {

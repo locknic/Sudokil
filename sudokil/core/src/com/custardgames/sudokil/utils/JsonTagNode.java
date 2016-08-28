@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.states;
+package com.custardgames.sudokil.utils;
 
 public class JsonTagNode
 {

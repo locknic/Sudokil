@@ -37,9 +37,9 @@ import com.custardgames.sudokil.events.AddEntitiesEvent;
 import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.entities.CreateEntityEvent;
 import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
-import com.custardgames.sudokil.states.JsonTags;
-import com.custardgames.sudokil.states.LevelData;
 import com.custardgames.sudokil.utils.EntityHolder;
+import com.custardgames.sudokil.utils.JsonTags;
+import com.custardgames.sudokil.utils.LevelData;
 
 public class ArtemisWorldManager implements EventListener
 {
