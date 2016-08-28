@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
+import com.custardgames.sudokil.events.ChangeLevelEvent;
 import com.custardgames.sudokil.events.entities.commands.HighlightEvent;
 import com.custardgames.sudokil.events.entities.commands.ResetHighlightEvent;
 import com.custardgames.sudokil.managers.EventManager;
@@ -26,10 +27,10 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 	private ComponentMapper<EntityComponent> entityComponents;
 
 	private ShapeRenderer shapeRenderer;
-	
+
 	private Array<Entity> selectedEntities;
 	private Array<Entity> possibleSelectedEntities;
-	
+
 	@SuppressWarnings("unchecked")
 	public ConsoleHighlightRenderSystem()
 	{
@@ -37,6 +38,7 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 
 		EventManager.get_instance().register(HighlightEvent.class, this);
 		EventManager.get_instance().register(ResetHighlightEvent.class, this);
+		EventManager.get_instance().register(ChangeLevelEvent.class, this);
 		
 		shapeRenderer = new ShapeRenderer();
 		selectedEntities = new Array<Entity>();
@@ -62,6 +64,7 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 		shapeRenderer.dispose();
 		EventManager.get_instance().deregister(HighlightEvent.class, this);
 		EventManager.get_instance().deregister(ResetHighlightEvent.class, this);
+		EventManager.get_instance().deregister(ChangeLevelEvent.class, this);
 	}
 
 	public void render(Batch spriteBatch)
@@ -70,25 +73,33 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 		shapeRenderer.setProjectionMatrix(spriteBatch.getProjectionMatrix());
 		Gdx.gl.glDisable(GL20.GL_BLEND);
 		shapeRenderer.begin(ShapeType.Line);
-		
+
 		shapeRenderer.setColor(Color.GREEN);
 		for (Entity entity : selectedEntities)
 		{
 			PositionComponent positionComponent = positionComponents.get(entity);
-			shapeRenderer.rect(positionComponent.getX() + 2, positionComponent.getY() + 2, positionComponent.getWidth() - 4, positionComponent.getHeight() - 4);
+			if (positionComponent != null)
+			{
+				shapeRenderer.rect(positionComponent.getX() + 2, positionComponent.getY() + 2, positionComponent.getWidth() - 4,
+						positionComponent.getHeight() - 4);
+			}
 		}
-		
+
 		shapeRenderer.setColor(Color.ORANGE);
 		for (Entity entity : possibleSelectedEntities)
 		{
 			PositionComponent positionComponent = positionComponents.get(entity);
-			shapeRenderer.rect(positionComponent.getX() + 2, positionComponent.getY() + 2, positionComponent.getWidth() - 4, positionComponent.getHeight() - 4);
+			if (positionComponent != null)
+			{
+				shapeRenderer.rect(positionComponent.getX() + 2, positionComponent.getY() + 2, positionComponent.getWidth() - 4,
+						positionComponent.getHeight() - 4);
+			}
 		}
-		
+
 		shapeRenderer.end();
 		spriteBatch.begin();
 	}
-	
+
 	public void handleHighlight(HighlightEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
@@ -109,9 +120,15 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 			}
 		}
 	}
-	
+
 	public void handleResetHighlight(ResetHighlightEvent event)
-	{	
+	{
+		selectedEntities.clear();
+		possibleSelectedEntities.clear();
+	}
+	
+	public void handleChangeLevel(ChangeLevelEvent event)
+	{
 		selectedEntities.clear();
 		possibleSelectedEntities.clear();
 	}
