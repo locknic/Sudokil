@@ -71,6 +71,7 @@ public class CommandLineInterface implements EventListener
 	public void setRoot(RootCLI root)
 	{
 		parser.setRoot(root);
+		consoleArrow.setText(parser.getInputPrefix());
 	}
 
 	public void createWindow()
