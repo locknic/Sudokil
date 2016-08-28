@@ -1,15 +1,19 @@
 package com.custardgames.sudokil.entities.ecs.components;
 
+import java.util.Comparator;
+
 import com.artemis.Component;
 
-public class SpriteComponent extends Component
+public class SpriteComponent extends Component implements Comparator<SpriteComponent>, Comparable<SpriteComponent>
 {
 	private String spriteLocation;
 	private boolean shouldRender;
+	private int zOrder;
 
 	public SpriteComponent()
 	{
 		setShouldRender(true);
+		zOrder = 50;
 	}
 
 	public SpriteComponent(String spriteLocation)
@@ -35,6 +39,28 @@ public class SpriteComponent extends Component
 	public void setShouldRender(boolean shouldRender)
 	{
 		this.shouldRender = shouldRender;
+	}
+
+	public int getzOrder()
+	{
+		return zOrder;
+	}
+
+	public void setzOrder(int zOrder)
+	{
+		this.zOrder = zOrder;
+	}
+
+	@Override
+	public int compareTo(SpriteComponent o)
+	{
+		return ((Integer) zOrder).compareTo(o.getzOrder());
+	}
+
+	@Override
+	public int compare(SpriteComponent o1, SpriteComponent o2)
+	{
+		return o1.compareTo(o2);
 	}
 
 }

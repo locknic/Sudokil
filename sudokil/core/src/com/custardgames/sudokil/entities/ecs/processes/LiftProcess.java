@@ -5,6 +5,7 @@ import com.custardgames.sudokil.entities.ecs.components.BlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.LiftableComponent;
 import com.custardgames.sudokil.entities.ecs.components.LifterComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
+import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
 import com.custardgames.sudokil.events.entities.BlockActivityEvent;
 import com.custardgames.sudokil.events.entities.map.PingCellEvent;
 import com.custardgames.sudokil.events.entities.map.RemoveFromMapEvent;
@@ -59,6 +60,7 @@ public class LiftProcess extends EntityProcess
 						{
 							LiftableComponent liftableComponent = lifted.getComponent(LiftableComponent.class);
 							BlockingComponent blockingComponent = lifted.getComponent(BlockingComponent.class);
+							SpriteComponent spriteComponent = lifted.getComponent(SpriteComponent.class);
 							if (liftableComponent != null && !liftableComponent.isLifted())
 							{
 								EventManager.get_instance().broadcast(new RemoveFromMapEvent(lifted));
@@ -73,6 +75,11 @@ public class LiftProcess extends EntityProcess
 								targetX = position.getX();
 								targetY = position.getY();
 								setTarget = true;
+								
+								if (spriteComponent != null)
+								{
+									spriteComponent.setzOrder(spriteComponent.getzOrder() + 10);
+								}
 								return false;
 							}
 						}

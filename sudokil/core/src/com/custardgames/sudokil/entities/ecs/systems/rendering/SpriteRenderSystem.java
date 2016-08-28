@@ -1,11 +1,13 @@
 package com.custardgames.sudokil.entities.ecs.systems.rendering;
 
+import java.util.Comparator;
+
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
-import com.artemis.utils.ImmutableBag;
+import com.artemis.utils.Bag;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -39,10 +41,22 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 
 	}
 
+	public final Comparator<Entity> SpritezComparator = new Comparator<Entity>()
+	{
+		@Override
+		public int compare(Entity o1, Entity o2)
+		{
+			SpriteComponent spriteComponent1 = spriteComponents.get(o1);
+			SpriteComponent spriteComponent2 = spriteComponents.get(o2);
+			return spriteComponent1.compareTo(spriteComponent2);
+		}
+	};
+
 	public void render(Batch spriteBatch)
 	{
 		Sprite sprite;
-		ImmutableBag<Entity> entities = getEntities();
+		Bag<Entity> entities = getEntities();
+		entities.sort(SpritezComparator);
 		for (Entity entity : entities)
 		{
 			SpriteComponent spriteComponent = spriteComponents.get(entity);
