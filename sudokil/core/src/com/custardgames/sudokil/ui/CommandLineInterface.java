@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Align;
 import com.custardgames.sudokil.events.commandLine.AutocompleteRequestEvent;
 import com.custardgames.sudokil.events.commandLine.AutocompleteResponseEvent;
+import com.custardgames.sudokil.events.commandLine.ClearTerminalEvent;
 import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
 import com.custardgames.sudokil.managers.EventManager;
@@ -45,7 +46,8 @@ public class CommandLineInterface implements EventListener
 	{
 		EventManager.get_instance().register(ConsoleLogEvent.class, this);
 		EventManager.get_instance().register(AutocompleteResponseEvent.class, this);
-
+		EventManager.get_instance().register(ClearTerminalEvent.class, this);
+		
 		this.cld = new CommandLineData(root, null);
 		this.stage = stage;
 		this.createWindow();
@@ -166,6 +168,7 @@ public class CommandLineInterface implements EventListener
 		cld.parser.dispose();
 		EventManager.get_instance().deregister(ConsoleLogEvent.class, this);
 		EventManager.get_instance().deregister(AutocompleteResponseEvent.class, this);
+		EventManager.get_instance().deregister(ClearTerminalEvent.class, this);
 	}
 
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
@@ -320,11 +323,21 @@ public class CommandLineInterface implements EventListener
 		}
 	}
 
-	public void handleConsoleLog(ConsoleLogEvent keyEvent)
+	public void handleConsoleLog(ConsoleLogEvent event)
 	{
-		if (keyEvent.getOwnerUI() == cld.ownerUI)
+		if (event.getOwnerUI() == cld.ownerUI)
 		{
-			cld.textHistory = cld.textHistory + "\n" + keyEvent.getText();
+			cld.textHistory = cld.textHistory + "\n" + event.getText();
+			consoleDialog.setText(cld.textHistory);
+			updateScroll += 20;
+		}
+	}
+	
+	public void handleClearTerminal(ClearTerminalEvent event)
+	{
+		if (event.getOwnerUI() == cld.ownerUI)
+		{
+			cld.textHistory = "";
 			consoleDialog.setText(cld.textHistory);
 			updateScroll += 20;
 		}

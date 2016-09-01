@@ -21,6 +21,7 @@ import com.custardgames.sudokil.events.BaseEvent;
 import com.custardgames.sudokil.events.commandLine.AutocompleteRequestEvent;
 import com.custardgames.sudokil.events.commandLine.AutocompleteResponseEvent;
 import com.custardgames.sudokil.events.commandLine.ChangedDirectoryEvent;
+import com.custardgames.sudokil.events.commandLine.ClearTerminalEvent;
 import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
 import com.custardgames.sudokil.events.commandLine.ListDirectoryEvent;
@@ -74,7 +75,7 @@ public class CommandLineManager implements EventListener
 		cd.setArgs(1);
 		cd.setOptionalArg(true);
 		options.addOption(cd);
-
+		
 		Option mv = new Option("mv", "Moves a file or directory into another directory.");
 		mv.setArgs(2);
 		mv.setOptionalArg(false);
@@ -96,6 +97,7 @@ public class CommandLineManager implements EventListener
 
 		options.addOption("help", false, "Show the help screen.");
 
+		options.addOption("clear", false, "Clear the terminal screen.");
 	}
 
 	public void dispose()
@@ -439,6 +441,10 @@ public class CommandLineManager implements EventListener
 			else if (commandLine.hasOption("echo"))
 			{
 				EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, commandLine.getOptionValues("echo")));
+			}
+			else if (commandLine.hasOption("clear"))
+			{
+				EventManager.get_instance().broadcast(new ClearTerminalEvent(ownerUI));
 			}
 
 		}
