@@ -262,12 +262,16 @@ public class UserInterface extends Stage implements EventListener
 			{
 				if (event.getNewRoot() == null)
 				{
-					e.setRoot(fileSystemManager.getFileSystem(root));
+					e.upRoot();
 				}
 				else
 				{
 					e.setRoot(event.getNewRoot());
 				}
+			}
+			else if (event.getNewRoot() == null)
+			{
+				e.tryAllUpRoot(e.getUUID());
 			}
 		}
 	}

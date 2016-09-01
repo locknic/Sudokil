@@ -25,17 +25,13 @@ import com.custardgames.sudokil.events.commandLine.AutocompleteRequestEvent;
 import com.custardgames.sudokil.events.commandLine.AutocompleteResponseEvent;
 import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
-import com.custardgames.sudokil.managers.CommandLineManager;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.ui.cli.RootCLI;
-import com.custardgames.sudokil.utils.CircularArray;
 
 public class CommandLineInterface implements EventListener
 {
 	private Stage stage;
-	private UUID ownerUI;
 
-	private CommandLineManager parser;
 	private Window dialog;
 	private TextField consoleField;
 	private Label consoleDialog;
@@ -43,35 +39,64 @@ public class CommandLineInterface implements EventListener
 	private ScrollPane consoleScroll;
 	private int updateScroll;
 
-	private CircularArray<String> previousCommands;
-	private String tempStore;
-	private int commandLocation;
+	private CommandLineData cld;
 
 	public CommandLineInterface(Stage stage, RootCLI root)
 	{
 		EventManager.get_instance().register(ConsoleLogEvent.class, this);
 		EventManager.get_instance().register(AutocompleteResponseEvent.class, this);
 
-		this.ownerUI = UUID.randomUUID();
-
+		this.cld = new CommandLineData(root, null);
 		this.stage = stage;
-		this.commandLocation = -1;
-		this.tempStore = "";
-		this.previousCommands = new CircularArray<String>(10);
-		this.parser = new CommandLineManager(root, ownerUI);
 		this.createWindow();
-
 	}
 
 	public UUID getUUID()
 	{
-		return ownerUI;
+		return cld.ownerUI;
+	}
+	
+	public void tryAllUpRoot(UUID cliID)
+	{
+		CommandLineData newData = cld.findCommandLineDataParent(cliID);
+		if (newData != null)
+		{
+			cld = newData;
+			consoleArrow.setText(cld.parser.getInputPrefix());
+			consoleDialog.setText(cld.textHistory);
+			updateScroll += 5;
+		}
+	}
+
+	public void upRoot()
+	{
+		if (cld.previousCommandLineData != null)
+		{
+			cld = cld.previousCommandLineData;
+			consoleArrow.setText(cld.parser.getInputPrefix());
+			consoleDialog.setText(cld.textHistory);
+			updateScroll += 5;
+		}
 	}
 
 	public void setRoot(RootCLI root)
 	{
-		parser.setRoot(root);
-		consoleArrow.setText(parser.getInputPrefix());
+		CommandLineData newData = new CommandLineData(root, cld);
+		cld = newData;
+		
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("E");
+		String day = simpleDateformat.format(new Date());
+		String month = new SimpleDateFormat("MMM").format(Calendar.getInstance().getTime());
+		int date = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+		int min = Calendar.getInstance().get(Calendar.MINUTE);
+		int sec = Calendar.getInstance().get(Calendar.SECOND);
+		String textTest = "Connected to " + root.getDeviceName() + ": " + day + " " + month + " " + String.format("%02d", date) + " " + String.format("%02d", hour) + ":"
+				+ String.format("%02d", min) + ":" + String.format("%02d", sec);
+		
+		cld.textHistory = textTest;
+		consoleArrow.setText(cld.parser.getInputPrefix());
+		consoleDialog.setText(cld.textHistory);
 	}
 
 	public void createWindow()
@@ -91,12 +116,7 @@ public class CommandLineInterface implements EventListener
 		dialog.padRight(0);
 		dialog.padBottom(1);
 
-		SimpleDateFormat simpleDateformat = new SimpleDateFormat("E"); // the
-																		// day
-																		// of
-																		// the
-																		// week
-																		// abbreviated
+		SimpleDateFormat simpleDateformat = new SimpleDateFormat("E");
 		String day = simpleDateformat.format(new Date());
 		String month = new SimpleDateFormat("MMM").format(Calendar.getInstance().getTime());
 		int date = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -106,11 +126,12 @@ public class CommandLineInterface implements EventListener
 		String textTest = "Last login: " + day + " " + month + " " + String.format("%02d", date) + " " + String.format("%02d", hour) + ":"
 				+ String.format("%02d", min) + ":" + String.format("%02d", sec);
 
-		consoleDialog = new Label(textTest, skin);
+		cld.textHistory = textTest;
+		consoleDialog = new Label(cld.textHistory, skin);
 		consoleDialog.setWrap(true);
 		consoleDialog.setAlignment(Align.topLeft, Align.topLeft);
 
-		consoleArrow = new Label(parser.getInputPrefix(), new LabelStyle(skin.get(LabelStyle.class)));
+		consoleArrow = new Label(cld.parser.getInputPrefix(), new LabelStyle(skin.get(LabelStyle.class)));
 		consoleField = new TextField("", skin);
 		consoleField.setFocusTraversal(false);
 		Color colour = Color.ORANGE;
@@ -142,7 +163,7 @@ public class CommandLineInterface implements EventListener
 	public void dispose()
 	{
 		dialog.remove();
-		parser.dispose();
+		cld.parser.dispose();
 		EventManager.get_instance().deregister(ConsoleLogEvent.class, this);
 		EventManager.get_instance().deregister(AutocompleteResponseEvent.class, this);
 	}
@@ -183,8 +204,8 @@ public class CommandLineInterface implements EventListener
 	{
 		stage.setKeyboardFocus(consoleField);
 		stage.setScrollFocus(consoleScroll);
-		
-		parser.highlightEntities(consoleField.getText());
+
+		cld.parser.highlightEntities(consoleField.getText());
 	}
 
 	public void setScrollFocus()
@@ -194,16 +215,16 @@ public class CommandLineInterface implements EventListener
 
 	public void enterClicked()
 	{
-		EventManager.get_instance().broadcast(new CommandLineEvent(ownerUI, consoleField.getText()));
-		previousCommands.add(consoleField.getText());
-		consoleArrow.setText(parser.getInputPrefix());
+		EventManager.get_instance().broadcast(new CommandLineEvent(cld.ownerUI, consoleField.getText()));
+		cld.previousCommands.add(consoleField.getText());
+		consoleArrow.setText(cld.parser.getInputPrefix());
 		consoleField.setText("");
 		setKeyboardFocus();
 	}
 
 	public void tabClicked()
 	{
-		EventManager.get_instance().broadcast(new AutocompleteRequestEvent(ownerUI, consoleField.getText()));
+		EventManager.get_instance().broadcast(new AutocompleteRequestEvent(cld.ownerUI, consoleField.getText()));
 		setKeyboardFocus();
 	}
 
@@ -219,8 +240,8 @@ public class CommandLineInterface implements EventListener
 				}
 				else
 				{
-					tempStore = "";
-					commandLocation = -1;
+					cld.tempStore = "";
+					cld.commandLocation = -1;
 					enterClicked();
 					return false;
 				}
@@ -241,29 +262,29 @@ public class CommandLineInterface implements EventListener
 
 			if (keycode == Input.Keys.UP)
 			{
-				if (commandLocation < previousCommands.getCurrentSize() - 1)
+				if (cld.commandLocation < cld.previousCommands.getCurrentSize() - 1)
 				{
-					if (commandLocation == -1)
+					if (cld.commandLocation == -1)
 					{
-						tempStore = consoleField.getText();
+						cld.tempStore = consoleField.getText();
 					}
-					commandLocation++;
-					consoleField.setText((String) previousCommands.get(commandLocation));
+					cld.commandLocation++;
+					consoleField.setText((String) cld.previousCommands.get(cld.commandLocation));
 					consoleField.setCursorPosition(consoleField.getText().length());
 				}
 			}
 			if (keycode == Input.Keys.DOWN)
 			{
-				if (commandLocation > 0)
+				if (cld.commandLocation > 0)
 				{
-					commandLocation--;
-					consoleField.setText((String) previousCommands.get(commandLocation));
+					cld.commandLocation--;
+					consoleField.setText((String) cld.previousCommands.get(cld.commandLocation));
 					consoleField.setCursorPosition(consoleField.getText().length());
 				}
-				else if (commandLocation == 0)
+				else if (cld.commandLocation == 0)
 				{
-					commandLocation--;
-					consoleField.setText(tempStore);
+					cld.commandLocation--;
+					consoleField.setText(cld.tempStore);
 					consoleField.setCursorPosition(consoleField.getText().length());
 				}
 			}
@@ -291,9 +312,9 @@ public class CommandLineInterface implements EventListener
 
 	public void handleAutocompleteResponse(AutocompleteResponseEvent event)
 	{
-		if (event.getOwnerUI() == ownerUI)
+		if (event.getOwnerUI() == cld.ownerUI)
 		{
-			consoleArrow.setText(parser.getInputPrefix());
+			consoleArrow.setText(cld.parser.getInputPrefix());
 			consoleField.setText(event.getText());
 			consoleField.setCursorPosition(consoleField.getText().length());
 		}
@@ -301,9 +322,10 @@ public class CommandLineInterface implements EventListener
 
 	public void handleConsoleLog(ConsoleLogEvent keyEvent)
 	{
-		if (keyEvent.getOwnerUI() == ownerUI)
+		if (keyEvent.getOwnerUI() == cld.ownerUI)
 		{
-			consoleDialog.setText(consoleDialog.getText() + "\n" + keyEvent.getText());
+			cld.textHistory = cld.textHistory + "\n" + keyEvent.getText();
+			consoleDialog.setText(cld.textHistory);
 			updateScroll += 20;
 		}
 	}
