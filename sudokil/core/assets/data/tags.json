@@ -42,8 +42,8 @@
 			className : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
 		},
 		{
-			name : CameraInputComponent,
-			className : com.custardgames.sudokil.entities.ecs.components.CameraInputComponent,
+			name : CameraComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.CameraComponent,
 		},
 		{
 			name : ShapeRenderableComponent,

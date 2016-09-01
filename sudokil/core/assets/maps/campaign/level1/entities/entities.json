@@ -827,7 +827,7 @@
 				id : camera
 			},
 			{
-				class : com.custardgames.sudokil.entities.ecs.components.CameraInputComponent,
+				class : com.custardgames.sudokil.entities.ecs.components.CameraComponent,
 				panSpeed : 1
 			}
 		],

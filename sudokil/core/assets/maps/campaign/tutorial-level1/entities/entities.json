@@ -7,7 +7,7 @@
 				id : camera,
 			},
 			{
-				class : CameraInputComponent,
+				class : CameraComponent,
 				panSpeed : 1,
 			}
 		],

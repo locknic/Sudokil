@@ -2,10 +2,11 @@ package com.custardgames.sudokil.entities.ecs.components;
 
 import com.artemis.Component;
 
-public class CameraInputComponent extends Component
+public class CameraComponent extends Component
 {
 	private String targetID;
 	private Component target;
+	private float minX, minY, maxX, maxY;
 	private float targetX, targetY;
 	private float targetOffsetX, targetOffsetY;
 	private boolean up, down, left, right, zoomIn, zoomOut, reset;
@@ -15,9 +16,13 @@ public class CameraInputComponent extends Component
 	private float mouseX, mouseY;
 	private boolean mousePressing;
 
-	public CameraInputComponent()
+	public CameraComponent()
 	{
 		reset = true;
+		minX = -1000;
+		minY = -1000;
+		maxX = 1000;
+		maxY = 1000;
 	}
 
 	public String getTargetID()
@@ -198,6 +203,46 @@ public class CameraInputComponent extends Component
 	public void setZoomAmount(float zoomAmount)
 	{
 		this.zoomAmount = zoomAmount;
+	}
+
+	public float getMinX()
+	{
+		return minX;
+	}
+
+	public void setMinX(float minX)
+	{
+		this.minX = minX;
+	}
+
+	public float getMinY()
+	{
+		return minY;
+	}
+
+	public void setMinY(float minY)
+	{
+		this.minY = minY;
+	}
+
+	public float getMaxX()
+	{
+		return maxX;
+	}
+
+	public void setMaxX(float maxX)
+	{
+		this.maxX = maxX;
+	}
+
+	public float getMaxY()
+	{
+		return maxY;
+	}
+
+	public void setMaxY(float maxY)
+	{
+		this.maxY = maxY;
 	}
 
 }
