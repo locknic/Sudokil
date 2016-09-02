@@ -784,46 +784,6 @@
 		[
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
-				id : wire10
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
-				x : 416,
-				y : 416,
-				width : 32,
-				height : 32,
-				angle : 90
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
-				spriteLocation : images/entities/wire.png
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
-				blocking : true
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.PowerInputComponent,
-				activated: true,
-				left: true,
-				right: true,
-				up: true,
-				down: true,
-				centre: true
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.PowerOutputComponent,
-				activated: true,
-				left: true,
-				right: true,
-				up: true,
-				down: true,
-				centre: true
-			}
-		],
-		[
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.EntityComponent,
 				id : camera
 			},
 			{
