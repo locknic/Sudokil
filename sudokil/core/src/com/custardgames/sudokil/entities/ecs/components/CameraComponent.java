@@ -7,6 +7,7 @@ public class CameraComponent extends Component
 	private String targetID;
 	private Component target;
 	private float minX, minY, maxX, maxY;
+	private float minZoom, maxZoom;
 	private float targetX, targetY;
 	private float targetOffsetX, targetOffsetY;
 	private boolean up, down, left, right, zoomIn, zoomOut, reset;
@@ -21,8 +22,10 @@ public class CameraComponent extends Component
 		reset = true;
 		minX = -1000;
 		minY = -1000;
-		maxX = 1000;
-		maxY = 1000;
+		maxX = 2000;
+		maxY = 2000;
+		minZoom = 0.1f;
+		maxZoom = 3;
 	}
 
 	public String getTargetID()
@@ -243,6 +246,26 @@ public class CameraComponent extends Component
 	public void setMaxY(float maxY)
 	{
 		this.maxY = maxY;
+	}
+
+	public float getMinZoom()
+	{
+		return minZoom;
+	}
+
+	public void setMinZoom(float minZoom)
+	{
+		this.minZoom = minZoom;
+	}
+
+	public float getMaxZoom()
+	{
+		return maxZoom;
+	}
+
+	public void setMaxZoom(float maxZoom)
+	{
+		this.maxZoom = maxZoom;
 	}
 
 }

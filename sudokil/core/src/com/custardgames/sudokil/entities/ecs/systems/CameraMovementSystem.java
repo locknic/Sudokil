@@ -163,9 +163,13 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		if (cameraInput.getZoomAmount() != 0)
 		{
 			camera.zoom += cameraInput.getZoomAmount() / 10;
-			if (camera.zoom < 0)
+			if (camera.zoom <= cameraInput.getMinZoom())
 			{
-				camera.zoom -= cameraInput.getZoomAmount() / 10;
+				camera.zoom = cameraInput.getMinZoom();
+			}
+			else if (camera.zoom >= cameraInput.getMaxZoom())
+			{
+				camera.zoom = cameraInput.getMaxZoom();
 			}
 			cameraInput.setZoomAmount(0);
 		}
