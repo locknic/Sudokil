@@ -26,6 +26,7 @@ import com.custardgames.sudokil.events.physicalinput.MouseReleasedEvent;
 import com.custardgames.sudokil.events.physicalinput.MouseWheelMovedEvent;
 import com.custardgames.sudokil.events.ui.ToggleMapRenderEvent;
 import com.custardgames.sudokil.managers.ArtemisWorldManager;
+import com.custardgames.sudokil.managers.Box2dWorldManager;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.InputManager;
 import com.custardgames.sudokil.managers.MapManager;
@@ -36,7 +37,8 @@ public class MapInterface extends Stage implements EventListener
 {
 	private AssetManager assetManager;
 	private ArtemisWorldManager worldManager;
-
+	private Box2dWorldManager box2dWorldManager;
+	
 	private TiledMap tileMap;
 	private MapManager mapManager;
 	private OrthogonalTiledMapRenderer tmr;
@@ -73,7 +75,9 @@ public class MapInterface extends Stage implements EventListener
 		this.getViewport().setCamera(camera);
 
 		worldManager = new ArtemisWorldManager(camera, assetManager, levelData);
-
+//		box2dWorldManager = new Box2dWorldManager();
+//		box2dWorldManager.loadMap(tileMap);
+		
 		map = new Actor();
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
 		this.addActor(map);

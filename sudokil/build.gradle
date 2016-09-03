@@ -16,6 +16,7 @@ allprojects {
         appName = 'Sudokil'
         gdxVersion = '1.8.0'
         roboVMVersion = '0.0.12'
+		gdxUtilsVersion = '0.13.3'
     }
 
     repositories {
@@ -37,6 +38,8 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
 		compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+		compile "net.dermetfan.libgdx-utils:libgdx-utils:$gdxUtilsVersion:natives-desktop"
+        compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:$gdxUtilsVersion:natives-desktop"
     }
 }
 
@@ -52,6 +55,8 @@ project(":core") {
 		compile "net.onedaybeard.artemis:artemis-odb:2.0.0-RC1"
 		compile "commons-cli:commons-cli:1.3"
 		compile "net.onedaybeard.artemis:artemis-odb-serializer-json-libgdx:1.3.1"
+		compile "net.dermetfan.libgdx-utils:libgdx-utils:$gdxUtilsVersion"
+        compile "net.dermetfan.libgdx-utils:libgdx-utils-box2d:$gdxUtilsVersion"
     }
 }
 

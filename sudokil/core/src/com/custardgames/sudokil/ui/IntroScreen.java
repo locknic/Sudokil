@@ -31,7 +31,8 @@ public class IntroScreen extends Stage
 		
 		InputManager.get_instance().addProcessor(this);
 		
-		Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+		TextureAtlas skinAtlas = new TextureAtlas("data/uiskin.atlas");
+		Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"), skinAtlas);
 		playButton = new TextButton("PLAY", skin);
 		playButton.setBounds(this.getWidth() / 2 - (WIDTH / 2), this.getHeight() / 4 - (HEIGHT / 2), WIDTH, HEIGHT);
 		playButton.addListener(new ChangeListener()
