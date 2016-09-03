@@ -219,5 +219,10 @@ children:
 			},
 		]
 	},
+	{
+		class: TextFileCLI,
+		name: testing.txt,
+		content: hello hello I am Dominic MORTLOCK,
+	},
 ]
 }

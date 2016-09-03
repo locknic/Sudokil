@@ -3,7 +3,7 @@ package com.custardgames.sudokil.ui.cli;
 import java.util.UUID;
 
 import com.custardgames.sudokil.events.BaseEvent;
-import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
+import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.events.entities.commands.EntityCommandEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
@@ -45,7 +45,7 @@ public class ScriptCLI extends ItemCLI
 	{
 		if (args.length > 1 && (args[1].equals("-h") || args[1].equals("--help") || args[1].equals("-help")))
 		{
-			EventManager.get_instance().broadcast(new ConsoleLogEvent(ownerUI, "usage: " + usage));
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "usage: " + usage));
 		}
 		else
 		{

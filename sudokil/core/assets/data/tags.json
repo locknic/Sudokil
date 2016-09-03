@@ -181,5 +181,13 @@
 			name : ItemCLI,
 			className : com.custardgames.sudokil.ui.cli.ItemCLI,
 		},
+		{
+			name : FileCLI,
+			className : com.custardgames.sudokil.ui.cli.FileCLI,
+		},
+		{
+			name : TextFileCLI,
+			className : com.custardgames.sudokil.ui.cli.TextFileCLI,
+		},
 	],
 }

@@ -47,7 +47,7 @@ public class CommandLineInterface implements EventListener
 		EventManager.get_instance().register(ConsoleLogEvent.class, this);
 		EventManager.get_instance().register(AutocompleteResponseEvent.class, this);
 		EventManager.get_instance().register(ClearTerminalEvent.class, this);
-		
+
 		this.cld = new CommandLineData(root, null);
 		this.stage = stage;
 		this.createWindow();
@@ -57,7 +57,7 @@ public class CommandLineInterface implements EventListener
 	{
 		return cld.ownerUI;
 	}
-	
+
 	public void tryAllUpRoot(UUID cliID)
 	{
 		CommandLineData newData = cld.findCommandLineDataParent(cliID);
@@ -85,7 +85,7 @@ public class CommandLineInterface implements EventListener
 	{
 		CommandLineData newData = new CommandLineData(root, cld);
 		cld = newData;
-		
+
 		SimpleDateFormat simpleDateformat = new SimpleDateFormat("E");
 		String day = simpleDateformat.format(new Date());
 		String month = new SimpleDateFormat("MMM").format(Calendar.getInstance().getTime());
@@ -93,9 +93,9 @@ public class CommandLineInterface implements EventListener
 		int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 		int min = Calendar.getInstance().get(Calendar.MINUTE);
 		int sec = Calendar.getInstance().get(Calendar.SECOND);
-		String textTest = "Connected to " + root.getDeviceName() + ": " + day + " " + month + " " + String.format("%02d", date) + " " + String.format("%02d", hour) + ":"
-				+ String.format("%02d", min) + ":" + String.format("%02d", sec);
-		
+		String textTest = "Connected to " + root.getDeviceName() + ": " + day + " " + month + " " + String.format("%02d", date) + " "
+				+ String.format("%02d", hour) + ":" + String.format("%02d", min) + ":" + String.format("%02d", sec);
+
 		cld.textHistory = textTest;
 		consoleArrow.setText(cld.parser.getInputPrefix());
 		consoleDialog.setText(cld.textHistory);
@@ -332,7 +332,7 @@ public class CommandLineInterface implements EventListener
 			updateScroll += 20;
 		}
 	}
-	
+
 	public void handleClearTerminal(ClearTerminalEvent event)
 	{
 		if (event.getOwnerUI() == cld.ownerUI)
