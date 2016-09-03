@@ -72,7 +72,10 @@ public class CommandLineManager implements EventListener
 
 		options.addOption("pwd", false, "Prints the current working directory.");
 
-		options.addOption("ls", false, "List directory contents.");
+		Option ls = new Option("ls", "List directory contents.");
+		ls.setArgs(Option.UNLIMITED_VALUES);
+		ls.setOptionalArg(true);
+		options.addOption(ls);
 
 		Option cd = new Option("cd", "Change the current directory to DIR.");
 		cd.setArgs(1);
@@ -200,15 +203,44 @@ public class CommandLineManager implements EventListener
 		EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, getLocation()));
 	}
 
-	public void list()
+	public void list(String args[])
 	{
-		String output = "";
-		for (ItemCLI child : currentItem.getChildren())
+		System.out.println("length" + args.length);
+		if (args == null || args.length < 1)
 		{
-			output += child.getName() + "\n";
+			String output = "";
+			for (ItemCLI child : currentItem.getChildren())
+			{
+				output += child.getName() + "\n";
+			}
+			EventManager.get_instance().broadcast(new ListDirectoryEvent(ownerUI));
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, output));
 		}
-		EventManager.get_instance().broadcast(new ListDirectoryEvent(ownerUI));
-		EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, output));
+		for (int x = 0; x < args.length; x++)
+		{
+			if (args[x] != null && !args[x].equals(""))
+			{
+				ItemCLI newItem = findItem(args[x]);
+				if (newItem instanceof FolderCLI)
+				{
+					String output = args[x] + "/:\n";
+					for (ItemCLI child : ((FolderCLI) newItem).getChildren())
+					{
+						output += child.getName() + "\n";
+					}
+					EventManager.get_instance().broadcast(new ListDirectoryEvent(ownerUI));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, output));
+				}
+				else if (newItem instanceof ItemCLI)
+				{
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, newItem.getName()));
+				}
+				else
+				{
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such file or directory."));
+				}
+			}
+		}
 	}
 
 	public void changeDirectory(String location)
@@ -398,13 +430,13 @@ public class CommandLineManager implements EventListener
 		}
 	}
 
-	public void cat(String options[])
+	public void cat(String args[])
 	{
-		for (int x = 0; x < options.length; x++)
+		for (int x = 0; x < args.length; x++)
 		{
-			if (options[x] != null && !options[x].equals(""))
+			if (args[x] != null && !args[x].equals(""))
 			{
-				ItemCLI newItem = findItem(options[x]);
+				ItemCLI newItem = findItem(args[x]);
 				if (newItem instanceof FolderCLI)
 				{
 					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Is a directory."));
@@ -445,7 +477,12 @@ public class CommandLineManager implements EventListener
 			}
 			else if (commandLine.hasOption("ls"))
 			{
-				list();
+				String[] arguments = commandLine.getOptionValues("ls");
+				if (arguments == null)
+				{
+					arguments = new String[0];
+				}
+				list(arguments);
 			}
 			else if (commandLine.hasOption("cd"))
 			{
@@ -654,7 +691,7 @@ public class CommandLineManager implements EventListener
 			try
 			{
 				String[] commands;
-				commands = event.getText().split(";");
+				commands = event.getText().split(";|&|&&");
 				for (int x = 0; x < commands.length; x++)
 				{
 					String[] args = commands[x].split(" ");
