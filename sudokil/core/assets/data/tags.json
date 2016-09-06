@@ -50,6 +50,22 @@
 			className : com.custardgames.sudokil.entities.ecs.components.ShapeRenderableComponent,
 		},
 		{
+			name : Box2DBodyComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.Box2DBodyComponent,
+		},
+		{
+			name : LightComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.lights.LightComponent,
+		},
+		{
+			name : PointLightComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.lights.PointLightComponent,
+		},
+		{
+			name : ConeLightComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.lights.ConeLightComponent,
+		},
+		{
 			name : TriggerEntityComponent,
 			className : com.custardgames.sudokil.entities.ecs.components.triggers.TriggerEntityComponent,
 		},

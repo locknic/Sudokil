@@ -73,10 +73,10 @@ public class MapInterface extends Stage implements EventListener
 		camera = new OrthographicCamera();
 		tmr.setView(camera);
 		this.getViewport().setCamera(camera);
-
+		
+		box2dWorldManager = new Box2dWorldManager();
+		box2dWorldManager.loadMap(tileMap);
 		worldManager = new ArtemisWorldManager(camera, assetManager, levelData);
-//		box2dWorldManager = new Box2dWorldManager();
-//		box2dWorldManager.loadMap(tileMap);
 		
 		map = new Actor();
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
@@ -112,6 +112,7 @@ public class MapInterface extends Stage implements EventListener
 		assetManager.clear();
 		loadAssets(assetManager, levelData);
 
+		box2dWorldManager.clear();
 		changeMap(levelData.getMapLocation());
 
 		worldManager.dispose();
@@ -124,13 +125,17 @@ public class MapInterface extends Stage implements EventListener
 		tileMap = new TmxMapLoader().load(mapLocation);
 		mapManager.setMap(tileMap);
 		tmr.setMap(tileMap);
+		box2dWorldManager.clearMapObjects();
+		box2dWorldManager.loadMap(tileMap);
 		EventManager.get_instance().broadcast(new ChangedMapEvent());
+		
 	}
 
-	public void update(float dt)
+	public void update(float delta)
 	{
-		worldManager.update(dt);
-		this.act(dt);
+		worldManager.update(delta);
+		box2dWorldManager.update(delta);
+		this.act(delta);
 	}
 
 	public void render()
@@ -143,6 +148,7 @@ public class MapInterface extends Stage implements EventListener
 			Batch spriteBatch = getBatch();
 			spriteBatch.setProjectionMatrix(camera.combined);
 			worldManager.render(spriteBatch);
+			box2dWorldManager.render(camera);
 			this.draw();
 		}
 	}

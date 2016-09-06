@@ -15,7 +15,10 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
+import com.custardgames.sudokil.entities.ecs.components.Box2DBodyComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
+import com.custardgames.sudokil.entities.ecs.components.lights.ConeLightComponent;
+import com.custardgames.sudokil.entities.ecs.components.lights.PointLightComponent;
 import com.custardgames.sudokil.entities.ecs.systems.ActivityBlockingSystem;
 import com.custardgames.sudokil.entities.ecs.systems.ActivitySpriteSystem;
 import com.custardgames.sudokil.entities.ecs.systems.CameraMovementSystem;
@@ -35,7 +38,9 @@ import com.custardgames.sudokil.entities.ecs.systems.rendering.SpriteRenderSyste
 import com.custardgames.sudokil.entities.ecs.systems.rendering.TextRenderSystem;
 import com.custardgames.sudokil.events.AddEntitiesEvent;
 import com.custardgames.sudokil.events.DisposeWorldEvent;
+import com.custardgames.sudokil.events.entities.CreateEntityBox2DBodyEvent;
 import com.custardgames.sudokil.events.entities.CreateEntityEvent;
+import com.custardgames.sudokil.events.entities.CreateEntityLightEvent;
 import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
 import com.custardgames.sudokil.utils.EntityHolder;
 import com.custardgames.sudokil.utils.JsonTags;
@@ -100,8 +105,8 @@ public class ArtemisWorldManager implements EventListener
 	public void render(Batch spriteBatch)
 	{
 		spriteBatch.begin();
-		shapeRenderSystem.render(spriteBatch);
 		spriteRenderSystem.render(spriteBatch);
+		shapeRenderSystem.render(spriteBatch);
 		textRenderSystem.render(spriteBatch);
 		consoleHighlightRenderSystem.render(spriteBatch);
 		spriteBatch.end();
@@ -110,19 +115,50 @@ public class ArtemisWorldManager implements EventListener
 	public void createEntity(Array<Component> components)
 	{
 		Entity entity = artemisWorld.createEntity();
-		boolean addToMap = false;
+		
+		PositionComponent positionComponent = null;
+		Box2DBodyComponent bodyComponent = null;
+		PointLightComponent pointLightComponent = null;
+		ConeLightComponent coneLightComponent = null;
+				
 		for (Component component : components)
 		{
 			entity.edit().add(component);
 			if (component instanceof PositionComponent)
 			{
-				addToMap = true;
+				positionComponent = (PositionComponent) component;
+			}
+			else if (component instanceof Box2DBodyComponent)
+			{
+				bodyComponent = (Box2DBodyComponent) component;
+			}
+			else if (component instanceof PointLightComponent)
+			{
+				pointLightComponent = (PointLightComponent) component;
+			}
+			else if (component instanceof ConeLightComponent)
+			{
+				coneLightComponent = (ConeLightComponent) component;
 			}
 		}
 		artemisWorld.process();
-		if (addToMap)
+		
+		if (positionComponent != null)
 		{
 			EventManager.get_instance().broadcast(new AddToMapEvent(entity));
+			
+			if (bodyComponent != null)
+			{
+				EventManager.get_instance().broadcast(new CreateEntityBox2DBodyEvent(positionComponent, bodyComponent));
+			}
+		}
+		if (pointLightComponent != null)
+		{
+			EventManager.get_instance().broadcast(new CreateEntityLightEvent(pointLightComponent, bodyComponent));
+		}
+		if (coneLightComponent != null)
+		{
+			EventManager.get_instance().broadcast(new CreateEntityLightEvent(coneLightComponent, bodyComponent));
 		}
 	}
 

@@ -45,6 +45,21 @@
 			},
 			{
 				class : ProcessQueueComponent,
+			},
+			{
+				class : Box2DBodyComponent,
+			},
+			{
+				class : ConeLightComponent,
+				red : 1,
+				green : 0.8,
+				blue : 0.8,
+				alpha : 0.7f,
+				xCo : 4,
+				yCo : 0,
+				distance : 512,
+				directionDegree : 0,
+				coneDegree : 45,
 			}
 		],
 	]

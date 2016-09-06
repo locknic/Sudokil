@@ -97,13 +97,14 @@ public class MoveProcess extends EntityProcess
 		}
 		else
 		{
-			EventManager.get_instance().broadcast(new EntityMovedEvent(entity, targetX - positionX, targetY - positionY));
 
 			positionX = targetX;
 			positionY = targetY;
 
 			position.setX(positionX);
 			position.setY(positionY);
+
+			EventManager.get_instance().broadcast(new EntityMovedEvent(entity, targetX - positionX, targetY - positionY));
 
 			return true;
 		}
