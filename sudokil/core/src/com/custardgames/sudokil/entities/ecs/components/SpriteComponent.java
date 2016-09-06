@@ -7,6 +7,7 @@ import com.artemis.Component;
 public class SpriteComponent extends Component implements Comparator<SpriteComponent>, Comparable<SpriteComponent>
 {
 	private String spriteLocation;
+	private float width, height;
 	private boolean shouldRender;
 	private int zOrder;
 
@@ -61,6 +62,26 @@ public class SpriteComponent extends Component implements Comparator<SpriteCompo
 	public int compare(SpriteComponent o1, SpriteComponent o2)
 	{
 		return o1.compareTo(o2);
+	}
+
+	public float getHeight()
+	{
+		return height;
+	}
+
+	public void setHeight(float height)
+	{
+		this.height = height;
+	}
+
+	public float getWidth()
+	{
+		return width;
+	}
+
+	public void setWidth(float width)
+	{
+		this.width = width;
 	}
 
 }

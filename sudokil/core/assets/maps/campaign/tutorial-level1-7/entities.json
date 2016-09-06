@@ -137,7 +137,10 @@
 				up: true,
 				down: true,
 				centre: true,
-			}
+			},
+			{
+				class : Box2DBodyComponent,
+			},
 		],
 		[
 			{
@@ -146,15 +149,17 @@
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
-				x : 576,
-				y : 160,
-				width : 32,
-				height : 32,
+				x : 579,
+				y : 163,
+				width : 26,
+				height : 26,
 				angle : 0,
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
 				spriteLocation : images/entities/generator.png,
+				width : 32,
+				height : 32,
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
@@ -175,7 +180,10 @@
 				up: true,
 				down: true,
 				centre: true,
-			}
+			},
+			{
+				class : Box2DBodyComponent,
+			},
 		],
 		[
 			{

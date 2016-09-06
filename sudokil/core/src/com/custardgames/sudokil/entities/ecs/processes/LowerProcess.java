@@ -6,6 +6,7 @@ import com.custardgames.sudokil.entities.ecs.components.LiftableComponent;
 import com.custardgames.sudokil.entities.ecs.components.LifterComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
+import com.custardgames.sudokil.events.entities.EntityMovedEvent;
 import com.custardgames.sudokil.events.entities.UnblockActivityEvent;
 import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
 import com.custardgames.sudokil.events.entities.map.PingCellEvent;
@@ -55,8 +56,10 @@ public class LowerProcess extends EntityProcess
 								.broadcastInquiry(new PingCellEvent(entity, (int) deltaX, (int) deltaY));
 						if (event != null && event instanceof PingCellEvent && event.getEntity() != null && event.getEntity() == entity)
 						{
-							targetX = event.getxCo();
-							targetY = event.getyCo();
+							PositionComponent liftedPosition = lifted.getComponent(PositionComponent.class);
+
+							targetX = event.getxCo() + position.getWidth() / 2 - liftedPosition.getWidth() / 2;
+							targetY = event.getyCo()+ position.getHeight() / 2 - liftedPosition.getHeight() / 2;
 							if (event.isFloor())
 							{
 								Entity destination = event.getCellEntity();
@@ -90,8 +93,8 @@ public class LowerProcess extends EntityProcess
 				}
 				return true;
 			}
-			PositionComponent liftedPosition = lifted.getComponent(PositionComponent.class);
 			float maxVelocity = lifterComponent.getLiftSpeed();
+			PositionComponent liftedPosition = lifted.getComponent(PositionComponent.class);
 
 			if (liftedPosition != null)
 			{
@@ -105,16 +108,22 @@ public class LowerProcess extends EntityProcess
 					liftedPosition.setX(targetX);
 					liftedPosition.setY(targetY);
 					EventManager.get_instance().broadcast(new AddToMapEvent(lifted));
+					EventManager.get_instance().broadcast(new EntityMovedEvent(lifted, deltaX, deltaY));
 					return true;
 				}
 
 				if (deltaX != 0)
-					positionX = ((float) (positionX + (-maxVelocity * (deltaX / Math.abs(deltaX)))));
+				{
+					deltaX = (float) (-maxVelocity * (deltaX / Math.abs(deltaX)));
+				}
 				if (deltaY != 0)
-					positionY = ((float) (positionY + (-maxVelocity * (deltaY / Math.abs(deltaY)))));
-
-				liftedPosition.setX(positionX);
-				liftedPosition.setY(positionY);
+				{
+					deltaY = (float)(-maxVelocity * (deltaY / Math.abs(deltaY)));
+				}
+				liftedPosition.setX(positionX + deltaX);
+				liftedPosition.setY(positionY + deltaY);
+				
+				EventManager.get_instance().broadcast(new EntityMovedEvent(lifted, deltaX, deltaY));
 				return false;
 			}
 		}

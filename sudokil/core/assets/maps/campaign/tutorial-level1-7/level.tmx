@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="29">
  <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32" tilecount="256" columns="16">
   <image source="../../../images/tiles/tileset1.png" width="512" height="512"/>
   <tile id="16">
@@ -28,4 +28,146 @@
    H4sIAAAAAAAAC2NgGAWjYBSMglEwWAE7lOYYUFeMgpEKOAfaAVQCXAPtABoBAJBo5w/ECQAA
   </data>
  </layer>
+ <objectgroup name="Object Layer 1">
+  <object id="1" name="wall-body" type="object" x="32" y="672" width="160" height="32">
+   <properties>
+    <property name="bodyType" value="StaticBody"/>
+   </properties>
+  </object>
+  <object id="2" name="wall3" type="fixture" x="224" y="128" width="32" height="608">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="3" name="wall5" type="fixture" x="160" y="32" width="128" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="4" name="wall2" type="fixture" x="32" y="736" width="224" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="5" name="wall" type="fixture" x="32" y="704" width="32" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="6" name="wall4" type="fixture" x="160" y="64" width="32" height="608">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="7" name="wall6" type="fixture" x="256" y="0" width="96" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="8" name="wall7" type="fixture" x="224" y="96" width="128" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="9" name="wall8" type="fixture" x="320" y="32" width="224" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="10" name="wall9" type="fixture" x="512" y="64" width="32" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="11" name="wall10" type="fixture" x="448" y="96" width="96" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="12" name="wall11" type="fixture" x="320" y="128" width="32" height="608">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="13" name="wall12" type="fixture" x="448" y="128" width="32" height="256">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="14" name="wall13" type="fixture" x="320" y="736" width="224" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="15" name="wall14" type="fixture" x="448" y="384" width="160" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="16" name="wall15" type="fixture" x="576" y="416" width="32" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="17" name="wall16" type="fixture" x="448" y="448" width="160" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="18" name="wall17" type="fixture" x="448" y="480" width="32" height="128">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="19" name="wall18" type="fixture" x="448" y="608" width="96" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="20" name="wall19" type="fixture" x="512" y="544" width="32" height="64">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="21" name="wall20" type="fixture" x="512" y="512" width="192" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="22" name="wall21" type="fixture" x="672" y="544" width="32" height="96">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="23" name="wall22" type="fixture" x="704" y="576" width="96" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="24" name="wall23" type="fixture" x="768" y="608" width="32" height="160">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="25" name="wall24" type="fixture" x="512" y="768" width="288" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="26" name="wall25" type="fixture" x="672" y="736" width="32" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="27" name="wall26" type="fixture" x="576" y="576" width="64" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="28" name="wall26" type="fixture" x="608" y="608" width="32" height="32">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

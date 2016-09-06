@@ -7,6 +7,7 @@ import com.custardgames.sudokil.entities.ecs.components.LifterComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
 import com.custardgames.sudokil.events.entities.BlockActivityEvent;
+import com.custardgames.sudokil.events.entities.EntityMovedEvent;
 import com.custardgames.sudokil.events.entities.map.PingCellEvent;
 import com.custardgames.sudokil.events.entities.map.RemoveFromMapEvent;
 import com.custardgames.sudokil.managers.EventManager;
@@ -44,6 +45,8 @@ public class LiftProcess extends EntityProcess
 			{
 				return true;
 			}
+			
+			
 
 			if (!setTarget)
 			{
@@ -58,6 +61,7 @@ public class LiftProcess extends EntityProcess
 						lifted = event.getCellEntity();
 						if (lifted != null)
 						{
+							PositionComponent liftedPosition = lifted.getComponent(PositionComponent.class);
 							LiftableComponent liftableComponent = lifted.getComponent(LiftableComponent.class);
 							BlockingComponent blockingComponent = lifted.getComponent(BlockingComponent.class);
 							SpriteComponent spriteComponent = lifted.getComponent(SpriteComponent.class);
@@ -72,8 +76,8 @@ public class LiftProcess extends EntityProcess
 								lifterComponent.setLifting(true);
 								lifterComponent.setLifted(lifted);
 								EventManager.get_instance().broadcast(new BlockActivityEvent(lifted, liftableComponent.getClass()));
-								targetX = position.getX();
-								targetY = position.getY();
+								targetX = position.getX() + position.getWidth() / 2 - liftedPosition.getWidth() / 2;
+								targetY = position.getY() + position.getHeight() / 2 - liftedPosition.getHeight() / 2;
 								setTarget = true;
 								
 								if (spriteComponent != null)
@@ -99,16 +103,22 @@ public class LiftProcess extends EntityProcess
 				{
 					liftedPosition.setX(targetX);
 					liftedPosition.setY(targetY);
+					EventManager.get_instance().broadcast(new EntityMovedEvent(lifted, deltaX, deltaY));
 					return true;
 				}
 
 				if (deltaX != 0)
-					positionX = ((float) (positionX + (-maxVelocity * (deltaX / Math.abs(deltaX)))));
+				{
+					deltaX = (float) (-maxVelocity * (deltaX / Math.abs(deltaX)));
+				}
 				if (deltaY != 0)
-					positionY = ((float) (positionY + (-maxVelocity * (deltaY / Math.abs(deltaY)))));
-
-				liftedPosition.setX(positionX);
-				liftedPosition.setY(positionY);
+				{
+					deltaY = (float)(-maxVelocity * (deltaY / Math.abs(deltaY)));
+				}
+				liftedPosition.setX(positionX + deltaX);
+				liftedPosition.setY(positionY + deltaY);
+				
+				EventManager.get_instance().broadcast(new EntityMovedEvent(lifted, deltaX, deltaY));
 				return false;
 			}
 		}

@@ -63,9 +63,18 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 			PositionComponent positionComponent = positionComponents.get(entity);
 			if (spriteComponent.isShouldRender())
 			{
-				sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()), (int) positionComponent.getWidth(),
+				if(spriteComponent.getWidth() == 0 || spriteComponent.getHeight() == 0)
+				{
+					sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()), (int) positionComponent.getWidth(),
 						(int) positionComponent.getHeight());
-				sprite.setPosition(positionComponent.getX(), positionComponent.getY());
+					sprite.setPosition(positionComponent.getX(), positionComponent.getY());
+				}
+				else
+				{
+					sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()), (int) spriteComponent.getWidth(),
+							(int) spriteComponent.getHeight());
+					sprite.setPosition(positionComponent.getX() + positionComponent.getWidth() / 2 - spriteComponent.getWidth() / 2, positionComponent.getY() + positionComponent.getHeight() / 2 - spriteComponent.getHeight() / 2);
+				}
 				sprite.rotate(positionComponent.getAngle());
 				sprite.draw(spriteBatch);
 			}

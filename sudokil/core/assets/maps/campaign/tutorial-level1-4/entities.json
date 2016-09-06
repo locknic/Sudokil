@@ -8,15 +8,17 @@
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
-				x : 320,
-				y : 704,
-				width : 32,
-				height : 32,
+				x : 323,
+				y : 707,
+				width : 26,
+				height : 26,
 				angle : 0
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
-				spriteLocation : images/entities/crate.png
+				spriteLocation : images/entities/crate.png,
+				width : 32,
+				height : 32,
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.BlockingComponent,
@@ -24,7 +26,10 @@
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.LiftableComponent,
-			}
+			},
+			{
+				class : Box2DBodyComponent,
+			},
 		],
 	]
 }

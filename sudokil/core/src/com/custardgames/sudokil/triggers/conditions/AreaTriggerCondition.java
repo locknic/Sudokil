@@ -40,8 +40,6 @@ public class AreaTriggerCondition extends BaseTriggerCondition implements EventL
 			if (entityComponent.getId().equals(entityID))
 			{
 				PositionComponent positionComponent = event.getEntity().getComponent(PositionComponent.class);
-				System.out.println(positionComponent.getX() + ", " + positionComponent.getY() + " - TRIGGER : " + triggerAreaMinX + "," + triggerAreaMinY
-						+ ", MAX : " + triggerAreaMaxX + "," + triggerAreaMaxY);
 				if (positionComponent != null && positionComponent.getX() >= triggerAreaMinX && positionComponent.getY() >= triggerAreaMinY
 						&& positionComponent.getX() <= triggerAreaMaxX && positionComponent.getY() <= triggerAreaMaxY)
 				{

@@ -110,7 +110,7 @@ public class Box2dWorldManager implements EventListener
 			BodyDef bodyDef = new BodyDef();
 			bodyDef.type = BodyType.StaticBody;
 			bodyDef.position.set(positionComponent.getX() + positionComponent.getWidth() / 2, positionComponent.getY() + positionComponent.getHeight() / 2);
-			bodyDef.angle = positionComponent.getAngle();
+			bodyDef.angle = (float) Math.toRadians(positionComponent.getAngle());
 
 			Body body = world.createBody(bodyDef);
 			PolygonShape rect = new PolygonShape();
