@@ -34,7 +34,8 @@ public class Box2dWorldManager implements EventListener
 	private Box2DDebugRenderer debugRenderer;
 	private Box2DMapObjectParser mapParser;
 	private RayHandler rayHandler;
-
+	private final boolean debugMode = false;
+	
 	public Box2dWorldManager()
 	{
 		EventManager.get_instance().register(CreateEntityBox2DBodyEvent.class, this);
@@ -77,9 +78,12 @@ public class Box2dWorldManager implements EventListener
 
 	public void render(OrthographicCamera camera)
 	{
-		rayHandler.setCombinedMatrix(camera.combined);
+		rayHandler.setCombinedMatrix(camera);
 		rayHandler.updateAndRender();
-		debugRenderer.render(world, camera.combined);
+		if (debugMode)
+		{
+			debugRenderer.render(world, camera.combined);
+		}
 	}
 
 	public void clear()

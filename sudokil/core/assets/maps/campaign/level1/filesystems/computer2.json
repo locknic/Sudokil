@@ -8,12 +8,32 @@ children:
 	},
 	{
 		class: com.custardgames.sudokil.ui.cli.FolderCLI,
-		name: door2-1,
+		name: door-top,
 		children: 
 		[
 			{
 				class: ItemCLI,
-				name: door2-1.dev,
+				name: door-top.dev,
+			},
+			{
+				class: com.custardgames.sudokil.ui.cli.ScriptCLI,
+				name: toggle.sh,
+				usage: "toggle.sh \n\t description: toggles the door between open and closed",
+				event:
+				{
+					class: com.custardgames.sudokil.events.entities.commands.ToggleEvent
+				}
+			}
+		]
+	},
+	{
+		class: com.custardgames.sudokil.ui.cli.FolderCLI,
+		name: door-mid,
+		children: 
+		[
+			{
+				class: ItemCLI,
+				name: door-mid.dev,
 			},
 			{
 				class: com.custardgames.sudokil.ui.cli.ScriptCLI,

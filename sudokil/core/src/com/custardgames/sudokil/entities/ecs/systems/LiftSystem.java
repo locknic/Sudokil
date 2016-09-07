@@ -116,6 +116,7 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 		{
 			if (entity == event.getEntity())
 			{
+				PositionComponent positionComponent = positionComponents.get(entity);
 				LifterComponent lifterComponent = lifterComponents.get(entity);
 				Entity lifted = lifterComponent.getLifted();
 				if (lifted != null)
@@ -123,8 +124,8 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 					PositionComponent liftedPositionComponent = positionComponents.get(lifted);
 					if (liftedPositionComponent != null)
 					{
-						liftedPositionComponent.setPosition(liftedPositionComponent.getX() + event.getDeltaX(),
-								liftedPositionComponent.getY() + event.getDeltaY());
+						liftedPositionComponent.setPosition(positionComponent.getX() + positionComponent.getWidth() / 2 - liftedPositionComponent.getWidth() / 2,
+								positionComponent.getY() + positionComponent.getHeight() / 2 - liftedPositionComponent.getHeight() / 2);
 						EventManager.get_instance().broadcast(new EntityMovedEvent(lifted, event.getDeltaX(), event.getDeltaY()));
 					}
 				}

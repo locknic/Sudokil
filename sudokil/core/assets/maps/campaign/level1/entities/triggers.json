@@ -1,6 +1,39 @@
 {
 	entities :
 	[
+		// TIME 0.0 >>> SHOW MAP
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 0,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ToggleMapRenderEvent,
+								shouldRender : true,
+							}
+						},
+					]
+				}
+			},
+		],
 		[
 			{
 				class : TriggerEntityComponent,
@@ -124,7 +157,7 @@
 			{
 				class : PositionComponent,
 				x : 128,
-				y : 224,
+				y : 288,
 				width : 32,
 				height : 32,
 				angle : 0,
@@ -142,9 +175,9 @@
 					running : true,
 					entityID : robot3,
 					triggerAreaMinX : 127,
-					triggerAreaMinY : 223,
+					triggerAreaMinY : 255,
 					triggerAreaMaxX : 160,
-					triggerAreaMaxY : 256,
+					triggerAreaMaxY : 288,
 				}
 			},
 			{

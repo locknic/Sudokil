@@ -8,11 +8,11 @@
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
-				x : 128,
-				y : 64,
+				x : 32,
+				y : 160,
 				width : 32,
 				height : 32,
-				angle : 90
+				angle : 0
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.VelocityComponent,
@@ -45,6 +45,21 @@
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
+			},
+			{
+				class : Box2DBodyComponent,
+			},
+			{
+				class : ConeLightComponent,
+				red : 1,
+				green : 0.8,
+				blue : 0.8,
+				alpha : 0.5f,
+				xCo : 4,
+				yCo : 0,
+				distance : 512,
+				directionDegree : 0,
+				coneDegree : 45,
 			}
 		],
 		[
@@ -54,8 +69,8 @@
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
-				x : 768,
-				y : 64,
+				x : 32,
+				y : 224,
 				width : 32,
 				height : 32,
 				angle : 0
@@ -88,6 +103,21 @@
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
+			},
+			{
+				class : Box2DBodyComponent,
+			},
+			{
+				class : ConeLightComponent,
+				red : 0.8,
+				green : 0.8,
+				blue : 1.0,
+				alpha : 0.5f,
+				xCo : 4,
+				yCo : 0,
+				distance : 512,
+				directionDegree : 0,
+				coneDegree : 45,
 			}
 		],
 		[
@@ -98,10 +128,10 @@
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.PositionComponent,
 				x : 128,
-				y : 352,
+				y : 384,
 				width : 32,
 				height : 32,
-				angle : 180
+				angle : 270
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.VelocityComponent,
@@ -134,7 +164,7 @@
 			},
 			{
 				class : com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent,
-			}
+			},
 		],
 	]
 	
