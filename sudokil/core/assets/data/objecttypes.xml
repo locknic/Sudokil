@@ -100,4 +100,18 @@
   <property name="CameraComponent.panSpeed" type="float" default="1"/>
   <property name="EntityComponent" type="bool" default="true"/>
  </objecttype>
+ <objecttype name="door" color="#a0a0a4">
+  <property name="ActivityBlockingComponent" type="bool" default="true"/>
+  <property name="BlockingComponent" type="bool" default="true"/>
+  <property name="BlockingComponent.blocking" type="bool" default="true"/>
+  <property name="DoorGroupComponent" type="bool" default="true"/>
+  <property name="DoorGroupComponent.doorTiles" type="string" default="[door-2]"/>
+  <property name="EntityComponent" type="bool" default="true"/>
+  <property name="PositionComponent" type="bool" default="true"/>
+  <property name="PositionComponent.angle" type="float" default="0"/>
+  <property name="ProcessQueueComponent" type="bool" default="true"/>
+  <property name="SpriteComponent" type="bool" default="true"/>
+  <property name="SpriteComponent.shouldRender" type="bool" default="true"/>
+  <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/door-on-1.png"/>
+ </objecttype>
 </objecttypes>
