@@ -7,7 +7,6 @@ import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
-import com.custardgames.sudokil.entities.ecs.components.CharacterInputComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
@@ -28,7 +27,7 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 	@SuppressWarnings("unchecked")
 	public CharacterMovementSystem()
 	{
-		super(Aspect.all(EntityComponent.class, CharacterInputComponent.class, ProcessQueueComponent.class, PositionComponent.class, VelocityComponent.class));
+		super(Aspect.all(EntityComponent.class, ProcessQueueComponent.class, PositionComponent.class, VelocityComponent.class));
 
 		EventManager.get_instance().register(ForwardEvent.class, this);
 		EventManager.get_instance().register(BackwardEvent.class, this);

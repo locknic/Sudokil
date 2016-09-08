@@ -2,7 +2,6 @@
 	mapLocation : "maps/campaign/level1/level.tmx",
 	entities : 
 	[
-		"maps/campaign/level1/entities/robots.json", 
 		"maps/campaign/level1/entities/entities.json", 
 		"maps/campaign/level1/entities/triggers.json",
 	],

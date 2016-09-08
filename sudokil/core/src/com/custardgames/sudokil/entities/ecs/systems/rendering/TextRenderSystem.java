@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.TextTagComponent;
 
@@ -22,6 +23,7 @@ public class TextRenderSystem extends EntityProcessingSystem
 {
 	private ComponentMapper<TextTagComponent> textTagComponents;
 	private ComponentMapper<PositionComponent> positionComponents;
+	private ComponentMapper<EntityComponent> entityComponents;
 
 	private FreeTypeFontGenerator generator;
 	private FreeTypeFontParameter parameter;
@@ -64,24 +66,34 @@ public class TextRenderSystem extends EntityProcessingSystem
 		{
 			TextTagComponent textTagComponent = textTagComponents.get(entity);
 			PositionComponent positionComponent = positionComponents.get(entity);
+			EntityComponent entityComponent = entityComponents.get(entity);
+			
 			if (textTagComponent.isShouldRender())
 			{
-				GlyphLayout layout = new GlyphLayout(font, textTagComponent.getText());
+				String text = textTagComponent.getText();
+				if (text == null || text.equals(""))
+				{
+					if (entityComponent != null)
+					{
+						text = entityComponent.getId();
+					}
+				}
+				GlyphLayout layout = new GlyphLayout(font, text);
 				font.setColor(Color.BLACK);
-				font.draw(spriteBatch, textTagComponent.getText(),
+				font.draw(spriteBatch, text,
 						positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2 - 1,
 						positionComponent.getY() + positionComponent.getHeight() + textTagComponent.getDeltaY() + layout.height);
-				font.draw(spriteBatch, textTagComponent.getText(),
+				font.draw(spriteBatch, text,
 						positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2,
 						positionComponent.getY() + positionComponent.getHeight() + textTagComponent.getDeltaY() + layout.height - 1);
-				font.draw(spriteBatch, textTagComponent.getText(),
+				font.draw(spriteBatch, text,
 						positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2 + 1,
 						positionComponent.getY() + positionComponent.getHeight() + textTagComponent.getDeltaY() + layout.height);
-				font.draw(spriteBatch, textTagComponent.getText(),
+				font.draw(spriteBatch, text,
 						positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2,
 						positionComponent.getY() + positionComponent.getHeight() + textTagComponent.getDeltaY() + layout.height + 1);
 				font.setColor(Color.WHITE);
-				font.draw(spriteBatch, textTagComponent.getText(),
+				font.draw(spriteBatch, text,
 						positionComponent.getX() + positionComponent.getWidth() / 2 + textTagComponent.getDeltaX() - layout.width / 2,
 						positionComponent.getY() + positionComponent.getHeight() + textTagComponent.getDeltaY() + layout.height);
 			}

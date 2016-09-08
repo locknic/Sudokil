@@ -13,6 +13,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.custardgames.sudokil.entities.ecs.components.Box2DBodyComponent;
@@ -43,6 +44,7 @@ import com.custardgames.sudokil.events.entities.CreateEntityEvent;
 import com.custardgames.sudokil.events.entities.CreateEntityLightEvent;
 import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
 import com.custardgames.sudokil.utils.EntityHolder;
+import com.custardgames.sudokil.utils.EntityMapLoader;
 import com.custardgames.sudokil.utils.JsonTags;
 import com.custardgames.sudokil.utils.LevelData;
 
@@ -73,6 +75,12 @@ public class ArtemisWorldManager implements EventListener
 		artemisWorld = new com.artemis.World(config);
 
 		loadLevelData(levelData);
+	}
+	
+	public void loadMapEntities(TiledMap map)
+	{
+		EntityHolder entities = EntityMapLoader.createEntityHolderJsonFromMap(map);
+		createEntitiesFromFactory(entities);
 	}
 
 	public void loadLevelData(LevelData levelData)
@@ -168,6 +176,11 @@ public class ArtemisWorldManager implements EventListener
 		JsonTags jsonTags = json.fromJson(JsonTags.class, Gdx.files.internal("data/tags.json"));
 		jsonTags.addTags(json);
 		EntityHolder componentFactory = json.fromJson(EntityHolder.class, Gdx.files.internal(fileLocation));
+		createEntitiesFromFactory(componentFactory);
+	}
+	
+	public void createEntitiesFromFactory(EntityHolder componentFactory)
+	{
 		Array<Array<Component>> entities = componentFactory.getComponents();
 		for (Array<Component> components : entities)
 		{

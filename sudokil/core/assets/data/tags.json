@@ -22,6 +22,10 @@
 			className : com.custardgames.sudokil.entities.ecs.components.SpriteComponent,
 		},
 		{
+			name : SpriteDeactiveComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.SpriteDeactiveComponent,
+		},
+		{
 			name : TextTagComponent,
 			className : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
 		},
@@ -32,6 +36,10 @@
 		{
 			name : LifterComponent,
 			className : com.custardgames.sudokil.entities.ecs.components.LifterComponent,
+		},
+		{
+			name : LiftableComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.LiftableComponent,
 		},
 		{
 			name : ActivityBlockingComponent,
@@ -52,6 +60,30 @@
 		{
 			name : Box2DBodyComponent,
 			className : com.custardgames.sudokil.entities.ecs.components.Box2DBodyComponent,
+		},
+		{
+			name : PowerInputComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.PowerInputComponent,
+		},
+		{
+			name : PowerOutputComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.PowerOutputComponent,
+		},
+		{
+			name : PowerConsumerComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.PowerConsumerComponent,
+		},
+		{
+			name : PowerGeneratorComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.PowerGeneratorComponent,
+		},
+		{
+			name : ConnectableComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.ConnectableComponent,
+		},
+		{
+			name : DoorGroupComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.DoorGroupComponent,
 		},
 		{
 			name : LightComponent,

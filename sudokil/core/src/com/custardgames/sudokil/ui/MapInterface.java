@@ -77,6 +77,7 @@ public class MapInterface extends Stage implements EventListener
 		box2dWorldManager = new Box2dWorldManager();
 		box2dWorldManager.loadMap(tileMap);
 		worldManager = new ArtemisWorldManager(camera, assetManager, levelData);
+		worldManager.loadMapEntities(tileMap);
 		
 		map = new Actor();
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
@@ -124,6 +125,7 @@ public class MapInterface extends Stage implements EventListener
 		tileMap.dispose();
 		tileMap = new TmxMapLoader().load(mapLocation);
 		mapManager.setMap(tileMap);
+		worldManager.loadMapEntities(tileMap);
 		tmr.setMap(tileMap);
 		box2dWorldManager.clearMapObjects();
 		box2dWorldManager.loadMap(tileMap);
