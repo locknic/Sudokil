@@ -86,6 +86,22 @@
 			className : com.custardgames.sudokil.entities.ecs.components.DoorGroupComponent,
 		},
 		{
+			name : FileSystemComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.filesystem.FileSystemComponent,
+		},
+		{
+			name : NetworkConnectionComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkConnectionComponent,
+		},
+		{
+			name : WirelessDeviceComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessDeviceComponent,
+		},
+		{
+			name : WirelessNetworksComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessNetworksComponent,
+		},
+		{
 			name : LightComponent,
 			className : com.custardgames.sudokil.entities.ecs.components.lights.LightComponent,
 		},

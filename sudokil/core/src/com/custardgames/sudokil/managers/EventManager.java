@@ -79,6 +79,10 @@ public class EventManager
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+//				catch (NullPointerException e)
+//				{
+//					e.printStackTrace();
+//				}
 			}
 		}
 		System.out.println("BROADCASTING EVENT : " + event.getClass().getSimpleName());

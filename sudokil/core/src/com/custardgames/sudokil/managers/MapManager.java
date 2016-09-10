@@ -140,17 +140,20 @@ public class MapManager implements EventListener
 	{
 		event.setCellEntity(getCellEntity(event.getEntity(), event.getxDir(), event.getyDir()));
 		PositionComponent position = event.getEntity().getComponent(PositionComponent.class);
-		int xPosition = (int) (position.getX() / tileWidth) + event.getxDir();
-		int yPosition = (int) (position.getY() / tileHeight) + event.getyDir();
-		event.setxCo(xPosition * tileWidth);
-		event.setyCo(yPosition * tileHeight);
-		if (((TiledMapTileLayer) map.getLayers().get("floor")).getCell(xPosition, yPosition) != null)
+		if (position != null)
 		{
-			event.setFloor(true);
-		}
-		else
-		{
-			event.setFloor(false);
+			int xPosition = (int) (position.getX() / tileWidth) + event.getxDir();
+			int yPosition = (int) (position.getY() / tileHeight) + event.getyDir();
+			event.setxCo(xPosition * tileWidth);
+			event.setyCo(yPosition * tileHeight);
+			if (((TiledMapTileLayer) map.getLayers().get("floor")).getCell(xPosition, yPosition) != null)
+			{
+				event.setFloor(true);
+			}
+			else
+			{
+				event.setFloor(false);
+			}
 		}
 		return event;
 	}

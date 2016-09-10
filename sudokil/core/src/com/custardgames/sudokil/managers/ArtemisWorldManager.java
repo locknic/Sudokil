@@ -29,6 +29,8 @@ import com.custardgames.sudokil.entities.ecs.systems.EntityLocatorSystem;
 import com.custardgames.sudokil.entities.ecs.systems.EventTriggerSystem;
 import com.custardgames.sudokil.entities.ecs.systems.LiftSystem;
 import com.custardgames.sudokil.entities.ecs.systems.MapRefresherSystem;
+import com.custardgames.sudokil.entities.ecs.systems.NetworkSystem;
+import com.custardgames.sudokil.entities.ecs.systems.NetworksConnectedSystem;
 import com.custardgames.sudokil.entities.ecs.systems.PowerConsumptionSystem;
 import com.custardgames.sudokil.entities.ecs.systems.ProcessQueueSystem;
 import com.custardgames.sudokil.entities.ecs.systems.UpdatePhysicalCharacterInputSystem;
@@ -67,16 +69,17 @@ public class ArtemisWorldManager implements EventListener
 		textRenderSystem = new TextRenderSystem();
 		consoleHighlightRenderSystem = new ConsoleHighlightRenderSystem();
 
-		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, consoleHighlightRenderSystem,
-				new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(),
-				new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(),
-				new PowerConsumptionSystem(), new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem()).build().register(camera)
-				.register(assetManager);
+		WorldConfiguration config = new WorldConfigurationBuilder()
+				.with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, consoleHighlightRenderSystem, new CharacterMovementSystem(),
+						new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(),
+						new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(),
+						new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem(), new NetworkSystem(), new NetworksConnectedSystem())
+				.build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
 
 		loadLevelData(levelData);
 	}
-	
+
 	public void loadMapEntities(TiledMap map)
 	{
 		EntityHolder entities = EntityMapLoader.createEntityHolderJsonFromMap(map);
@@ -123,12 +126,12 @@ public class ArtemisWorldManager implements EventListener
 	public void createEntity(Array<Component> components)
 	{
 		Entity entity = artemisWorld.createEntity();
-		
+
 		PositionComponent positionComponent = null;
 		Box2DBodyComponent bodyComponent = null;
 		PointLightComponent pointLightComponent = null;
 		ConeLightComponent coneLightComponent = null;
-				
+
 		for (Component component : components)
 		{
 			entity.edit().add(component);
@@ -150,11 +153,11 @@ public class ArtemisWorldManager implements EventListener
 			}
 		}
 		artemisWorld.process();
-		
+
 		if (positionComponent != null)
 		{
 			EventManager.get_instance().broadcast(new AddToMapEvent(entity));
-			
+
 			if (bodyComponent != null)
 			{
 				EventManager.get_instance().broadcast(new CreateEntityBox2DBodyEvent(positionComponent, bodyComponent));
@@ -178,7 +181,7 @@ public class ArtemisWorldManager implements EventListener
 		EntityHolder componentFactory = json.fromJson(EntityHolder.class, Gdx.files.internal(fileLocation));
 		createEntitiesFromFactory(componentFactory);
 	}
-	
+
 	public void createEntitiesFromFactory(EntityHolder componentFactory)
 	{
 		Array<Array<Component>> entities = componentFactory.getComponents();

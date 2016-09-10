@@ -26,6 +26,7 @@ import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.events.commandLine.ListDirectoryEvent;
+import com.custardgames.sudokil.events.commandLine.device.IfconfigEvent;
 import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
 import com.custardgames.sudokil.events.entities.commands.HighlightEvent;
 import com.custardgames.sudokil.events.entities.commands.ResetHighlightEvent;
@@ -109,6 +110,8 @@ public class CommandLineManager implements EventListener
 		cat.setArgs(Option.UNLIMITED_VALUES);
 		cat.setOptionalArg(true);
 		options.addOption(cat);
+		
+		options.addOption("ifconfig", false, "Lists connected networks and devices.");
 	}
 
 	public void dispose()
@@ -522,6 +525,10 @@ public class CommandLineManager implements EventListener
 			else if (commandLine.hasOption("cat"))
 			{
 				cat(commandLine.getOptionValues("cat"));
+			}
+			else if (commandLine.hasOption("ifconfig"))
+			{
+				EventManager.get_instance().broadcast(new IfconfigEvent(ownerUI, device));
 			}
 		}
 		catch (Exception e)
