@@ -114,4 +114,27 @@
   <property name="SpriteComponent.shouldRender" type="bool" default="true"/>
   <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/door-on-1.png"/>
  </objecttype>
+ <objecttype name="wire-l" color="#ffaa7f">
+  <property name="BlockingComponent" type="bool" default="true"/>
+  <property name="BlockingComponent.blocking" type="bool" default="true"/>
+  <property name="EntityComponent" type="bool" default="true"/>
+  <property name="PositionComponent" type="bool" default="true"/>
+  <property name="PositionComponent.angle" type="float" default="0"/>
+  <property name="PowerInputComponent" type="bool" default="true"/>
+  <property name="PowerInputComponent.activated" type="bool" default="true"/>
+  <property name="PowerInputComponent.centre" type="bool" default="true"/>
+  <property name="PowerInputComponent.down" type="bool" default="true"/>
+  <property name="PowerInputComponent.left" type="bool" default="true"/>
+  <property name="PowerInputComponent.right" type="bool" default="true"/>
+  <property name="PowerInputComponent.up" type="bool" default="true"/>
+  <property name="PowerOutputComponent" type="bool" default="true"/>
+  <property name="PowerOutputComponent.activated" type="bool" default="true"/>
+  <property name="PowerOutputComponent.centre" type="bool" default="true"/>
+  <property name="PowerOutputComponent.down" type="bool" default="true"/>
+  <property name="PowerOutputComponent.left" type="bool" default="true"/>
+  <property name="PowerOutputComponent.right" type="bool" default="true"/>
+  <property name="PowerOutputComponent.up" type="bool" default="true"/>
+  <property name="SpriteComponent" type="bool" default="true"/>
+  <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/wire2.png"/>
+ </objecttype>
 </objecttypes>

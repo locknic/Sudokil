@@ -37,7 +37,7 @@ public class Core extends Game implements EventListener
 				setScreen(new Start(this));
 				break;
 			case PLAY:
-				setScreen(new Play("maps/campaign/tutorial-level1/level-data.json"));
+				setScreen(new Play("maps/campaign/level1/level-data.json"));
 				break;
 			case END:
 				break;
