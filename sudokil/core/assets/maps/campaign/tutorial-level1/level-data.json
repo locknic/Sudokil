@@ -2,8 +2,6 @@
 	mapLocation : "maps/campaign/tutorial-level1/level.tmx",
 	entities : 
 	[
-		"maps/campaign/tutorial-level1/entities/robots.json", 
-		"maps/campaign/tutorial-level1/entities/entities.json", 
 		"maps/campaign/tutorial-level1/entities/triggers.json",
 	],
 	playerFilesystem : "maps/campaign/tutorial-level1/filesystems/filesystem.json",

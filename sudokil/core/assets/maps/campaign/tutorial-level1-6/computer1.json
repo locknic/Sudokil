@@ -9,12 +9,12 @@ children:
 	},
 	{
 		class: com.custardgames.sudokil.ui.cli.FolderCLI,
-		name: door1-1,
+		name: door1,
 		children: 
 		[
 			{
 				class: ItemCLI,
-				name: door1-1.dev,
+				name: door1.dev,
 			},
 			{
 				class: com.custardgames.sudokil.ui.cli.ScriptCLI,

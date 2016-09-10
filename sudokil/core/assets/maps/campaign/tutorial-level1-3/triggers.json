@@ -164,14 +164,6 @@
 								class : AddEntitiesEvent,
 								entitiesLocation : "maps/campaign/tutorial-level1-4/triggers.json",
 							},
-						},
-						{
-							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
-							event : 
-							{
-								class : AddEntitiesEvent,
-								entitiesLocation : "maps/campaign/tutorial-level1-4/entities.json",
-							},
 						},							
 						{
 							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,

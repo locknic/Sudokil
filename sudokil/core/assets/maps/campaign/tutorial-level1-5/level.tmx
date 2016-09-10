@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="15">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="16">
  <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32" tilecount="256" columns="16">
   <image source="../../../images/tiles/tileset1.png" width="512" height="512"/>
   <tile id="16">
@@ -23,7 +23,7 @@
    H4sIAAAAAAAAC2NgwA8EkTA1gSADptnoYpTaTYo+cu0QQqJxuZdSfwih0TAz0e2gBNDDDkE0Gt0+bPyRageu+KBGvsBnB7XBqB3EA2zpatQO7GC4xPlQTVew8ge53qOFHaSIk2sHsj/Q/TMUAADdh4ylxAkAAA==
   </data>
  </layer>
- <layer name="objects" width="25" height="25" visible="0">
+ <layer name="objects" width="25" height="25">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAeDP5i1XpxAkAAA==
   </data>
@@ -97,6 +97,39 @@
   <object id="14" name="wall13" type="fixture" x="320" y="288" width="160" height="32">
    <properties>
     <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="15" name="robot2" type="robot" x="480" y="64" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="ConeLightComponent" type="bool" value="true"/>
+    <property name="ConeLightComponent.alpha" type="float" value="0.5"/>
+    <property name="ConeLightComponent.blue" type="float" value="1"/>
+    <property name="ConeLightComponent.coneDegree" type="float" value="45"/>
+    <property name="ConeLightComponent.directionDegree" type="float" value="0"/>
+    <property name="ConeLightComponent.distance" type="float" value="512"/>
+    <property name="ConeLightComponent.green" type="float" value="0.8"/>
+    <property name="ConeLightComponent.red" type="float" value="0.8"/>
+    <property name="ConeLightComponent.xCo" type="float" value="4"/>
+    <property name="ConeLightComponent.yCo" type="float" value="0"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="LiftableComponent" type="bool" value="false"/>
+    <property name="LifterComponent" type="bool" value="false"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="180"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/player/robot1.png"/>
+    <property name="TextTagComponent" type="bool" value="true"/>
+    <property name="TextTagComponent.deltaX" type="float" value="0"/>
+    <property name="TextTagComponent.deltaY" type="float" value="2"/>
+    <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
+    <property name="VelocityComponent" type="bool" value="true"/>
+    <property name="VelocityComponent.maxTravelVelocity" type="float" value="2"/>
+    <property name="VelocityComponent.maxTurnVelocity" type="float" value="1.5"/>
    </properties>
   </object>
  </objectgroup>

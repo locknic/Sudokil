@@ -23,6 +23,10 @@
 					triggerReactions : 
 					[
 						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Great! Try to apply the skills you've learnt to solve this next puzzle. I won't be helping you this time.",
+						},
+						{
 							class : BroadcastEventReaction,
 							event : 
 							{
@@ -44,7 +48,7 @@
 				{
 					class : TimedTriggerCondition,
 					running : true,
-					duration : 20,
+					duration : 5,
 				}
 			},
 			{
@@ -56,7 +60,35 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: By the way, you can chain directory navigation commands with '/'. For example if you are in robot1, '../robot2' will move you to robot2's directory.",
+							dialogueMessage : "Rob: It seems as though robot3 has somehow gotten itself stuck in the utility closet. Help it out!",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 30,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: By the way, you can chain directory navigation commands with '/'. For example if you are in robot1's directory, 'cd ../robot2' will move you to robot2's directory.",
 						},
 					]
 				}
