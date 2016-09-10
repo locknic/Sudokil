@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.entities.ecs.components.Box2DBodyComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.lights.ConeLightComponent;
@@ -35,14 +36,14 @@ public class Box2dWorldManager implements EventListener
 	private Box2DMapObjectParser mapParser;
 	private RayHandler rayHandler;
 	private final boolean debugMode = false;
-	
+
 	public Box2dWorldManager()
 	{
 		EventManager.get_instance().register(CreateEntityBox2DBodyEvent.class, this);
 		EventManager.get_instance().register(EntityMovedEvent.class, this);
 		EventManager.get_instance().register(EntityTurnedEvent.class, this);
 		EventManager.get_instance().register(CreateEntityLightEvent.class, this);
-		
+
 		world = new World(new Vector2(0, 0), true);
 		debugRenderer = new Box2DDebugRenderer();
 		mapParser = new Box2DMapObjectParser();
@@ -58,6 +59,7 @@ public class Box2dWorldManager implements EventListener
 		EventManager.get_instance().deregister(CreateEntityLightEvent.class, this);
 
 		rayHandler.dispose();
+		world.dispose();
 	}
 
 	public World getWorld()
@@ -73,7 +75,8 @@ public class Box2dWorldManager implements EventListener
 	public void update(float delta)
 	{
 		// CHANGE THIS IF THE GAME NEEDS TO START SIMULATING PHYSICS
-		world.step(delta, 2, 2);
+		// CURRENTLY ONLY USING 1 STEP PER TICK BUT SHOULD USE MORE FOR SIMULATION
+		world.step(delta, 1, 1);
 	}
 
 	public void render(OrthographicCamera camera)
@@ -88,25 +91,34 @@ public class Box2dWorldManager implements EventListener
 
 	public void clear()
 	{
-		world.dispose();
-
-		world = new World(new Vector2(0, 0), true);
-		mapParser = new Box2DMapObjectParser();
 		rayHandler.removeAll();
+		Array<Body> bodies = new Array<Body>();
+		world.getBodies(bodies);
+		Iterator<Body> bodiesIterator = bodies.iterator();
+		while(bodiesIterator.hasNext())
+		{
+			bodiesIterator.next();
+			bodiesIterator.remove();
+		}
+		
+		mapParser = new Box2DMapObjectParser();
 	}
 
 	public void clearMapObjects()
 	{
-		Iterator<Body> bodies = mapParser.getBodies().values().iterator();
-
-		while (bodies.hasNext())
+		if (world != null && world.getBodyCount() > 0)
 		{
-			world.destroyBody(bodies.next());
+			Iterator<Body> bodies = mapParser.getBodies().values().iterator();
+
+			while (bodies.hasNext())
+			{
+				world.destroyBody(bodies.next());
+			}
+
+			mapParser = new Box2DMapObjectParser();
 		}
-
-		mapParser = new Box2DMapObjectParser();
 	}
-
+	
 	public void createEntityBody(PositionComponent positionComponent, Box2DBodyComponent bodyComponent)
 	{
 		if (bodyComponent != null && positionComponent != null)
@@ -140,8 +152,9 @@ public class Box2dWorldManager implements EventListener
 			if (lightComponent instanceof ConeLightComponent)
 			{
 				ConeLight coneLight = new ConeLight(rayHandler, 64, lightComponent.getColor(), lightComponent.getDistance(), lightComponent.getxCo(),
-						lightComponent.getyCo(), ((ConeLightComponent) lightComponent).getDirectionDegree(), ((ConeLightComponent) lightComponent).getConeDegree());
-				
+						lightComponent.getyCo(), ((ConeLightComponent) lightComponent).getDirectionDegree(),
+						((ConeLightComponent) lightComponent).getConeDegree());
+
 				if (bodyComponent != null)
 				{
 					coneLight.attachToBody(bodyComponent.getBody(), lightComponent.getxCo(), lightComponent.getyCo());
@@ -151,7 +164,7 @@ public class Box2dWorldManager implements EventListener
 			{
 				PointLight pointLight = new PointLight(rayHandler, 64, lightComponent.getColor(), lightComponent.getDistance(), lightComponent.getxCo(),
 						lightComponent.getyCo());
-				
+
 				if (bodyComponent != null)
 				{
 					pointLight.attachToBody(bodyComponent.getBody(), lightComponent.getxCo(), lightComponent.getyCo());
@@ -187,7 +200,7 @@ public class Box2dWorldManager implements EventListener
 		PositionComponent positionComponent = event.getEntity().getComponent(PositionComponent.class);
 		updateBodyData(positionComponent, bodyComponent);
 	}
-	
+
 	public void handleCreateEntityLight(CreateEntityLightEvent event)
 	{
 		createEntityLight(event.getLightComponent(), event.getBodyComponent());

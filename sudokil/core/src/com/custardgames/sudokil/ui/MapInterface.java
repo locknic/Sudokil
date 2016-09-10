@@ -112,12 +112,12 @@ public class MapInterface extends Stage implements EventListener
 	{
 		assetManager.clear();
 		loadAssets(assetManager, levelData);
-
-		box2dWorldManager.clear();
-		changeMap(levelData.getMapLocation());
-
+		
 		worldManager.dispose();
 		worldManager.loadLevelData(levelData);
+		
+		box2dWorldManager.clear();
+		changeMap(levelData.getMapLocation());
 	}
 
 	public void changeMap(String mapLocation)
@@ -130,7 +130,6 @@ public class MapInterface extends Stage implements EventListener
 		box2dWorldManager.clearMapObjects();
 		box2dWorldManager.loadMap(tileMap);
 		EventManager.get_instance().broadcast(new ChangedMapEvent());
-		
 	}
 
 	public void update(float delta)
