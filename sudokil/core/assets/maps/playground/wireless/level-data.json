@@ -1,0 +1,24 @@
+{
+	mapLocation : "maps/playground/wireless/level.tmx",
+	entities : 
+	[
+	],
+	playerFilesystem : "maps/playground/wireless/filesystems/filesystem.json",
+	filesystems : 
+	[
+		"maps/playground/wireless/filesystems/computer1.json",
+	],
+	images : 
+	[
+		"images/player/robot1.png"
+		"images/entities/door-on-1.png",
+		"images/entities/door-on-2.png",
+		"images/entities/door-off.png",
+		"images/entities/computer-off.png",
+		"images/entities/computer-on.png",
+		"images/entities/crate.png",
+		"images/entities/generator.png",
+		"images/entities/wire.png",
+		"images/entities/wire2.png",
+	],
+}
