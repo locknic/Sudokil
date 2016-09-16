@@ -27,6 +27,7 @@ import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.events.commandLine.ListDirectoryEvent;
 import com.custardgames.sudokil.events.commandLine.device.IfconfigEvent;
+import com.custardgames.sudokil.events.commandLine.device.SSHEvent;
 import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
 import com.custardgames.sudokil.events.entities.commands.HighlightEvent;
 import com.custardgames.sudokil.events.entities.commands.ResetHighlightEvent;
@@ -112,6 +113,11 @@ public class CommandLineManager implements EventListener
 		options.addOption(cat);
 		
 		options.addOption("ifconfig", false, "Lists connected networks and devices.");
+		
+		Option ssh = new Option("ssh", "Connect console to a device on the network.");
+		ssh.setArgs(1);
+		ssh.setOptionalArg(true);
+		options.addOption(ssh);
 	}
 
 	public void dispose()
@@ -126,6 +132,108 @@ public class CommandLineManager implements EventListener
 		this.root = root;
 		currentItem = root;
 		device = root.getDeviceName();
+	}
+	
+	public void parseCommands(String[] args)
+	{
+		try
+		{
+			CommandLineParser parser = new DefaultParser();
+			CommandLine commandLine = parser.parse(options, args);
+			if (commandLine.hasOption("help"))
+			{
+				HelpFormatter formatter = new HelpFormatter();
+				StringWriter stringWriter = new StringWriter();
+				PrintWriter printWriter = new PrintWriter(stringWriter);
+				formatter.printHelp(printWriter, 100, "Available Commands", "", options, 1, 3, "");
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, stringWriter.toString()));
+			}
+			else if (commandLine.hasOption("pwd"))
+			{
+				pwd();
+			}
+			else if (commandLine.hasOption("ls"))
+			{
+				String[] arguments = commandLine.getOptionValues("ls");
+				if (arguments == null)
+				{
+					arguments = new String[0];
+				}
+				list(arguments);
+			}
+			else if (commandLine.hasOption("cd"))
+			{
+				changeDirectory(commandLine.getOptionValue("cd"));
+			}
+			else if (commandLine.hasOption("mv"))
+			{
+				moveItem(commandLine.getOptionValues("mv"));
+			}
+			else if (commandLine.hasOption("cp"))
+			{
+				copyItem(commandLine.getOptionValues("cp"));
+			}
+			else if (commandLine.hasOption("sh"))
+			{
+				runScript(commandLine.getOptionValues("sh"));
+			}
+			else if (commandLine.hasOption("stop"))
+			{
+				EventManager.get_instance().broadcast(new StopCommandsEvent(currentItem.getName()));
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "Stopping queued commands."));
+			}
+			else if (commandLine.hasOption("exit"))
+			{
+				DisconnectEvent disconnectEvent = new DisconnectEvent();
+				disconnectEvent.setEntityName(device);
+				EventManager.get_instance().broadcast(disconnectEvent);
+			}
+			else if (commandLine.hasOption("echo"))
+			{
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, commandLine.getOptionValues("echo")));
+			}
+			else if (commandLine.hasOption("clear"))
+			{
+				EventManager.get_instance().broadcast(new ClearTerminalEvent(ownerUI));
+			}
+			else if (commandLine.hasOption("cat"))
+			{
+				cat(commandLine.getOptionValues("cat"));
+			}
+			else if (commandLine.hasOption("ifconfig"))
+			{
+				EventManager.get_instance().broadcast(new IfconfigEvent(ownerUI, device));
+			}
+			else if (commandLine.hasOption("ssh"))
+			{
+				String[] arguments = commandLine.getOptionValues("ssh");
+				if (arguments != null && arguments.length > 0)
+				{
+					EventManager.get_instance().broadcast(new SSHEvent(ownerUI, device, arguments[0]));
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			if (e instanceof UnrecognizedOptionException)
+			{
+				args[0] = args[0].substring(1, args[0].length());
+				ItemCLI script = findItem(args[0]);
+				if (script != null && script instanceof ScriptCLI)
+				{
+					runScript(args);
+				}
+				else
+				{
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "" + args[0] + ": command not found."));
+				}
+			}
+			else if (e instanceof MissingArgumentException)
+			{
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "" + args[0].substring(1, args[0].length()) + ": missing arguments."));
+			}
+
+		}
 	}
 
 	public ItemCLI findItemRelative(FolderCLI startingLoc, String path)
@@ -457,100 +565,6 @@ public class CommandLineManager implements EventListener
 					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such file or directory."));
 				}
 			}
-		}
-	}
-
-	public void parseCommands(String[] args)
-	{
-		try
-		{
-			CommandLineParser parser = new DefaultParser();
-			CommandLine commandLine = parser.parse(options, args);
-			if (commandLine.hasOption("help"))
-			{
-				HelpFormatter formatter = new HelpFormatter();
-				StringWriter stringWriter = new StringWriter();
-				PrintWriter printWriter = new PrintWriter(stringWriter);
-				formatter.printHelp(printWriter, 100, "Available Commands", "", options, 1, 3, "");
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, stringWriter.toString()));
-			}
-			else if (commandLine.hasOption("pwd"))
-			{
-				pwd();
-			}
-			else if (commandLine.hasOption("ls"))
-			{
-				String[] arguments = commandLine.getOptionValues("ls");
-				if (arguments == null)
-				{
-					arguments = new String[0];
-				}
-				list(arguments);
-			}
-			else if (commandLine.hasOption("cd"))
-			{
-				changeDirectory(commandLine.getOptionValue("cd"));
-			}
-			else if (commandLine.hasOption("mv"))
-			{
-				moveItem(commandLine.getOptionValues("mv"));
-			}
-			else if (commandLine.hasOption("cp"))
-			{
-				copyItem(commandLine.getOptionValues("cp"));
-			}
-			else if (commandLine.hasOption("sh"))
-			{
-				runScript(commandLine.getOptionValues("sh"));
-			}
-			else if (commandLine.hasOption("stop"))
-			{
-				EventManager.get_instance().broadcast(new StopCommandsEvent(currentItem.getName()));
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "Stopping queued commands."));
-			}
-			else if (commandLine.hasOption("exit"))
-			{
-				DisconnectEvent disconnectEvent = new DisconnectEvent();
-				disconnectEvent.setEntityName(device);
-				EventManager.get_instance().broadcast(disconnectEvent);
-			}
-			else if (commandLine.hasOption("echo"))
-			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, commandLine.getOptionValues("echo")));
-			}
-			else if (commandLine.hasOption("clear"))
-			{
-				EventManager.get_instance().broadcast(new ClearTerminalEvent(ownerUI));
-			}
-			else if (commandLine.hasOption("cat"))
-			{
-				cat(commandLine.getOptionValues("cat"));
-			}
-			else if (commandLine.hasOption("ifconfig"))
-			{
-				EventManager.get_instance().broadcast(new IfconfigEvent(ownerUI, device));
-			}
-		}
-		catch (Exception e)
-		{
-			if (e instanceof UnrecognizedOptionException)
-			{
-				args[0] = args[0].substring(1, args[0].length());
-				ItemCLI script = findItem(args[0]);
-				if (script != null && script instanceof ScriptCLI)
-				{
-					runScript(args);
-				}
-				else
-				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "" + args[0] + ": command not found."));
-				}
-			}
-			else if (e instanceof MissingArgumentException)
-			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "" + args[0].substring(1, args[0].length()) + ": missing arguments."));
-			}
-
 		}
 	}
 

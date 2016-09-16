@@ -76,6 +76,8 @@
     <property name="DoorGroupComponent" type="bool" value="true"/>
     <property name="DoorGroupComponent.doorTiles" value="[door-mid2,door-mid3]"/>
     <property name="EntityComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/playground/wireless/filesystems/door-mid.json"/>
     <property name="NetworkConnectionComponent" type="bool" value="true"/>
     <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
     <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
