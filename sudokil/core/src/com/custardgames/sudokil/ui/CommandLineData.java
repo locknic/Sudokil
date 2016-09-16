@@ -2,6 +2,7 @@ package com.custardgames.sudokil.ui;
 
 import java.util.UUID;
 
+import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.managers.CommandLineManager;
 import com.custardgames.sudokil.ui.cli.RootCLI;
 import com.custardgames.sudokil.utils.CircularArray;
@@ -15,7 +16,7 @@ public class CommandLineData
 	public String tempStore;
 	public int commandLocation;
 	public CommandLineData previousCommandLineData;
-	
+
 	public CommandLineData(RootCLI root, CommandLineData previousCommandLineData)
 	{
 		this.ownerUI = UUID.randomUUID();
@@ -25,7 +26,7 @@ public class CommandLineData
 		this.parser = new CommandLineManager(root, ownerUI);
 		this.previousCommandLineData = previousCommandLineData;
 	}
-	
+
 	public CommandLineData findCommandLineDataParent(UUID id)
 	{
 		if (id.equals(ownerUI))
@@ -38,7 +39,22 @@ public class CommandLineData
 		}
 		else
 		{
-			return null; 
+			return null;
 		}
+	}
+
+	public Array<UUID> getAllUUIDs()
+	{
+		Array<UUID> uuids;
+		if (previousCommandLineData != null)
+		{
+			uuids = previousCommandLineData.getAllUUIDs();
+		}
+		else
+		{
+			uuids = new Array<UUID>();
+		}
+		uuids.add(ownerUI);
+		return uuids;
 	}
 }

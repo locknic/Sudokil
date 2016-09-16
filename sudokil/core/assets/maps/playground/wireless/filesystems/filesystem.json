@@ -114,6 +114,15 @@
 						class: com.custardgames.sudokil.events.entities.commands.WiredConnectEvent
 					}
 				},
+				{
+					class: ScriptCLI,
+					name: disconnect.sh,
+					usage: "disconnect.sh \n\t description: stops connection between robot and computer console",
+					event:
+					{
+						class: com.custardgames.sudokil.events.entities.commands.DisconnectEvent
+					}
+				}
 			],
 		},
 	]

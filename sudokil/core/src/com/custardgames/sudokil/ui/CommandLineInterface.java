@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.events.commandLine.AutocompleteRequestEvent;
 import com.custardgames.sudokil.events.commandLine.AutocompleteResponseEvent;
 import com.custardgames.sudokil.events.commandLine.ClearTerminalEvent;
@@ -56,6 +57,11 @@ public class CommandLineInterface implements EventListener
 	public UUID getUUID()
 	{
 		return cld.ownerUI;
+	}
+	
+	public Array<UUID> getAllUUIDs()
+	{
+		return cld.getAllUUIDs();
 	}
 
 	public void tryAllUpRoot(UUID cliID)

@@ -10,7 +10,7 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
-import com.custardgames.sudokil.entities.ecs.processes.ConnectProcess;
+import com.custardgames.sudokil.entities.ecs.processes.PhysicalConnectProcess;
 import com.custardgames.sudokil.events.entities.ProcessEvent;
 import com.custardgames.sudokil.events.entities.commands.WiredConnectEvent;
 import com.custardgames.sudokil.managers.EventManager;
@@ -56,7 +56,7 @@ public class WiredConnectionSystem extends EntityProcessingSystem implements Eve
 
 			if (entityComponent.getId().equals(connectingWith))
 			{
-				ConnectProcess connectProcess = new ConnectProcess(consoleUUID, entity);
+				PhysicalConnectProcess connectProcess = new PhysicalConnectProcess(consoleUUID, entity);
 				EventManager.get_instance().broadcast(new ProcessEvent(entity, connectProcess));
 			}
 		}

@@ -9,29 +9,30 @@ import com.custardgames.sudokil.entities.ecs.components.ConnectableComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
+import com.custardgames.sudokil.entities.ecs.components.filesystem.FileSystemComponent;
 import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.PingFileSystemEvent;
+import com.custardgames.sudokil.events.commandLine.CloseCommandLineWindowEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
 import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
 import com.custardgames.sudokil.events.entities.map.PingCellEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
-public class ConnectProcess extends EntityProcess implements EventListener
+public class PhysicalConnectProcess extends EntityProcess implements EventListener
 {
 	private UUID consoleUUID;
-	private Entity connectedWith;
-	private String connectedToID;
+	private Entity connectedTo;
 	private boolean disconnect;
 	private boolean triedConnecting;
 
-	public ConnectProcess(UUID consoleUUID, Entity connectedWith)
+	public PhysicalConnectProcess(UUID consoleUUID, Entity connectedWith)
 	{
 		super(connectedWith);
 
 		EventManager.get_instance().register(DisposeWorldEvent.class, this);
+		EventManager.get_instance().register(CloseCommandLineWindowEvent.class, this);
 
 		this.consoleUUID = consoleUUID;
-		this.connectedWith = connectedWith;
 		this.disconnect = false;
 		this.triedConnecting = false;
 	}
@@ -40,6 +41,8 @@ public class ConnectProcess extends EntityProcess implements EventListener
 	public void dispose()
 	{
 		EventManager.get_instance().deregister(DisconnectEvent.class, this);
+		EventManager.get_instance().deregister(CloseCommandLineWindowEvent.class, this);
+		EventManager.get_instance().deregister(DisposeWorldEvent.class, this);
 	}
 
 	@Override
@@ -49,29 +52,27 @@ public class ConnectProcess extends EntityProcess implements EventListener
 		{
 			this.triedConnecting = true;
 			this.disconnect = true;
-			
-			PositionComponent positionComponent = connectedWith.getComponent(PositionComponent.class);
-			
+
+			PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
+
 			PingCellEvent pingCell = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity,
 					(int) Math.cos(Math.toRadians(positionComponent.getAngle())), (int) Math.sin(Math.toRadians(positionComponent.getAngle())))));
 			if (pingCell != null)
 			{
-				Entity connectedTo = pingCell.getCellEntity();
+				connectedTo = pingCell.getCellEntity();
 				if (connectedTo != null)
 				{
-					connectedToID = connectedTo.getComponent(EntityComponent.class).getId();
-					ActivityBlockingComponent activityBlockingComponent = connectedTo.getComponent(ActivityBlockingComponent.class);;
+					ActivityBlockingComponent activityBlockingComponent = connectedTo.getComponent(ActivityBlockingComponent.class);
 
 					if (activityBlockingComponent == null || (activityBlockingComponent != null && activityBlockingComponent.isActive()))
 					{
-						ConnectableComponent connectableComponent = connectedTo.getComponent(ConnectableComponent.class);
-
-						if (connectableComponent != null)
+						FileSystemComponent fileSystemComponent = connectedTo.getComponent(FileSystemComponent.class);
+						if (connectedTo.getComponent(ConnectableComponent.class) != null && fileSystemComponent != null)
 						{
-							if (connectableComponent.getFileLocation() != null || !connectableComponent.getFileLocation().equals(""))
+							if (fileSystemComponent.getFileLocation() != null || !fileSystemComponent.getFileLocation().equals(""))
 							{
 								PingFileSystemEvent event = (PingFileSystemEvent) EventManager.get_instance()
-										.broadcastInquiry(new PingFileSystemEvent(connectableComponent.getFileLocation()));
+										.broadcastInquiry(new PingFileSystemEvent(fileSystemComponent.getFileLocation()));
 
 								if (event.getFileSystem() != null)
 								{
@@ -85,7 +86,17 @@ public class ConnectProcess extends EntityProcess implements EventListener
 				}
 			}
 		}
-		
+		else
+		{
+			if (connectedTo != null)
+			{
+				ActivityBlockingComponent activityBlockingComponent = connectedTo.getComponent(ActivityBlockingComponent.class);
+				if (activityBlockingComponent != null && !activityBlockingComponent.isActive())
+				{
+					disconnect();
+				}
+			}
+		}
 		return disconnect;
 	}
 
@@ -101,9 +112,21 @@ public class ConnectProcess extends EntityProcess implements EventListener
 	public void handleDisconnectEvent(DisconnectEvent event)
 	{
 		EntityComponent entityComponent = entity.getComponent(EntityComponent.class);
-		if (event.getEntityName().equals(entityComponent.getId()) || event.getEntityName().equals(connectedToID))
+		String connectedToID = connectedTo.getComponent(EntityComponent.class).getId();
+		if (event.getOwnerUI().equals(consoleUUID) && (event.getEntityName().equals(entityComponent.getId()) || event.getEntityName().equals(connectedToID)))
 		{
 			disconnect();
+		}
+	}
+
+	public void handleCloseCommandLineWindow(CloseCommandLineWindowEvent event)
+	{
+		for (UUID uuid : event.getUuids())
+		{
+			if (uuid.equals(consoleUUID))
+			{
+				disconnect();
+			}
 		}
 	}
 
@@ -111,5 +134,6 @@ public class ConnectProcess extends EntityProcess implements EventListener
 	{
 		EventManager.get_instance().deregister(DisposeWorldEvent.class, this);
 		EventManager.get_instance().deregister(DisconnectEvent.class, this);
+		EventManager.get_instance().deregister(CloseCommandLineWindowEvent.class, this);
 	}
 }

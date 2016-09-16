@@ -20,7 +20,7 @@ public class CLICloseButtonListener extends CloseButtonListener
 	public void clicked(InputEvent event, float x, float y)
 	{
 		super.clicked(event, x, y);
-		EventManager.get_instance().broadcast(new CloseCommandLineWindowEvent(cli.getUUID()));
+		EventManager.get_instance().broadcast(new CloseCommandLineWindowEvent(cli.getUUID(), cli.getAllUUIDs()));
 	}
 
 }

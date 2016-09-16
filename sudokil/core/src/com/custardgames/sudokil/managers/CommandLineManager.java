@@ -186,6 +186,7 @@ public class CommandLineManager implements EventListener
 			{
 				DisconnectEvent disconnectEvent = new DisconnectEvent();
 				disconnectEvent.setEntityName(device);
+				disconnectEvent.setOwnerUI(ownerUI);
 				EventManager.get_instance().broadcast(disconnectEvent);
 			}
 			else if (commandLine.hasOption("echo"))

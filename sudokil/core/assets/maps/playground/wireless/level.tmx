@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" nextobjectid="55">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" nextobjectid="91">
  <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32" tilecount="256" columns="16">
   <image source="../../../images/tiles/tileset1.png" width="512" height="512"/>
   <tile id="16">
@@ -15,12 +15,12 @@
  </tileset>
  <layer name="floor" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3PMQ0AAAgEMTzg3ysOWFj4pE1OwFUBAAAAAAAAwE0vJfHxi49ffAAJBq/jtPUQJwAA
+   H4sIAAAAAAAAC+3PMQ0AAAgEMTzg3ysOmBiepE1OwFUBAAAAAAAAAOTppU98ZPGRxQfXBsvfuLoQJwAA
   </data>
  </layer>
  <layer name="tiles" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3VsQ0AIAgEQFvt3H9ZJzDYqGjuEiqa/1BQCgAAAAAAAAA39IV5QZRTj7P0yGWWswb7bH6/Rwv22fzyP2CHAeYxzesQJwAA
+   H4sIAAAAAAAAC+3VoQoAIAwFQKs2//9nTUZRDOLGHYyFlffSSgEAAAAAAAAAsugHE8Eupx5v6fGXmbMudrQet/dfzJxtsSP1yPA/BgdEb5AQJwAA
   </data>
  </layer>
  <layer name="objects" width="50" height="50">
@@ -68,16 +68,16 @@
     <property name="EntityComponent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="48" name="door-mid" type="door" x="192" y="1376" width="32" height="32">
+  <object id="48" name="door-left" type="door" x="64" y="1472" width="32" height="32">
    <properties>
     <property name="ActivityBlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
     <property name="DoorGroupComponent" type="bool" value="true"/>
-    <property name="DoorGroupComponent.doorTiles" value="[door-mid2,door-mid3]"/>
+    <property name="DoorGroupComponent.doorTiles" value="[door-left2,door-left3]"/>
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="FileSystemComponent" type="bool" value="true"/>
-    <property name="FileSystemComponent.fileLocation" value="maps/playground/wireless/filesystems/door-mid.json"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/playground/wireless/filesystems/door-left.json"/>
     <property name="NetworkConnectionComponent" type="bool" value="true"/>
     <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
     <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
@@ -91,7 +91,7 @@
     <property name="WirelessDeviceComponent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="49" name="door-mid3" type="door" x="192" y="1440" width="32" height="32">
+  <object id="49" name="door-left3" type="door" x="64" y="1536" width="32" height="32">
    <properties>
     <property name="ActivityBlockingComponent" type="bool" value="false"/>
     <property name="BlockingComponent" type="bool" value="true"/>
@@ -106,7 +106,7 @@
     <property name="SpriteComponent.spriteLocation" value="images/entities/door-on-1.png"/>
    </properties>
   </object>
-  <object id="50" name="door-mid2" type="door" x="192" y="1408" width="32" height="32">
+  <object id="50" name="door-left2" type="door" x="64" y="1504" width="32" height="32">
    <properties>
     <property name="ActivityBlockingComponent" type="bool" value="false"/>
     <property name="BlockingComponent" type="bool" value="true"/>
@@ -121,15 +121,16 @@
     <property name="SpriteComponent.spriteLocation" value="images/entities/door-on-2.png"/>
    </properties>
   </object>
-  <object id="51" name="computer1" type="computer" x="192" y="1280" width="32" height="32">
+  <object id="51" name="computer1" type="computer" x="64" y="1376" width="32" height="32">
    <properties>
     <property name="ActivityBlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
     <property name="Box2DBodyComponent" type="bool" value="true"/>
     <property name="ConnectableComponent" type="bool" value="true"/>
-    <property name="ConnectableComponent.fileLocation" value="maps/campaign/level1/filesystems/computer1.json"/>
     <property name="EntityComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/playground/wireless/filesystems/computer1.json"/>
     <property name="NetworkConnectionComponent" type="bool" value="true"/>
     <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
     <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
@@ -157,9 +158,10 @@
     <property name="WirelessDeviceComponent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="52" name="generator" type="generator" x="195" y="1251" width="26" height="26">
+  <object id="52" name="generator" type="generator" x="99" y="1379" width="26" height="26">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
     <property name="Box2DBodyComponent" type="bool" value="true"/>
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="LiftableComponent" type="bool" value="true"/>
@@ -182,9 +184,10 @@
     <property name="WirelessNetworksComponent.networkNames" value="[red]"/>
    </properties>
   </object>
-  <object id="54" name="generator" type="generator" x="195" y="1347" width="26" height="26">
+  <object id="54" name="generator" type="generator" x="67" y="1443" width="26" height="26">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
     <property name="Box2DBodyComponent" type="bool" value="true"/>
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="LiftableComponent" type="bool" value="true"/>
@@ -205,6 +208,290 @@
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="WirelessNetworksComponent" type="bool" value="true"/>
     <property name="WirelessNetworksComponent.networkNames" value="[red]"/>
+   </properties>
+  </object>
+  <object id="55" name="computer2" type="computer" x="128" y="1376" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="ConnectableComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/playground/wireless/filesystems/computer2.json"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="270"/>
+    <property name="PowerConsumerComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent.activated" type="bool" value="true"/>
+    <property name="PowerInputComponent.centre" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.left" type="bool" value="true"/>
+    <property name="PowerInputComponent.right" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/computer-on.png"/>
+    <property name="SpriteDeactiveComponent" type="bool" value="true"/>
+    <property name="SpriteDeactiveComponent.offSpriteLocation" value="images/entities/computer-off.png"/>
+    <property name="SpriteDeactiveComponent.onSpriteLocation" value="images/entities/computer-on.png"/>
+    <property name="TextTagComponent" type="bool" value="true"/>
+    <property name="TextTagComponent.deltaY" type="float" value="2"/>
+    <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
+    <property name="WirelessDeviceComponent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="56" name="computer3" type="computer" x="192" y="1376" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="ConnectableComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/playground/wireless/filesystems/computer3.json"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="270"/>
+    <property name="PowerConsumerComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent.activated" type="bool" value="true"/>
+    <property name="PowerInputComponent.centre" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.left" type="bool" value="true"/>
+    <property name="PowerInputComponent.right" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/computer-on.png"/>
+    <property name="SpriteDeactiveComponent" type="bool" value="true"/>
+    <property name="SpriteDeactiveComponent.offSpriteLocation" value="images/entities/computer-off.png"/>
+    <property name="SpriteDeactiveComponent.onSpriteLocation" value="images/entities/computer-on.png"/>
+    <property name="TextTagComponent" type="bool" value="true"/>
+    <property name="TextTagComponent.deltaY" type="float" value="2"/>
+    <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
+    <property name="WirelessDeviceComponent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="57" name="generator" type="generator" x="163" y="1379" width="26" height="26">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="LiftableComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.activated" type="bool" value="true"/>
+    <property name="PowerOutputComponent.centre" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/generator.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+    <property name="WirelessNetworksComponent" type="bool" value="true"/>
+    <property name="WirelessNetworksComponent.networkNames" value="[blue]"/>
+   </properties>
+  </object>
+  <object id="82" name="generator" type="generator" x="227" y="1379" width="26" height="26">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="LiftableComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.activated" type="bool" value="true"/>
+    <property name="PowerOutputComponent.centre" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/generator.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+    <property name="WirelessNetworksComponent" type="bool" value="true"/>
+    <property name="WirelessNetworksComponent.networkNames" value="[green]"/>
+   </properties>
+  </object>
+  <object id="83" name="door-mid" type="door" x="128" y="1472" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="DoorGroupComponent" type="bool" value="true"/>
+    <property name="DoorGroupComponent.doorTiles" value="[door-mid2,door-mid3]"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/playground/wireless/filesystems/door-mid.json"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="270"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-on-1.png"/>
+    <property name="WirelessDeviceComponent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="84" name="door-mid2" type="door" x="128" y="1504" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="false"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="DoorGroupComponent" type="bool" value="false"/>
+    <property name="DoorGroupComponent.doorTiles" value=""/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="90"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-on-2.png"/>
+   </properties>
+  </object>
+  <object id="85" name="door-mid3" type="door" x="128" y="1536" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="false"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="DoorGroupComponent" type="bool" value="false"/>
+    <property name="DoorGroupComponent.doorTiles" value=""/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="90"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-on-1.png"/>
+   </properties>
+  </object>
+  <object id="86" name="door-right" type="door" x="192" y="1472" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="DoorGroupComponent" type="bool" value="true"/>
+    <property name="DoorGroupComponent.doorTiles" value="[door-right2,door-right3]"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/playground/wireless/filesystems/door-right.json"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="270"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-on-1.png"/>
+    <property name="WirelessDeviceComponent" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="87" name="door-right2" type="door" x="192" y="1504" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="false"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="DoorGroupComponent" type="bool" value="false"/>
+    <property name="DoorGroupComponent.doorTiles" value=""/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="90"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-on-2.png"/>
+   </properties>
+  </object>
+  <object id="88" name="door-right3" type="door" x="192" y="1536" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="false"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="DoorGroupComponent" type="bool" value="false"/>
+    <property name="DoorGroupComponent.doorTiles" value=""/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="90"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-on-1.png"/>
+   </properties>
+  </object>
+  <object id="89" name="generator" type="generator" x="131" y="1443" width="26" height="26">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="LiftableComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.activated" type="bool" value="true"/>
+    <property name="PowerOutputComponent.centre" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/generator.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+    <property name="WirelessNetworksComponent" type="bool" value="true"/>
+    <property name="WirelessNetworksComponent.networkNames" value="[blue]"/>
+   </properties>
+  </object>
+  <object id="90" name="generator" type="generator" x="195" y="1443" width="26" height="26">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="LiftableComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.activated" type="bool" value="true"/>
+    <property name="PowerOutputComponent.centre" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/generator.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+    <property name="WirelessNetworksComponent" type="bool" value="true"/>
+    <property name="WirelessNetworksComponent.networkNames" value="[green]"/>
    </properties>
   </object>
  </objectgroup>
