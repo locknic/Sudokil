@@ -1,40 +1,49 @@
 package com.custardgames.sudokil.entities.ecs.components;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import com.artemis.Component;
+import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.entities.ecs.processes.EntityProcess;
 
 public class ProcessQueueComponent extends Component
 {
 	private Queue<EntityProcess> queue;
+	private Array<EntityProcess> background;
+
 	final private int limit = 100;
 
 	public ProcessQueueComponent()
 	{
 		queue = new LinkedList<EntityProcess>();
-	}
-
-	public Queue<EntityProcess> getQueue()
-	{
-		return queue;
-	}
-
-	public void setQueue(Queue<EntityProcess> queue)
-	{
-		this.queue = queue;
+		background = new Array<EntityProcess>();
 	}
 
 	public void addToQueue(EntityProcess process)
 	{
-		if (queue.size() <= limit)
+		if (process.isBackgroundProcess())
 		{
-			queue.add(process);
+			if (background.size <= limit)
+			{
+				background.add(process);
+			}
+			else
+			{
+				System.out.println("ENTITY QUEUE TOO LONG");
+			}
 		}
 		else
 		{
-			System.out.println("ENTITY QUEUE TOO LONG");
+			if (queue.size() <= limit)
+			{
+				queue.add(process);
+			}
+			else
+			{
+				System.out.println("ENTITY QUEUE TOO LONG");
+			}
 		}
 	}
 
@@ -42,13 +51,25 @@ public class ProcessQueueComponent extends Component
 	{
 		if (!queue.isEmpty())
 		{
-			EntityProcess currentProcess = queue.peek();
-			queue.clear();
+			EntityProcess currentProcess = queue.poll();
+
+			while (!queue.isEmpty())
+			{
+				queue.poll().dispose();
+			}
 
 			if (currentProcess != null)
 			{
 				queue.add(currentProcess);
 			}
+		}
+		if (background.size > 0)
+		{
+			for(EntityProcess process : background)
+			{
+				process.dispose();
+			}
+			background.clear();
 		}
 	}
 
@@ -58,7 +79,17 @@ public class ProcessQueueComponent extends Component
 		{
 			if (queue.peek().process())
 			{
-				queue.remove();
+				queue.poll().dispose();
+			}
+		}
+		Iterator<EntityProcess> iterator = background.iterator();
+		while (iterator.hasNext())
+		{
+			EntityProcess next = iterator.next();
+			if (next.process())
+			{
+				next.dispose();
+				iterator.remove();
 			}
 		}
 	}

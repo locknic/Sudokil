@@ -23,7 +23,12 @@ public class CommandLineData
 		this.commandLocation = -1;
 		this.tempStore = "";
 		this.previousCommands = new CircularArray<String>(10);
-		this.parser = new CommandLineManager(root, ownerUI);
+		UUID previousUI = null;
+		if (previousCommandLineData != null)
+		{
+			previousUI = previousCommandLineData.ownerUI;
+		}
+		this.parser = new CommandLineManager(root, ownerUI, previousUI);
 		this.previousCommandLineData = previousCommandLineData;
 	}
 

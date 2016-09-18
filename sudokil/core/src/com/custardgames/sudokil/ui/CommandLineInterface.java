@@ -66,6 +66,7 @@ public class CommandLineInterface implements EventListener
 
 	public void tryAllUpRoot(UUID cliID)
 	{
+		System.out.println("TRY ALL UPROOT " + cliID);
 		CommandLineData newData = cld.findCommandLineDataParent(cliID);
 		if (newData != null)
 		{
@@ -76,16 +77,17 @@ public class CommandLineInterface implements EventListener
 		}
 	}
 
-	public void upRoot()
-	{
-		if (cld.previousCommandLineData != null)
-		{
-			cld = cld.previousCommandLineData;
-			consoleArrow.setText(cld.parser.getInputPrefix());
-			consoleDialog.setText(cld.textHistory);
-			updateScroll += 5;
-		}
-	}
+//	public void upRoot()
+//	{
+//		System.out.println("UPROOT");
+//		if (cld.previousCommandLineData != null)
+//		{
+//			cld = cld.previousCommandLineData;
+//			consoleArrow.setText(cld.parser.getInputPrefix());
+//			consoleDialog.setText(cld.textHistory);
+//			updateScroll += 5;
+//		}
+//	}
 
 	public void setRoot(RootCLI root)
 	{

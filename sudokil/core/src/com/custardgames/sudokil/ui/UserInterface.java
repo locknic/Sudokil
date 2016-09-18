@@ -262,7 +262,8 @@ public class UserInterface extends Stage implements EventListener
 			{
 				if (event.getNewRoot() == null)
 				{
-					e.upRoot();
+					System.out.println("UPROOT SAME");
+					e.tryAllUpRoot(e.getUUID());
 				}
 				else
 				{
@@ -271,6 +272,7 @@ public class UserInterface extends Stage implements EventListener
 			}
 			else if (event.getNewRoot() == null)
 			{
+				System.out.println("UPROOT DIFF");
 				e.tryAllUpRoot(e.getUUID());
 			}
 		}

@@ -92,12 +92,12 @@ public class NetworkSystem extends EntityProcessingSystem implements EventListen
 		String output = "";
 		for (String connectedNetwork : wirelessDeviceComponent.getWirelessNetworks())
 		{
-			output += "\nNetwork: " + connectedNetwork + "\n";
+			output += "Network: " + connectedNetwork + "\n";
 			if (networks.containsKey(connectedNetwork))
 			{
 				for (String value : networks.get(connectedNetwork))
 				{
-					output += value + "\n";
+					output += "\t" + value + "\n";
 				}
 			}
 		}

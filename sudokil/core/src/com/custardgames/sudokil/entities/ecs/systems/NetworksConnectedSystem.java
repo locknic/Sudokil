@@ -8,6 +8,7 @@ import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.utils.Array;
+import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkConnectionComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessDeviceComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessNetworksComponent;
@@ -72,6 +73,7 @@ public class NetworksConnectedSystem extends EntityProcessingSystem implements E
 				Array<Entity> connectedEntities = findConnectedEntities(entity, new Array<Entity>());
 				for (Entity connectedEntity : connectedEntities)
 				{
+					System.out.println("Looking at " + connectedEntity.getComponent(EntityComponent.class).getId() + " connected to " + entity.getComponent(EntityComponent.class).getId());
 					WirelessNetworksComponent connectedWirelessNetworkComponent = wirelessNetworkComponents.get(connectedEntity);
 					if (connectedWirelessNetworkComponent != null)
 					{
@@ -87,6 +89,8 @@ public class NetworksConnectedSystem extends EntityProcessingSystem implements E
 
 	public Array<Entity> findConnectedEntities(Entity entity, Array<Entity> searchedEntities)
 	{
+		System.out.println("Found entity " + entity.getComponent(EntityComponent.class).getId());
+
 		NetworkConnectionComponent networkConnectionComponent = networkConnectionComponents.get(entity);
 		if (networkConnectionComponent != null)
 		{
@@ -94,37 +98,37 @@ public class NetworksConnectedSystem extends EntityProcessingSystem implements E
 			if (networkConnectionComponent.isLeft())
 			{
 				inputEntity = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, -1, 0))).getCellEntity();
-				if (inputEntity != null && !searchedEntities.contains(entity, true))
+				if (inputEntity != null && !searchedEntities.contains(inputEntity, true))
 				{
 					searchedEntities.add(inputEntity);
-					addNew(searchedEntities, findConnectedEntities(inputEntity, searchedEntities));
+					searchedEntities = addNew(searchedEntities, findConnectedEntities(inputEntity, searchedEntities));
 				}
 			}
 			if (networkConnectionComponent.isRight())
 			{
 				inputEntity = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, 1, 0))).getCellEntity();
-				if (inputEntity != null && !searchedEntities.contains(entity, true))
+				if (inputEntity != null && !searchedEntities.contains(inputEntity, true))
 				{
 					searchedEntities.add(inputEntity);
-					addNew(searchedEntities, findConnectedEntities(inputEntity, searchedEntities));
+					searchedEntities = addNew(searchedEntities, findConnectedEntities(inputEntity, searchedEntities));
 				}
 			}
 			if (networkConnectionComponent.isUp())
 			{
 				inputEntity = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, 0, 1))).getCellEntity();
-				if (inputEntity != null && !searchedEntities.contains(entity, true))
+				if (inputEntity != null && !searchedEntities.contains(inputEntity, true))
 				{
 					searchedEntities.add(inputEntity);
-					addNew(searchedEntities, findConnectedEntities(inputEntity, searchedEntities));
+					searchedEntities = addNew(searchedEntities, findConnectedEntities(inputEntity, searchedEntities));
 				}
 			}
 			if (networkConnectionComponent.isDown())
 			{
 				inputEntity = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity, 0, -1))).getCellEntity();
-				if (inputEntity != null && !searchedEntities.contains(entity, true))
+				if (inputEntity != null && !searchedEntities.contains(inputEntity, true))
 				{
 					searchedEntities.add(inputEntity);
-					addNew(searchedEntities, findConnectedEntities(inputEntity, searchedEntities));
+					searchedEntities = addNew(searchedEntities, findConnectedEntities(inputEntity, searchedEntities));
 				}
 			}
 		}

@@ -24,7 +24,7 @@ public class FileSystemManager implements EventListener
 	{
 		fileSystems = new HashMap<String, RootCLI>();
 		uuid = UUID.randomUUID();
-		commandLineManager = new CommandLineManager(new RootCLI(), uuid);
+		commandLineManager = new CommandLineManager(new RootCLI(), uuid, null);
 
 		EventManager.get_instance().register(PingFileSystemEvent.class, this);
 		EventManager.get_instance().register(CopyItemBetweenFileSystemsEvent.class, this);
@@ -44,7 +44,7 @@ public class FileSystemManager implements EventListener
 	{
 		fileSystems.clear();
 		commandLineManager.dispose();
-		commandLineManager = new CommandLineManager(new RootCLI(), uuid);
+		commandLineManager = new CommandLineManager(new RootCLI(), uuid, null);
 	}
 
 	public void linkChildren(FolderCLI parent)

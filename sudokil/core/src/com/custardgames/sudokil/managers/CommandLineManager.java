@@ -48,9 +48,10 @@ public class CommandLineManager implements EventListener
 
 	private Options options;
 
+	private UUID parentUI;
 	private UUID ownerUI;
 
-	public CommandLineManager(RootCLI root, UUID ownerUI)
+	public CommandLineManager(RootCLI root, UUID ownerUI, UUID parentUI)
 	{
 		EventManager.get_instance().register(CommandLineEvent.class, this);
 		EventManager.get_instance().register(AutocompleteRequestEvent.class, this);
@@ -61,6 +62,7 @@ public class CommandLineManager implements EventListener
 
 		this.root = root;
 		this.ownerUI = ownerUI;
+		this.parentUI = parentUI;
 
 		currentItem = this.root;
 
@@ -185,8 +187,7 @@ public class CommandLineManager implements EventListener
 			else if (commandLine.hasOption("exit"))
 			{
 				DisconnectEvent disconnectEvent = new DisconnectEvent();
-				disconnectEvent.setEntityName(device);
-				disconnectEvent.setOwnerUI(ownerUI);
+				disconnectEvent.setOwnerUI(parentUI);
 				EventManager.get_instance().broadcast(disconnectEvent);
 			}
 			else if (commandLine.hasOption("echo"))
