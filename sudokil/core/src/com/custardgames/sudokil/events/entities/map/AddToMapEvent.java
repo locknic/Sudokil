@@ -12,11 +12,13 @@ public class AddToMapEvent extends EntityEvent
 		super(entity);
 	}
 
+	@Override
 	public Entity getEntity()
 	{
 		return entity;
 	}
 
+	@Override
 	public void setEntity(Entity entity)
 	{
 		this.entity = entity;

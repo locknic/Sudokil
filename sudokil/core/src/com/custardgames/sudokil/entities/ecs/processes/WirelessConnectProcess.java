@@ -19,6 +19,7 @@ public class WirelessConnectProcess extends ConnectProcess implements EventListe
 		this.setBackgroundProcess(true);
 	}
 
+	@Override
 	public boolean connect()
 	{
 		if (connectedTo != null)

@@ -67,6 +67,7 @@ public class IntroScreen extends Stage
 		start.startButtonPressed();
 	}
 
+	@Override
 	public void draw()
 	{
 		Gdx.gl20.glEnable(GL20.GL_BLEND);

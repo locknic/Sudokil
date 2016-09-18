@@ -21,6 +21,7 @@ public class PhysicalConnectProcess extends ConnectProcess implements EventListe
 		super(consoleUUID, entity, null);
 	}
 
+	@Override
 	public boolean connect()
 	{
 		PositionComponent positionComponent = entity.getComponent(PositionComponent.class);

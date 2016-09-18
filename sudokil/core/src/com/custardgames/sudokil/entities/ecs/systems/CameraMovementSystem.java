@@ -369,7 +369,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		{
 			CameraComponent cameraInput = cameraInputComponents.get(entities.get(x));
 			cameraInput.setZoomAmount(event.getMouseWheelAmount());
-			EventManager.get_instance().broadcast(new CameraZoomedEvent((float) event.getMouseWheelAmount()));
+			EventManager.get_instance().broadcast(new CameraZoomedEvent(event.getMouseWheelAmount()));
 		}
 	}
 

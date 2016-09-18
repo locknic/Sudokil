@@ -102,6 +102,7 @@ public class EscapeMenu extends Stage
 		exitButton.setVisible(false);
 	}
 
+	@Override
 	public void draw()
 	{
 		Gdx.gl20.glEnable(GL20.GL_BLEND);

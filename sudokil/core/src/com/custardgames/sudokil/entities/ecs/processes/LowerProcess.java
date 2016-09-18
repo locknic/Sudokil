@@ -114,11 +114,11 @@ public class LowerProcess extends EntityProcess
 
 				if (deltaX != 0)
 				{
-					deltaX = (float) (-maxVelocity * (deltaX / Math.abs(deltaX)));
+					deltaX = -maxVelocity * (deltaX / Math.abs(deltaX));
 				}
 				if (deltaY != 0)
 				{
-					deltaY = (float)(-maxVelocity * (deltaY / Math.abs(deltaY)));
+					deltaY = -maxVelocity * (deltaY / Math.abs(deltaY));
 				}
 				liftedPosition.setX(positionX + deltaX);
 				liftedPosition.setY(positionY + deltaY);

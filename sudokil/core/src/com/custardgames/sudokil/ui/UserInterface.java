@@ -165,6 +165,7 @@ public class UserInterface extends Stage implements EventListener
 		}
 	}
 
+	@Override
 	public void dispose()
 	{
 		EventManager.get_instance().deregister(ConsoleConnectEvent.class, this);
@@ -262,7 +263,6 @@ public class UserInterface extends Stage implements EventListener
 			{
 				if (event.getNewRoot() == null)
 				{
-					System.out.println("UPROOT SAME");
 					e.tryAllUpRoot(e.getUUID());
 				}
 				else
@@ -272,7 +272,6 @@ public class UserInterface extends Stage implements EventListener
 			}
 			else if (event.getNewRoot() == null)
 			{
-				System.out.println("UPROOT DIFF");
 				e.tryAllUpRoot(e.getUUID());
 			}
 		}

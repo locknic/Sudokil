@@ -15,11 +15,13 @@ public class EntityMovedEvent extends EntityEvent
 		this.setDeltaY(deltaY);
 	}
 
+	@Override
 	public Entity getEntity()
 	{
 		return entity;
 	}
 
+	@Override
 	public void setEntity(Entity entity)
 	{
 		this.entity = entity;

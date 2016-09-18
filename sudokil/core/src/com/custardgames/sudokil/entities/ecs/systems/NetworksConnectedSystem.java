@@ -8,7 +8,6 @@ import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.utils.Array;
-import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkConnectionComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessDeviceComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessNetworksComponent;
@@ -73,7 +72,6 @@ public class NetworksConnectedSystem extends EntityProcessingSystem implements E
 				Array<Entity> connectedEntities = findConnectedEntities(entity, new Array<Entity>());
 				for (Entity connectedEntity : connectedEntities)
 				{
-					System.out.println("Looking at " + connectedEntity.getComponent(EntityComponent.class).getId() + " connected to " + entity.getComponent(EntityComponent.class).getId());
 					WirelessNetworksComponent connectedWirelessNetworkComponent = wirelessNetworkComponents.get(connectedEntity);
 					if (connectedWirelessNetworkComponent != null)
 					{
@@ -89,8 +87,6 @@ public class NetworksConnectedSystem extends EntityProcessingSystem implements E
 
 	public Array<Entity> findConnectedEntities(Entity entity, Array<Entity> searchedEntities)
 	{
-		System.out.println("Found entity " + entity.getComponent(EntityComponent.class).getId());
-
 		NetworkConnectionComponent networkConnectionComponent = networkConnectionComponents.get(entity);
 		if (networkConnectionComponent != null)
 		{

@@ -75,7 +75,6 @@ public abstract class ConnectProcess extends EntityProcess implements EventListe
 
 	public void disconnect()
 	{
-		System.out.println("Disconnect " + entity.getComponent(EntityComponent.class).getId() + " from " + connectedTo.getComponent(EntityComponent.class).getId());
 		EventManager.get_instance().broadcast(new ConsoleConnectEvent(consoleUUID, null));
 		disconnect = true;
 	}

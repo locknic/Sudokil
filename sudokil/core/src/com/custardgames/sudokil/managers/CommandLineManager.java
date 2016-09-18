@@ -318,7 +318,6 @@ public class CommandLineManager implements EventListener
 
 	public void list(String args[])
 	{
-		System.out.println("length" + args.length);
 		if (args == null || args.length < 1)
 		{
 			String output = "";

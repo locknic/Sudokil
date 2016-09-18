@@ -66,7 +66,6 @@ public class CommandLineInterface implements EventListener
 
 	public void tryAllUpRoot(UUID cliID)
 	{
-		System.out.println("TRY ALL UPROOT " + cliID);
 		CommandLineData newData = cld.findCommandLineDataParent(cliID);
 		if (newData != null)
 		{
@@ -76,18 +75,6 @@ public class CommandLineInterface implements EventListener
 			updateScroll += 5;
 		}
 	}
-
-//	public void upRoot()
-//	{
-//		System.out.println("UPROOT");
-//		if (cld.previousCommandLineData != null)
-//		{
-//			cld = cld.previousCommandLineData;
-//			consoleArrow.setText(cld.parser.getInputPrefix());
-//			consoleDialog.setText(cld.textHistory);
-//			updateScroll += 5;
-//		}
-//	}
 
 	public void setRoot(RootCLI root)
 	{
@@ -280,7 +267,7 @@ public class CommandLineInterface implements EventListener
 						cld.tempStore = consoleField.getText();
 					}
 					cld.commandLocation++;
-					consoleField.setText((String) cld.previousCommands.get(cld.commandLocation));
+					consoleField.setText(cld.previousCommands.get(cld.commandLocation));
 					consoleField.setCursorPosition(consoleField.getText().length());
 				}
 			}
@@ -289,7 +276,7 @@ public class CommandLineInterface implements EventListener
 				if (cld.commandLocation > 0)
 				{
 					cld.commandLocation--;
-					consoleField.setText((String) cld.previousCommands.get(cld.commandLocation));
+					consoleField.setText(cld.previousCommands.get(cld.commandLocation));
 					consoleField.setCursorPosition(consoleField.getText().length());
 				}
 				else if (cld.commandLocation == 0)

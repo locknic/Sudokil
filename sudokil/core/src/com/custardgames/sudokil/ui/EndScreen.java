@@ -62,6 +62,7 @@ public class EndScreen extends Stage implements EventListener
 		alive = true;
 	}
 
+	@Override
 	public void draw()
 	{
 		if (alive)
