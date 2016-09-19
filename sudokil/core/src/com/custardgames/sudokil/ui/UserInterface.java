@@ -259,20 +259,13 @@ public class UserInterface extends Stage implements EventListener
 	{
 		for (CommandLineInterface e : windows)
 		{
-			if (event.getOwnerUI().equals(e.getUUID()))
+			if (event.getNewRoot() == null)
 			{
-				if (event.getNewRoot() == null)
-				{
-					e.tryAllUpRoot(e.getUUID());
-				}
-				else
-				{
-					e.setRoot(event.getNewRoot());
-				}
+				e.tryAllUpRoot(event.getOwnerUI());
 			}
-			else if (event.getNewRoot() == null)
+			else if (event.getOwnerUI().equals(e.getUUID()))
 			{
-				e.tryAllUpRoot(e.getUUID());
+				e.setRoot(event.getNewRoot());
 			}
 		}
 	}

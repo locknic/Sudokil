@@ -32,15 +32,15 @@ public class CommandLineData
 		this.previousCommandLineData = previousCommandLineData;
 	}
 
-	public CommandLineData findCommandLineDataParent(UUID id)
+	public CommandLineData findCommandLineData(UUID id)
 	{
 		if (id.equals(ownerUI))
 		{
-			return previousCommandLineData;
+			return this;
 		}
 		else if (previousCommandLineData != null)
 		{
-			return previousCommandLineData.findCommandLineDataParent(id);
+			return previousCommandLineData.findCommandLineData(id);
 		}
 		else
 		{

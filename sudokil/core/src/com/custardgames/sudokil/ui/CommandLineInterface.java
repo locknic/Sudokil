@@ -66,7 +66,7 @@ public class CommandLineInterface implements EventListener
 
 	public void tryAllUpRoot(UUID cliID)
 	{
-		CommandLineData newData = cld.findCommandLineDataParent(cliID);
+		CommandLineData newData = cld.findCommandLineData(cliID);
 		if (newData != null)
 		{
 			cld = newData;
