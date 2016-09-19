@@ -94,12 +94,12 @@
 			className : com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkConnectionComponent,
 		},
 		{
-			name : WirelessDeviceComponent,
-			className : com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessDeviceComponent,
+			name : NetworkedDeviceComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkedDeviceComponent,
 		},
 		{
-			name : WirelessNetworksComponent,
-			className : com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessNetworksComponent,
+			name : WirelessRouterComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessRouterComponent,
 		},
 		{
 			name : LightComponent,

@@ -12,8 +12,8 @@ import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.FileSystemComponent;
-import com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessDeviceComponent;
-import com.custardgames.sudokil.entities.ecs.processes.WirelessConnectProcess;
+import com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkedDeviceComponent;
+import com.custardgames.sudokil.entities.ecs.processes.networking.NetworkedConnectProcess;
 import com.custardgames.sudokil.events.PingEntityEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
 import com.custardgames.sudokil.events.commandLine.device.IfconfigEvent;
@@ -24,13 +24,13 @@ import com.custardgames.sudokil.managers.EventManager;
 public class NetworkSystem extends EntityProcessingSystem implements EventListener
 {
 	ComponentMapper<EntityComponent> entityComponents;
-	ComponentMapper<WirelessDeviceComponent> wirelessDeviceComponents;
+	ComponentMapper<NetworkedDeviceComponent> wirelessDeviceComponents;
 	ComponentMapper<FileSystemComponent> fileSystemComponents;
 
 	@SuppressWarnings("unchecked")
 	public NetworkSystem()
 	{
-		super(Aspect.all(EntityComponent.class, WirelessDeviceComponent.class));
+		super(Aspect.all(EntityComponent.class, NetworkedDeviceComponent.class));
 		EventManager.get_instance().register(IfconfigEvent.class, this);
 		EventManager.get_instance().register(SSHEvent.class, this);
 	}
@@ -66,7 +66,7 @@ public class NetworkSystem extends EntityProcessingSystem implements EventListen
 		{
 			if (otherEntity != entity)
 			{
-				WirelessDeviceComponent otherWirelessDeviceComponent = wirelessDeviceComponents.get(otherEntity);
+				NetworkedDeviceComponent otherWirelessDeviceComponent = wirelessDeviceComponents.get(otherEntity);
 				EntityComponent otherEntityComponent = entityComponents.get(otherEntity);
 
 				for (String networkName : otherWirelessDeviceComponent.getWirelessNetworks())
@@ -87,9 +87,17 @@ public class NetworkSystem extends EntityProcessingSystem implements EventListen
 	public void ifconfig(UUID connected, Entity entity)
 	{
 		HashMap<String, Array<String>> networks = createNetworkHashMap(entity);
-		WirelessDeviceComponent wirelessDeviceComponent = wirelessDeviceComponents.get(entity);
+		NetworkedDeviceComponent wirelessDeviceComponent = wirelessDeviceComponents.get(entity);
 
 		String output = "";
+		if (wirelessDeviceComponent.getWiredDevices().size > 0)
+		{
+			output += "Ethernet: " + "\n";
+			for (String connectedDevice : wirelessDeviceComponent.getWiredDevices())
+			{
+				output += "\t" + connectedDevice + "\n";
+			}
+		}
 		for (String connectedNetwork : wirelessDeviceComponent.getWirelessNetworks())
 		{
 			output += "Network: " + connectedNetwork + "\n";
@@ -101,26 +109,41 @@ public class NetworkSystem extends EntityProcessingSystem implements EventListen
 				}
 			}
 		}
-
-		EventManager.get_instance().broadcast(new ConsoleLogEvent(connected, output));
+		
+		if (output.length() > 0)
+		{
+			EventManager.get_instance().broadcast(new ConsoleLogEvent(connected, output));
+		}
 	}
 
 	public void ssh(UUID connected, Entity entity, String connectTo)
 	{
 		HashMap<String, Array<String>> networks = createNetworkHashMap(entity);
-		WirelessDeviceComponent wirelessDeviceComponent = wirelessDeviceComponents.get(entity);
+		NetworkedDeviceComponent wirelessDeviceComponent = wirelessDeviceComponents.get(entity);
 
-		for (String connectedNetwork : wirelessDeviceComponent.getWirelessNetworks())
+		if (wirelessDeviceComponent.getWiredDevices().contains(connectTo, false))
 		{
-			if (networks.containsKey(connectedNetwork) && networks.get(connectedNetwork).contains(connectTo, false))
+			connectTo(connected, entity, connectTo);
+		}
+		else
+		{
+			for (String connectedNetwork : wirelessDeviceComponent.getWirelessNetworks())
 			{
-				PingEntityEvent entityEvent = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(connectTo));
-				if (entityEvent != null && entityEvent.getEntity() != null)
+				if (networks.containsKey(connectedNetwork) && networks.get(connectedNetwork).contains(connectTo, false))
 				{
-					WirelessConnectProcess wirelessConnectProcess = new WirelessConnectProcess(connected, entity, entityEvent.getEntity());
-					EventManager.get_instance().broadcast(new ProcessEvent(entity, wirelessConnectProcess));
+					connectTo(connected, entity, connectTo);
 				}
 			}
+		}
+	}
+
+	public void connectTo(UUID connected, Entity entity, String connectTo)
+	{
+		PingEntityEvent entityEvent = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(connectTo));
+		if (entityEvent != null && entityEvent.getEntity() != null)
+		{
+			NetworkedConnectProcess wirelessConnectProcess = new NetworkedConnectProcess(connected, entity, entityEvent.getEntity());
+			EventManager.get_instance().broadcast(new ProcessEvent(entity, wirelessConnectProcess));
 		}
 	}
 

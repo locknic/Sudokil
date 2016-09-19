@@ -1,19 +1,20 @@
-package com.custardgames.sudokil.entities.ecs.processes;
+package com.custardgames.sudokil.entities.ecs.processes.networking;
 
 import java.util.EventListener;
 import java.util.UUID;
 
 import com.artemis.Entity;
+import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.FileSystemComponent;
-import com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessDeviceComponent;
+import com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkedDeviceComponent;
 import com.custardgames.sudokil.events.PingFileSystemEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
-public class WirelessConnectProcess extends ConnectProcess implements EventListener
+public class NetworkedConnectProcess extends ConnectProcess implements EventListener
 {
 
-	public WirelessConnectProcess(UUID consoleUUID, Entity entity, Entity connectedTo)
+	public NetworkedConnectProcess(UUID consoleUUID, Entity entity, Entity connectedTo)
 	{
 		super(consoleUUID, entity, connectedTo);
 
@@ -27,16 +28,27 @@ public class WirelessConnectProcess extends ConnectProcess implements EventListe
 
 		if (!prev && triedConnecting)
 		{
-			WirelessDeviceComponent wirelessDeviceComponent = entity.getComponent(WirelessDeviceComponent.class);
-			WirelessDeviceComponent connectedWirelessDeviceComponent = connectedTo.getComponent(WirelessDeviceComponent.class);
+			NetworkedDeviceComponent networkedDeviceComponent = entity.getComponent(NetworkedDeviceComponent.class);
+			EntityComponent connectedEntityComponent = connectedTo.getComponent(EntityComponent.class);
+			NetworkedDeviceComponent connectedNetworkedDeviceComponent = connectedTo.getComponent(NetworkedDeviceComponent.class);
 
-			if (wirelessDeviceComponent != null && connectedWirelessDeviceComponent != null)
+			if (networkedDeviceComponent != null)
 			{
-				for (String network : wirelessDeviceComponent.getWirelessNetworks())
+				if (connectedEntityComponent != null)
 				{
-					if (connectedWirelessDeviceComponent.getWirelessNetworks().contains(network, false))
+					if (networkedDeviceComponent.getWiredDevices().contains(connectedEntityComponent.getId(), false))
 					{
 						return false;
+					}
+				}
+				if (connectedNetworkedDeviceComponent != null)
+				{
+					for (String network : networkedDeviceComponent.getWirelessNetworks())
+					{
+						if (connectedNetworkedDeviceComponent.getWirelessNetworks().contains(network, false))
+						{
+							return false;
+						}
 					}
 				}
 			}

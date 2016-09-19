@@ -8,9 +8,10 @@ import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.utils.Array;
+import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkConnectionComponent;
-import com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessDeviceComponent;
-import com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessNetworksComponent;
+import com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkedDeviceComponent;
+import com.custardgames.sudokil.entities.ecs.components.filesystem.WirelessRouterComponent;
 import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
 import com.custardgames.sudokil.events.entities.map.PingCellEvent;
 import com.custardgames.sudokil.events.entities.map.RemoveFromMapEvent;
@@ -18,14 +19,15 @@ import com.custardgames.sudokil.managers.EventManager;
 
 public class NetworksConnectedSystem extends EntityProcessingSystem implements EventListener
 {
-	ComponentMapper<WirelessDeviceComponent> wirelessDeviceComponents;
-	ComponentMapper<WirelessNetworksComponent> wirelessNetworkComponents;
+	ComponentMapper<NetworkedDeviceComponent> wirelessDeviceComponents;
+	ComponentMapper<WirelessRouterComponent> wirelessNetworkComponents;
 	ComponentMapper<NetworkConnectionComponent> networkConnectionComponents;
+	ComponentMapper<EntityComponent> entityComponents;
 
 	@SuppressWarnings("unchecked")
 	public NetworksConnectedSystem()
 	{
-		super(Aspect.all(WirelessDeviceComponent.class));
+		super(Aspect.all(NetworkedDeviceComponent.class));
 		EventManager.get_instance().register(AddToMapEvent.class, this);
 		EventManager.get_instance().register(RemoveFromMapEvent.class, this);
 	}
@@ -57,10 +59,11 @@ public class NetworksConnectedSystem extends EntityProcessingSystem implements E
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
 		{
-			WirelessDeviceComponent wirelessDeviceComponent = wirelessDeviceComponents.get(entity);
+			NetworkedDeviceComponent wirelessDeviceComponent = wirelessDeviceComponents.get(entity);
 			wirelessDeviceComponent.clearWirelessNetwork();
+			wirelessDeviceComponent.clearWiredDevices();
 
-			WirelessNetworksComponent wirelessNetworkComponent = wirelessNetworkComponents.get(entity);
+			WirelessRouterComponent wirelessNetworkComponent = wirelessNetworkComponents.get(entity);
 			if (wirelessNetworkComponent != null)
 			{
 				wirelessDeviceComponent.setWirelessNetworks(wirelessNetworkComponent.getNetworkNames());
@@ -72,12 +75,22 @@ public class NetworksConnectedSystem extends EntityProcessingSystem implements E
 				Array<Entity> connectedEntities = findConnectedEntities(entity, new Array<Entity>());
 				for (Entity connectedEntity : connectedEntities)
 				{
-					WirelessNetworksComponent connectedWirelessNetworkComponent = wirelessNetworkComponents.get(connectedEntity);
-					if (connectedWirelessNetworkComponent != null)
+					if (connectedEntity != entity)
 					{
-						for (String network : connectedWirelessNetworkComponent.getNetworkNames())
+						NetworkedDeviceComponent connectedWirelessDeviceComponent = wirelessDeviceComponents.get(connectedEntity);
+						EntityComponent entityComponent = entityComponents.get(connectedEntity);
+						if (connectedWirelessDeviceComponent != null && entityComponent != null)
 						{
-							wirelessDeviceComponent.addWirelessNetwork(network);
+							wirelessDeviceComponent.addWiredDevice(entityComponent.getId());
+						}
+
+						WirelessRouterComponent connectedWirelessRouterComponent = wirelessNetworkComponents.get(connectedEntity);
+						if (connectedWirelessRouterComponent != null)
+						{
+							for (String network : connectedWirelessRouterComponent.getNetworkNames())
+							{
+								wirelessDeviceComponent.addWirelessNetwork(network);
+							}
 						}
 					}
 				}

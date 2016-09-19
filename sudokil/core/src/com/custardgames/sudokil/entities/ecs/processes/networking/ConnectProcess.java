@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.entities.ecs.processes;
+package com.custardgames.sudokil.entities.ecs.processes.networking;
 
 import java.util.EventListener;
 import java.util.UUID;
@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.artemis.Entity;
 import com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
+import com.custardgames.sudokil.entities.ecs.processes.EntityProcess;
 import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.commandLine.CloseCommandLineWindowEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;

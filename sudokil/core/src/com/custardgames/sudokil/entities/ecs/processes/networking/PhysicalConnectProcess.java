@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.entities.ecs.processes;
+package com.custardgames.sudokil.entities.ecs.processes.networking;
 
 import java.util.EventListener;
 import java.util.UUID;

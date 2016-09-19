@@ -3,11 +3,11 @@ package com.custardgames.sudokil.entities.ecs.components.filesystem;
 import com.artemis.Component;
 import com.badlogic.gdx.utils.Array;
 
-public class WirelessNetworksComponent extends Component
+public class WirelessRouterComponent extends Component
 {
 	private Array<String> networkNames;
 	
-	public WirelessNetworksComponent()
+	public WirelessRouterComponent()
 	{
 		setNetworkNames(new Array<String>());
 	}

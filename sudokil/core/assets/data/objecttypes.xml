@@ -38,8 +38,14 @@
   <property name="BlockingComponent.blocking" type="bool" default="true"/>
   <property name="Box2DBodyComponent" type="bool" default="true"/>
   <property name="ConnectableComponent" type="bool" default="true"/>
-  <property name="ConnectableComponent.fileLocation" type="string" default="maps/campaign/level1/filesystems/computer1.json"/>
   <property name="EntityComponent" type="bool" default="true"/>
+  <property name="FileSystemComponent" type="bool" default="true"/>
+  <property name="FileSystemComponent.fileLocation" type="string"/>
+  <property name="NetworkConnectionComponent" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.down" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.left" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.right" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.up" type="bool" default="true"/>
   <property name="PositionComponent" type="bool" default="true"/>
   <property name="PositionComponent.angle" type="float" default="0"/>
   <property name="PowerConsumerComponent" type="bool" default="true"/>
@@ -60,6 +66,7 @@
   <property name="TextTagComponent.deltaX" type="float" default="0"/>
   <property name="TextTagComponent.deltaY" type="float" default="2"/>
   <property name="TextTagComponent.shouldRender" type="bool" default="true"/>
+  <property name="WirelessDeviceComponent" type="bool" default="true"/>
  </objecttype>
  <objecttype name="crate" color="#aa5500">
   <property name="BlockingComponent" type="bool" default="true"/>
@@ -76,6 +83,7 @@
  </objecttype>
  <objecttype name="generator" color="#ffff00">
   <property name="BlockingComponent" type="bool" default="true"/>
+  <property name="BlockingComponent.blocking" type="bool" default="true"/>
   <property name="Box2DBodyComponent" type="bool" default="true"/>
   <property name="EntityComponent" type="bool" default="true"/>
   <property name="LiftableComponent" type="bool" default="true"/>
@@ -107,17 +115,30 @@
   <property name="DoorGroupComponent" type="bool" default="true"/>
   <property name="DoorGroupComponent.doorTiles" type="string" default="[door-2]"/>
   <property name="EntityComponent" type="bool" default="true"/>
+  <property name="FileSystemComponent" type="bool" default="false"/>
+  <property name="FileSystemComponent.fileLocation" type="string" default="maps/playground/wireless/filesystems/door-mid.json"/>
+  <property name="NetworkConnectionComponent" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.down" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.left" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.right" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.up" type="bool" default="true"/>
   <property name="PositionComponent" type="bool" default="true"/>
   <property name="PositionComponent.angle" type="float" default="0"/>
   <property name="ProcessQueueComponent" type="bool" default="true"/>
   <property name="SpriteComponent" type="bool" default="true"/>
   <property name="SpriteComponent.shouldRender" type="bool" default="true"/>
   <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/door-on-1.png"/>
+  <property name="WirelessDeviceComponent" type="bool" default="false"/>
  </objecttype>
  <objecttype name="wire-l" color="#ffaa7f">
   <property name="BlockingComponent" type="bool" default="true"/>
   <property name="BlockingComponent.blocking" type="bool" default="true"/>
   <property name="EntityComponent" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.down" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.left" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.right" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.up" type="bool" default="true"/>
   <property name="PositionComponent" type="bool" default="true"/>
   <property name="PositionComponent.angle" type="float" default="0"/>
   <property name="PowerInputComponent" type="bool" default="true"/>
@@ -136,5 +157,25 @@
   <property name="PowerOutputComponent.up" type="bool" default="true"/>
   <property name="SpriteComponent" type="bool" default="true"/>
   <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/wire2.png"/>
+ </objecttype>
+ <objecttype name="router" color="#0055ff">
+  <property name="BlockingComponent" type="bool" default="true"/>
+  <property name="BlockingComponent.blocking" type="bool" default="true"/>
+  <property name="Box2DBodyComponent" type="bool" default="true"/>
+  <property name="EntityComponent" type="bool" default="true"/>
+  <property name="LiftableComponent" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.down" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.left" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.right" type="bool" default="true"/>
+  <property name="NetworkConnectionComponent.up" type="bool" default="true"/>
+  <property name="PositionComponent" type="bool" default="true"/>
+  <property name="PositionComponent.angle" type="float" default="0"/>
+  <property name="SpriteComponent" type="bool" default="true"/>
+  <property name="SpriteComponent.height" type="float" default="32"/>
+  <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/wifi-red.png"/>
+  <property name="SpriteComponent.width" type="float" default="32"/>
+  <property name="WirelessNetworksComponent" type="bool" default="true"/>
+  <property name="WirelessNetworksComponent.networkNames" type="string" default="[red]"/>
  </objecttype>
 </objecttypes>
