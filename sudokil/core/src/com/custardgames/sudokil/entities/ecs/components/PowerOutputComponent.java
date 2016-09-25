@@ -63,19 +63,19 @@ public class PowerOutputComponent extends Component
 		{
 			return isCentre();
 		}
-		else if (xDir == -1 && yDir == 0)
+		else if (xDir == -1)
 		{
 			return isLeft();
 		}
-		else if (xDir == 1 && yDir == 0)
+		else if (xDir == 1)
 		{
 			return isRight();
 		}
-		else if (xDir == 0 && yDir == -1)
+		else if (yDir == -1)
 		{
 			return isDown();
 		}
-		else if (xDir == 0 && yDir == 1)
+		else if (yDir == 1)
 		{
 			return isUp();
 		}

@@ -56,4 +56,30 @@ public class PowerInputComponent extends Component
 	{
 		return centre;
 	}
+	
+	public boolean isInputting(int xDir, int yDir)
+	{
+		if (xDir == 0 && yDir == 0)
+		{
+			return isCentre();
+		}
+		else if (xDir == -1 && yDir == 0)
+		{
+			return isLeft();
+		}
+		else if (xDir == 1 && yDir == 0)
+		{
+			return isRight();
+		}
+		else if (xDir == 0 && yDir == -1)
+		{
+			return isDown();
+		}
+		else if (xDir == 0 && yDir == 1)
+		{
+			return isUp();
+		}
+
+		return false;
+	}
 }

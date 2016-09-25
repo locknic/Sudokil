@@ -13,6 +13,18 @@
 	},
 	{
 		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
+		name: playground-power-wires,
+		fileLocation: maps/playground/power-wires/level-data.json,
+		description: "Playground level for testing power moving through wires.",
+	},
+	{
+		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
+		name: playground-power-wires-array-pass,
+		fileLocation: maps/playground/power-wires-array-pass/level-data.json,
+		description: "Playground level for testing power moving through wires.",
+	},
+	{
+		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
 		name: playground-wireless,
 		fileLocation: maps/playground/wireless/level-data.json,
 		description: "Playground level for testing wireless networking features.",

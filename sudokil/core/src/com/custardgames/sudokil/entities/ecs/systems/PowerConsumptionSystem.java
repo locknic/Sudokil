@@ -150,8 +150,8 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 							{
 								if (inputEntityPositionComponent != null)
 								{
-									int inputEntityXDir = (int) inputEntityPositionComponent.orientateDirectionX(xDir, yDir);
-									int inputEntityYDir = (int) inputEntityPositionComponent.orientateDirectionY(xDir, yDir);
+									int inputEntityXDir = (int) inputEntityPositionComponent.unOrientateDirectionX(-xDir, -yDir);
+									int inputEntityYDir = (int) inputEntityPositionComponent.unOrientateDirectionY(-xDir, -yDir);
 
 									if (inputEntityPowerOutputComponent.isOutputting(inputEntityXDir, inputEntityYDir))
 									{

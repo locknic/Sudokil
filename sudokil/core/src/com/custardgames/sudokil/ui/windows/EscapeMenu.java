@@ -140,8 +140,8 @@ public class EscapeMenu extends Stage
 	{
 		Gdx.input.setInputProcessor(InputManager.get_instance());
 		inMenu = false;
-		resumeButton.setVisible(true);
-		this.addActor(resumeButton);
+		resumeButton.setVisible(false);
+		resumeButton.remove();
 		loadButton.setVisible(false);
 		loadButton.remove();
 		exitButton.setVisible(false);

@@ -71,18 +71,38 @@ public class PositionComponent extends Component
 		this.angle = angle;
 	}
 
-	public float orientateDirectionX(float xDir, float yDir)
+	public int orientateDirectionX(float xDir, float yDir)
 	{
 		tempVector.x = xDir;
 		tempVector.y = yDir;
-		return tempVector.rotate(angle).x;
+		tempVector.rotate(angle);
+		return (int) tempVector.x;
 	}
 
-	public float orientateDirectionY(float xDir, float yDir)
+	public int orientateDirectionY(float xDir, float yDir)
 	{
 		tempVector.x = xDir;
 		tempVector.y = yDir;
-		return tempVector.rotate(angle).y;
+		tempVector.rotate(angle);
+		return (int) tempVector.y;
+	}
+	
+	public int unOrientateDirectionX(float xDir, float yDir)
+	{
+		tempVector.x = xDir;
+		tempVector.y = yDir;
+		tempVector.rotate(-angle);
+		return (int) tempVector.x;
+	}
+
+	public int unOrientateDirectionY(float xDir, float yDir)
+	{
+//		System.out.println("ORIENTATING " + xDir + ", " + yDir + " by " + angle);
+		tempVector.x = xDir;
+		tempVector.y = yDir;
+		tempVector.rotate(-angle);
+//		System.out.println("GETTING " + (int)tempVector.x + ", " + (int)tempVector.y);
+		return (int) tempVector.y;
 	}
 
 }
