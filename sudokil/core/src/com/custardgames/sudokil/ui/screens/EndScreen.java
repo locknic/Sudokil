@@ -19,9 +19,9 @@ import com.custardgames.sudokil.managers.InputManager;
 
 public class EndScreen extends Stage implements EventListener
 {
-	private TextButton playButton;
+	private TextButton exitButton;
 
-	private static int WIDTH = 128;
+	private static int WIDTH = 256;
 	private static int HEIGHT = 64;
 	private Image image;
 	private boolean alive;
@@ -40,12 +40,12 @@ public class EndScreen extends Stage implements EventListener
 
 	public void show()
 	{
-		InputManager.get_instance().addProcessor(this);
+		InputManager.get_instance().addProcessor(1, this);
 
 		Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-		playButton = new TextButton("EXIT", skin);
-		playButton.setBounds(this.getWidth() / 2 - (WIDTH / 2), this.getHeight() / 4 - (HEIGHT / 2), WIDTH, HEIGHT);
-		playButton.addListener(new ChangeListener()
+		exitButton = new TextButton("EXIT", skin, "orange");
+		exitButton.setBounds(this.getWidth() / 2 - (WIDTH / 2), this.getHeight() / 4 - (HEIGHT / 2), WIDTH, HEIGHT);
+		exitButton.addListener(new ChangeListener()
 		{
 			@Override
 			public void changed(ChangeEvent event, Actor actor)
@@ -58,8 +58,16 @@ public class EndScreen extends Stage implements EventListener
 		image = new Image(buttonAtlas.findRegion("end"));
 		this.addActor(image);
 		image.setBounds(0, 0, this.getWidth(), this.getHeight());
-		this.addActor(playButton);
+		this.addActor(exitButton);
 		alive = true;
+	}
+	
+	@Override
+	public void dispose()
+	{
+		super.dispose();
+		InputManager.get_instance().removeProcessor(this);
+		EventManager.get_instance().deregister(EndGameEvent.class, this);
 	}
 
 	@Override

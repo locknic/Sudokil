@@ -18,22 +18,26 @@ public class Core extends Game implements EventListener
 	public static final int SCALE = 1;
 	public static final boolean FULLSCREEN = false;
 	public static final boolean VSYNC = true;
-	
+
 	public enum Screens
 	{
 		START, PLAY, END
 	}
-	
+
 	public Core()
 	{
 		EventManager.get_instance().register(LoadLevelEvent.class, this);
 	}
-	
+
 	@Override
 	public void dispose()
 	{
 		super.dispose();
 		EventManager.get_instance().deregister(LoadLevelEvent.class, this);
+		if (this.getScreen() != null)
+		{
+			this.getScreen().dispose();
+		}
 	}
 
 	@Override
@@ -45,6 +49,10 @@ public class Core extends Game implements EventListener
 
 	public void changeScreen(Screens newScreen)
 	{
+		if (this.getScreen() != null)
+		{
+			this.getScreen().dispose();
+		}
 		switch (newScreen)
 		{
 			case START:
@@ -57,9 +65,14 @@ public class Core extends Game implements EventListener
 				break;
 		}
 	}
-	
+
 	public void handleLoadLevel(LoadLevelEvent event)
 	{
+		if (this.getScreen() != null)
+		{
+			this.getScreen().dispose();
+		}
 		setScreen(new Play(event.getFileLocation()));
 	}
+	
 }

@@ -32,7 +32,7 @@ public class EventManager
 
 		listeners.get(eventType).add(listener);
 
-		System.out.println("REGISTERING : " + listener + ", " + eventType);
+		System.out.println("REGISTERING : " + listener + ", " + eventType + ". " + listeners.get(eventType).size + "l, " + listeners.size() + "t");
 	}
 
 	public void deregister(Class<?> eventType, EventListener listener)
@@ -44,7 +44,7 @@ public class EventManager
 				listeners.get(eventType).removeValue(listener, true);
 			}
 		}
-		System.out.println("DEREGISTERING : " + listener + ", " + eventType);
+		System.out.println("DEREGISTERING : " + listener + ", " + eventType + ". " + listeners.get(eventType).size + "l, " + listeners.size() + "t");
 	}
 
 	public void broadcast(Object event)

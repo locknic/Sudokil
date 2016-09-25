@@ -30,7 +30,7 @@
 							event : 
 							{
 								class : CopyItemBetweenFileSystemsEvent,
-								sourceFileSystem : maps/campaign/level1-4/stash.json,
+								sourceFileSystem : maps/campaign/level1/level1-4/stash.json,
 								targetFileSystem : maps/campaign/level1/filesystems/filesystem.json,
 								sourceItemLocation : "lift.sh",
 								targetItemLocation : "/robot1",
@@ -41,7 +41,7 @@
 							event : 
 							{
 								class : CopyItemBetweenFileSystemsEvent,
-								sourceFileSystem : maps/campaign/level1-4/stash.json,
+								sourceFileSystem : maps/campaign/level1/level1-4/stash.json,
 								targetFileSystem : maps/campaign/level1/filesystems/filesystem.json,
 								sourceItemLocation : "lower.sh",
 								targetItemLocation : "/robot1",
@@ -130,7 +130,7 @@
 							event : 
 							{
 								class : ChangeMapEvent,
-								newMapLocation : "maps/campaign/level1-5/level.tmx",
+								newMapLocation : "maps/campaign/level1/level1-5/level.tmx",
 							},
 						},	
 						{
@@ -138,7 +138,7 @@
 							event : 
 							{
 								class : AddEntitiesEvent,
-								entitiesLocation : "maps/campaign/level1-5/triggers.json",
+								entitiesLocation : "maps/campaign/level1/level1-5/triggers.json",
 							},
 						},
 						{
@@ -155,7 +155,7 @@
 							event : 
 							{
 								class : CopyItemBetweenFileSystemsEvent,
-								sourceFileSystem : maps/campaign/level1-5/stash.json,
+								sourceFileSystem : maps/campaign/level1/level1-5/stash.json,
 								targetFileSystem : maps/campaign/level1/filesystems/filesystem.json,
 								sourceItemLocation : "robot2",
 								targetItemLocation : "/",

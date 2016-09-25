@@ -95,6 +95,7 @@ public class MapInterface extends Stage implements EventListener
 		tileMap.dispose();
 		tmr.dispose();
 
+		InputManager.get_instance().removeProcessor(this);
 		EventManager.get_instance().deregister(PingAssetsEvent.class, this);
 		EventManager.get_instance().deregister(ToggleMapRenderEvent.class, this);
 		EventManager.get_instance().deregister(ChangeLevelEvent.class, this);

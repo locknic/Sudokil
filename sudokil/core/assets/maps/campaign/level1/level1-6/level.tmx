@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="32">
  <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32" tilecount="256" columns="16">
-  <image source="../../../images/tiles/tileset1.png" width="512" height="512"/>
+  <image source="../../../../images/tiles/tileset1.png" width="512" height="512"/>
   <tile id="16">
    <properties>
     <property name="solid" value="true"/>
@@ -245,7 +245,7 @@
     <property name="ConnectableComponent" type="bool" value="true"/>
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="FileSystemComponent" type="bool" value="true"/>
-    <property name="FileSystemComponent.fileLocation" value="maps/campaign/level1-6/computer1.json"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/campaign/level1/level1-6/computer1.json"/>
     <property name="NetworkConnectionComponent" type="bool" value="true"/>
     <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
     <property name="NetworkConnectionComponent.left" type="bool" value="true"/>

@@ -15,8 +15,6 @@ public class Start implements Screen
 	@Override
 	public void show()
 	{
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -49,13 +47,12 @@ public class Start implements Screen
 	@Override
 	public void hide()
 	{
-		
+		introScreen.hide();
 	}
 
 	@Override
 	public void dispose()
 	{
-		// TODO Auto-generated method stub
-		
+		introScreen.dispose();
 	}
 }

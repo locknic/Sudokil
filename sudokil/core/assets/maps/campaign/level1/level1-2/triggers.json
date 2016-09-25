@@ -1,7 +1,7 @@
 {
 	entities :
 	[
-		// TIME 2.0 >>> "left.sh" && COPY 'level1-2/stash/left.sh' TO 'filesystem.robot1' && COPY 'level1-2/stash/right.sh' TO 'filesystem.robot1'
+		// TIME 2.0 >>> "left.sh" && COPY 'level1/level1-2/stash/left.sh' TO 'filesystem.robot1' && COPY 'level1/level1-2/stash/right.sh' TO 'filesystem.robot1'
 		[
 			{
 				class : TriggerEntityComponent,
@@ -31,7 +31,7 @@
 							event : 
 							{
 								class : CopyItemBetweenFileSystemsEvent,
-								sourceFileSystem : maps/campaign/level1-2/stash.json,
+								sourceFileSystem : maps/campaign/level1/level1-2/stash.json,
 								targetFileSystem : maps/campaign/level1/filesystems/filesystem.json,
 								sourceItemLocation : "left.sh",
 								targetItemLocation : "/robot1",
@@ -42,7 +42,7 @@
 							event : 
 							{
 								class : CopyItemBetweenFileSystemsEvent,
-								sourceFileSystem : maps/campaign/level1-2/stash.json,
+								sourceFileSystem : maps/campaign/level1/level1-2/stash.json,
 								targetFileSystem : maps/campaign/level1/filesystems/filesystem.json,
 								sourceItemLocation : "right.sh",
 								targetItemLocation : "/robot1",
@@ -102,7 +102,7 @@
 							event : 
 							{
 								class : ChangeMapEvent,
-								newMapLocation : "maps/campaign/level1-3/level.tmx",
+								newMapLocation : "maps/campaign/level1/level1-3/level.tmx",
 							},
 						},
 						{
@@ -110,7 +110,7 @@
 							event : 
 							{
 								class : AddEntitiesEvent,
-								entitiesLocation : "maps/campaign/level1-3/triggers.json",
+								entitiesLocation : "maps/campaign/level1/level1-3/triggers.json",
 							},
 						},		
 						{

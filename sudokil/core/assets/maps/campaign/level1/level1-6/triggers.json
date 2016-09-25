@@ -211,7 +211,7 @@
 							event : 
 							{
 								class : ChangeMapEvent,
-								newMapLocation : "maps/campaign/level1-7/level.tmx",
+								newMapLocation : "maps/campaign/level1/level1-7/level.tmx",
 							},
 						},	
 						{
@@ -219,7 +219,7 @@
 							event : 
 							{
 								class : AddEntitiesEvent,
-								entitiesLocation : "maps/campaign/level1-7/triggers.json",
+								entitiesLocation : "maps/campaign/level1/level1-7/triggers.json",
 							},
 						},
 						{

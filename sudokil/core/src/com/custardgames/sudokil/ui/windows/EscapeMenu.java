@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -16,17 +17,23 @@ import com.custardgames.sudokil.managers.InputManager;
 
 public class EscapeMenu extends Stage
 {
+	private TextButton resumeButton;
+	private TextButton loadButton;
 	private TextButton exitButton;
 
-	private static int WIDTH = 128;
+	private static int WIDTH = 256;
 	private static int HEIGHT = 64;
 
 	private boolean inMenu;
+	
+	private LevelLoaderInterface levelLoaderInterface;
 
 	public EscapeMenu()
 	{
 		InputManager.get_instance().addProcessor(1, this);
-
+		
+		levelLoaderInterface = new LevelLoaderInterface(this);
+		
 		this.getRoot().addCaptureListener(new InputListener()
 		{
 			@Override
@@ -56,10 +63,30 @@ public class EscapeMenu extends Stage
 				return false;
 			}
 		});
+		
+		TextureAtlas skinAtlas = new TextureAtlas("data/uiskin.atlas");
+		Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"), skinAtlas);
+		resumeButton = new TextButton("RESUME", skin, "orange");
+		resumeButton.addListener(new ChangeListener()
+		{
+			@Override
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				hide();
+			}
+		});
+		
+		loadButton = new TextButton("LOAD LEVEL", skin, "orange");
+		loadButton.addListener(new ChangeListener()
+		{
+			@Override
+			public void changed(ChangeEvent event, Actor actor)
+			{
+				levelLoaderInterface.showWindow();
+			}
+		});
 
-		Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
-		exitButton = new TextButton("EXIT", skin);
-		exitButton.setBounds(this.getWidth() / 2 - (WIDTH / 2), this.getHeight() / 2 - (HEIGHT / 2), WIDTH, HEIGHT);
+		exitButton = new TextButton("EXIT", skin, "orange");
 		exitButton.addListener(new ChangeListener()
 		{
 			@Override
@@ -75,12 +102,21 @@ public class EscapeMenu extends Stage
 
 		hide();
 	}
+	
+	@Override
+	public void dispose()
+	{
+		super.dispose();
+		InputManager.get_instance().removeProcessor(this);
+	}
 
 	public void resize(int width, int height)
 	{
 		this.getViewport().setWorldSize(width, height);
 		this.getViewport().update(width, height, true);
-		exitButton.setBounds(this.getWidth() / 2 - (WIDTH / 2), this.getHeight() / 2 - (HEIGHT / 2), WIDTH, HEIGHT);
+		resumeButton.setBounds(this.getWidth() / 2 - (WIDTH / 2), this.getHeight() / 2 - (HEIGHT / 2) + HEIGHT + 10, WIDTH, HEIGHT);
+		loadButton.setBounds(this.getWidth() / 2 - (WIDTH / 2), this.getHeight() / 2 - (HEIGHT / 2), WIDTH, HEIGHT);
+		exitButton.setBounds(this.getWidth() / 2 - (WIDTH / 2), this.getHeight() / 2 - (HEIGHT / 2) - HEIGHT - 10, WIDTH, HEIGHT);
 	}
 
 	public boolean isInMenu()
@@ -92,14 +128,25 @@ public class EscapeMenu extends Stage
 	{
 		Gdx.input.setInputProcessor(this);
 		inMenu = true;
+		resumeButton.setVisible(true);
+		this.addActor(resumeButton);
+		loadButton.setVisible(true);
+		this.addActor(loadButton);
 		exitButton.setVisible(true);
+		this.addActor(exitButton);
 	}
 
 	public void hide()
 	{
 		Gdx.input.setInputProcessor(InputManager.get_instance());
 		inMenu = false;
+		resumeButton.setVisible(true);
+		this.addActor(resumeButton);
+		loadButton.setVisible(false);
+		loadButton.remove();
 		exitButton.setVisible(false);
+		exitButton.remove();
+		levelLoaderInterface.hideWindow();
 	}
 
 	@Override

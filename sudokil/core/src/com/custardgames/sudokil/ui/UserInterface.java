@@ -170,6 +170,7 @@ public class UserInterface extends Stage implements EventListener
 	@Override
 	public void dispose()
 	{
+		InputManager.get_instance().removeProcessor(this);
 		EventManager.get_instance().deregister(ConsoleConnectEvent.class, this);
 		EventManager.get_instance().deregister(CloseCommandLineWindowEvent.class, this);
 		EventManager.get_instance().deregister(ToggleTerminalButtonEvent.class, this);

@@ -1,20 +1,20 @@
 [
 	{
 		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
-		name: level-1,
+		name: level1,
 		fileLocation: maps/campaign/level1/level-data.json,
-		description: test test test,
+		description: "First campaign level. It contains an interactive tutorial that teaches some basic unix commands, and also some basic puzzle elements of the game.",
 	},
 	{
 		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
-		name: level-2,
+		name: level2,
 		fileLocation: maps/campaign/level2/level-data.json,
-		description: test test test,
+		description: "Second campaign level. Robot3 got stuck in the cupboard again, use robot1 and two to get it out. This level contains puzzles elements that will require the skills learnt in the previous level.",
 	},
 	{
 		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
 		name: playground-wireless,
 		fileLocation: maps/playground/wireless/level-data.json,
-		description: test test test,
+		description: "Playground level for testing wireless networking features.",
 	},
 ]

@@ -8,11 +8,11 @@
 	filesystems : 
 	[
 		"maps/campaign/level1/filesystems/stash.json",
-		"maps/campaign/level1-2/stash.json",
-		"maps/campaign/level1-4/stash.json",
-		"maps/campaign/level1-5/stash.json",
-		"maps/campaign/level1-6/computer1.json",
-		"maps/campaign/level1-7/computer2.json",
+		"maps/campaign/level1/level1-2/stash.json",
+		"maps/campaign/level1/level1-4/stash.json",
+		"maps/campaign/level1/level1-5/stash.json",
+		"maps/campaign/level1/level1-6/computer1.json",
+		"maps/campaign/level1/level1-7/computer2.json",
 	],
 	images : 
 	[
