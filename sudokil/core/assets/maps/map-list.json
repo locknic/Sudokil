@@ -1,0 +1,20 @@
+[
+	{
+		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
+		name: level-1,
+		fileLocation: maps/campaign/level1/level-data.json,
+		description: test test test,
+	},
+	{
+		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
+		name: level-2,
+		fileLocation: maps/campaign/level2/level-data.json,
+		description: test test test,
+	},
+	{
+		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
+		name: playground-wireless,
+		fileLocation: maps/playground/wireless/level-data.json,
+		description: test test test,
+	},
+]

@@ -1,7 +1,7 @@
 {
 	entities :
 	[
-		// TIME 0.0 >>> SHOW MAP
+		// TIME 0.0 >>> HIDE MAP && HIDE TERMINAL BUTTON && HIDE DIALOGUE WINDOW
 		[
 			{
 				class : TriggerEntityComponent,
@@ -23,21 +23,129 @@
 					triggerReactions : 
 					[
 						{
-							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Great! Try to apply the skills you've learnt to solve this next puzzle. I won't be helping you this time.",
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ToggleMapRenderEvent,
+								shouldRender : false,
+							}
 						},
 						{
 							class : BroadcastEventReaction,
 							event : 
 							{
-								class : ToggleMapRenderEvent,
-								shouldRender : true,
+								class : ToggleTerminalButtonEvent,
+								buttonVisible : false,
+							}
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ToggleDialogueWindowEvent,
+								open : false,
 							}
 						},
 					]
 				}
 			},
 		],
+		// TIME 1.0 >>> SHOW DIALOGUE WINDOW
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 1,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ToggleDialogueWindowEvent,
+								open : true,
+							}
+						},
+					]
+				}
+			},
+		],
+		// TIME 2.5 >>> "hello"
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 2.5,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Hello, and welcome to your first robot scripting class.",
+						},
+					]
+				}
+			},
+		],
+		// TIME 4.0 >>> SHOW TERMINAL BUTTON
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 4,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ToggleTerminalButtonEvent,
+								buttonVisible : true,
+							}
+						},
+					]
+				}
+			},
+		],
+		// TIME 5.0 >>> "open terminal"
 		[
 			{
 				class : TriggerEntityComponent,
@@ -60,12 +168,13 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: It seems as though robot3 has somehow gotten itself stuck in the utility closet. Help it out!",
+							dialogueMessage : "Rob: Go ahead and open a terminal window.",
 						},
 					]
 				}
 			},
 		],
+		// TERMINAL OPENED >>> TRIGGER1
 		[
 			{
 				class : TriggerEntityComponent,
@@ -74,9 +183,47 @@
 				class : TriggerConditionsComponent,
 				triggerCondition : 
 				{
-					class : TimedTriggerCondition,
+					class : EventHappenedCondition,
 					running : true,
-					duration : 30,
+					className : com.custardgames.sudokil.events.ui.TerminalOpenedEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger1,
+								running : true,
+							},
+						},
+					]
+				}
+			},
+		],
+		// TRIGGER1 > TIME 0.5 >>> "turn on camera"
+		[
+			{
+				class : EntityComponent,
+				id : trigger1
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : false,
+					duration : 0.5,
 				}
 			},
 			{
@@ -88,13 +235,18 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: By the way, you can chain directory navigation commands with '/'. For example if you are in robot1's directory, 'cd ../robot2' will move you to robot2's directory.",
+							dialogueMessage : "Rob: OK. Let's get the camera turned on first of all.",
 						},
 					]
 				}
 			},
 		],
+		// TRIGGER1 > TIME 2.5 >>> "type ls"
 		[
+			{
+				class : EntityComponent,
+				id : trigger1
+			},
 			{
 				class : TriggerEntityComponent,
 			},
@@ -103,8 +255,8 @@
 				triggerCondition : 
 				{
 					class : TimedTriggerCondition,
-					running : true,
-					duration : 60,
+					running : false,
+					duration : 2.5,
 				}
 			},
 			{
@@ -116,13 +268,65 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Remember to use TAB to autocomplete while you're typing.",
+							dialogueMessage : "Rob: Type 'ls' in the terminal to list the files and directories in your current folder.",
 						},
 					]
 				}
 			},
 		],
+		// TRIGGER1 > LIST DIRECTORY >>> TRIGGER2 && *TRIGGER1*
 		[
+			{
+				class : EntityComponent,
+				id : trigger1
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : false,
+					className : com.custardgames.sudokil.events.commandLine.ListDirectoryEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger2,
+								running : true,
+							},
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger1,
+								running : false,
+							},
+						},
+					]
+				}
+			},
+		],
+		// TRIGGER2 > TIME 0.5 >>> "folder called camera"
+		[
+			{
+				class : EntityComponent,
+				id : trigger2
+			},
 			{
 				class : TriggerEntityComponent,
 			},
@@ -131,8 +335,8 @@
 				triggerCondition : 
 				{
 					class : TimedTriggerCondition,
-					running : true,
-					duration : 90,
+					running : false,
+					duration : 0.5,
 				}
 			},
 			{
@@ -144,13 +348,18 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: If you don't know what a script does, try running '-h' behind the script to print out it's usage. For example 'connect.sh -h'.",
+							dialogueMessage : "Rob: We can see that there is a folder called camera.",
 						},
 					]
 				}
 			},
 		],
+		// TRIGGER2 > TIME 3.0 >>> "type cd camera"
 		[
+			{
+				class : EntityComponent,
+				id : trigger2
+			},
 			{
 				class : TriggerEntityComponent,
 			},
@@ -159,8 +368,8 @@
 				triggerCondition : 
 				{
 					class : TimedTriggerCondition,
-					running : true,
-					duration : 120,
+					running : false,
+					duration : 3,
 				}
 			},
 			{
@@ -172,12 +381,497 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Pressing the up or down arrow keys will show you your history of commands.",
+							dialogueMessage : "Rob: Type 'cd camera' to change directory into camera.",
 						},
 					]
 				}
 			},
 		],
+		// TRIGGER2 > CHANGED DIRECTORY (camera) >>> TRIGGER3 && *TRIGGER2* && "type ls again"
+		[
+			{
+				class : EntityComponent,
+				id : trigger2
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : ChangeDirectoryCondition,
+					running : false,
+					triggerDirectory : camera,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger3,
+								running : true,
+							}
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger2,
+								running : false,
+							},
+						},
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Now if you type 'ls' again, you will see all the files inside the camera directory.",
+						},					
+					]
+				}
+			},
+		],
+		// TRIGGER3 > LIST DIRECTORY >>> TRIGGER4 && "type start.sh"
+		[
+			{
+				class : EntityComponent,
+				id : trigger3
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : false,
+					className : com.custardgames.sudokil.events.commandLine.ListDirectoryEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: We want to run the script called start.sh, so go ahead and type 'start.sh'.",
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger4,
+								running : true,
+							}
+						}
+					]
+				}
+			},
+		],
+		// TRIGGER4 > TOGGLE MAP RENDER >>> TRIGGER5 && "map loaded"
+		[
+			{
+				class : EntityComponent,
+				id : trigger4
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : false,
+					className : com.custardgames.sudokil.events.ui.ToggleMapRenderEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger5,
+								running : true,
+							}
+						},
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Fantastic. We now have the map loaded up.",
+						},						
+					]
+				}
+			},
+		],
+		// TRIGGER5 > TIME 2.5 >>> "move camera mouse/arrows"
+		[
+			{
+				class : EntityComponent,
+				id : trigger5
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : false,
+					duration : 2.5,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Move the camera by left clicking and dragging the map, or using the arrow keys.",
+						},
+					]
+				}
+			},
+		],
+		// TRIGGER5 > MAP MOVED >>> TRIGGER6 && *TRIGGER5* && "zoom camera wheel/-+"
+		[
+			{
+				class : EntityComponent,
+				id : trigger5
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : false,
+					className : com.custardgames.sudokil.events.entities.camera.CameraMovedEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Zoom with the mouse wheel, or the +/- keys.",
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger6,
+								running : true,
+							}
+						}
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger5,
+								running : false,
+							},
+						},
+					]
+				}
+			},
+		],
+		// TRIGGER6 > MAP ZOOMED >>> TRIGGER7 && "back to terminal"
+		[
+			{
+				class : EntityComponent,
+				id : trigger6
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : false,
+					className : com.custardgames.sudokil.events.entities.camera.CameraZoomedEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Great, now back to the terminal window.",
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger7,
+								running : true,
+							}
+						}
+					]
+				}
+			},
+		],
+		// TRIGGER7 > TIME 2.5 >>> Dialogue "cd .."
+		[
+			{
+				class : EntityComponent,
+				id : trigger7
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : false,
+					duration : 2.5,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Type 'cd ..' in the terminal window to return to the parent directory of the current directory, which is where we started.",
+						},
+					]
+				}
+			},
+		],
+		// TRIGGER7 > CHANGED DIRECTORY (root) >>> TRIGGER8 && *TRIGGER7* COPY 'stash.robot1' TO 'filesystem.root' && "ls again" && "copied robot1, ls again"
+		[
+		
+			{
+				class : EntityComponent,
+				id : trigger7
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : ChangeDirectoryCondition,
+					running : false,
+					triggerDirectory : pip-boy,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger8,
+								running : true,
+							}
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger7,
+								running : false,
+							},
+						},
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: I've copied the files for robot1 into your directory, so if you 'ls' again, you should see it.",
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : CopyItemBetweenFileSystemsEvent,
+								sourceFileSystem : maps/campaign/level1/filesystems/stash.json,
+								targetFileSystem : maps/campaign/level1/filesystems/filesystem.json,
+								sourceItemLocation : "robot1",
+								targetItemLocation : "/",
+							}
+						},
+					]
+				}
+			},
+		],
+		// TRIGGER8 > LIST DIRECTORY >>> "cd robot1"
+		[
+			{
+				class : EntityComponent,
+				id : trigger8
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : false,
+					className : com.custardgames.sudokil.events.commandLine.ListDirectoryEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: As we did with the camera, type 'cd robot1' to move into the robot1 directory.",
+						},
+					]
+				}
+			},
+		],
+		// TRIGGER8 > CHANGED DIRECTORY (robot1) >>> TRIGGER9 && *TRIGGER8* && "If you 'ls' in this directory, you should see a script called 'forward.sh'. Go ahead and run it by simply typing out 'forward.sh'."
+		[
+			{
+				class : EntityComponent,
+				id : trigger8
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : ChangeDirectoryCondition,
+					running : false,
+					triggerDirectory : robot1,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger9,
+								running : true,
+							}
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger8,
+								running : false,
+							},
+						},
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: If you 'ls' in this directory, you should see a script called 'forward.sh'. Run that script.",
+						},					
+					]
+				}
+			},
+		],
+		// TRIGGER9 > FORWARD EVENT (robot1) >>> TRIGGER10 && "Perfect. Now run 'forward.sh' again to get the robot into the trigger area. If you press the up arrow, it should show you your previous command."
+		[
+			{
+				class : EntityComponent,
+				id : trigger9
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EntityCommandCondition,
+					className : com.custardgames.sudokil.events.entities.commands.ForwardEvent,
+					entityName : robot1,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger10,
+								running : true,
+							}
+						},
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Perfect. Now run 'forward.sh' again to get the robot to the end. If you press the up arrow, it will paste your previous command.",
+						},					
+					]
+				}
+			},
+		],
+		// AREA TRIGGER (robot1) >>> ADD LOAD LEVEL 2 && "left turn"
 		[
 			{
 				class : EntityComponent,
@@ -189,7 +883,7 @@
 			{
 				class : PositionComponent,
 				x : 128,
-				y : 288,
+				y : 64,
 				width : 32,
 				height : 32,
 				angle : 0,
@@ -205,19 +899,12 @@
 				{
 					class : AreaTriggerCondition,
 					running : true,
-					entityID : robot3,
+					entityID : robot1,
 					triggerAreaMinX : 127,
-					triggerAreaMinY : 255,
+					triggerAreaMinY : 63,
 					triggerAreaMaxX : 160,
-					triggerAreaMaxY : 288,
+					triggerAreaMaxY : 96,
 				}
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
-				shouldRender : true,
-				text: ">>> robot3 <<<",
-				deltaX : 0,
-				deltaY : -16
 			},
 			{
 				class : TriggerReactionsComponent,
@@ -230,7 +917,16 @@
 							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
 							event : 
 							{
-								class : com.custardgames.sudokil.events.EndGameEvent,
+								class : ChangeMapEvent,
+								newMapLocation : "maps/campaign/level1-2/level.tmx",
+							},
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : AddEntitiesEvent,
+								entitiesLocation : "maps/campaign/level1-2/triggers.json",
 							},
 						},	
 						{

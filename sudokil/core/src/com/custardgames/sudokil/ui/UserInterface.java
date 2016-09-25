@@ -11,8 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
@@ -24,6 +24,8 @@ import com.custardgames.sudokil.events.ui.ToggleTerminalButtonEvent;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.FileSystemManager;
 import com.custardgames.sudokil.managers.InputManager;
+import com.custardgames.sudokil.ui.windows.CommandLineInterface;
+import com.custardgames.sudokil.ui.windows.DialogueInterface;
 import com.custardgames.sudokil.utils.JsonTags;
 import com.custardgames.sudokil.utils.LevelData;
 
@@ -36,7 +38,7 @@ public class UserInterface extends Stage implements EventListener
 	private ImageButton newTerminalWindow;
 	private DialogueInterface dialogueInterface;
 	private FileSystemManager fileSystemManager;
-
+	
 	public UserInterface(LevelData levelData)
 	{
 		InputManager.get_instance().addProcessor(this);
@@ -59,7 +61,7 @@ public class UserInterface extends Stage implements EventListener
 		maxWindows = 5;
 
 		dialogueInterface = new DialogueInterface(this);
-
+		
 		this.getRoot().addCaptureListener(new InputListener()
 		{
 			@Override

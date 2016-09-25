@@ -1,0 +1,26 @@
+{
+	mapLocation : "maps/campaign/level2/level.tmx",
+	entities : 
+	[
+		"maps/campaign/level2/entities/triggers.json",
+	],
+	playerFilesystem : "maps/campaign/level2/filesystems/filesystem.json",
+	filesystems : 
+	[
+		"maps/campaign/level2/filesystems/computer1.json",
+		"maps/campaign/level2/filesystems/computer2.json",
+	],
+	images : 
+	[
+		"images/player/robot1.png"
+		"images/entities/door-on-1.png",
+		"images/entities/door-on-2.png",
+		"images/entities/door-off.png",
+		"images/entities/computer-off.png",
+		"images/entities/computer-on.png",
+		"images/entities/crate.png",
+		"images/entities/generator.png",
+		"images/entities/wire.png",
+		"images/entities/wire2.png",
+	],
+}

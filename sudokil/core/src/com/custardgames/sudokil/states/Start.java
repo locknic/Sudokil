@@ -1,20 +1,15 @@
 package com.custardgames.sudokil.states;
 
 import com.badlogic.gdx.Screen;
-import com.custardgames.sudokil.Core;
-import com.custardgames.sudokil.Core.Screens;
-import com.custardgames.sudokil.ui.IntroScreen;
+import com.custardgames.sudokil.ui.screens.IntroScreen;
 
 public class Start implements Screen
 {
-	private Core core;
 	private IntroScreen introScreen;
 	
-	public Start(Core core)
+	public Start()
 	{
-		this.core = core;
-		
-		introScreen = new IntroScreen(this);
+		introScreen = new IntroScreen();
 	}
 	
 	@Override
@@ -63,10 +58,4 @@ public class Start implements Screen
 		// TODO Auto-generated method stub
 		
 	}
-	
-	public void startButtonPressed()
-	{
-		core.changeScreen(Screens.PLAY);
-	}
-	
 }

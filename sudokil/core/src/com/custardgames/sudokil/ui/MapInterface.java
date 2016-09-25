@@ -82,6 +82,8 @@ public class MapInterface extends Stage implements EventListener
 		map = new Actor();
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
 		this.addActor(map);
+		
+		shouldRender = true;
 	}
 
 	@Override

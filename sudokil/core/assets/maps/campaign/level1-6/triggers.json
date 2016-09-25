@@ -1,0 +1,239 @@
+{
+	entities :
+	[
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 3,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: robot2 has a script to connect to computer consoles. Move robot2 in front of computer1, face it, and run 'connect.sh'.",
+						},			
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : true,
+					className : com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Now just like the regular directories, use ls and cd to navigate the filesystem of computer 1. Try to turn off the door.",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EventHappenedCondition,
+					running : true,
+					className : com.custardgames.sudokil.events.entities.commands.ToggleEvent,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Great. Type 'exit' to exit out of the computer1 filesystem and return to root.",
+						},
+						{
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : SetTriggerEvent,
+								entityName : trigger6,
+								running : true,
+							}
+						}
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : "trigger_area6",
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : PositionComponent,
+				x : 416,
+				y : 256,
+				width : 32,
+				height : 32,
+				angle : 0,
+			},
+			{
+				class : ShapeRenderableComponent,
+				fill : true,
+				shouldRender : true,
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : "trigger_area6",
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : PositionComponent,
+				x : 352,
+				y : 256,
+				width : 32,
+				height : 32,
+				angle : 0,
+			},
+			{
+				class : ShapeRenderableComponent,
+				fill : true,
+				shouldRender : true,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : OrTriggerConditionArray,
+					triggerConditions : 
+					[
+						{
+							class : AndTriggerConditionArray,
+							triggerConditions : 
+							[
+								{
+									class : AreaTriggerCondition,
+									running : true,
+									entityID : robot1,
+									triggerAreaMinX : 351,
+									triggerAreaMinY : 255,
+									triggerAreaMaxX : 384,
+									triggerAreaMaxY : 288,
+								},
+								{
+									class : AreaTriggerCondition,
+									running : true,
+									entityID : robot2,
+									triggerAreaMinX : 415,
+									triggerAreaMinY : 255,
+									triggerAreaMaxX : 448,
+									triggerAreaMaxY : 288,
+								},
+							]
+						},
+						{
+							class : AndTriggerConditionArray,
+							triggerConditions : 
+							[
+								{
+									class : AreaTriggerCondition,
+									running : true,
+									entityID : robot2,
+									triggerAreaMinX : 351,
+									triggerAreaMinY : 255,
+									triggerAreaMaxX : 384,
+									triggerAreaMaxY : 288,
+								},
+								{
+									class : AreaTriggerCondition,
+									running : true,
+									entityID : robot1,
+									triggerAreaMinX : 415,
+									triggerAreaMinY : 255,
+									triggerAreaMaxX : 448,
+									triggerAreaMaxY : 288,
+								},
+							]
+						},
+					]
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Great. Send the robots over to the next area.",
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : ChangeMapEvent,
+								newMapLocation : "maps/campaign/level1-7/level.tmx",
+							},
+						},	
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : AddEntitiesEvent,
+								entitiesLocation : "maps/campaign/level1-7/triggers.json",
+							},
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : SetShapeRenderEvent,
+								entityID : "trigger_area6",
+								shouldRender : false, 
+							},
+						},						
+					]
+				}
+			},
+		],
+	]
+}

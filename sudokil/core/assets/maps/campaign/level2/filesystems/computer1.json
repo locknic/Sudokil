@@ -1,0 +1,51 @@
+{
+deviceName : computer1,
+name : computer1,
+children: 
+[
+	{
+		class: ItemCLI,
+		name: computer1.dev,
+	},
+	{
+		class: FolderCLI,
+		name: door-bot,
+		children: 
+		[
+			{
+				class: ItemCLI,
+				name: door-bot.dev,
+			},
+			{
+				class: ScriptCLI,
+				name: toggle.sh,
+				usage: "toggle.sh \n\t description: toggles the door between open and closed",
+				event:
+				{
+					class: ToggleEvent
+				}
+			}
+		]
+	},
+	{
+		class: FolderCLI,
+		name: door-mid,
+		children: 
+		[
+			{
+				class: ItemCLI,
+				name: door-mid.dev,
+			},
+			{
+				class: ScriptCLI,
+				name: toggle.sh,
+				usage: "toggle.sh \n\t description: toggles the door between open and closed",
+				event:
+				{
+					class: ToggleEvent
+				}
+			}
+		]
+	}
+]
+}

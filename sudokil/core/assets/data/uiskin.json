@@ -13,6 +13,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 },
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: { down: default-round-down, up: default-round },
+	orange: { down: orange-round-down, up: orange-round },
+	orange: { down: orange-round-down, up: orange-round },
 	toggle: { down: default-round-down, checked: default-round-down, up: default-round }
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
@@ -21,6 +23,7 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	orange-toggle: { down: orange-button-down, up: orange-button-up, checked: default-round-down, font: default-font, fontColor: black }
 	close-toggle: { down: close-button-down, up: close-button-up, checked: close-button-down, font: default-font, fontColor: black }
 	min-toggle: { down: min-button-down, up: min-button-up, checked: min-button-up, font: default-font, fontColor: black }
+	orange: { down: orange-round-down, up: orange-round, font: default-font, fontColor: white },
 },
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 	default: { hScrollKnob: orange-rect, vScrollKnob: orange-rect }
@@ -52,6 +55,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: { font: default-font, fontColor: orange }
 	orange: { font: default-font, fontColor: orange, background: orange }
 	white: { font: default-font, fontColor: white }
+	orange-outlined: { font: default-font, fontColor: orange, background: orange-outline }
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: { selection: selection, font: default-font, fontColor: orange, cursor: orange-rect }
@@ -60,7 +64,7 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 	default: { checkboxOn: check-on, checkboxOff: check-off, font: default-font, fontColor: white }
 },
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
-	default: { fontColorUnselected: white, selection: selection, fontColorSelected: white, font: default-font }
+	default: { background: orange-outline, fontColorUnselected: orange, selection: orange, fontColorSelected: white, font: default-font }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
 	default: { background: default-pane, knob: default-round-large }
