@@ -1,0 +1,6 @@
+
+"I've written the scripts 'lift.sh' and 'lower.sh' for you. Move robot1 up to the crate and run 'lift.sh'."
+
+"Great. You can put the crate down with 'lower.sh'."
+
+"Ah, there's robot2. I've added it to your parent directory. Use 'cd ..' to get there."

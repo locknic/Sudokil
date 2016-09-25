@@ -1,0 +1,8 @@
+"Try running 'forward.sh 3' to see what happens."
+
+"You can check what a script does, along with what parameters it takes by typing '-h' after a command. For example 'forward.sh -h'."
+
+"Before I forget, if you hit TAB while typing, the terminal will try to autocomplete your sentence."
+
+“Next, the purpose is to get the robot to the highlighted area at the end of the room.But oh no! There's a crate in our way now."
+

@@ -1,0 +1,31 @@
+"Hello, and welcome to your first robot scripting class."
+
+"Go ahead and open the terminal window."
+
+"OK, now before we begin let’s get the camera turned on.”
+
+"Type 'ls' in the terminal to list the files and directories in your current folder."
+
+“There is a folder called camera. Type 'cd camera' to change into that directory.”
+
+"Now if you type 'ls' again, you will see all the files inside the camera directory."
+
+"We want to run the script called start.sh, so go ahead and type 'start.sh'."
+
+"Fantastic. We now have the map loaded up."
+
+"Move the camera by left clicking and dragging the map, or using the arrow keys."
+
+"Zoom with the mouse wheel, or the +/- keys."
+
+"Great, now back to the terminal window."
+
+"Type 'cd ..' in the terminal window to return to the parent directory of the current directory, which is where we started."
+
+"I've copied the files for robot1 into your directory, so if you 'ls' again, you should see it."
+
+"As we did with the camera, type 'cd robot1' to move into the robot1 directory."
+
+"If you 'ls' in this directory, you should see a script called 'forward.sh'."
+
+"Perfect. Now run 'forward.sh' again to get the robot to the end. If you press the up arrow, it will paste your previous command."

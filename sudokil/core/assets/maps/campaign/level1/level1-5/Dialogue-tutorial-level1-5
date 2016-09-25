@@ -1,0 +1,8 @@
+Dialogue 
+"If you 'ls' now, you should see robot2 as well."
+
+"Once again, you can use 'cd robot2' to move into the robot2 directory."
+
+"You can also chain directory navigation commands with '/'. For example if you are in robot2, 'cd ../robot1' will move you to robot1's directory."
+
+"We're going to have to open this door somehow.

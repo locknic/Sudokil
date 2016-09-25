@@ -98,7 +98,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: By the way, if you hit TAB while typing, the terminal will try to autocomplete your sentence. Get the robot to the highlighted area at the end of the room.",
+							dialogueMessage : "Rob: Before I forget, if you hit TAB while typing, the terminal will try to autocomplete your sentence.",
 						},					
 					]
 				}
@@ -147,7 +147,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Oh no! There's a crate in our way now.",
+							dialogueMessage : "Rob: Next, the purpose is to get the robot to the highlighted area at the end of the room. But oh no! There's a crate in our way now.",
 						},
 						{
 							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
@@ -163,6 +163,14 @@
 							{
 								class : AddEntitiesEvent,
 								entitiesLocation : "maps/campaign/level1/level1-4/triggers.json",
+							},
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : AddEntitiesEvent,
+								entitiesLocation : "maps/campaign/level1/level1-4/entities.json",
 							},
 						},							
 						{

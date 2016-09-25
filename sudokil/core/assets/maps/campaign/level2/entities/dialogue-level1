@@ -1,0 +1,8 @@
+dialogue
+"By the way, you can chain directory navigation commands with '/'. For example if you are in robot1, '../robot2' will move you to robot2's directory."
+
+"Remember to use TAB to autocomplete while you're typing."
+
+"If you don't know what a script does, try running '-h' behind the script to print out it's usage. For example 'connect.sh -h'."
+
+"Pressing the up or down arrow keys will show you your history of commands."

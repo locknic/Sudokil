@@ -168,7 +168,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Go ahead and open a terminal window.",
+							dialogueMessage : "Rob: Go ahead and open the terminal window.",
 						},
 					]
 				}
@@ -235,7 +235,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: OK. Let's get the camera turned on first of all.",
+							dialogueMessage : "Rob: OK, now before we begin let’s get the camera turned on.",
 						},
 					]
 				}
@@ -348,40 +348,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: We can see that there is a folder called camera.",
-						},
-					]
-				}
-			},
-		],
-		// TRIGGER2 > TIME 3.0 >>> "type cd camera"
-		[
-			{
-				class : EntityComponent,
-				id : trigger2
-			},
-			{
-				class : TriggerEntityComponent,
-			},
-			{
-				class : TriggerConditionsComponent,
-				triggerCondition : 
-				{
-					class : TimedTriggerCondition,
-					running : false,
-					duration : 3,
-				}
-			},
-			{
-				class : TriggerReactionsComponent,
-				triggerReaction :
-				{ 
-					class : TriggerReactionArray,
-					triggerReactions : 
-					[
-						{
-							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Type 'cd camera' to change directory into camera.",
+							dialogueMessage : "Rob: There is a folder called camera. Type 'cd camera' to change into that directory.",
 						},
 					]
 				}
@@ -823,7 +790,7 @@
 						},
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: If you 'ls' in this directory, you should see a script called 'forward.sh'. Run that script.",
+							dialogueMessage : "Rob: If you 'ls' in this directory, you should see a script called 'forward.sh'.",
 						},					
 					]
 				}

@@ -1,0 +1,8 @@
+Dialogue
+"robot2 has a script to connect to computer consoles. Move robot2 in front of computer1, face it, and run 'connect.sh'."
+
+"Now just like the regular directories, use ls and cd to navigate the filesystem of computer 1. Try to turn off the door."
+
+"Great. Type 'exit' to exit out of the computer1 filesystem and return to root."
+
+"Great. Send the robots over to the next area."

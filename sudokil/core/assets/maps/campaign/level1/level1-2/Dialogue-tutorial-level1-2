@@ -1,0 +1,4 @@
+
+"Oh no, a corner! If you hit 'ls', you'll see that I've written the scripts 'left.sh' and 'right.sh' for you. You should be able to get the robot around the corner now.""
+
+“It can be tedious to run the same script consecutively. Some scripts, for instance ‘forward.sh’,  take parameters that can be numbers.”

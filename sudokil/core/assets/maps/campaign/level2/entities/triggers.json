@@ -1,7 +1,6 @@
 {
 	entities :
 	[
-		// TIME 0.0 >>> SHOW MAP
 		[
 			{
 				class : TriggerEntityComponent,
@@ -12,7 +11,7 @@
 				{
 					class : TimedTriggerCondition,
 					running : true,
-					duration : 0,
+					duration : 20,
 				}
 			},
 			{
@@ -24,71 +23,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Great! Try to apply the skills you've learnt to solve this next puzzle. I won't be helping you this time.",
-						},
-						{
-							class : BroadcastEventReaction,
-							event : 
-							{
-								class : ToggleMapRenderEvent,
-								shouldRender : true,
-							}
-						},
-					]
-				}
-			},
-		],
-		[
-			{
-				class : TriggerEntityComponent,
-			},
-			{
-				class : TriggerConditionsComponent,
-				triggerCondition : 
-				{
-					class : TimedTriggerCondition,
-					running : true,
-					duration : 5,
-				}
-			},
-			{
-				class : TriggerReactionsComponent,
-				triggerReaction :
-				{ 
-					class : TriggerReactionArray,
-					triggerReactions : 
-					[
-						{
-							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: It seems as though robot3 has somehow gotten itself stuck in the utility closet. Help it out!",
-						},
-					]
-				}
-			},
-		],
-		[
-			{
-				class : TriggerEntityComponent,
-			},
-			{
-				class : TriggerConditionsComponent,
-				triggerCondition : 
-				{
-					class : TimedTriggerCondition,
-					running : true,
-					duration : 30,
-				}
-			},
-			{
-				class : TriggerReactionsComponent,
-				triggerReaction :
-				{ 
-					class : TriggerReactionArray,
-					triggerReactions : 
-					[
-						{
-							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: By the way, you can chain directory navigation commands with '/'. For example if you are in robot1's directory, 'cd ../robot2' will move you to robot2's directory.",
+							dialogueMessage : "Rob: By the way, you can chain directory navigation commands with '/'. For example if you are in robot1, '../robot2' will move you to robot2's directory.",
 						},
 					]
 				}
@@ -189,7 +124,7 @@
 			{
 				class : PositionComponent,
 				x : 128,
-				y : 288,
+				y : 224,
 				width : 32,
 				height : 32,
 				angle : 0,
@@ -207,9 +142,9 @@
 					running : true,
 					entityID : robot3,
 					triggerAreaMinX : 127,
-					triggerAreaMinY : 255,
+					triggerAreaMinY : 223,
 					triggerAreaMaxX : 160,
-					triggerAreaMaxY : 288,
+					triggerAreaMaxY : 256,
 				}
 			},
 			{

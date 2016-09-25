@@ -1,7 +1,7 @@
 {
 	entities :
 	[
-		// TIME 2.0 >>> "left.sh" && COPY 'level1/level1-2/stash/left.sh' TO 'filesystem.robot1' && COPY 'level1/level1-2/stash/right.sh' TO 'filesystem.robot1'
+		// TIME 2.0 >>> "left.sh" && COPY 'level1-2/stash/left.sh' TO 'filesystem.robot1' && COPY 'level1-2/stash/right.sh' TO 'filesystem.robot1'
 		[
 			{
 				class : TriggerEntityComponent,
@@ -95,7 +95,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Sometimes it can be tedious to repeatedly run the same script. Some scripts take parameters. For example, 'forward.sh' can take a distance as a parameter.",
+							dialogueMessage : "Rob: “It can be tedious to run the same script consecutively. Some scripts, for instance ‘forward.sh’, take parameters that can be numbers.",
 						},
 						{
 							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,

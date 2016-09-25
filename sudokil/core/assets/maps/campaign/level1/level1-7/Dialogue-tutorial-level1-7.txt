@@ -1,0 +1,4 @@
+Dialogue 
+"The computer here isn't powered. Use robot1 to move the generator so that it is connected with the computer's cables."
+
+"Great! Try to apply the skills you've learnt to solve this puzzle. I won't be helping you this time."
