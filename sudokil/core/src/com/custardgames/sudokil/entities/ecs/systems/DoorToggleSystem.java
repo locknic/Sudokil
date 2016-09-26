@@ -11,23 +11,25 @@ import com.custardgames.sudokil.entities.ecs.components.BlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.DoorGroupComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
-import com.custardgames.sudokil.entities.ecs.processes.DoorToggleProcess;
+import com.custardgames.sudokil.entities.ecs.components.current.CurrentConsumerComponent;
+import com.custardgames.sudokil.entities.ecs.processes.DoorOffProcess;
+import com.custardgames.sudokil.entities.ecs.processes.DoorOnProcess;
 import com.custardgames.sudokil.events.PingEntityEvent;
+import com.custardgames.sudokil.events.entities.CurrentStorageEvent;
 import com.custardgames.sudokil.events.entities.ProcessEvent;
-import com.custardgames.sudokil.events.entities.commands.ToggleEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class DoorToggleSystem extends EntityProcessingSystem implements EventListener
 {
-	private ComponentMapper<EntityComponent> entityComponents;
 	private ComponentMapper<DoorGroupComponent> doorGroupComponents;
+	private ComponentMapper<CurrentConsumerComponent> currentConsumerComponents;
 
 	@SuppressWarnings("unchecked")
 	public DoorToggleSystem()
 	{
 		super(Aspect.all(EntityComponent.class, DoorGroupComponent.class, SpriteComponent.class, BlockingComponent.class));
 
-		EventManager.get_instance().register(ToggleEvent.class, this);
+		EventManager.get_instance().register(CurrentStorageEvent.class, this);
 	}
 
 	@Override
@@ -35,7 +37,7 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 	{
 		super.dispose();
 
-		EventManager.get_instance().deregister(ToggleEvent.class, this);
+		EventManager.get_instance().deregister(CurrentStorageEvent.class, this);
 	}
 
 	@Override
@@ -50,42 +52,62 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 
 	}
 
-	private void toggleDoor(Entity entity)
+	private void turnOffDoor(Entity entity)
 	{
 		DoorGroupComponent doorGroupComponent = doorGroupComponents.get(entity);
 
-		if (doorGroupComponent.getDoorTilesEntities().size <= 0)
+		for (String doorName : doorGroupComponent.getDoorTiles())
 		{
-			for (String doorName : doorGroupComponent.getDoorTiles())
-			{
-				PingEntityEvent event = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(doorName));
+			PingEntityEvent event = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(doorName));
 
-				if (event != null && event instanceof PingEntityEvent)
+			if (event != null && event instanceof PingEntityEvent)
+			{
+				Entity doorTile = event.getEntity();
+				if (doorTile != null)
 				{
-					Entity doorTile = event.getEntity();
-					if (doorTile != null)
-					{
-						DoorToggleProcess doorToggleProcess = new DoorToggleProcess(doorTile);
-						EventManager.get_instance().broadcast(new ProcessEvent(entity, doorToggleProcess));
-					}
+					DoorOffProcess doorOffProcess = new DoorOffProcess(doorTile);
+					EventManager.get_instance().broadcast(new ProcessEvent(entity, doorOffProcess));
 				}
 			}
 		}
-
-		DoorToggleProcess doorToggleProcess = new DoorToggleProcess(entity);
-		EventManager.get_instance().broadcast(new ProcessEvent(entity, doorToggleProcess));
 	}
 
-	public void handleToggleEvent(ToggleEvent event)
+	private void turnOnDoor(Entity entity)
+	{
+		DoorGroupComponent doorGroupComponent = doorGroupComponents.get(entity);
+
+		for (String doorName : doorGroupComponent.getDoorTiles())
+		{
+			PingEntityEvent event = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(doorName));
+
+			if (event != null && event instanceof PingEntityEvent)
+			{
+				Entity doorTile = event.getEntity();
+				if (doorTile != null)
+				{
+					DoorOnProcess doorOnProcess = new DoorOnProcess(doorTile);
+					EventManager.get_instance().broadcast(new ProcessEvent(entity, doorOnProcess));
+				}
+			}
+		}
+	}
+
+	public void handleCurrentStorageEvent(CurrentStorageEvent event)
 	{
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
 		{
-			EntityComponent entityComponent = entityComponents.get(entity);
-			String entityID = entityComponent.getId();
-			if (event.getEntityName().equals(entityID))
+			if (event.getEntity().getId() == entity.getId())
 			{
-				toggleDoor(entity);
+				CurrentConsumerComponent currentConsumerComponent = currentConsumerComponents.get(entity);
+				if (currentConsumerComponent.isHasCurrent())
+				{
+					turnOffDoor(entity);
+				}
+				else
+				{
+					turnOnDoor(entity);
+				}
 			}
 		}
 	}

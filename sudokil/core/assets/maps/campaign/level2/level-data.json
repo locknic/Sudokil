@@ -13,6 +13,7 @@
 	images : 
 	[
 		"images/player/robot1.png"
+		"images/entities/door-metal-control.png",
 		"images/entities/door-on-1.png",
 		"images/entities/door-on-2.png",
 		"images/entities/door-off.png",
@@ -22,5 +23,6 @@
 		"images/entities/generator.png",
 		"images/entities/wire.png",
 		"images/entities/wire2.png",
+		"images/entities/wire3.png",
 	],
 }

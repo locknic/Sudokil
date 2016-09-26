@@ -76,6 +76,26 @@
 		{
 			name : PowerGeneratorComponent,
 			className : com.custardgames.sudokil.entities.ecs.components.PowerGeneratorComponent,
+		}, 
+		{
+			name : CurrentInputComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.current.CurrentInputComponent,
+		},
+		{
+			name : CurrentOutputComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.current.CurrentOutputComponent,
+		},
+		{
+			name : CurrentConsumerComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.current.CurrentConsumerComponent,
+		},
+		{
+			name : CurrentGeneratorComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.current.CurrentGeneratorComponent,
+		},
+		{
+			name : CurrentToggleComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.current.CurrentToggleComponent,
 		},
 		{
 			name : ConnectableComponent,

@@ -24,6 +24,8 @@ import com.custardgames.sudokil.entities.ecs.systems.ActivityBlockingSystem;
 import com.custardgames.sudokil.entities.ecs.systems.ActivitySpriteSystem;
 import com.custardgames.sudokil.entities.ecs.systems.CameraMovementSystem;
 import com.custardgames.sudokil.entities.ecs.systems.CharacterMovementSystem;
+import com.custardgames.sudokil.entities.ecs.systems.CurrentConsumptionSystem;
+import com.custardgames.sudokil.entities.ecs.systems.CurrentToggleSystem;
 import com.custardgames.sudokil.entities.ecs.systems.DoorToggleSystem;
 import com.custardgames.sudokil.entities.ecs.systems.EntityLocatorSystem;
 import com.custardgames.sudokil.entities.ecs.systems.EventTriggerSystem;
@@ -41,6 +43,7 @@ import com.custardgames.sudokil.entities.ecs.systems.rendering.SpriteRenderSyste
 import com.custardgames.sudokil.entities.ecs.systems.rendering.TextRenderSystem;
 import com.custardgames.sudokil.events.AddEntitiesEvent;
 import com.custardgames.sudokil.events.DisposeWorldEvent;
+import com.custardgames.sudokil.events.MapEntitiesLoadedEvent;
 import com.custardgames.sudokil.events.entities.CreateEntityBox2DBodyEvent;
 import com.custardgames.sudokil.events.entities.CreateEntityEvent;
 import com.custardgames.sudokil.events.entities.CreateEntityLightEvent;
@@ -69,12 +72,11 @@ public class ArtemisWorldManager implements EventListener
 		textRenderSystem = new TextRenderSystem();
 		consoleHighlightRenderSystem = new ConsoleHighlightRenderSystem();
 
-		WorldConfiguration config = new WorldConfigurationBuilder()
-				.with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, consoleHighlightRenderSystem, new CharacterMovementSystem(),
-						new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(),
-						new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(),
-						new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem(), new NetworkSystem(), new NetworksConnectedSystem())
-				.build().register(camera).register(assetManager);
+		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, consoleHighlightRenderSystem,
+				new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(),
+				new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(),
+				new PowerConsumptionSystem(), new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem(), new NetworkSystem(),
+				new NetworksConnectedSystem(), new CurrentConsumptionSystem(), new CurrentToggleSystem()).build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
 
 		loadLevelData(levelData);
@@ -84,6 +86,7 @@ public class ArtemisWorldManager implements EventListener
 	{
 		EntityHolder entities = EntityMapLoader.createEntityHolderJsonFromMap(map);
 		createEntitiesFromFactory(entities);
+		EventManager.get_instance().broadcast(new MapEntitiesLoadedEvent());
 	}
 
 	public void loadLevelData(LevelData levelData)
