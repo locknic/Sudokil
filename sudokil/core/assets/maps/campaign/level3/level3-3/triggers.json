@@ -1,0 +1,124 @@
+{
+	entities :
+	[
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 2,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: We can connect wifi adapters to our computers by placing them directly adjacent to them, or connecting them through a cable. Connect to computer6.",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : EntityCommandCondition,
+					running : true,
+					className : com.custardgames.sudokil.events.entities.commands.LowerEvent,
+					entityName : robot1,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Now if you ifconfig while in computer 6, you can see that it is actually connected to two networks. ssh into computer7 and move robot2 to the end!",
+						},					
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : "trigger_area3",
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : PositionComponent,
+				x : 736,
+				y : 256,
+				width : 96,
+				height : 32,
+				angle : 0,
+			},
+			{
+				class : ShapeRenderableComponent,
+				fill : true,
+				shouldRender : true,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : AreaTriggerCondition,
+					running : true,
+					entityID : robot2,
+					triggerAreaMinX : 735,
+					triggerAreaMinY : 255,
+					triggerAreaMaxX : 832,
+					triggerAreaMaxY : 288,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : com.custardgames.sudokil.events.ChangeLevelEvent,
+								levelDataLocation : "maps/campaign/leve4/level-data.json",
+							}
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : SetShapeRenderEvent,
+								entityID : "trigger_area3",
+								shouldRender : false, 
+							},
+						},						
+					]
+				}
+			},
+		],
+	]
+}

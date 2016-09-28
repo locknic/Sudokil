@@ -7,6 +7,11 @@
 	filesystems : 
 	[
 		"maps/playground/wireless/filesystems/computer1.json",
+		"maps/playground/wireless/filesystems/computer2.json",
+		"maps/playground/wireless/filesystems/computer3.json",
+		"maps/playground/wireless/filesystems/computer4.json",
+		"maps/playground/wireless/filesystems/computer5.json",
+		"maps/playground/wireless/filesystems/computer6.json",
 	],
 	images : 
 	[

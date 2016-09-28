@@ -1,6 +1,7 @@
 {
 	entities :
 	[
+		// TIME 1.0 >>> SHOW DIALOGUE WINDOW
 		[
 			{
 				class : TriggerEntityComponent,
@@ -22,8 +23,12 @@
 					triggerReactions : 
 					[
 						{
-							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Oh dear, robot3 has gotten itself stuck in the utilities cupboard. Help it get out! Try to apply the skills you've in the previous level to solve this puzzle. I won't be helping you this time.",
+							class : BroadcastEventReaction,
+							event : 
+							{
+								class : ToggleDialogueWindowEvent,
+								open : true,
+							}
 						},
 					]
 				}
@@ -39,7 +44,7 @@
 				{
 					class : TimedTriggerCondition,
 					running : true,
-					duration : 20,
+					duration : 5,
 				}
 			},
 			{
@@ -51,7 +56,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: By the way, you can chain directory navigation commands with '/'. For example if you are in robot1, '../robot2' will move you to robot2's directory.",
+							dialogueMessage : "Rob: Sometimes, you won't be able to access devices like doors from terminals immediately available to you. Connect to computer1 and open the first door.",
 						},
 					]
 				}
@@ -65,9 +70,10 @@
 				class : TriggerConditionsComponent,
 				triggerCondition : 
 				{
-					class : TimedTriggerCondition,
+					class : EntityCommandCondition,
 					running : true,
-					duration : 60,
+					className : com.custardgames.sudokil.events.entities.commands.ToggleEvent,
+					entityName : door1,
 				}
 			},
 			{
@@ -79,8 +85,8 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Remember to use TAB to autocomplete while you're typing.",
-						},
+							dialogueMessage : "Rob: If you look closely, you can see that computer1 is wired up to computer2. Type in 'ifconfig' while in computer1 to see the devices it is connected to.",
+						},					
 					]
 				}
 			},
@@ -93,9 +99,9 @@
 				class : TriggerConditionsComponent,
 				triggerCondition : 
 				{
-					class : TimedTriggerCondition,
+					class : EventHappenedCondition,
 					running : true,
-					duration : 90,
+					className : com.custardgames.sudokil.events.commandLine.device.IfconfigEvent,
 				}
 			},
 			{
@@ -107,8 +113,8 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: If you don't know what a script does, try running '-h' behind the script to print out it's usage. For example 'connect.sh -h'.",
-						},
+							dialogueMessage : "Rob: You can use the command 'ssh' to connect to devices over a network. Run 'ssh computer2' to connect to it, and open the next door.",
+						},					
 					]
 				}
 			},
@@ -121,9 +127,10 @@
 				class : TriggerConditionsComponent,
 				triggerCondition : 
 				{
-					class : TimedTriggerCondition,
+					class : EntityCommandCondition,
 					running : true,
-					duration : 120,
+					className : com.custardgames.sudokil.events.entities.commands.ToggleEvent,
+					entityName : door2,
 				}
 			},
 			{
@@ -135,8 +142,8 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Pressing the up or down arrow keys will show you your history of commands.",
-						},
+							dialogueMessage : "Rob: Similar to connecting to a terminal with a robot, you can use 'exit' to quit out of the ssh connection. Move robot1 over to the next area.",
+						},					
 					]
 				}
 			},
@@ -151,10 +158,10 @@
 			},
 			{
 				class : PositionComponent,
-				x : 128,
-				y : 224,
+				x : 288,
+				y : 128,
 				width : 32,
-				height : 32,
+				height : 96,
 				angle : 0,
 			},
 			{
@@ -168,19 +175,12 @@
 				{
 					class : AreaTriggerCondition,
 					running : true,
-					entityID : robot3,
-					triggerAreaMinX : 127,
-					triggerAreaMinY : 223,
-					triggerAreaMaxX : 160,
-					triggerAreaMaxY : 256,
+					entityID : robot1,
+					triggerAreaMinX : 287,
+					triggerAreaMinY : 127,
+					triggerAreaMaxX : 320,
+					triggerAreaMaxY : 224,
 				}
-			},
-			{
-				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
-				shouldRender : true,
-				text: ">>> robot3 <<<",
-				deltaX : 0,
-				deltaY : -16
 			},
 			{
 				class : TriggerReactionsComponent,
@@ -193,10 +193,18 @@
 							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
 							event : 
 							{
-								class : com.custardgames.sudokil.events.ChangeLevelEvent,
-								levelDataLocation : "maps/campaign/leve3/level-data.json",
-							}
+								class : ChangeMapEvent,
+								newMapLocation : "maps/campaign/level3/level3-2/level.tmx",
+							},
 						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : AddEntitiesEvent,
+								entitiesLocation : "maps/campaign/level3/level3-2/triggers.json",
+							},
+						},	
 						{
 							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
 							event : 

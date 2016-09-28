@@ -1,0 +1,103 @@
+{
+	entities :
+	[
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 2,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: It is also possible for devices to connect over a wireless network. This works exactly the same as a wired ethernet connection. Use 'ifconfig' and 'ssh' to open the next two doors",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : "trigger_area2",
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : PositionComponent,
+				x : 512,
+				y : 128,
+				width : 32,
+				height : 96,
+				angle : 0,
+			},
+			{
+				class : ShapeRenderableComponent,
+				fill : true,
+				shouldRender : true,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : AreaTriggerCondition,
+					running : true,
+					entityID : robot1,
+					triggerAreaMinX : 511,
+					triggerAreaMinY : 127,
+					triggerAreaMaxX : 544,
+					triggerAreaMaxY : 224,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : ChangeMapEvent,
+								newMapLocation : "maps/campaign/level3/level3-3/level.tmx",
+							},
+						},
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : AddEntitiesEvent,
+								entitiesLocation : "maps/campaign/level3/level3-3/triggers.json",
+							},
+						},	
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : SetShapeRenderEvent,
+								entityID : "trigger_area2",
+								shouldRender : false, 
+							},
+						},						
+					]
+				}
+			},
+		],
+	]
+}

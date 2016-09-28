@@ -1,0 +1,101 @@
+{
+	entities :
+	[
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 2,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Let's see if you can figure this one out.",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : EntityComponent,
+				id : "trigger_area1",
+			},
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : PositionComponent,
+				x : 384,
+				y : 160,
+				width : 96,
+				height : 160,
+				angle : 0,
+			},
+			{
+				class : ShapeRenderableComponent,
+				fill : true,
+				shouldRender : true,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : AreaTriggerCondition,
+					running : true,
+					entityID : robot1,
+					triggerAreaMinX : 383,
+					triggerAreaMinY : 159,
+					triggerAreaMaxX : 600,
+					triggerAreaMaxY : 320,
+				}
+			},
+			{
+				class : com.custardgames.sudokil.entities.ecs.components.TextTagComponent,
+				shouldRender : true,
+				text: ">>> robot1 <<<",
+				deltaX : 0,
+				deltaY : -16
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : com.custardgames.sudokil.events.EndGameEvent,
+							},
+						},		
+						{
+							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
+							event : 
+							{
+								class : SetShapeRenderEvent,
+								entityID : "trigger_area1",
+								shouldRender : false, 
+							},
+						},						
+					]
+				}
+			},
+		],
+	]
+}

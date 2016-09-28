@@ -1,0 +1,11 @@
+{
+deviceName : computer5,
+name : computer5,
+children: 
+[
+	{
+		class: ItemCLI,
+		name: computer5.dev,
+	},
+]
+}

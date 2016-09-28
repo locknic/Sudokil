@@ -437,16 +437,16 @@
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.activated" type="bool" value="true"/>
     <property name="PowerInputComponent.centre" type="bool" value="true"/>
-    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="false"/>
     <property name="PowerInputComponent.left" type="bool" value="true"/>
-    <property name="PowerInputComponent.right" type="bool" value="true"/>
+    <property name="PowerInputComponent.right" type="bool" value="false"/>
     <property name="PowerInputComponent.up" type="bool" value="true"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
     <property name="PowerOutputComponent.activated" type="bool" value="true"/>
     <property name="PowerOutputComponent.centre" type="bool" value="true"/>
-    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="false"/>
     <property name="PowerOutputComponent.left" type="bool" value="true"/>
-    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="false"/>
     <property name="PowerOutputComponent.up" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.spriteLocation" value="images/entities/wire2.png"/>
@@ -469,17 +469,17 @@
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.activated" type="bool" value="true"/>
     <property name="PowerInputComponent.centre" type="bool" value="true"/>
-    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="false"/>
     <property name="PowerInputComponent.left" type="bool" value="true"/>
     <property name="PowerInputComponent.right" type="bool" value="true"/>
-    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
     <property name="PowerOutputComponent.activated" type="bool" value="true"/>
     <property name="PowerOutputComponent.centre" type="bool" value="true"/>
-    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="false"/>
     <property name="PowerOutputComponent.left" type="bool" value="true"/>
     <property name="PowerOutputComponent.right" type="bool" value="true"/>
-    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.spriteLocation" value="images/entities/wire.png"/>
     <property name="SpriteComponent.zOrder" type="float" value="45"/>
@@ -501,17 +501,17 @@
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.activated" type="bool" value="true"/>
     <property name="PowerInputComponent.centre" type="bool" value="true"/>
-    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="false"/>
     <property name="PowerInputComponent.left" type="bool" value="true"/>
     <property name="PowerInputComponent.right" type="bool" value="true"/>
-    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
     <property name="PowerOutputComponent.activated" type="bool" value="true"/>
     <property name="PowerOutputComponent.centre" type="bool" value="true"/>
-    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="false"/>
     <property name="PowerOutputComponent.left" type="bool" value="true"/>
     <property name="PowerOutputComponent.right" type="bool" value="true"/>
-    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.spriteLocation" value="images/entities/wire.png"/>
     <property name="SpriteComponent.zOrder" type="float" value="45"/>
@@ -533,17 +533,17 @@
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.activated" type="bool" value="true"/>
     <property name="PowerInputComponent.centre" type="bool" value="true"/>
-    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="false"/>
     <property name="PowerInputComponent.left" type="bool" value="true"/>
     <property name="PowerInputComponent.right" type="bool" value="true"/>
-    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
     <property name="PowerOutputComponent.activated" type="bool" value="true"/>
     <property name="PowerOutputComponent.centre" type="bool" value="true"/>
-    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="false"/>
     <property name="PowerOutputComponent.left" type="bool" value="true"/>
     <property name="PowerOutputComponent.right" type="bool" value="true"/>
-    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.spriteLocation" value="images/entities/wire.png"/>
     <property name="SpriteComponent.zOrder" type="float" value="45"/>

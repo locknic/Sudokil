@@ -13,6 +13,18 @@
 	},
 	{
 		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
+		name: level3,
+		fileLocation: maps/campaign/level3/level-data.json,
+		description: "Third campaign level. Contains an interactive tutorial covering some of the basics of wired and wireless network connections.",
+	},
+	{
+		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
+		name: level4,
+		fileLocation: maps/campaign/level4/level-data.json,
+		description: "Fourth campaign level. Difficulty starts to ramp up here! You need to use networked connections to solve puzzles. NOTE: This level is very unpolished and is still being worked on as just a concept.",
+	},
+	{
+		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
 		name: playground-power-wires,
 		fileLocation: maps/playground/power-wires/level-data.json,
 		description: "Playground level for testing power moving through wires.",
