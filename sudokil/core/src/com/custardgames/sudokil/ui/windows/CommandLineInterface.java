@@ -96,6 +96,7 @@ public class CommandLineInterface implements EventListener
 		cld.textHistory = textTest;
 		consoleArrow.setText(cld.parser.getInputPrefix());
 		consoleDialog.setText(cld.textHistory);
+		this.setKeyboardFocus();
 	}
 
 	public void createWindow()
