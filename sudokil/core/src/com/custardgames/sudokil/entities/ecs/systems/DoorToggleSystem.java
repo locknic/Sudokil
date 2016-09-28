@@ -10,24 +10,28 @@ import com.artemis.utils.ImmutableBag;
 import com.custardgames.sudokil.entities.ecs.components.BlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.DoorGroupComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
+import com.custardgames.sudokil.entities.ecs.components.ProcessQueueComponent;
 import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
 import com.custardgames.sudokil.entities.ecs.components.current.CurrentConsumerComponent;
 import com.custardgames.sudokil.entities.ecs.processes.DoorOffProcess;
 import com.custardgames.sudokil.entities.ecs.processes.DoorOnProcess;
+import com.custardgames.sudokil.entities.ecs.processes.EntityProcessQueue;
 import com.custardgames.sudokil.events.PingEntityEvent;
 import com.custardgames.sudokil.events.entities.CurrentStorageEvent;
 import com.custardgames.sudokil.events.entities.ProcessEvent;
+import com.custardgames.sudokil.events.entities.map.PingCellEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class DoorToggleSystem extends EntityProcessingSystem implements EventListener
 {
 	private ComponentMapper<DoorGroupComponent> doorGroupComponents;
 	private ComponentMapper<CurrentConsumerComponent> currentConsumerComponents;
+	private ComponentMapper<ProcessQueueComponent> processQueueComponents;
 
 	@SuppressWarnings("unchecked")
 	public DoorToggleSystem()
 	{
-		super(Aspect.all(EntityComponent.class, DoorGroupComponent.class, SpriteComponent.class, BlockingComponent.class));
+		super(Aspect.all(EntityComponent.class, DoorGroupComponent.class, SpriteComponent.class, BlockingComponent.class, ProcessQueueComponent.class));
 
 		EventManager.get_instance().register(CurrentStorageEvent.class, this);
 	}
@@ -51,11 +55,27 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 	{
 
 	}
-
+	
 	private void turnOffDoor(Entity entity)
 	{
-		DoorGroupComponent doorGroupComponent = doorGroupComponents.get(entity);
+		ProcessQueueComponent processQueueComponent = processQueueComponents.get(entity);
+		processQueueComponent.clearQueue();
+		EventManager.get_instance().broadcast(new ProcessEvent(entity, getDoorOffProcesses(entity)));
+	}
 
+	private void turnOnDoor(Entity entity)
+	{
+		ProcessQueueComponent processQueueComponent = entity.getComponent(ProcessQueueComponent.class);
+		processQueueComponent.clearQueue();
+		EventManager.get_instance().broadcast(new ProcessEvent(entity, getDoorOnProcesses(entity)));
+	}
+	
+	private EntityProcessQueue getDoorOffProcesses(Entity entity)
+	{
+		DoorGroupComponent doorGroupComponent = doorGroupComponents.get(entity);
+		EntityProcessQueue entityProcessQueue = new EntityProcessQueue(entity);
+		
+		doorGroupComponent.getDoorTiles().reverse();
 		for (String doorName : doorGroupComponent.getDoorTiles())
 		{
 			PingEntityEvent event = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(doorName));
@@ -66,16 +86,19 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 				if (doorTile != null)
 				{
 					DoorOffProcess doorOffProcess = new DoorOffProcess(doorTile);
-					EventManager.get_instance().broadcast(new ProcessEvent(entity, doorOffProcess));
+					entityProcessQueue.addToQueue(doorOffProcess);
 				}
 			}
 		}
+		doorGroupComponent.getDoorTiles().reverse();
+		return entityProcessQueue;
 	}
-
-	private void turnOnDoor(Entity entity)
+	
+	private EntityProcessQueue getDoorOnProcesses(Entity entity)
 	{
 		DoorGroupComponent doorGroupComponent = doorGroupComponents.get(entity);
-
+		EntityProcessQueue entityProcessQueue = new EntityProcessQueue(entity);
+		boolean blocked = false;
 		for (String doorName : doorGroupComponent.getDoorTiles())
 		{
 			PingEntityEvent event = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(doorName));
@@ -85,11 +108,24 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 				Entity doorTile = event.getEntity();
 				if (doorTile != null)
 				{
+					PingCellEvent cellEvent = (PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(doorTile, 0, 0));
+					if (cellEvent!= null && cellEvent.getCellEntity() != null && cellEvent.getCellEntity() != doorTile)
+					{
+						blocked = true; 
+						break;
+					}
+					
 					DoorOnProcess doorOnProcess = new DoorOnProcess(doorTile);
-					EventManager.get_instance().broadcast(new ProcessEvent(entity, doorOnProcess));
+					entityProcessQueue.addToQueue(doorOnProcess);
 				}
 			}
 		}
+		
+		if (blocked)
+		{
+			entityProcessQueue.addAllToQueue(getDoorOffProcesses(entity).getQueue());
+		}
+		return entityProcessQueue;
 	}
 
 	public void handleCurrentStorageEvent(CurrentStorageEvent event)

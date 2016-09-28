@@ -358,11 +358,13 @@ public class MapInterface extends Stage implements EventListener
 		jsonTags.addTags(json);
 		LevelData levelData = json.fromJson(LevelData.class, Gdx.files.internal(event.getLevelDataLocation()));
 		changeLevel(levelData);
+		this.shouldRender = true;
 	}
 
 	public void handleChangeMap(ChangeMapEvent event)
 	{
 		changeMap(event.getNewMapLocation());
+		this.shouldRender = true;
 	}
 
 }

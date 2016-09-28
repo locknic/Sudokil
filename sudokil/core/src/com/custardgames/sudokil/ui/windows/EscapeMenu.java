@@ -123,7 +123,7 @@ public class EscapeMenu extends Stage
 	{
 		return inMenu;
 	}
-
+	
 	public void show()
 	{
 		Gdx.input.setInputProcessor(this);

@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.custardgames.sudokil.events.ChangeLevelEvent;
 import com.custardgames.sudokil.events.commandLine.DialogueEvent;
 import com.custardgames.sudokil.events.ui.ToggleDialogueWindowEvent;
 import com.custardgames.sudokil.managers.EventManager;
@@ -46,6 +47,7 @@ public class DialogueInterface implements EventListener
 	{
 		EventManager.get_instance().register(DialogueEvent.class, this);
 		EventManager.get_instance().register(ToggleDialogueWindowEvent.class, this);
+		EventManager.get_instance().register(ChangeLevelEvent.class, this);
 		this.stage = stage;
 		createWindow();
 	}
@@ -53,6 +55,7 @@ public class DialogueInterface implements EventListener
 	public void dispose()
 	{
 		EventManager.get_instance().deregister(DialogueEvent.class, this);
+		EventManager.get_instance().deregister(ToggleDialogueWindowEvent.class, this);
 	}
 
 	public void createWindow()
@@ -115,6 +118,16 @@ public class DialogueInterface implements EventListener
 		});
 		stage.addActor(dialogueWindowButton);
 
+		hideWindow();
+	}
+	
+	public void reset()
+	{
+		scrollTable.reset();
+		consoleDialog.setText("Connecting... Connection successful");
+		scrollTable.top();
+		scrollTable.add(consoleDialog).expandX().fill().left().top();
+		scrollTable.row();
 		hideWindow();
 	}
 
@@ -224,5 +237,10 @@ public class DialogueInterface implements EventListener
 		{
 			hideWindow();
 		}
+	}
+	
+	public void handleChangeLevel(ChangeLevelEvent event)
+	{
+		reset();
 	}
 }

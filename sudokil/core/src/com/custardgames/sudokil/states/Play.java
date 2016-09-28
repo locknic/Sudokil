@@ -40,6 +40,8 @@ public class Play implements Screen
 		escapeMenu = new EscapeMenu();
 		endScreen = new EndScreen();
 		tickCounter = TICK_STEP;
+		
+		escapeMenu.show();
 	}
 
 	@Override

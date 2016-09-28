@@ -145,14 +145,6 @@
 							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
 							event : 
 							{
-								class : AddEntitiesEvent,
-								entitiesLocation : "maps/campaign/level1/level1-5/entities.json",
-							},
-						},
-						{
-							class : com.custardgames.sudokil.triggers.reactions.BroadcastEventReaction,
-							event : 
-							{
 								class : SetShapeRenderEvent,
 								entityID : "trigger_area4",
 								shouldRender : false, 

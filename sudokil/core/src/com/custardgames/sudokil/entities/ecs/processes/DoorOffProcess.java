@@ -8,6 +8,7 @@ import com.custardgames.sudokil.managers.EventManager;
 
 public class DoorOffProcess extends EntityProcess
 {
+	private float countDown = 10;
 
 	public DoorOffProcess(Entity entity)
 	{
@@ -23,11 +24,20 @@ public class DoorOffProcess extends EntityProcess
 
 		if (spriteComponent.isShouldRender() || blockingComponent.isBlocking())
 		{
-			spriteComponent.setShouldRender(false);
-			blockingComponent.setBlocking(false);
-			EventManager.get_instance().broadcast(new RemoveFromMapEvent(entity));
+			countDown--;
+			if (countDown <= 0)
+			{
+				spriteComponent.setShouldRender(false);
+				blockingComponent.setBlocking(false);
+				EventManager.get_instance().broadcast(new RemoveFromMapEvent(entity));
+				return true;
+			}
 		}
-		return true;
+		else
+		{
+			return true;
+		}
+		return false;
 	}
 
 }

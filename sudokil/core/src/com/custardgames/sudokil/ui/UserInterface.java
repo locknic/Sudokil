@@ -38,7 +38,7 @@ public class UserInterface extends Stage implements EventListener
 	private ImageButton newTerminalWindow;
 	private DialogueInterface dialogueInterface;
 	private FileSystemManager fileSystemManager;
-	
+
 	public UserInterface(LevelData levelData)
 	{
 		InputManager.get_instance().addProcessor(this);
@@ -61,7 +61,7 @@ public class UserInterface extends Stage implements EventListener
 		maxWindows = 5;
 
 		dialogueInterface = new DialogueInterface(this);
-		
+
 		this.getRoot().addCaptureListener(new InputListener()
 		{
 			@Override
@@ -152,6 +152,19 @@ public class UserInterface extends Stage implements EventListener
 		generateUI();
 	}
 
+	public void reset()
+	{
+		newTerminalWindow.setVisible(true);
+		newTerminalWindow.setDisabled(false);
+
+		Iterator<CommandLineInterface> iterator = windows.iterator();
+		while (iterator.hasNext())
+		{
+			iterator.next().dispose();
+			iterator.remove();
+		}
+	}
+
 	public void changeLevel(LevelData levelData)
 	{
 		fileSystemManager.deleteFileSystems();
@@ -165,6 +178,7 @@ public class UserInterface extends Stage implements EventListener
 		{
 			cli.setRoot(fileSystemManager.getFileSystem(root));
 		}
+		reset();
 	}
 
 	@Override
@@ -296,6 +310,7 @@ public class UserInterface extends Stage implements EventListener
 		jsonTags.addTags(json);
 		LevelData levelData = json.fromJson(LevelData.class, Gdx.files.internal(event.getLevelDataLocation()));
 		changeLevel(levelData);
+		reset();
 	}
 
 }

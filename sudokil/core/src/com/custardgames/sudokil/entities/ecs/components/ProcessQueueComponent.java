@@ -13,7 +13,7 @@ public class ProcessQueueComponent extends Component
 	private Queue<EntityProcess> queue;
 	private Array<EntityProcess> background;
 
-	final private int limit = 100;
+	private int limit = 100;
 
 	public ProcessQueueComponent()
 	{
@@ -39,6 +39,35 @@ public class ProcessQueueComponent extends Component
 			if (queue.size() <= limit)
 			{
 				queue.add(process);
+			}
+			else
+			{
+				System.out.println("ENTITY QUEUE TOO LONG");
+			}
+		}
+	}
+	
+	public void addToFrontQueue(EntityProcess process)
+	{
+		if (process.isBackgroundProcess())
+		{
+			if (background.size <= limit)
+			{
+				background.add(process);
+			}
+			else
+			{
+				System.out.println("ENTITY QUEUE TOO LONG");
+			}
+		}
+		else
+		{
+			Queue<EntityProcess> newQueue = new LinkedList<EntityProcess>();
+			if (queue.size() <= limit)
+			{
+				newQueue.add(process);
+				newQueue.addAll(queue);
+				queue = newQueue;
 			}
 			else
 			{

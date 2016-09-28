@@ -4,8 +4,6 @@ import java.util.EventListener;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.custardgames.sudokil.events.ui.LoadLevelEvent;
-import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.InputManager;
 import com.custardgames.sudokil.states.Play;
 import com.custardgames.sudokil.states.Start;
@@ -26,14 +24,12 @@ public class Core extends Game implements EventListener
 
 	public Core()
 	{
-		EventManager.get_instance().register(LoadLevelEvent.class, this);
 	}
 
 	@Override
 	public void dispose()
 	{
 		super.dispose();
-		EventManager.get_instance().deregister(LoadLevelEvent.class, this);
 		if (this.getScreen() != null)
 		{
 			this.getScreen().dispose();
@@ -56,7 +52,7 @@ public class Core extends Game implements EventListener
 		switch (newScreen)
 		{
 			case START:
-				setScreen(new Start());
+				setScreen(new Start(this));
 				break;
 			case PLAY:
 				setScreen(new Play("maps/campaign/level1/level-data.json"));
@@ -64,15 +60,6 @@ public class Core extends Game implements EventListener
 			case END:
 				break;
 		}
-	}
-
-	public void handleLoadLevel(LoadLevelEvent event)
-	{
-		if (this.getScreen() != null)
-		{
-			this.getScreen().dispose();
-		}
-		setScreen(new Play(event.getFileLocation()));
 	}
 	
 }

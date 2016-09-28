@@ -11,11 +11,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.custardgames.sudokil.Core;
+import com.custardgames.sudokil.Core.Screens;
 import com.custardgames.sudokil.managers.InputManager;
-import com.custardgames.sudokil.ui.windows.LevelLoaderInterface;
 
 public class IntroScreen extends Stage
 {
+	private Core core;
+	
 	private TextButton playButton;
 	private TextButton exitButton;
 
@@ -23,11 +26,12 @@ public class IntroScreen extends Stage
 	private static int HEIGHT = 64;
 	private TextureAtlas buttonAtlas;
 	private Image image;
-	private LevelLoaderInterface levelLoaderInterface;
 	
-	public IntroScreen()
+	public IntroScreen(Core core)
 	{
 		InputManager.get_instance().addProcessor(this);
+		
+		this.core = core;
 		
 		TextureAtlas skinAtlas = new TextureAtlas("data/uiskin.atlas");
 		Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"), skinAtlas);
@@ -37,7 +41,7 @@ public class IntroScreen extends Stage
 			@Override
 			public void changed(ChangeEvent event, Actor actor)
 			{
-				levelLoaderInterface.showWindow();
+				play();
 			}
 		});
 		
@@ -58,7 +62,6 @@ public class IntroScreen extends Stage
 		this.addActor(playButton);
 		this.addActor(exitButton);
 		
-		levelLoaderInterface = new LevelLoaderInterface(this);
 	}
 	
 	@Override
@@ -67,6 +70,11 @@ public class IntroScreen extends Stage
 		super.dispose();
 		buttonAtlas.dispose();
 		InputManager.get_instance().removeProcessor(this);
+	}
+	
+	public void play()
+	{
+		core.changeScreen(Screens.PLAY);
 	}
 
 	public void resize(int width, int height)

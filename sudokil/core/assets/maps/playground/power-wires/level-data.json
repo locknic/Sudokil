@@ -7,13 +7,14 @@
 	filesystems : 
 	[
 		"maps/playground/power-wires/filesystems/computer1.json",
+		"maps/playground/power-wires/filesystems/computer2.json",
+		"maps/playground/power-wires/filesystems/computer3.json",
 	],
 	images : 
 	[
 		"images/player/robot1.png"
-		"images/entities/door-on-1.png",
-		"images/entities/door-on-2.png",
-		"images/entities/door-off.png",
+		"images/entities/door-metal-on.png",
+		"images/entities/door-metal-control.png",
 		"images/entities/computer-off.png",
 		"images/entities/computer-on.png",
 		"images/entities/crate.png",

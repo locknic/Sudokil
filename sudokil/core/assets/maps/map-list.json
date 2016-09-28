@@ -25,8 +25,8 @@
 	},
 	{
 		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
-		name: playground-wireless,
+		name: playground-networks,
 		fileLocation: maps/playground/wireless/level-data.json,
-		description: "Playground level for testing wireless networking features.",
+		description: "Playground level for testing networking features. To see connected devices, use command 'ifconfig'. To connect to a device, use command 'ssh [device name]'. ",
 	},
 ]

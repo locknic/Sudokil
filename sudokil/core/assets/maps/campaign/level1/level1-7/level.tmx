@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="47">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="52">
  <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32" tilecount="256" columns="16">
   <image source="../../../../images/tiles/tileset1.png" width="512" height="512"/>
   <tile id="16">
@@ -20,12 +20,12 @@
  </layer>
  <layer name="tiles" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+WWSw6AIAxEu/Ozg/sf1o0kk7FFSpEYbUKqBOcxaYmI1CPBGBlJrto8F2V7vutlZMjWfqM+MuWiyYxIzGAkyszT3v/K+ErN38TIMLxMjXFXYy/D6qvlfF4l7qOld2eec/bT6snTV5reU4za/yzCYA3Nm8XwrNViM7RK7dhzDwOjVrcIYzcY6IP94JqWe8kI/6yHZ0TbwwHUkG2/xAkAAA==
+   H4sIAAAAAAAAC+WW4QrAIAiEfQV9/4fdr8FxM9NZY2wHIVvl51FRIrEU2kqpXHPzvy67Mu8uwyCO6u36MIpnTmZ09ARDKTLP+/4r4ytr/iaGQasyPcZsjauMzL7q+sgyOqqcD/aT9VTZV16+XYzoPuswOIfnbcSojJ2JveG9t4MR9a9ioA/2g2My75IVtXE+PCNeDQe9c99ZxAkAAA==
   </data>
  </layer>
  <layer name="objects" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwWAE7lOYYUFeMgpEKOAfaAVQCXAPtABoBAJBo5w/ECQAA
+   H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAeDP5i1XpxAkAAA==
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -167,51 +167,6 @@
   <object id="28" name="wall26" type="fixture" x="608" y="608" width="32" height="32">
    <properties>
     <property name="body" value="wall-body"/>
-   </properties>
-  </object>
-  <object id="29" name="door2-2" type="door" x="672" y="672" width="32" height="32">
-   <properties>
-    <property name="ActivityBlockingComponent" type="bool" value="false"/>
-    <property name="BlockingComponent" type="bool" value="true"/>
-    <property name="BlockingComponent.blocking" type="bool" value="true"/>
-    <property name="DoorGroupComponent" type="bool" value="false"/>
-    <property name="DoorGroupComponent.doorTiles" value=""/>
-    <property name="EntityComponent" type="bool" value="true"/>
-    <property name="PositionComponent" type="bool" value="true"/>
-    <property name="PositionComponent.angle" type="float" value="90"/>
-    <property name="ProcessQueueComponent" type="bool" value="true"/>
-    <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-on-2.png"/>
-   </properties>
-  </object>
-  <object id="30" name="door2" type="door" x="672" y="640" width="32" height="32">
-   <properties>
-    <property name="ActivityBlockingComponent" type="bool" value="true"/>
-    <property name="BlockingComponent" type="bool" value="true"/>
-    <property name="BlockingComponent.blocking" type="bool" value="true"/>
-    <property name="DoorGroupComponent" type="bool" value="true"/>
-    <property name="DoorGroupComponent.doorTiles" value="[door2-2,door2-3]"/>
-    <property name="EntityComponent" type="bool" value="true"/>
-    <property name="PositionComponent" type="bool" value="true"/>
-    <property name="PositionComponent.angle" type="float" value="270"/>
-    <property name="ProcessQueueComponent" type="bool" value="true"/>
-    <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-on-1.png"/>
-   </properties>
-  </object>
-  <object id="31" name="door2-3" type="door" x="672" y="704" width="32" height="32">
-   <properties>
-    <property name="ActivityBlockingComponent" type="bool" value="false"/>
-    <property name="BlockingComponent" type="bool" value="true"/>
-    <property name="BlockingComponent.blocking" type="bool" value="true"/>
-    <property name="DoorGroupComponent" type="bool" value="false"/>
-    <property name="DoorGroupComponent.doorTiles" value=""/>
-    <property name="EntityComponent" type="bool" value="true"/>
-    <property name="PositionComponent" type="bool" value="true"/>
-    <property name="PositionComponent.angle" type="float" value="90"/>
-    <property name="ProcessQueueComponent" type="bool" value="true"/>
-    <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-on-1.png"/>
    </properties>
   </object>
   <object id="40" type="wire-l" x="576" y="544" width="32" height="32">
@@ -397,7 +352,7 @@
     <property name="SpriteComponent.width" type="float" value="32"/>
    </properties>
   </object>
-  <object id="46" name="computer2" type="computer" x="640" y="608" width="32" height="32">
+  <object id="47" name="computer2" type="computer" x="640" y="608" width="32" height="32">
    <properties>
     <property name="ActivityBlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent" type="bool" value="true"/>
@@ -423,6 +378,11 @@
     <property name="PowerInputComponent.left" type="bool" value="true"/>
     <property name="PowerInputComponent.right" type="bool" value="true"/>
     <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
     <property name="ProcessQueueComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.spriteLocation" value="images/entities/computer-on.png"/>
@@ -432,6 +392,68 @@
     <property name="TextTagComponent" type="bool" value="true"/>
     <property name="TextTagComponent.deltaY" type="float" value="2"/>
     <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="48" name="door2" type="door-controller" x="672" y="608" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="CurrentConsumerComponent" type="bool" value="true"/>
+    <property name="CurrentGeneratorComponent" type="bool" value="true"/>
+    <property name="CurrentInputComponent" type="bool" value="true"/>
+    <property name="CurrentToggleComponent" type="bool" value="true"/>
+    <property name="DoorGroupComponent" type="bool" value="true"/>
+    <property name="DoorGroupComponent.doorTiles" value="[door2-1,door2-2,door2-3]"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="270"/>
+    <property name="PowerConsumerComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.left" type="bool" value="true"/>
+    <property name="PowerInputComponent.right" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-control.png"/>
+   </properties>
+  </object>
+  <object id="49" name="door2-1" type="door" x="672" y="640" width="32" height="32">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="90"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
+   </properties>
+  </object>
+  <object id="50" name="door2-3" type="door" x="672" y="704" width="32" height="32">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="90"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
+   </properties>
+  </object>
+  <object id="51" name="door2-2" type="door" x="672" y="672" width="32" height="32">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="90"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
    </properties>
   </object>
  </objectgroup>

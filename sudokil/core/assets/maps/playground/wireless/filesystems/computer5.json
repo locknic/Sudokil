@@ -1,19 +1,20 @@
 {
-deviceName: computer2,
+deviceName : computer5,
+name : computer5,
 children: 
-[	
+[
 	{
 		class: ItemCLI,
-		name: computer2.dev,
+		name: computer5.dev,
 	},
 	{
 		class: FolderCLI,
-		name: door-top,
+		name: door-mid,
 		children: 
 		[
 			{
 				class: ItemCLI,
-				name: door-top.dev,
+				name: door-mid.dev,
 			},
 			{
 				class: ScriptCLI,

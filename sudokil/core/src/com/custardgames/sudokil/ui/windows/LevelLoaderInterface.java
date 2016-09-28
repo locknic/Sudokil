@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-import com.custardgames.sudokil.events.ui.LoadLevelEvent;
+import com.custardgames.sudokil.events.ChangeLevelEvent;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.ui.tools.MapDescriptionHolder;
 
@@ -155,7 +155,7 @@ public class LevelLoaderInterface
 		{
 			if (levelList.getSelected().equals(desc.getName()))
 			{
-				EventManager.get_instance().broadcast(new LoadLevelEvent(desc.getFileLocation()));
+				EventManager.get_instance().broadcast(new ChangeLevelEvent(desc.getFileLocation()));
 			}
 		}
 	}

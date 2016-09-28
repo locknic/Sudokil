@@ -6,14 +6,13 @@
 	playerFilesystem : "maps/playground/power-wires-array-pass/filesystems/filesystem.json",
 	filesystems : 
 	[
-		"maps/playground/power-wires-array-pass/filesystems/computer1.json",
+		"maps/playground/power-wires-array-pass/filesystems/computer.json",
 	],
 	images : 
 	[
 		"images/player/robot1.png"
-		"images/entities/door-on-1.png",
-		"images/entities/door-on-2.png",
-		"images/entities/door-off.png",
+		"images/entities/door-metal-on.png",
+		"images/entities/door-metal-control.png",
 		"images/entities/computer-off.png",
 		"images/entities/computer-on.png",
 		"images/entities/crate.png",

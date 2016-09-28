@@ -57,12 +57,26 @@ public class ProcessQueueSystem extends EntityProcessingSystem implements EventL
 				{
 					if (activityBlockingComponent.isActive())
 					{
-						processQueueComponent.addToQueue(event.getProcess());
+						if (event.isToFront())
+						{
+							processQueueComponent.addToFrontQueue(event.getProcess());
+						}
+						else
+						{
+							processQueueComponent.addToQueue(event.getProcess());
+						}
 					}
 				}
 				else
 				{
-					processQueueComponent.addToQueue(event.getProcess());
+					if (event.isToFront())
+					{
+						processQueueComponent.addToFrontQueue(event.getProcess());
+					}
+					else
+					{
+						processQueueComponent.addToQueue(event.getProcess());
+					}
 				}
 			}
 		}

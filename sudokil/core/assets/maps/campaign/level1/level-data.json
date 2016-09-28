@@ -17,9 +17,8 @@
 	images : 
 	[
 		"images/player/robot1.png"
-		"images/entities/door-on-1.png",
-		"images/entities/door-on-2.png",
-		"images/entities/door-off.png",
+		"images/entities/door-metal-control.png",
+		"images/entities/door-metal-on.png",
 		"images/entities/computer-off.png",
 		"images/entities/computer-on.png",
 		"images/entities/crate.png",

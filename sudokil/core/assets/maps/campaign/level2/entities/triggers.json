@@ -11,6 +11,34 @@
 				{
 					class : TimedTriggerCondition,
 					running : true,
+					duration : 2,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: Oh dear, robot3 has gotten itself stuck in the utilities cupboard. Help it get out! Try to apply the skills you've in the previous level to solve this puzzle. I won't be helping you this time.",
+						},
+					]
+				}
+			},
+		],
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
 					duration : 20,
 				}
 			},

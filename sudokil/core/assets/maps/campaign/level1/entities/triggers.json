@@ -516,7 +516,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Move the camera by left clicking and dragging the map, or using the arrow keys.",
+							dialogueMessage : "Rob: Move the camera by left clicking and dragging the map.",
 						},
 					]
 				}
@@ -549,7 +549,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: Zoom with the mouse wheel, or the +/- keys.",
+							dialogueMessage : "Rob: Zoom with the mouse wheel.",
 						},
 						{
 							class : BroadcastEventReaction,
@@ -790,7 +790,7 @@
 						},
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: If you 'ls' in this directory, you should see a script called 'forward.sh'.",
+							dialogueMessage : "Rob: If you 'ls' in this directory, you should see a script called 'forward.sh'. Type 'forward.sh' to run the script and move the robot forward.",
 						},					
 					]
 				}
