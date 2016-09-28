@@ -104,7 +104,7 @@
 							event : 
 							{
 								class : com.custardgames.sudokil.events.ChangeLevelEvent,
-								levelDataLocation : "maps/campaign/leve4/level-data.json",
+								levelDataLocation : "maps/campaign/level4/level-data.json",
 							}
 						},
 						{
