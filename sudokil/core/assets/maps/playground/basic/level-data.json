@@ -1,0 +1,26 @@
+{
+	mapLocation : "maps/playground/basic/level.tmx",
+	entities : 
+	[
+	],
+	playerFilesystem : "maps/playground/basic/filesystems/filesystem.json",
+	filesystems : 
+	[
+		"maps/playground/basic/filesystems/computer1.json",
+	],
+	images : 
+	[
+		"images/player/robot1.png"
+		"images/entities/door-metal-on.png",
+		"images/entities/door-metal-control.png",
+		"images/entities/computer-off.png",
+		"images/entities/computer-on.png",
+		"images/entities/crate.png",
+		"images/entities/generator.png",
+		"images/entities/wifi-red.png",
+		"images/entities/wifi-green.png",
+		"images/entities/wifi-blue.png",
+		"images/entities/wire.png",
+		"images/entities/wire2.png",
+	],
+}
