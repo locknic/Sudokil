@@ -57,7 +57,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: You can check what a script does, along with what parameters it takes by typing '-h' after a command. For example 'forward.sh -h'.",
+							dialogueMessage : "Rob: You can learn more about a script by viewing its man page. Simply run the man command followed by the name of the script. For example 'man forward.sh'.",
 						},
 						{
 							class : BroadcastEventReaction,
