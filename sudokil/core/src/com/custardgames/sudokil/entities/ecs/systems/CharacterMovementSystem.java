@@ -1,6 +1,7 @@
 package com.custardgames.sudokil.entities.ecs.systems;
 
 import java.util.EventListener;
+import java.util.UUID;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -58,7 +59,7 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 
 	}
 
-	public void moveCommand(String owner, int distance, int direction)
+	public void moveCommand(UUID ownerUI, String owner, int distance, int direction)
 	{
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
@@ -67,11 +68,9 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 
 			if (entityComponent.getId().equals(owner))
 			{
-				for (int y = 0; y < distance; y++)
-				{
-					MoveProcess moveProcess = new MoveProcess(entity, direction);
-					EventManager.get_instance().broadcast(new ProcessEvent(entity, moveProcess));
-				}
+				MoveProcess moveProcess = new MoveProcess(entity, direction, distance);
+				moveProcess.setOutputUUID(ownerUI);
+				EventManager.get_instance().broadcast(new ProcessEvent(entity, moveProcess));
 			}
 		}
 	}
@@ -85,23 +84,20 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 
 			if (entityComponent.getId().equals(owner))
 			{
-				for (int y = 0; y < times; y++)
-				{
-					TurnProcess turnProcess = new TurnProcess(entity, 90);
-					EventManager.get_instance().broadcast(new ProcessEvent(entity, turnProcess));
-				}
+				TurnProcess turnProcess = new TurnProcess(entity, angle, times);
+				EventManager.get_instance().broadcast(new ProcessEvent(entity, turnProcess));
 			}
 		}
 	}
 
 	public void handleForward(ForwardEvent event)
 	{
-		moveCommand(event.getEntityName(), event.getDistance(), 1);
+		moveCommand(event.getOwnerUI(), event.getEntityName(), event.getDistance(), 1);
 	}
 
 	public void handleBackward(BackwardEvent event)
 	{
-		moveCommand(event.getEntityName(), event.getDistance(), -1);
+		moveCommand(event.getOwnerUI(), event.getEntityName(), event.getDistance(), -1);
 	}
 
 	public void handleLeft(LeftEvent event)

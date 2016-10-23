@@ -1,6 +1,7 @@
 package com.custardgames.sudokil.entities.ecs.processes;
 
 import com.artemis.Entity;
+import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.VelocityComponent;
 import com.custardgames.sudokil.events.entities.EntityMovedEvent;
@@ -10,14 +11,16 @@ import com.custardgames.sudokil.managers.EventManager;
 public class MoveProcess extends EntityProcess
 {
 	private int direction;
+	private int distance;
 	private float deltaX, deltaY;
 	private float targetX, targetY;
 	private boolean setTarget;
 
-	public MoveProcess(Entity entity, int direction)
+	public MoveProcess(Entity entity, int direction, int distance)
 	{
 		super(entity);
 		this.direction = direction;
+		this.distance = distance;
 	}
 
 	@Override
@@ -61,10 +64,14 @@ public class MoveProcess extends EntityProcess
 				{
 					targetX += event.getxDir();
 					targetY += event.getyDir();
-
 				}
 				else
 				{
+					EntityComponent entityComponent = entity.getComponent(EntityComponent.class);
+					if (entityComponent != null && entityComponent.getId() != null)
+					{
+						sendOutput("WARNING! " + entityComponent.getId() + " path was blocked.");
+					}
 					return true;
 				}
 			}
@@ -106,7 +113,16 @@ public class MoveProcess extends EntityProcess
 
 			EventManager.get_instance().broadcast(new EntityMovedEvent(entity, targetX - positionX, targetY - positionY));
 
-			return true;
+			distance--;
+			if (distance > 0)
+			{
+				setTarget = false;
+				return false;
+			}
+			else
+			{
+				return true;
+			}
 		}
 	}
 

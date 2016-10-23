@@ -8,14 +8,17 @@ import com.custardgames.sudokil.managers.EventManager;
 
 public class TurnProcess extends EntityProcess
 {
+	private float dirAngle;
 	private float deltaAngle;
 	private float targetAngle;
 	private boolean setTarget;
+	private int times;
 
-	public TurnProcess(Entity entity, float deltaAngle)
+	public TurnProcess(Entity entity, float dirAngle, int times)
 	{
 		super(entity);
-		this.deltaAngle = deltaAngle;
+		this.dirAngle = dirAngle;
+		this.times = times;
 	}
 
 	@Override
@@ -43,6 +46,7 @@ public class TurnProcess extends EntityProcess
 
 		if (!setTarget)
 		{
+			deltaAngle = dirAngle;
 			targetAngle = angle + deltaAngle;
 
 			if (targetAngle >= 360)
@@ -80,11 +84,7 @@ public class TurnProcess extends EntityProcess
 			{
 				angle += 360;
 			}
-
-			if (position != null)
-			{
-				position.setAngle(angle);
-			}
+			position.setAngle(angle);
 
 			return false;
 		}
@@ -93,11 +93,18 @@ public class TurnProcess extends EntityProcess
 			EventManager.get_instance().broadcast(new EntityTurnedEvent(entity, targetAngle - angle));
 			angle = targetAngle;
 
-			if (position != null)
+			position.setAngle(angle);
+			
+			times--;
+			if (times > 0)
 			{
-				position.setAngle(angle);
+				setTarget = false;
+				return false;
 			}
-			return true;
+			else
+			{
+				return true;
+			}
 		}
 
 	}
