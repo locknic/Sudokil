@@ -8,9 +8,12 @@ public class RightEvent extends EntityCommandEvent
 	private int num;
 
 	@Override
-	public void setDefaultUsage()
+	public void setDefaultDocumentation()
 	{
-		setUsage("left.sh [num] \n\t num: number of times to rotate");
+		setName("right.sh - turns robot right");
+		setUsage("right.sh [num]");
+		setDescription(
+				"Turns the robot to the right (clockwise) by 90 degrees multiplied by the num provided. If no num provided, the robot will turn 90 degrees clockwise. \n\nThis script will be run on all robots with a .dev file inside the current directory. \n\n    [num]: number of times to rotate (positive integer)");
 	}
 
 	

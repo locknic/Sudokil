@@ -9,19 +9,16 @@ import com.custardgames.sudokil.managers.EventManager;
 public class ScriptCLI extends ItemCLI
 {
 	private BaseEvent event;
-	private String usage;
 
 	public ScriptCLI()
 	{
 		super();
-		usage = "";
 	}
 
-	public ScriptCLI(String name, FolderCLI parent, BaseEvent event, String usage)
+	public ScriptCLI(String name, FolderCLI parent, BaseEvent event)
 	{
 		super(name, parent);
 		this.event = event;
-		this.usage = usage;
 	}
 
 	public void run(UUID ownerUI, String[] args)
@@ -29,7 +26,6 @@ public class ScriptCLI extends ItemCLI
 		if (event != null && event instanceof EntityCommandEvent)
 		{
 			((EntityCommandEvent) event).setOwnerUI(ownerUI);
-			((EntityCommandEvent) event).setUsage(usage);
 			if (((EntityCommandEvent) event).setArgs(args))
 			{
 				for (String device : getParent().getDevices())
@@ -44,10 +40,15 @@ public class ScriptCLI extends ItemCLI
 			EventManager.get_instance().broadcast(event);
 		}
 	}
+	
+	public BaseEvent getEvent()
+	{
+		return event;
+	}
 
 	@Override
 	public ItemCLI copy()
 	{
-		return new ScriptCLI(super.getName(), super.getParent(), event, usage);
+		return new ScriptCLI(super.getName(), super.getParent(), event);
 	}
 }

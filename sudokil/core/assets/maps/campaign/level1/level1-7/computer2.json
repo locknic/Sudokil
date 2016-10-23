@@ -18,7 +18,6 @@ children:
 			{
 				class: com.custardgames.sudokil.ui.cli.ScriptCLI,
 				name: toggle.sh,
-				usage: "toggle.sh \n\t description: toggles the door between open and closed",
 				event:
 				{
 					class: com.custardgames.sudokil.events.entities.commands.ToggleEvent

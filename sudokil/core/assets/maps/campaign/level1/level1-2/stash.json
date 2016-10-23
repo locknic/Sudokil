@@ -6,7 +6,6 @@
 		{
 			class: ScriptCLI,
 			name: left.sh,
-			usage: "left.sh [num] \n\t description: rotates robot 90 degrees counter-clockwise \n\t num: number of times to rotate",
 			event:
 			{
 				class: LeftEvent
@@ -15,7 +14,6 @@
 		{
 			class: ScriptCLI,
 			name: right.sh,
-			usage: "right.sh [num] \n\t description: rotates robot 90 degrees clockwise \n\t num: number of times to rotate",
 			event:
 			{
 				class: RightEvent

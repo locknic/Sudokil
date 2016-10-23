@@ -15,7 +15,6 @@
 				{
 					class: ScriptCLI,
 					name: start.sh,
-					usage: "start.sh \n\t description: camera starts render to screen",
 					event:
 					{
 						class : ToggleMapRenderEvent,
@@ -25,7 +24,6 @@
 				{
 					class: ScriptCLI,
 					name: target.sh,
-					usage: "target.sh entity_id \n\t description: camera targets and follows an entity \n\t entity_id: name of target entity",
 					event:
 					{
 						class: CameraTargetEvent,
@@ -34,7 +32,6 @@
 				{
 					class: ScriptCLI,
 					name: reset.sh,
-					usage: "reset.sh \n\t description: reset camera to original zoom and position",
 					event:
 					{
 						class: CameraResetEvent,
@@ -54,7 +51,6 @@
 				{
 					class: ScriptCLI,
 					name: forward.sh,
-					usage: "forward.sh [distance] \n\t description: robot moves forwards \n\t distance: distance to move",
 					event:
 					{
 						class: ForwardEvent
@@ -63,7 +59,6 @@
 				{
 					class: ScriptCLI,
 					name: backward.sh,
-					usage: "backward.sh [distance] \n\t description: robot moves backwards \n\t distance: distance to move",
 					event:
 					{
 						class: BackwardEvent
@@ -72,7 +67,6 @@
 				{
 					class: ScriptCLI,
 					name: left.sh,
-					usage: "left.sh [num] \n\t description: rotates robot 90 degrees counter-clockwise \n\t num: number of times to rotate",
 					event:
 					{
 						class: LeftEvent
@@ -81,7 +75,6 @@
 				{
 					class: ScriptCLI,
 					name: right.sh,
-					usage: "right.sh [num] \n\t description: rotates robot 90 degrees clockwise \n\t num: number of times to rotate",
 					event:
 					{
 						class: RightEvent
@@ -90,7 +83,6 @@
 				{
 					class: ScriptCLI,
 					name: lift.sh,
-					usage: "lift.sh \n\t description: lifts the object directly in front of the robot",
 					event:
 					{
 						class: LiftEvent
@@ -99,7 +91,6 @@
 				{
 					class: ScriptCLI,
 					name: lower.sh,
-					usage: "lower.sh \n\t description: lowers the object directly in front of the robot",
 					event:
 					{
 						class: LowerEvent
@@ -108,7 +99,6 @@
 				{
 					class: ScriptCLI,
 					name: connect.sh,
-					usage: "connect.sh \n\t description: connects terminal to device directly in front of robot",
 					event:
 					{
 						class: com.custardgames.sudokil.events.entities.commands.WiredConnectEvent
@@ -117,7 +107,6 @@
 				{
 					class: ScriptCLI,
 					name: disconnect.sh,
-					usage: "disconnect.sh \n\t description: stops connection between robot and computer console",
 					event:
 					{
 						class: com.custardgames.sudokil.events.entities.commands.DisconnectEvent
@@ -137,7 +126,6 @@
 				{
 					class: ScriptCLI,
 					name: forward.sh,
-					usage: "forward.sh [distance] \n\t description: robot moves forwards \n\t distance: distance to move",
 					event:
 					{
 						class: ForwardEvent
@@ -146,7 +134,6 @@
 				{
 					class: ScriptCLI,
 					name: backward.sh,
-					usage: "backward.sh [distance] \n\t description: robot moves backwards \n\t distance: distance to move",
 					event:
 					{
 						class: BackwardEvent
@@ -155,7 +142,6 @@
 				{
 					class: ScriptCLI,
 					name: left.sh,
-					usage: "left.sh [num] \n\t description: rotates robot 90 degrees counter-clockwise \n\t num: number of times to rotate",
 					event:
 					{
 						class: LeftEvent
@@ -164,7 +150,6 @@
 				{
 					class: ScriptCLI,
 					name: right.sh,
-					usage: "right.sh [num] \n\t description: rotates robot 90 degrees clockwise \n\t num: number of times to rotate",
 					event:
 					{
 						class: RightEvent
@@ -173,7 +158,6 @@
 				{
 					class: ScriptCLI,
 					name: lift.sh,
-					usage: "lift.sh \n\t description: lifts the object directly in front of the robot",
 					event:
 					{
 						class: LiftEvent
@@ -182,7 +166,6 @@
 				{
 					class: ScriptCLI,
 					name: lower.sh,
-					usage: "lower.sh \n\t description: lowers the object directly in front of the robot",
 					event:
 					{
 						class: LowerEvent
@@ -191,7 +174,6 @@
 				{
 					class: ScriptCLI,
 					name: connect.sh,
-					usage: "connect.sh \n\t description: connects terminal to device directly in front of robot",
 					event:
 					{
 						class: com.custardgames.sudokil.events.entities.commands.WiredConnectEvent
@@ -200,7 +182,6 @@
 				{
 					class: ScriptCLI,
 					name: disconnect.sh,
-					usage: "disconnect.sh \n\t description: stops connection between robot and computer console",
 					event:
 					{
 						class: com.custardgames.sudokil.events.entities.commands.DisconnectEvent

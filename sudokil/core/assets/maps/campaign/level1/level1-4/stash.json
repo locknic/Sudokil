@@ -6,7 +6,6 @@
 		{
 			class: ScriptCLI,
 			name: lift.sh,
-			usage: "lift.sh \n\t description: lifts the object directly in front of the robot",
 			event:
 			{
 				class: LiftEvent
@@ -15,7 +14,6 @@
 		{
 			class: ScriptCLI,
 			name: lower.sh,
-			usage: "lower.sh \n\t description: lowers the object directly in front of the robot",
 			event:
 			{
 				class: LowerEvent

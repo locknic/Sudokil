@@ -19,7 +19,6 @@ children:
 			{
 				class: ScriptCLI,
 				name: toggle.sh,
-				usage: "toggle.sh \n\t description: toggles the door between open and closed",
 				event:
 				{
 					class: ToggleEvent

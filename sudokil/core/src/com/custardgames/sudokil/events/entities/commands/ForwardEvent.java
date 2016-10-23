@@ -6,11 +6,14 @@ import com.custardgames.sudokil.managers.EventManager;
 public class ForwardEvent extends EntityCommandEvent
 {
 	private int distance;
-	
+
 	@Override
-	public void setDefaultUsage()
+	public void setDefaultDocumentation()
 	{
-		setUsage("forward.sh [distance] \n\t distance: distance to move");
+		setName("forward.sh - move robot forward");
+		setUsage("forward.sh [distance]");
+		setDescription(
+				"Moves robot forward by the specified distance. If no distance is specified, the default distance will be 1 unit. \n\nThis script will be run on all robots with a .dev file inside the current directory. \n\n    [distance]: distance to move (positive integer)");
 	}
 
 	@Override

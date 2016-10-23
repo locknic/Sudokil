@@ -30,6 +30,7 @@ import com.custardgames.sudokil.events.commandLine.ResetHighlightEvent;
 import com.custardgames.sudokil.events.commandLine.device.IfconfigEvent;
 import com.custardgames.sudokil.events.commandLine.device.SSHEvent;
 import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
+import com.custardgames.sudokil.events.entities.commands.EntityCommandEvent;
 import com.custardgames.sudokil.events.entities.commands.StopCommandsEvent;
 import com.custardgames.sudokil.ui.cli.FolderCLI;
 import com.custardgames.sudokil.ui.cli.ItemCLI;
@@ -83,21 +84,25 @@ public class CommandLineManager implements EventListener
 		Option cd = new Option("cd", "Change the current directory to DIR.");
 		cd.setArgs(1);
 		cd.setOptionalArg(true);
+		cd.setArgName("dir");
 		options.addOption(cd);
 
 		Option mv = new Option("mv", "Moves a file or directory into another directory.");
 		mv.setArgs(2);
 		mv.setOptionalArg(false);
+		mv.setArgName("file dir");
 		options.addOption(mv);
 
 		Option cp = new Option("cp", "Copies a file or directory into another directory.");
 		cp.setArgs(2);
 		cp.setOptionalArg(false);
+		cp.setArgName("file dir");
 		options.addOption(cp);
 
 		Option sh = new Option("sh", "Run the script using shell script.");
 		sh.setArgs(Option.UNLIMITED_VALUES);
 		sh.setOptionalArg(false);
+		sh.setArgName("script");
 		options.addOption(sh);
 
 		options.addOption("stop", false, "Stop and delete all queued commands.");
@@ -107,13 +112,27 @@ public class CommandLineManager implements EventListener
 		Option help = new Option("help", "Show the help screen.");
 		help.setArgs(1);
 		help.setOptionalArg(true);
+		help.setArgName("command");
 		options.addOption(help);
+
+		Option man = new Option("man", "Show the man screen of a specified script.");
+		man.setArgs(1);
+		man.setOptionalArg(false);
+		man.setArgName("script");
+		options.addOption(man);
+
+		Option whatis = new Option("whatis", "Show a short one line description of a specified script.");
+		whatis.setArgs(1);
+		whatis.setOptionalArg(false);
+		whatis.setArgName("script");
+		options.addOption(whatis);
 
 		options.addOption("clear", false, "Clear the terminal screen.");
 
 		Option cat = new Option("cat", "Concatenate files and print on the standard output.");
 		cat.setArgs(Option.UNLIMITED_VALUES);
 		cat.setOptionalArg(true);
+		cat.setArgName("file");
 		options.addOption(cat);
 
 		options.addOption("ifconfig", false, "Lists connected networks and devices.");
@@ -121,6 +140,7 @@ public class CommandLineManager implements EventListener
 		Option ssh = new Option("ssh", "Connect console to a device on the network.");
 		ssh.setArgs(1);
 		ssh.setOptionalArg(true);
+		ssh.setArgName("device");
 		options.addOption(ssh);
 	}
 
@@ -152,6 +172,24 @@ public class CommandLineManager implements EventListener
 					arguments = new String[0];
 				}
 				help(arguments);
+			}
+			else if (commandLine.hasOption("man"))
+			{
+				String[] arguments = commandLine.getOptionValues("man");
+				if (arguments == null)
+				{
+					arguments = new String[0];
+				}
+				man(arguments);
+			}
+			else if (commandLine.hasOption("whatis"))
+			{
+				String[] arguments = commandLine.getOptionValues("whatis");
+				if (arguments == null)
+				{
+					arguments = new String[0];
+				}
+				whatis(arguments);
 			}
 			else if (commandLine.hasOption("pwd"))
 			{
@@ -262,23 +300,99 @@ public class CommandLineManager implements EventListener
 		{
 			if (options.hasOption(args[0]))
 			{
-				String text = args[0] + "\t" + options.getOption(args[0]).getDescription();
+				String text = args[0] + "\n" + options.getOption(args[0]).getDescription();
 				if (options.getOption(args[0]).getArgs() > 0)
 				{
-					text = args[0] + " [arg]\t" + options.getOption(args[0]).getDescription();
+					text = args[0] + " [arg]\n" + options.getOption(args[0]).getDescription();
 				}
 				formatter.printUsage(printWriter, 100, text);
 				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, stringWriter.toString()));
 			}
 			else
 			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No help topics match '" + args[0] + "'."));
+				ItemCLI item = findItem(args[0]);
+				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null
+						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
+				{
+					EventManager.get_instance()
+							.broadcast(new ConsoleOutputEvent(ownerUI, "Usage: " + ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getUsage() + "\n"
+									+ ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getDescription()));
+				}
+				else
+				{
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No help topics match '" + args[0] + "'."));
+				}
 			}
 		}
 		else
 		{
 			formatter.printHelp(printWriter, 100, "Available Commands", "", options, 1, 3, "");
 			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, stringWriter.toString()));
+		}
+	}
+
+	public void man(String[] args)
+	{
+		if (args.length > 0)
+		{
+			if (options.hasOption(args[0]))
+			{
+				String text = "NAME\n    " + args[0] + " - " + options.getOption(args[0]).getDescription() + "\n\nSYNOPSIS\n    " + args[0] + "\n\nDESCRIPTION\n    " + options.getOption(args[0]).getDescription();
+				if (options.getOption(args[0]).getArgs() > 0)
+				{
+					text = "NAME\n    " + args[0] + " - " + options.getOption(args[0]).getDescription() + "\n\nSYNOPSIS\n    " + args[0] + " [" + options.getOption(args[0]).getArgName() + "]\n\nDESCRIPTION\n    " + options.getOption(args[0]).getDescription();
+				}
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, text));
+			}
+			else
+			{
+				ItemCLI item = findItem(args[0]);
+				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null
+						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
+				{
+					EntityCommandEvent event = ((EntityCommandEvent) ((ScriptCLI) item).getEvent());
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI,
+							"NAME\n    " + event.getName() + "\n\nSYNOPSIS\n    " + event.getUsage() + "\n\nDESCRIPTION\n    " + event.getDescription()));
+				}
+				else
+				{
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No manual entry for '" + args[0] + "'."));
+				}
+			}
+		}
+		else
+		{
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! What manual page do you want?"));
+		}
+	}
+
+	public void whatis(String[] args)
+	{
+		if (args.length > 0)
+		{
+			if (options.hasOption(args[0]))
+			{
+				String text = args[0] + "    - " + options.getOption(args[0]).getDescription();
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, text));
+			}
+			else
+			{
+				ItemCLI item = findItem(args[0]);
+				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null
+						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
+				{
+					EntityCommandEvent event = ((EntityCommandEvent) ((ScriptCLI) item).getEvent());
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, event.getName()));
+				}
+				else
+				{
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! nothing appropriate for '" + args[0] + "'."));
+				}
+			}
+		}
+		else
+		{
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! whatis keword ..."));
 		}
 	}
 

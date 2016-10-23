@@ -18,7 +18,6 @@ children:
 			{
 				class: ScriptCLI,
 				name: forward.sh,
-				usage: "forward.sh [distance] \n\t description: robot moves forwards \n\t distance: distance to move",
 				event:
 				{
 					class: ForwardEvent
@@ -27,7 +26,6 @@ children:
 			{
 				class: ScriptCLI,
 				name: backward.sh,
-				usage: "backward.sh [distance] \n\t description: robot moves backwards \n\t distance: distance to move",
 				event:
 				{
 					class: BackwardEvent
@@ -36,7 +34,6 @@ children:
 			{
 				class: ScriptCLI,
 				name: left.sh,
-				usage: "left.sh [num] \n\t description: rotates robot 90 degrees counter-clockwise \n\t num: number of times to rotate",
 				event:
 				{
 					class: LeftEvent
@@ -45,7 +42,6 @@ children:
 			{
 				class: ScriptCLI,
 				name: right.sh,
-				usage: "right.sh [num] \n\t description: rotates robot 90 degrees clockwise \n\t num: number of times to rotate",
 				event:
 				{
 					class: RightEvent
@@ -54,7 +50,6 @@ children:
 			{
 				class: ScriptCLI,
 				name: lift.sh,
-				usage: "lift.sh \n\t description: lifts the object directly in front of the robot",
 				event:
 				{
 					class: LiftEvent
@@ -63,7 +58,6 @@ children:
 			{
 				class: ScriptCLI,
 				name: lower.sh,
-				usage: "lower.sh \n\t description: lowers the object directly in front of the robot",
 				event:
 				{
 					class: LowerEvent
@@ -83,7 +77,6 @@ children:
 			{
 				class: ScriptCLI,
 				name: toggle.sh,
-				usage: "toggle.sh \n\t description: toggles the door between open and closed",
 				event:
 				{
 					class: ToggleEvent

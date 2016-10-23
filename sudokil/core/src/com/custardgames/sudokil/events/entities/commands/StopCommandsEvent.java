@@ -16,8 +16,7 @@ public class StopCommandsEvent extends EntityCommandEvent
 	}
 	
 	@Override
-	public void setDefaultUsage()
+	public void setDefaultDocumentation()
 	{
-		setUsage("Stops all ");
 	}
 }

@@ -11,12 +11,16 @@ public abstract class EntityCommandEvent extends BaseEvent
 	private UUID ownerUI;
 	private String entityName;
 	
+	private String name;
 	private String usage;
+	private String description;
 	
 	public EntityCommandEvent()
 	{
 		usage = "";
-		setDefaultUsage();
+		name = "";
+		description = "";
+		setDefaultDocumentation();
 	}
 	
 	public String getEntityName()
@@ -57,13 +61,33 @@ public abstract class EntityCommandEvent extends BaseEvent
 		}
 	}
 	
-	public abstract void setDefaultUsage();
+	public String getName()
+	{
+		return name;
+	}
+
+	public void setName(String name)
+	{
+		this.name = name;
+	}
+
+	public String getDescription()
+	{
+		return description;
+	}
+
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+
+	public abstract void setDefaultDocumentation();
 
 	protected boolean checkHelpArgs(String args[])
 	{
 		if (args != null && args.length > 1 && (args[1].equals("-h") || args[1].equals("--help") || args[1].equals("-help")))
 		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(getOwnerUI(), getUsage()));
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(getOwnerUI(), "Usage: " + getUsage() + "\n" + getDescription()));
 			return true;
 		}
 		return false;
