@@ -58,31 +58,12 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 
 	}
 
-	public void moveCommand(String owner, String[] args, int direction)
+	public void moveCommand(String owner, int distance, int direction)
 	{
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
 		{
 			EntityComponent entityComponent = entityComponents.get(entity);
-
-			int distance = 1;
-
-			if (args != null && args.length > 1)
-			{
-				try
-				{
-					distance = Integer.parseInt(args[1]);
-				}
-				catch (Exception e)
-				{
-
-				}
-			}
-
-			if (distance > 100)
-			{
-				distance = 100;
-			}
 
 			if (entityComponent.getId().equals(owner))
 			{
@@ -95,31 +76,12 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 		}
 	}
 
-	public void leftCommand(String owner, String[] args)
+	public void turnCommand(String owner, int times, float angle)
 	{
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
 		{
 			EntityComponent entityComponent = entityComponents.get(entity);
-
-			int times = 1;
-
-			if (args != null && args.length > 1)
-			{
-				try
-				{
-					times = Integer.parseInt(args[1]);
-				}
-				catch (Exception e)
-				{
-
-				}
-			}
-
-			if (times > 100)
-			{
-				times = 100;
-			}
 
 			if (entityComponent.getId().equals(owner))
 			{
@@ -132,62 +94,24 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 		}
 	}
 
-	public void rightCommand(String owner, String[] args)
-	{
-		ImmutableBag<Entity> entities = getEntities();
-		for (Entity entity : entities)
-		{
-			EntityComponent entityComponent = entityComponents.get(entity);
-
-			int times = 1;
-
-			if (args != null && args.length > 1)
-			{
-				try
-				{
-					times = Integer.parseInt(args[1]);
-				}
-				catch (Exception e)
-				{
-
-				}
-			}
-
-			if (times > 100)
-			{
-				times = 100;
-			}
-
-			if (entityComponent.getId().equals(owner))
-			{
-				for (int y = 0; y < times; y++)
-				{
-					TurnProcess turnProcess = new TurnProcess(entity, -90);
-					EventManager.get_instance().broadcast(new ProcessEvent(entity, turnProcess));
-				}
-
-			}
-		}
-	}
-
 	public void handleForward(ForwardEvent event)
 	{
-		moveCommand(event.getEntityName(), event.getArgs(), 1);
+		moveCommand(event.getEntityName(), event.getDistance(), 1);
 	}
 
 	public void handleBackward(BackwardEvent event)
 	{
-		moveCommand(event.getEntityName(), event.getArgs(), -1);
+		moveCommand(event.getEntityName(), event.getDistance(), -1);
 	}
 
 	public void handleLeft(LeftEvent event)
 	{
-		leftCommand(event.getEntityName(), event.getArgs());
+		turnCommand(event.getEntityName(), event.getNum(), 90);
 	}
 
 	public void handleRight(RightEvent event)
 	{
-		rightCommand(event.getEntityName(), event.getArgs());
+		turnCommand(event.getEntityName(), event.getNum(), -90);
 	}
 
 }

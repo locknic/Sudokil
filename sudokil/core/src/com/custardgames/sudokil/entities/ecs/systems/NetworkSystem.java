@@ -16,6 +16,7 @@ import com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkedDevi
 import com.custardgames.sudokil.entities.ecs.processes.networking.NetworkedConnectProcess;
 import com.custardgames.sudokil.events.PingEntityEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
+import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.events.commandLine.device.IfconfigEvent;
 import com.custardgames.sudokil.events.commandLine.device.SSHEvent;
 import com.custardgames.sudokil.events.entities.ProcessEvent;
@@ -119,21 +120,31 @@ public class NetworkSystem extends EntityProcessingSystem implements EventListen
 	public void ssh(UUID connected, Entity entity, String connectTo)
 	{
 		HashMap<String, Array<String>> networks = createNetworkHashMap(entity);
-		NetworkedDeviceComponent wirelessDeviceComponent = wirelessDeviceComponents.get(entity);
+		NetworkedDeviceComponent networkedDeviceComponent = wirelessDeviceComponents.get(entity);
 
-		if (wirelessDeviceComponent.getWiredDevices().contains(connectTo, false))
+		boolean foundWired = false;
+		boolean foundWireless = false;
+		
+		if (networkedDeviceComponent.getWiredDevices().contains(connectTo, false))
 		{
+			foundWired = true;
 			connectTo(connected, entity, connectTo);
 		}
 		else
 		{
-			for (String connectedNetwork : wirelessDeviceComponent.getWirelessNetworks())
+			for (String connectedNetwork : networkedDeviceComponent.getWirelessNetworks())
 			{
 				if (networks.containsKey(connectedNetwork) && networks.get(connectedNetwork).contains(connectTo, false))
 				{
+					foundWireless = true;
 					connectTo(connected, entity, connectTo);
 				}
 			}
+		}
+		
+		if (!foundWired && !foundWireless)
+		{
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(connected, "ERROR! Connect to host " + connectTo + ": operation timed out."));
 		}
 	}
 
@@ -142,8 +153,8 @@ public class NetworkSystem extends EntityProcessingSystem implements EventListen
 		PingEntityEvent entityEvent = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(connectTo));
 		if (entityEvent != null && entityEvent.getEntity() != null)
 		{
-			NetworkedConnectProcess wirelessConnectProcess = new NetworkedConnectProcess(connected, entity, entityEvent.getEntity());
-			EventManager.get_instance().broadcast(new ProcessEvent(entity, wirelessConnectProcess));
+			NetworkedConnectProcess networkedConnectProcess = new NetworkedConnectProcess(connected, entity, entityEvent.getEntity());
+			EventManager.get_instance().broadcast(new ProcessEvent(entity, networkedConnectProcess));
 		}
 	}
 

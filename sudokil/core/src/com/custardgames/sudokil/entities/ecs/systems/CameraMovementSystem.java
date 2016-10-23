@@ -275,9 +275,9 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			EntityComponent entityComponent = entityComponents.get(entity);
 			CameraComponent cameraInput = cameraInputComponents.get(entity);
 
-			if (entityComponent.getId().equals(event.getEntityName()) && event.getArgs() != null && event.getArgs().length > 1)
+			if (entityComponent.getId().equals(event.getEntityName()))
 			{
-				cameraInput.setTargetID(event.getArgs()[1]);
+				cameraInput.setTargetID(event.getTargetEntity());
 				cameraInput.setTargetOffsetX(0);
 				cameraInput.setTargetOffsetY(0);
 			}

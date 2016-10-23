@@ -10,6 +10,7 @@ import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.FileSystemComponent;
 import com.custardgames.sudokil.events.PingFileSystemEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
+import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.events.entities.map.PingCellEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
@@ -25,7 +26,7 @@ public class PhysicalConnectProcess extends ConnectProcess implements EventListe
 	public boolean connect()
 	{
 		PositionComponent positionComponent = entity.getComponent(PositionComponent.class);
-
+		
 		PingCellEvent pingCell = ((PingCellEvent) EventManager.get_instance().broadcastInquiry(new PingCellEvent(entity,
 				(int) Math.cos(Math.toRadians(positionComponent.getAngle())), (int) Math.sin(Math.toRadians(positionComponent.getAngle())))));
 		if (pingCell != null)
@@ -55,6 +56,9 @@ public class PhysicalConnectProcess extends ConnectProcess implements EventListe
 				}
 			}
 		}
+		
+		EventManager.get_instance().broadcast(new ConsoleOutputEvent(consoleUUID, "ERROR! No device found."));
+		
 		return false;
 	}
 }

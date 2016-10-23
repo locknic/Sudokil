@@ -10,6 +10,7 @@ import com.custardgames.sudokil.entities.ecs.processes.EntityProcess;
 import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.commandLine.CloseCommandLineWindowEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
+import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
@@ -77,6 +78,11 @@ public abstract class ConnectProcess extends EntityProcess implements EventListe
 	public void disconnect()
 	{
 		EventManager.get_instance().broadcast(new ConsoleConnectEvent(consoleUUID, null));
+		EntityComponent entityComponent = connectedTo.getComponent(EntityComponent.class);
+		if (entityComponent != null)
+		{
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(consoleUUID, "Connection to " + entityComponent.getId() + " closed." ));
+		}
 		disconnect = true;
 	}
 

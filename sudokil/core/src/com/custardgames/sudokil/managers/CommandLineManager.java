@@ -17,7 +17,6 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.UnrecognizedOptionException;
 
 import com.badlogic.gdx.utils.Array;
-import com.custardgames.sudokil.events.BaseEvent;
 import com.custardgames.sudokil.events.commandLine.AutocompleteRequestEvent;
 import com.custardgames.sudokil.events.commandLine.AutocompleteResponseEvent;
 import com.custardgames.sudokil.events.commandLine.ChangedDirectoryEvent;
@@ -25,12 +24,12 @@ import com.custardgames.sudokil.events.commandLine.ClearTerminalEvent;
 import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
+import com.custardgames.sudokil.events.commandLine.HighlightEvent;
 import com.custardgames.sudokil.events.commandLine.ListDirectoryEvent;
+import com.custardgames.sudokil.events.commandLine.ResetHighlightEvent;
 import com.custardgames.sudokil.events.commandLine.device.IfconfigEvent;
 import com.custardgames.sudokil.events.commandLine.device.SSHEvent;
 import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
-import com.custardgames.sudokil.events.entities.commands.HighlightEvent;
-import com.custardgames.sudokil.events.entities.commands.ResetHighlightEvent;
 import com.custardgames.sudokil.events.entities.commands.StopCommandsEvent;
 import com.custardgames.sudokil.ui.cli.FolderCLI;
 import com.custardgames.sudokil.ui.cli.ItemCLI;
@@ -68,10 +67,10 @@ public class CommandLineManager implements EventListener
 
 		options = new Options();
 
-		Option echo = new Option("echo", "Output the ARGs.");
+		Option echo = new Option("echo", "Output the arg.");
 		echo.setArgs(Option.UNLIMITED_VALUES);
 		echo.setOptionalArg(false);
-		echo.setArgName("ARG");
+		echo.setArgName("arg ...");
 		options.addOption(echo);
 
 		options.addOption("pwd", false, "Prints the current working directory.");
@@ -105,7 +104,10 @@ public class CommandLineManager implements EventListener
 
 		options.addOption("exit", false, "Exit from the currently connected interface.");
 
-		options.addOption("help", false, "Show the help screen.");
+		Option help = new Option("help", "Show the help screen.");
+		help.setArgs(1);
+		help.setOptionalArg(true);
+		options.addOption(help);
 
 		options.addOption("clear", false, "Clear the terminal screen.");
 
@@ -113,9 +115,9 @@ public class CommandLineManager implements EventListener
 		cat.setArgs(Option.UNLIMITED_VALUES);
 		cat.setOptionalArg(true);
 		options.addOption(cat);
-		
+
 		options.addOption("ifconfig", false, "Lists connected networks and devices.");
-		
+
 		Option ssh = new Option("ssh", "Connect console to a device on the network.");
 		ssh.setArgs(1);
 		ssh.setOptionalArg(true);
@@ -135,7 +137,7 @@ public class CommandLineManager implements EventListener
 		currentItem = root;
 		device = root.getDeviceName();
 	}
-	
+
 	public void parseCommands(String[] args)
 	{
 		try
@@ -144,11 +146,12 @@ public class CommandLineManager implements EventListener
 			CommandLine commandLine = parser.parse(options, args);
 			if (commandLine.hasOption("help"))
 			{
-				HelpFormatter formatter = new HelpFormatter();
-				StringWriter stringWriter = new StringWriter();
-				PrintWriter printWriter = new PrintWriter(stringWriter);
-				formatter.printHelp(printWriter, 100, "Available Commands", "", options, 1, 3, "");
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, stringWriter.toString()));
+				String[] arguments = commandLine.getOptionValues("help");
+				if (arguments == null)
+				{
+					arguments = new String[0];
+				}
+				help(arguments);
 			}
 			else if (commandLine.hasOption("pwd"))
 			{
@@ -181,7 +184,10 @@ public class CommandLineManager implements EventListener
 			}
 			else if (commandLine.hasOption("stop"))
 			{
-				EventManager.get_instance().broadcast(new StopCommandsEvent(currentItem.getName()));
+				for (String device : currentItem.getDevices())
+				{
+					EventManager.get_instance().broadcast(new StopCommandsEvent(ownerUI, device));
+				}
 				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "Stopping queued commands."));
 			}
 			else if (commandLine.hasOption("exit"))
@@ -227,14 +233,45 @@ public class CommandLineManager implements EventListener
 				}
 				else
 				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "" + args[0] + ": command not found."));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! " + args[0] + ": command not found."));
 				}
 			}
 			else if (e instanceof MissingArgumentException)
 			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "" + args[0].substring(1, args[0].length()) + ": missing arguments."));
+				EventManager.get_instance()
+						.broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! " + args[0].substring(1, args[0].length()) + ": missing arguments."));
 			}
 
+		}
+	}
+
+	public void help(String[] args)
+	{
+		HelpFormatter formatter = new HelpFormatter();
+		StringWriter stringWriter = new StringWriter();
+		PrintWriter printWriter = new PrintWriter(stringWriter);
+
+		if (args.length > 0)
+		{
+			if (options.hasOption(args[0]))
+			{
+				String text = args[0] + "\t" + options.getOption(args[0]).getDescription();
+				if (options.getOption(args[0]).getArgs() > 0)
+				{
+					text = args[0] + " [arg]\t" + options.getOption(args[0]).getDescription();
+				}
+				formatter.printUsage(printWriter, 100, text);
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, stringWriter.toString()));
+			}
+			else
+			{
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No help topics match '"+args[0]+"'."));
+			}
+		}
+		else
+		{
+			formatter.printHelp(printWriter, 100, "Available Commands", "", options, 1, 3, "");
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, stringWriter.toString()));
 		}
 	}
 
@@ -569,33 +606,6 @@ public class CommandLineManager implements EventListener
 		}
 	}
 
-	public void repeatEvent(BaseEvent event, String number)
-	{
-		int num = 0;
-
-		try
-		{
-			if (number != null)
-			{
-				num = Integer.parseInt(number);
-			}
-
-			if (num <= 0 || num > 99)
-			{
-				num = 1;
-			}
-		}
-		catch (NumberFormatException e)
-		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "" + number + ": argument must be an integer."));
-		}
-
-		for (int x = 0; x < num; x++)
-		{
-			EventManager.get_instance().broadcast(event);
-		}
-	}
-
 	public Array<String> autoComplete(String text)
 	{
 		Collection<Option> optionList = options.getOptions();
@@ -635,25 +645,19 @@ public class CommandLineManager implements EventListener
 
 	public void highlightEntities(String text)
 	{
-		EventManager.get_instance().broadcast(new ResetHighlightEvent());
+		EventManager.get_instance().broadcast(new ResetHighlightEvent(ownerUI));
 
 		Array<String> entities = currentItem.getDevices();
 		for (String entity : entities)
 		{
-			HighlightEvent event = new HighlightEvent();
-			event.setPossibleSelection(false);
-			event.setOwnerUI(ownerUI);
-			event.setEntityName(entity);
+			HighlightEvent event = new HighlightEvent(ownerUI, entity, false);
 			EventManager.get_instance().broadcast(event);
 		}
 
 		entities = currentItem.getSubDevices();
 		for (String entity : entities)
 		{
-			HighlightEvent event = new HighlightEvent();
-			event.setPossibleSelection(true);
-			event.setOwnerUI(ownerUI);
-			event.setEntityName(entity);
+			HighlightEvent event = new HighlightEvent(ownerUI, entity, true);
 			EventManager.get_instance().broadcast(event);
 		}
 	}

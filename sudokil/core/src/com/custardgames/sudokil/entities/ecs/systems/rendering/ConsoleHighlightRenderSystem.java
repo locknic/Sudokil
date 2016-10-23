@@ -17,8 +17,8 @@ import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.events.ChangeLevelEvent;
-import com.custardgames.sudokil.events.entities.commands.HighlightEvent;
-import com.custardgames.sudokil.events.entities.commands.ResetHighlightEvent;
+import com.custardgames.sudokil.events.commandLine.HighlightEvent;
+import com.custardgames.sudokil.events.commandLine.ResetHighlightEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
 public class ConsoleHighlightRenderSystem extends EntityProcessingSystem implements EventListener
@@ -107,7 +107,7 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 		{
 			EntityComponent entityComponent = entityComponents.get(entity);
 
-			if (entityComponent != null && event.getEntityName().equals(entityComponent.getId()))
+			if (entityComponent != null && event.getEntity().equals(entityComponent.getId()))
 			{
 				if (event.isPossibleSelection())
 				{
