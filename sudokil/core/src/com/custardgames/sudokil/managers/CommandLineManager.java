@@ -192,9 +192,16 @@ public class CommandLineManager implements EventListener
 			}
 			else if (commandLine.hasOption("exit"))
 			{
-				DisconnectEvent disconnectEvent = new DisconnectEvent();
-				disconnectEvent.setOwnerUI(parentUI);
-				EventManager.get_instance().broadcast(disconnectEvent);
+				if (parentUI == null || parentUI == ownerUI)
+				{
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Cannot exit out of current session."));
+				}
+				else
+				{
+					DisconnectEvent disconnectEvent = new DisconnectEvent();
+					disconnectEvent.setOwnerUI(parentUI);
+					EventManager.get_instance().broadcast(disconnectEvent);
+				}
 			}
 			else if (commandLine.hasOption("echo"))
 			{
@@ -265,7 +272,7 @@ public class CommandLineManager implements EventListener
 			}
 			else
 			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No help topics match '"+args[0]+"'."));
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No help topics match '" + args[0] + "'."));
 			}
 		}
 		else

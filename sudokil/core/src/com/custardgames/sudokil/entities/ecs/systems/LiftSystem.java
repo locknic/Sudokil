@@ -68,6 +68,7 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 			if (entityComponent.getId().equals(event.getEntityName()))
 			{
 				LiftProcess liftProcess = new LiftProcess(entity);
+				liftProcess.setOutputUUID(event.getOwnerUI());
 				EventManager.get_instance().broadcast(new ProcessEvent(entity, liftProcess));
 			}
 		}
@@ -82,6 +83,7 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 			if (entityComponent.getId().equals(event.getEntityName()))
 			{
 				LowerProcess lowerProcess = new LowerProcess(entity);
+				lowerProcess.setOutputUUID(event.getOwnerUI());
 				EventManager.get_instance().broadcast(new ProcessEvent(entity, lowerProcess));
 			}
 		}

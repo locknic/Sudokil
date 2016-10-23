@@ -52,7 +52,7 @@ public class NetworkedConnectProcess extends ConnectProcess implements EventList
 					}
 				}
 			}
-			disconnect();
+			hardDisconnect();
 		}
 
 		return disconnect;

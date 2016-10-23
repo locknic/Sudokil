@@ -61,14 +61,14 @@ public abstract class ConnectProcess extends EntityProcess implements EventListe
 			ActivityBlockingComponent activityBlockingComponent = entity.getComponent(ActivityBlockingComponent.class);
 			if (activityBlockingComponent != null && !activityBlockingComponent.isActive())
 			{
-				disconnect();
+				hardDisconnect();
 			}
 			else if (connectedTo != null)
 			{
 				activityBlockingComponent = connectedTo.getComponent(ActivityBlockingComponent.class);
 				if (activityBlockingComponent != null && !activityBlockingComponent.isActive())
 				{
-					disconnect();
+					hardDisconnect();
 				}
 			}
 		}
@@ -82,6 +82,17 @@ public abstract class ConnectProcess extends EntityProcess implements EventListe
 		if (entityComponent != null)
 		{
 			EventManager.get_instance().broadcast(new ConsoleOutputEvent(consoleUUID, "Connection to " + entityComponent.getId() + " closed." ));
+		}
+		disconnect = true;
+	}
+	
+	public void hardDisconnect()
+	{
+		EventManager.get_instance().broadcast(new ConsoleConnectEvent(consoleUUID, null));
+		EntityComponent entityComponent = connectedTo.getComponent(EntityComponent.class);
+		if (entityComponent != null)
+		{
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(consoleUUID, "ERROR! Connection to " + entityComponent.getId() + " was lost." ));
 		}
 		disconnect = true;
 	}

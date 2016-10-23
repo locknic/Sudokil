@@ -18,7 +18,7 @@ import com.custardgames.sudokil.managers.EventManager;
 public class WiredConnectionSystem extends EntityProcessingSystem implements EventListener
 {
 	private ComponentMapper<EntityComponent> entityComponents;
-
+	
 	@SuppressWarnings("unchecked")
 	public WiredConnectionSystem()
 	{
@@ -66,5 +66,5 @@ public class WiredConnectionSystem extends EntityProcessingSystem implements Eve
 	{
 		connectCommand(event.getOwnerUI(), event.getEntityName());
 	}
-
+	
 }

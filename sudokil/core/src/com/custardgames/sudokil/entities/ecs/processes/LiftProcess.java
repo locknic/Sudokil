@@ -45,8 +45,6 @@ public class LiftProcess extends EntityProcess
 			{
 				return true;
 			}
-			
-			
 
 			if (!setTarget)
 			{
@@ -86,8 +84,20 @@ public class LiftProcess extends EntityProcess
 								}
 								return false;
 							}
+							else
+							{
+								sendOutput("ERROR! Object is not liftable.");
+							}
+						}
+						else
+						{
+							sendOutput("ERROR! No object to lift.");
 						}
 					}
+				}
+				else
+				{
+					sendOutput("ERROR! Entity is already lifting something.");
 				}
 				return true;
 			}

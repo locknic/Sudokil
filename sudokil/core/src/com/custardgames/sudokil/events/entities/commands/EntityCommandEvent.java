@@ -31,7 +31,7 @@ public abstract class EntityCommandEvent extends BaseEvent
 
 	public boolean setArgs(String[] args)
 	{
-		return checkHelpArgs(args);
+		return !checkHelpArgs(args);
 	}
 
 	public UUID getOwnerUI()
@@ -43,7 +43,6 @@ public abstract class EntityCommandEvent extends BaseEvent
 	{
 		this.ownerUI = ownerUI;
 	}
-	
 
 	public String getUsage()
 	{

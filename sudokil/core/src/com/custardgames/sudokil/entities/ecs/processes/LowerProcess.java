@@ -87,9 +87,21 @@ public class LowerProcess extends EntityProcess
 										return false;
 									}
 								}
+								else
+								{
+									sendOutput("ERROR! No space to lower object.");
+								}
+							}
+							else
+							{
+								sendOutput("ERROR! No space to lower object.");
 							}
 						}
 					}
+				}
+				else
+				{
+					sendOutput("ERROR! Not carrying an object.");
 				}
 				return true;
 			}
