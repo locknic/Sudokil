@@ -18,8 +18,8 @@ import com.custardgames.sudokil.events.entities.map.RequestMoveEvent;
 public class MapManager implements EventListener
 {
 	private TiledMap map;
-	private int tileWidth;
-	private int tileHeight;
+	private static int tileWidth;
+	private static int tileHeight;
 	private Map<Cell, Entity> tiledEntities;
 
 	public MapManager(TiledMap map)
@@ -30,6 +30,16 @@ public class MapManager implements EventListener
 		EventManager.get_instance().register(PingCellEvent.class, this);
 
 		setMap(map);
+	}
+	
+	public static int getTileWidth()
+	{
+		return tileWidth;
+	}
+	
+	public static int getTileHeight()
+	{
+		return tileHeight;
 	}
 
 	public void setMap(TiledMap map)
@@ -46,6 +56,9 @@ public class MapManager implements EventListener
 		Cell tiledEntity = new Cell();
 		tiledEntities.put(tiledEntity, entity);
 		((TiledMapTileLayer) map.getLayers().get("objects")).setCell(x, y, tiledEntity);
+		PositionComponent position = entity.getComponent(PositionComponent.class);
+		position.setExpectedX(x * tileWidth);
+		position.setExpectedY(y * tileHeight);
 	}
 
 	public void addToMap(Entity entity)
@@ -126,8 +139,8 @@ public class MapManager implements EventListener
 		if (requestMove(event.getEntity(), event.getxDir(), event.getyDir()))
 		{
 			event.setAllowedMove(true);
-			event.setxDir(event.getxDir() * tileWidth);
-			event.setyDir(event.getyDir() * tileHeight);
+//			event.setxDir(event.getxDir() * tileWidth);
+//			event.setyDir(event.getyDir() * tileHeight);
 			return event;
 		}
 		else

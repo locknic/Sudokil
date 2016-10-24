@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 public class PositionComponent extends Component
 {
 	private float x, y;
+	private float expectedX, expectedY;
 	private float width, height;
 	private float angle;
 	private Vector2 tempVector;
@@ -25,6 +26,16 @@ public class PositionComponent extends Component
 		this.x = x;
 	}
 
+	public float getExpectedX()
+	{
+		return expectedX;
+	}
+
+	public void setExpectedX(float expectedX)
+	{
+		this.expectedX = expectedX;
+	}
+
 	public float getY()
 	{
 		return y;
@@ -33,6 +44,16 @@ public class PositionComponent extends Component
 	public void setY(float y)
 	{
 		this.y = y;
+	}
+
+	public float getExpectedY()
+	{
+		return expectedY;
+	}
+
+	public void setExpectedY(float expectedY)
+	{
+		this.expectedY = expectedY;
 	}
 
 	public void setPosition(float x, float y)

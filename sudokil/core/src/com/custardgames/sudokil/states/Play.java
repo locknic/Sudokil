@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.Json;
 import com.custardgames.sudokil.managers.TimerManager;
+import com.custardgames.sudokil.managers.UniTweenManager;
 import com.custardgames.sudokil.ui.MapInterface;
 import com.custardgames.sudokil.ui.UserInterface;
 import com.custardgames.sudokil.ui.screens.EndScreen;
@@ -47,6 +48,8 @@ public class Play implements Screen
 	@Override
 	public void render(float delta)
 	{
+		UniTweenManager.update(delta);
+		
 		tickCounter += delta;
 		while (tickCounter >= TICK_STEP)
 		{

@@ -5,6 +5,7 @@ import java.util.EventListener;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.custardgames.sudokil.managers.InputManager;
+import com.custardgames.sudokil.managers.UniTweenManager;
 import com.custardgames.sudokil.states.Play;
 import com.custardgames.sudokil.states.Start;
 
@@ -16,7 +17,7 @@ public class Core extends Game implements EventListener
 	public static final int SCALE = 1;
 	public static final boolean FULLSCREEN = false;
 	public static final boolean VSYNC = true;
-
+	
 	public enum Screens
 	{
 		START, PLAY, END
@@ -24,6 +25,7 @@ public class Core extends Game implements EventListener
 
 	public Core()
 	{
+		new UniTweenManager();
 	}
 
 	@Override

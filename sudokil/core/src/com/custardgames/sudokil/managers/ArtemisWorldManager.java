@@ -61,7 +61,7 @@ public class ArtemisWorldManager implements EventListener
 	private ShapeRenderSystem shapeRenderSystem;
 	private TextRenderSystem textRenderSystem;
 	private ConsoleHighlightRenderSystem consoleHighlightRenderSystem;
-
+	
 	public ArtemisWorldManager(Camera camera, AssetManager assetManager, LevelData levelData)
 	{
 		EventManager.get_instance().register(CreateEntityEvent.class, this);
@@ -78,7 +78,6 @@ public class ArtemisWorldManager implements EventListener
 				new PowerConsumptionSystem(), new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem(), new NetworkSystem(),
 				new NetworksConnectedSystem(), new CurrentConsumptionSystem(), new CurrentToggleSystem()).build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
-
 		loadLevelData(levelData);
 	}
 
