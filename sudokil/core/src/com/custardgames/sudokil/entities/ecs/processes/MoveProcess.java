@@ -1,5 +1,12 @@
 package com.custardgames.sudokil.entities.ecs.processes;
 
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.equations.Expo;
+import aurelienribon.tweenengine.equations.Linear;
+import aurelienribon.tweenengine.equations.Quad;
+import aurelienribon.tweenengine.equations.Sine;
+
 import com.artemis.Entity;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
@@ -9,12 +16,6 @@ import com.custardgames.sudokil.events.entities.map.RequestMoveEvent;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.MapManager;
 import com.custardgames.sudokil.managers.UniTweenManager;
-
-import aurelienribon.tweenengine.Timeline;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.equations.Linear;
-import aurelienribon.tweenengine.equations.Quad;
-import aurelienribon.tweenengine.equations.Sine;
 
 public class MoveProcess extends EntityProcess
 {
@@ -49,20 +50,22 @@ public class MoveProcess extends EntityProcess
 	private void createCollisionTween(int type, int dir)
 	{
 		UniTweenManager.getTweenManager().killTarget(position, type);
-//		Timeline.createSequence()
-//		.push(Tween.to(position, type, 1.0f / 16.0f).targetRelative(2 * dir).ease(Expo.OUT))
-//		.push(Tween.to(position, type, 1.0f / 8.0f).targetRelative(-3 * dir).ease(Linear.INOUT))
-//		.push(Tween.to(position, type, 1.0f / 16.0f).targetRelative(1 * dir).ease(Linear.INOUT))
-//		.start(UniTweenManager.getTweenManager());
+		Timeline.createSequence()
+		.push(Tween.to(position, type, 1.0f / 16.0f).targetRelative(2 * dir).ease(Expo.OUT))
+		.push(Tween.to(position, type, 1.0f / 8.0f).targetRelative(-2 * dir).ease(Linear.INOUT))
+		.start(UniTweenManager.getTweenManager());
 	}
 	
 	private void createShakeTween()
 	{
 		Timeline.createSequence()
+		.pushPause(1.0f / 16.0f)
 		.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 32.0f).target(position.getAngle() + 2).ease(Linear.INOUT))
-		.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() + -4).ease(Linear.INOUT))
-		.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() + 4).ease(Linear.INOUT))
-		.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 32.0f).target(position.getAngle() + -2).ease(Linear.INOUT))
+		.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() - 2).ease(Linear.INOUT))
+		.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() + 2).ease(Linear.INOUT))
+		.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() - 2).ease(Linear.INOUT))
+		.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() + 2).ease(Linear.INOUT))
+		.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 32.0f).target(position.getAngle()).ease(Linear.INOUT))
 		.start(UniTweenManager.getTweenManager());
 	}
 	
