@@ -102,12 +102,12 @@ public class CharacterMovementSystem extends EntityProcessingSystem implements E
 
 	public void handleLeft(LeftEvent event)
 	{
-		turnCommand(event.getEntityName(), event.getNum(), 90);
+		turnCommand(event.getEntityName(), event.getNum(), 1);
 	}
 
 	public void handleRight(RightEvent event)
 	{
-		turnCommand(event.getEntityName(), event.getNum(), -90);
+		turnCommand(event.getEntityName(), event.getNum(), -1);
 	}
 
 }

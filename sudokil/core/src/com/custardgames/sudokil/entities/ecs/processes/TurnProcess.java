@@ -3,110 +3,71 @@ package com.custardgames.sudokil.entities.ecs.processes;
 import com.artemis.Entity;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.VelocityComponent;
+import com.custardgames.sudokil.entities.ecs.components.tween.PositionComponentAccessor;
 import com.custardgames.sudokil.events.entities.EntityTurnedEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.managers.UniTweenManager;
+
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.equations.Linear;
+import aurelienribon.tweenengine.equations.Quad;
+import aurelienribon.tweenengine.equations.Sine;
 
 public class TurnProcess extends EntityProcess
 {
 	private float dirAngle;
-	private float deltaAngle;
-	private float targetAngle;
-	private boolean setTarget;
 	private int times;
+
+	private PositionComponent position;
+	private VelocityComponent velocity;
+
+	private boolean setTarget;
+	private boolean finishedAnimations;
 
 	public TurnProcess(Entity entity, float dirAngle, int times)
 	{
 		super(entity);
 		this.dirAngle = dirAngle;
 		this.times = times;
+
+		position = entity.getComponent(PositionComponent.class);
+		velocity = entity.getComponent(VelocityComponent.class);
+	}
+
+	private void createTurnAccelerationTween(float time, float dir, float targetAngle)
+	{
+		Timeline.createSequence().push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 4.0f).targetRelative(15 * dir).ease(Sine.IN))
+				.push(Tween.to(position, PositionComponentAccessor.ANGLE, time).target(targetAngle - 10 * dir).ease(Linear.INOUT))
+				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 2.0f).target(targetAngle).ease(Quad.OUT)).setCallback(new TweenCallback()
+				{
+					@Override
+					public void onEvent(int type, BaseTween<?> source)
+					{
+						if (type == COMPLETE)
+						{
+							finishedAnimations = true;
+						}
+					}
+				}).start(UniTweenManager.getTweenManager());
 	}
 
 	@Override
 	public boolean process()
 	{
-		PositionComponent position = entity.getComponent(PositionComponent.class);
-		VelocityComponent velocity = entity.getComponent(VelocityComponent.class);
-
-		float angle = 0;
-		float maxTurnVelocity = (float) 1.5;
-
-		if (position != null)
-		{
-			angle = position.getAngle();
-		}
-		else
-		{
-			return true;
-		}
-
-		if (velocity != null)
-		{
-			maxTurnVelocity = (float) velocity.getMaxTurnVelocity();
-		}
-
 		if (!setTarget)
 		{
-			deltaAngle = dirAngle;
-			targetAngle = angle + deltaAngle;
+			float targetAngle = position.getAngle() + 90 * dirAngle * times;
 
-			if (targetAngle >= 360)
-			{
-				targetAngle -= 360;
-			}
-			else if (targetAngle < 0)
-			{
-				targetAngle += 360;
-			}
+			createTurnAccelerationTween(times * 1.0f, dirAngle, targetAngle);
 
 			setTarget = true;
 		}
 
-		if (Math.abs(deltaAngle) > maxTurnVelocity)
-		{
-			if (deltaAngle > 0)
-			{
-				angle += maxTurnVelocity;
-				EventManager.get_instance().broadcast(new EntityTurnedEvent(entity, maxTurnVelocity));
-				deltaAngle -= maxTurnVelocity;
-			}
-			else
-			{
-				angle -= maxTurnVelocity;
-				EventManager.get_instance().broadcast(new EntityTurnedEvent(entity, -maxTurnVelocity));
-				deltaAngle += maxTurnVelocity;
-			}
-
-			if (angle >= 360)
-			{
-				angle -= 360;
-			}
-			else if (angle < 0)
-			{
-				angle += 360;
-			}
-			position.setAngle(angle);
-
-			return false;
-		}
-		else
-		{
-			EventManager.get_instance().broadcast(new EntityTurnedEvent(entity, targetAngle - angle));
-			angle = targetAngle;
-
-			position.setAngle(angle);
-			
-			times--;
-			if (times > 0)
-			{
-				setTarget = false;
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		}
-
+		EventManager.get_instance().broadcast(new EntityTurnedEvent(entity));
+		return finishedAnimations;
 	}
 
 }

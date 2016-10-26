@@ -46,12 +46,13 @@
     <property name="ConeLightComponent.xCo" type="float" value="4"/>
     <property name="ConeLightComponent.yCo" type="float" value="0"/>
     <property name="EntityComponent" type="bool" value="true"/>
-    <property name="LiftableComponent" type="bool" value="false"/>
+    <property name="LiftableComponent" type="bool" value="true"/>
     <property name="LifterComponent" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
     <property name="ProcessQueueComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.spriteLocation" value="images/player/robot1.png"/>
+    <property name="SpriteComponent.zOrder" type="float" value="20"/>
     <property name="TextTagComponent" type="bool" value="true"/>
     <property name="TextTagComponent.deltaX" type="float" value="0"/>
     <property name="TextTagComponent.deltaY" type="float" value="2"/>
@@ -300,13 +301,14 @@
     <property name="ConeLightComponent.xCo" type="float" value="4"/>
     <property name="ConeLightComponent.yCo" type="float" value="0"/>
     <property name="EntityComponent" type="bool" value="true"/>
-    <property name="LiftableComponent" type="bool" value="false"/>
+    <property name="LiftableComponent" type="bool" value="true"/>
     <property name="LifterComponent" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
     <property name="PositionComponent.angle" type="float" value="180"/>
     <property name="ProcessQueueComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.spriteLocation" value="images/player/robot1.png"/>
+    <property name="SpriteComponent.zOrder" type="float" value="20"/>
     <property name="TextTagComponent" type="bool" value="true"/>
     <property name="TextTagComponent.deltaX" type="float" value="0"/>
     <property name="TextTagComponent.deltaY" type="float" value="2"/>

@@ -8,6 +8,7 @@ public class SpriteComponent extends Component implements Comparator<SpriteCompo
 {
 	private String spriteLocation;
 	private float width, height;
+	private float xOffset, yOffset;
 	private boolean shouldRender;
 	private int zOrder;
 
@@ -82,6 +83,26 @@ public class SpriteComponent extends Component implements Comparator<SpriteCompo
 	public void setWidth(float width)
 	{
 		this.width = width;
+	}
+
+	public float getyOffset()
+	{
+		return yOffset;
+	}
+
+	public void setyOffset(float yOffset)
+	{
+		this.yOffset = yOffset;
+	}
+
+	public float getxOffset()
+	{
+		return xOffset;
+	}
+
+	public void setxOffset(float xOffset)
+	{
+		this.xOffset = xOffset;
 	}
 
 }

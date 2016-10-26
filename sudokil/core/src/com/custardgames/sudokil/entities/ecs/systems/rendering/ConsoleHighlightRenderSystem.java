@@ -71,10 +71,10 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 	{
 		spriteBatch.end();
 		shapeRenderer.setProjectionMatrix(spriteBatch.getProjectionMatrix());
-		Gdx.gl.glDisable(GL20.GL_BLEND);
+		Gdx.gl.glEnable(GL20.GL_BLEND);
 		shapeRenderer.begin(ShapeType.Line);
 
-		shapeRenderer.setColor(Color.GREEN);
+		shapeRenderer.setColor(Color.WHITE);
 		for (Entity entity : selectedEntities)
 		{
 			PositionComponent positionComponent = positionComponents.get(entity);
@@ -85,7 +85,7 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 			}
 		}
 
-		shapeRenderer.setColor(Color.ORANGE);
+		shapeRenderer.getColor().a = 0.3f;
 		for (Entity entity : possibleSelectedEntities)
 		{
 			PositionComponent positionComponent = positionComponents.get(entity);
@@ -95,8 +95,10 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 						positionComponent.getHeight() - 4);
 			}
 		}
+		shapeRenderer.getColor().a = 1.0f;
 
 		shapeRenderer.end();
+
 		spriteBatch.begin();
 	}
 

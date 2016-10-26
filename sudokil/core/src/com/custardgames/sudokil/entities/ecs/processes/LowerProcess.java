@@ -82,7 +82,7 @@ public class LowerProcess extends EntityProcess
 										
 										if (spriteComponent != null)
 										{
-											spriteComponent.setzOrder(spriteComponent.getzOrder() + 10);
+											spriteComponent.setzOrder(spriteComponent.getzOrder() - 10);
 										}
 										return false;
 									}
@@ -120,7 +120,7 @@ public class LowerProcess extends EntityProcess
 					liftedPosition.setX(targetX);
 					liftedPosition.setY(targetY);
 					EventManager.get_instance().broadcast(new AddToMapEvent(lifted));
-					EventManager.get_instance().broadcast(new EntityMovedEvent(lifted, deltaX, deltaY));
+					EventManager.get_instance().broadcast(new EntityMovedEvent(lifted));
 					return true;
 				}
 
@@ -135,7 +135,7 @@ public class LowerProcess extends EntityProcess
 				liftedPosition.setX(positionX + deltaX);
 				liftedPosition.setY(positionY + deltaY);
 				
-				EventManager.get_instance().broadcast(new EntityMovedEvent(lifted, deltaX, deltaY));
+				EventManager.get_instance().broadcast(new EntityMovedEvent(lifted));
 				return false;
 			}
 		}

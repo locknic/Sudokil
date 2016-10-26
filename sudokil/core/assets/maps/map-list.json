@@ -31,6 +31,12 @@
 	},
 	{
 		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
+		name: playground-rafal,
+		fileLocation: maps/playground/rafal/level-data.json,
+		description: "Playground level for showing a small level in Rafal's art style.",
+	},
+	{
+		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
 		name: playground-power-wires,
 		fileLocation: maps/playground/power-wires/level-data.json,
 		description: "Playground level for testing power moving through wires.",

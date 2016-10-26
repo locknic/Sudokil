@@ -113,7 +113,7 @@ public class LiftProcess extends EntityProcess
 				{
 					liftedPosition.setX(targetX);
 					liftedPosition.setY(targetY);
-					EventManager.get_instance().broadcast(new EntityMovedEvent(lifted, deltaX, deltaY));
+					EventManager.get_instance().broadcast(new EntityMovedEvent(lifted));
 					return true;
 				}
 
@@ -128,7 +128,7 @@ public class LiftProcess extends EntityProcess
 				liftedPosition.setX(positionX + deltaX);
 				liftedPosition.setY(positionY + deltaY);
 				
-				EventManager.get_instance().broadcast(new EntityMovedEvent(lifted, deltaX, deltaY));
+				EventManager.get_instance().broadcast(new EntityMovedEvent(lifted));
 				return false;
 			}
 		}

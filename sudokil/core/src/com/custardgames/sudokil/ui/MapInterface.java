@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -38,7 +39,7 @@ public class MapInterface extends Stage implements EventListener
 	private AssetManager assetManager;
 	private ArtemisWorldManager worldManager;
 	private Box2dWorldManager box2dWorldManager;
-	
+
 	private TiledMap tileMap;
 	private MapManager mapManager;
 	private OrthogonalTiledMapRenderer tmr;
@@ -73,16 +74,16 @@ public class MapInterface extends Stage implements EventListener
 		camera = new OrthographicCamera();
 		tmr.setView(camera);
 		this.getViewport().setCamera(camera);
-		
+
 		box2dWorldManager = new Box2dWorldManager();
 		box2dWorldManager.loadMap(tileMap);
 		worldManager = new ArtemisWorldManager(camera, assetManager, levelData);
 		worldManager.loadMapEntities(tileMap);
-		
+
 		map = new Actor();
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
 		this.addActor(map);
-		
+
 		shouldRender = true;
 	}
 
@@ -101,7 +102,7 @@ public class MapInterface extends Stage implements EventListener
 		EventManager.get_instance().deregister(ChangeLevelEvent.class, this);
 		EventManager.get_instance().deregister(ChangeMapEvent.class, this);
 	}
-	
+
 	private void loadAssets(AssetManager assets, LevelData levelData)
 	{
 		for (String image : levelData.getImages())
@@ -115,10 +116,10 @@ public class MapInterface extends Stage implements EventListener
 	{
 		assetManager.clear();
 		loadAssets(assetManager, levelData);
-		
+
 		worldManager.dispose();
 		worldManager.loadLevelData(levelData);
-		
+
 		box2dWorldManager.clear();
 		changeMap(levelData.getMapLocation());
 	}
@@ -153,6 +154,13 @@ public class MapInterface extends Stage implements EventListener
 			spriteBatch.setProjectionMatrix(camera.combined);
 			worldManager.render(spriteBatch);
 			box2dWorldManager.render(camera);
+			TiledMapTileLayer overLayer = (TiledMapTileLayer) tileMap.getLayers().get("tiles-over");
+			if (overLayer != null)
+			{
+				tmr.getBatch().begin();
+				tmr.renderTileLayer(overLayer);
+				tmr.getBatch().end();
+			}
 			this.draw();
 		}
 	}

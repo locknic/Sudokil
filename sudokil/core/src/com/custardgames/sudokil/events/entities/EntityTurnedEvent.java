@@ -4,22 +4,8 @@ import com.artemis.Entity;
 
 public class EntityTurnedEvent extends EntityEvent
 {
-	private float angle;
-
-	public EntityTurnedEvent(Entity entity, float angle)
+	public EntityTurnedEvent(Entity entity)
 	{
 		super(entity);
-		this.setAngle(angle);
 	}
-
-	public float getAngle()
-	{
-		return angle;
-	}
-
-	public void setAngle(float angle)
-	{
-		this.angle = angle;
-	}
-
 }

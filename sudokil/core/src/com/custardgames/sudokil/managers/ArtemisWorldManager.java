@@ -119,9 +119,9 @@ public class ArtemisWorldManager implements EventListener
 	{
 		spriteBatch.begin();
 		shapeRenderSystem.render(spriteBatch);
+		consoleHighlightRenderSystem.render(spriteBatch);
 		spriteRenderSystem.render(spriteBatch);
 		textRenderSystem.render(spriteBatch);
-		consoleHighlightRenderSystem.render(spriteBatch);
 		spriteBatch.end();
 	}
 

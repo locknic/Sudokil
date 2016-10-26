@@ -91,24 +91,24 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 
 	public void handleEntityTurned(EntityTurnedEvent event)
 	{
-		ImmutableBag<Entity> entities = getEntities();
-		for (Entity entity : entities)
-		{
-			if (entity == event.getEntity())
-			{
-				LifterComponent lifterComponent = lifterComponents.get(entity);
-				Entity lifted = lifterComponent.getLifted();
-				if (lifted != null)
-				{
-					PositionComponent liftedPositionComponent = positionComponents.get(lifted);
-					if (liftedPositionComponent != null)
-					{
-						liftedPositionComponent.setAngle(liftedPositionComponent.getAngle() + event.getAngle());
-						EventManager.get_instance().broadcast(new EntityTurnedEvent(lifted, event.getAngle()));
-					}
-				}
-			}
-		}
+//		ImmutableBag<Entity> entities = getEntities();
+//		for (Entity entity : entities)
+//		{
+//			if (entity == event.getEntity())
+//			{
+//				LifterComponent lifterComponent = lifterComponents.get(entity);
+//				Entity lifted = lifterComponent.getLifted();
+//				if (lifted != null)
+//				{
+//					PositionComponent liftedPositionComponent = positionComponents.get(lifted);
+//					if (liftedPositionComponent != null)
+//					{
+//						liftedPositionComponent.setAngle(liftedPositionComponent.getAngle() + event.getAngle());
+//						EventManager.get_instance().broadcast(new EntityTurnedEvent(lifted));
+//					}
+//				}
+//			}
+//		}
 	}
 
 	public void handleEntityMoved(EntityMovedEvent event)
@@ -128,7 +128,7 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 					{
 						liftedPositionComponent.setPosition(positionComponent.getX() + positionComponent.getWidth() / 2 - liftedPositionComponent.getWidth() / 2,
 								positionComponent.getY() + positionComponent.getHeight() / 2 - liftedPositionComponent.getHeight() / 2);
-						EventManager.get_instance().broadcast(new EntityMovedEvent(lifted, event.getDeltaX(), event.getDeltaY()));
+						EventManager.get_instance().broadcast(new EntityMovedEvent(lifted));
 					}
 				}
 			}

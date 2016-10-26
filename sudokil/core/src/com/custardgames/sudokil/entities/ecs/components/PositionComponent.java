@@ -118,11 +118,9 @@ public class PositionComponent extends Component
 
 	public int unOrientateDirectionY(float xDir, float yDir)
 	{
-//		System.out.println("ORIENTATING " + xDir + ", " + yDir + " by " + angle);
 		tempVector.x = xDir;
 		tempVector.y = yDir;
 		tempVector.rotate(-angle);
-//		System.out.println("GETTING " + (int)tempVector.x + ", " + (int)tempVector.y);
 		return (int) tempVector.y;
 	}
 
