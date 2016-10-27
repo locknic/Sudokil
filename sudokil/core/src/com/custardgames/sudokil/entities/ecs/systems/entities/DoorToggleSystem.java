@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.entities.ecs.systems;
+package com.custardgames.sudokil.entities.ecs.systems.entities;
 
 import java.util.EventListener;
 

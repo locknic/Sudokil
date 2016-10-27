@@ -6,22 +6,35 @@ import com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponen
 public class CreateActivityBlockerProcess extends EntityProcess
 {
 	private Class<?> componentClass;
-
+	private ActivityBlockingComponent activityBlockingComponent;
+	
 	public CreateActivityBlockerProcess(Entity entity, Class<?> componentClass)
 	{
 		super(entity);
 		this.componentClass = componentClass;
+		
+		activityBlockingComponent = entity.getComponent(ActivityBlockingComponent.class);
 	}
 
 	@Override
+	public boolean preProcess()
+	{
+		return activityBlockingComponent != null;
+	}
+	
+	@Override
 	public boolean process()
 	{
-		ActivityBlockingComponent activityBlockingComponent = entity.getComponent(ActivityBlockingComponent.class);
-		if (activityBlockingComponent != null)
-		{
-			activityBlockingComponent.addActivityBlocker(componentClass);
-		}
+		activityBlockingComponent.addActivityBlocker(componentClass);
+
 		return true;
+	}
+
+	@Override
+	public void postProcess()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

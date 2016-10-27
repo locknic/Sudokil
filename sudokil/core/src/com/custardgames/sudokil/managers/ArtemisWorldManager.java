@@ -22,21 +22,24 @@ import com.custardgames.sudokil.entities.ecs.components.lights.ConeLightComponen
 import com.custardgames.sudokil.entities.ecs.components.lights.PointLightComponent;
 import com.custardgames.sudokil.entities.ecs.systems.ActivityBlockingSystem;
 import com.custardgames.sudokil.entities.ecs.systems.ActivitySpriteSystem;
-import com.custardgames.sudokil.entities.ecs.systems.CameraMovementSystem;
-import com.custardgames.sudokil.entities.ecs.systems.CharacterMovementSystem;
-import com.custardgames.sudokil.entities.ecs.systems.CurrentConsumptionSystem;
-import com.custardgames.sudokil.entities.ecs.systems.CurrentToggleSystem;
-import com.custardgames.sudokil.entities.ecs.systems.DoorToggleSystem;
+import com.custardgames.sudokil.entities.ecs.systems.CharacterInputSystem;
 import com.custardgames.sudokil.entities.ecs.systems.EntityLocatorSystem;
 import com.custardgames.sudokil.entities.ecs.systems.EventTriggerSystem;
-import com.custardgames.sudokil.entities.ecs.systems.LiftSystem;
 import com.custardgames.sudokil.entities.ecs.systems.MapRefresherSystem;
-import com.custardgames.sudokil.entities.ecs.systems.NetworkSystem;
-import com.custardgames.sudokil.entities.ecs.systems.NetworksConnectedSystem;
-import com.custardgames.sudokil.entities.ecs.systems.PowerConsumptionSystem;
 import com.custardgames.sudokil.entities.ecs.systems.ProcessQueueSystem;
-import com.custardgames.sudokil.entities.ecs.systems.UpdatePhysicalCharacterInputSystem;
-import com.custardgames.sudokil.entities.ecs.systems.WiredConnectionSystem;
+import com.custardgames.sudokil.entities.ecs.systems.current.CurrentConsumptionSystem;
+import com.custardgames.sudokil.entities.ecs.systems.current.CurrentToggleSystem;
+import com.custardgames.sudokil.entities.ecs.systems.entities.DoorToggleSystem;
+import com.custardgames.sudokil.entities.ecs.systems.entities.LampSpriteSystem;
+import com.custardgames.sudokil.entities.ecs.systems.entities.camera.CameraMovementSystem;
+import com.custardgames.sudokil.entities.ecs.systems.entities.robot.RobotConnectSystem;
+import com.custardgames.sudokil.entities.ecs.systems.entities.robot.RobotLiftSystem;
+import com.custardgames.sudokil.entities.ecs.systems.entities.robot.RobotMovementSystem;
+import com.custardgames.sudokil.entities.ecs.systems.entities.robot.RobotSpriteSystem;
+import com.custardgames.sudokil.entities.ecs.systems.network.NetworkSystem;
+import com.custardgames.sudokil.entities.ecs.systems.network.NetworksConnectedSystem;
+import com.custardgames.sudokil.entities.ecs.systems.power.PowerConsumptionSystem;
+import com.custardgames.sudokil.entities.ecs.systems.power.PowerLightSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.ConsoleHighlightRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.ShapeRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.SpriteRenderSystem;
@@ -61,7 +64,7 @@ public class ArtemisWorldManager implements EventListener
 	private ShapeRenderSystem shapeRenderSystem;
 	private TextRenderSystem textRenderSystem;
 	private ConsoleHighlightRenderSystem consoleHighlightRenderSystem;
-	
+
 	public ArtemisWorldManager(Camera camera, AssetManager assetManager, LevelData levelData)
 	{
 		EventManager.get_instance().register(CreateEntityEvent.class, this);
@@ -73,10 +76,11 @@ public class ArtemisWorldManager implements EventListener
 		consoleHighlightRenderSystem = new ConsoleHighlightRenderSystem();
 
 		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, consoleHighlightRenderSystem,
-				new CharacterMovementSystem(), new CameraMovementSystem(), new UpdatePhysicalCharacterInputSystem(), new ProcessQueueSystem(),
-				new EntityLocatorSystem(), new DoorToggleSystem(), new WiredConnectionSystem(), new LiftSystem(), new ActivityBlockingSystem(),
-				new PowerConsumptionSystem(), new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem(), new NetworkSystem(),
-				new NetworksConnectedSystem(), new CurrentConsumptionSystem(), new CurrentToggleSystem()).build().register(camera).register(assetManager);
+				new RobotMovementSystem(), new CameraMovementSystem(), new CharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(),
+				new DoorToggleSystem(), new RobotConnectSystem(), new RobotLiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(),
+				new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem(), new NetworkSystem(), new NetworksConnectedSystem(),
+				new CurrentConsumptionSystem(), new CurrentToggleSystem(), new RobotSpriteSystem(), new PowerLightSystem(), new LampSpriteSystem()).build().register(camera)
+				.register(assetManager);
 		artemisWorld = new com.artemis.World(config);
 		loadLevelData(levelData);
 	}

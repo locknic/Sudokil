@@ -11,11 +11,15 @@ public class SpriteComponent extends Component implements Comparator<SpriteCompo
 	private float xOffset, yOffset;
 	private boolean shouldRender;
 	private int zOrder;
-
+	
+	// TODO TEMPORARY FOR ART COMPATIBILITY
+	private boolean topDown;
+	
 	public SpriteComponent()
 	{
 		setShouldRender(true);
 		zOrder = 50;
+		setTopDown(true);
 	}
 
 	public SpriteComponent(String spriteLocation)
@@ -103,6 +107,16 @@ public class SpriteComponent extends Component implements Comparator<SpriteCompo
 	public void setxOffset(float xOffset)
 	{
 		this.xOffset = xOffset;
+	}
+
+	public boolean isTopDown()
+	{
+		return topDown;
+	}
+
+	public void setTopDown(boolean topDown)
+	{
+		this.topDown = topDown;
 	}
 
 }

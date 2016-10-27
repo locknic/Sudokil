@@ -13,49 +13,64 @@ import com.custardgames.sudokil.managers.EventManager;
 
 public class NetworkedConnectProcess extends ConnectProcess implements EventListener
 {
+	private NetworkedDeviceComponent networkedDeviceComponent;
+	private EntityComponent connectedEntityComponent;
+	private NetworkedDeviceComponent connectedNetworkedDeviceComponent;
 
 	public NetworkedConnectProcess(UUID consoleUUID, Entity entity, Entity connectedTo)
 	{
 		super(consoleUUID, entity, connectedTo);
-
+		
+		networkedDeviceComponent = entity.getComponent(NetworkedDeviceComponent.class);
+		connectedEntityComponent = connectedTo.getComponent(EntityComponent.class);
+		connectedNetworkedDeviceComponent = connectedTo.getComponent(NetworkedDeviceComponent.class);
+		
 		this.setBackgroundProcess(true);
+	}
+
+	@Override
+	public boolean preProcess()
+	{
+		boolean canContinue = super.preProcess();
+		
+		return canContinue && networkedDeviceComponent != null && connectedEntityComponent != null && connectedNetworkedDeviceComponent != null;
 	}
 
 	@Override
 	public boolean process()
 	{
-		boolean prev = super.process();
+		super.process();
 
-		if (!prev && triedConnecting)
+		if (!disconnect)
 		{
-			NetworkedDeviceComponent networkedDeviceComponent = entity.getComponent(NetworkedDeviceComponent.class);
-			EntityComponent connectedEntityComponent = connectedTo.getComponent(EntityComponent.class);
-			NetworkedDeviceComponent connectedNetworkedDeviceComponent = connectedTo.getComponent(NetworkedDeviceComponent.class);
+			boolean shouldDisconnect = true;
 
-			if (networkedDeviceComponent != null)
+			if (networkedDeviceComponent.getWiredDevices().contains(connectedEntityComponent.getId(), false))
 			{
-				if (connectedEntityComponent != null)
+				shouldDisconnect = false;
+			}
+			for (String network : networkedDeviceComponent.getWirelessNetworks())
+			{
+				if (connectedNetworkedDeviceComponent.getWirelessNetworks().contains(network, false))
 				{
-					if (networkedDeviceComponent.getWiredDevices().contains(connectedEntityComponent.getId(), false))
-					{
-						return false;
-					}
-				}
-				if (connectedNetworkedDeviceComponent != null)
-				{
-					for (String network : networkedDeviceComponent.getWirelessNetworks())
-					{
-						if (connectedNetworkedDeviceComponent.getWirelessNetworks().contains(network, false))
-						{
-							return false;
-						}
-					}
+					shouldDisconnect = false;
 				}
 			}
-			hardDisconnect();
+
+			if (shouldDisconnect)
+			{
+				hardDisconnect();
+			}
 		}
 
 		return disconnect;
+	}
+
+	@Override
+	public void postProcess()
+	{
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override

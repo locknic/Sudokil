@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.entities.ecs.systems;
+package com.custardgames.sudokil.entities.ecs.systems.entities.robot;
 
 import java.util.EventListener;
 
@@ -19,14 +19,14 @@ import com.custardgames.sudokil.events.entities.commands.LiftEvent;
 import com.custardgames.sudokil.events.entities.commands.LowerEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
-public class LiftSystem extends EntityProcessingSystem implements EventListener
+public class RobotLiftSystem extends EntityProcessingSystem implements EventListener
 {
 	private ComponentMapper<EntityComponent> entityComponents;
 	private ComponentMapper<LifterComponent> lifterComponents;
 	private ComponentMapper<PositionComponent> positionComponents;
 
 	@SuppressWarnings("unchecked")
-	public LiftSystem()
+	public RobotLiftSystem()
 	{
 		super(Aspect.all(EntityComponent.class, LifterComponent.class, PositionComponent.class));
 
@@ -91,24 +91,26 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 
 	public void handleEntityTurned(EntityTurnedEvent event)
 	{
-//		ImmutableBag<Entity> entities = getEntities();
-//		for (Entity entity : entities)
-//		{
-//			if (entity == event.getEntity())
-//			{
-//				LifterComponent lifterComponent = lifterComponents.get(entity);
-//				Entity lifted = lifterComponent.getLifted();
-//				if (lifted != null)
-//				{
-//					PositionComponent liftedPositionComponent = positionComponents.get(lifted);
-//					if (liftedPositionComponent != null)
-//					{
-//						liftedPositionComponent.setAngle(liftedPositionComponent.getAngle() + event.getAngle());
-//						EventManager.get_instance().broadcast(new EntityTurnedEvent(lifted));
-//					}
-//				}
-//			}
-//		}
+		// ImmutableBag<Entity> entities = getEntities();
+		// for (Entity entity : entities)
+		// {
+		// if (entity == event.getEntity())
+		// {
+		// LifterComponent lifterComponent = lifterComponents.get(entity);
+		// Entity lifted = lifterComponent.getLifted();
+		// if (lifted != null)
+		// {
+		// PositionComponent liftedPositionComponent =
+		// positionComponents.get(lifted);
+		// if (liftedPositionComponent != null)
+		// {
+		// liftedPositionComponent.setAngle(liftedPositionComponent.getAngle() +
+		// event.getAngle());
+		// EventManager.get_instance().broadcast(new EntityTurnedEvent(lifted));
+		// }
+		// }
+		// }
+		// }
 	}
 
 	public void handleEntityMoved(EntityMovedEvent event)
@@ -126,8 +128,9 @@ public class LiftSystem extends EntityProcessingSystem implements EventListener
 					PositionComponent liftedPositionComponent = positionComponents.get(lifted);
 					if (liftedPositionComponent != null)
 					{
-						liftedPositionComponent.setPosition(positionComponent.getX() + positionComponent.getWidth() / 2 - liftedPositionComponent.getWidth() / 2,
-								positionComponent.getY() + positionComponent.getHeight() / 2 - liftedPositionComponent.getHeight() / 2);
+						liftedPositionComponent.setPosition(
+								positionComponent.getX() + positionComponent.getWidth() / 2 - liftedPositionComponent.getWidth() / 2,
+								positionComponent.getY() + positionComponent.getHeight() / 2 - liftedPositionComponent.getHeight() / 2 + 28);
 						EventManager.get_instance().broadcast(new EntityMovedEvent(lifted));
 					}
 				}

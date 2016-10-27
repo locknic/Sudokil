@@ -25,6 +25,13 @@ public class LowerProcess extends EntityProcess
 	}
 
 	@Override
+	public boolean preProcess()
+	{
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
 	public boolean process()
 	{
 		LifterComponent lifterComponent = entity.getComponent(LifterComponent.class);
@@ -140,5 +147,12 @@ public class LowerProcess extends EntityProcess
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public void postProcess()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

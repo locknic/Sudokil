@@ -106,7 +106,7 @@ public class ProcessQueueComponent extends Component
 	{
 		if (!queue.isEmpty())
 		{
-			if (queue.peek().process())
+			if (queue.peek().totalProcess())
 			{
 				queue.poll().dispose();
 			}
@@ -115,7 +115,7 @@ public class ProcessQueueComponent extends Component
 		while (iterator.hasNext())
 		{
 			EntityProcess next = iterator.next();
-			if (next.process())
+			if (next.totalProcess())
 			{
 				next.dispose();
 				iterator.remove();

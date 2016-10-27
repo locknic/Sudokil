@@ -25,5 +25,9 @@
 		"images/entities/generator.png",
 		"images/entities/wire.png",
 		"images/entities/wire2.png",
+		"images/player/robot_front.png",
+		"images/player/robot_left.png",
+		"images/player/robot_right.png",
+		"images/player/robot_back.png",
 	],
 }

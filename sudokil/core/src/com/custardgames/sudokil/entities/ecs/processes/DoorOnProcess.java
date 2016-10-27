@@ -9,18 +9,30 @@ import com.custardgames.sudokil.managers.EventManager;
 public class DoorOnProcess extends EntityProcess
 {
 	private float countDown = 10;
-
+	
+	private SpriteComponent spriteComponent;
+	private BlockingComponent blockingComponent;
+	
 	public DoorOnProcess(Entity entity)
 	{
 		super(entity);
-		// TODO Auto-generated constructor stub
+		
+		spriteComponent = entity.getComponent(SpriteComponent.class);
+		blockingComponent = entity.getComponent(BlockingComponent.class);
 	}
 
 	@Override
+	public boolean preProcess()
+	{
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	@Override
 	public boolean process()
 	{
-		SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
-		BlockingComponent blockingComponent = entity.getComponent(BlockingComponent.class);
+		boolean finished = true;
+		
 		if (!spriteComponent.isShouldRender() || !blockingComponent.isBlocking())
 		{
 			countDown--;
@@ -29,15 +41,21 @@ public class DoorOnProcess extends EntityProcess
 				spriteComponent.setShouldRender(true);
 				blockingComponent.setBlocking(true);
 				EventManager.get_instance().broadcast(new AddToMapEvent(entity));
-
-				return true;
+			}
+			else
+			{
+				finished = false;
 			}
 		}
-		else
-		{
-			return true;
-		}
-		return false;
+		
+		return finished;
+	}
+
+	@Override
+	public void postProcess()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

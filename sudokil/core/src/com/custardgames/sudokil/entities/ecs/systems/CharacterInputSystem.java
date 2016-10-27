@@ -14,12 +14,12 @@ import com.custardgames.sudokil.events.physicalinput.MousePressedEvent;
 import com.custardgames.sudokil.events.physicalinput.MouseReleasedEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
-public class UpdatePhysicalCharacterInputSystem extends EntityProcessingSystem implements EventListener
+public class CharacterInputSystem extends EntityProcessingSystem implements EventListener
 {
 	private ComponentMapper<CharacterInputComponent> characterInputComponent;
 
 	@SuppressWarnings("unchecked")
-	public UpdatePhysicalCharacterInputSystem()
+	public CharacterInputSystem()
 	{
 		super(Aspect.all(CharacterInputComponent.class));
 

@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.entities.ecs.systems;
+package com.custardgames.sudokil.entities.ecs.systems.entities.camera;
 
 import java.util.EventListener;
 

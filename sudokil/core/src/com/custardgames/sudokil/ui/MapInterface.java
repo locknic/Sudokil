@@ -153,7 +153,6 @@ public class MapInterface extends Stage implements EventListener
 			Batch spriteBatch = getBatch();
 			spriteBatch.setProjectionMatrix(camera.combined);
 			worldManager.render(spriteBatch);
-			box2dWorldManager.render(camera);
 			TiledMapTileLayer overLayer = (TiledMapTileLayer) tileMap.getLayers().get("tiles-over");
 			if (overLayer != null)
 			{
@@ -161,6 +160,7 @@ public class MapInterface extends Stage implements EventListener
 				tmr.renderTileLayer(overLayer);
 				tmr.getBatch().end();
 			}
+			box2dWorldManager.render(camera);
 			this.draw();
 		}
 	}

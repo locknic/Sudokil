@@ -78,6 +78,14 @@
 			className : com.custardgames.sudokil.entities.ecs.components.PowerGeneratorComponent,
 		}, 
 		{
+			name : RobotSpritesComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.entities.robot.RobotSpritesComponent,
+		}, 
+		{
+			name : LampSpritesComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.entities.LampSpritesComponent,
+		}, 
+		{
 			name : CurrentInputComponent,
 			className : com.custardgames.sudokil.entities.ecs.components.current.CurrentInputComponent,
 		},

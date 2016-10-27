@@ -14,6 +14,13 @@ public class RemoveActivityBlockerProcess extends EntityProcess
 	}
 
 	@Override
+	public boolean preProcess()
+	{
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	@Override
 	public boolean process()
 	{
 		ActivityBlockingComponent activityBlockingComponent = entity.getComponent(ActivityBlockingComponent.class);
@@ -22,6 +29,13 @@ public class RemoveActivityBlockerProcess extends EntityProcess
 			activityBlockingComponent.removeActivityBlocker(componentClass);
 		}
 		return true;
+	}
+
+	@Override
+	public void postProcess()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

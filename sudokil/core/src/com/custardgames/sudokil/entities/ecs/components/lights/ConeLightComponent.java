@@ -4,6 +4,11 @@ public class ConeLightComponent extends LightComponent
 {
 	private float directionDegree, coneDegree;
 
+	public ConeLightComponent()
+	{
+		super();
+	}
+	
 	public float getDirectionDegree()
 	{
 		return directionDegree;

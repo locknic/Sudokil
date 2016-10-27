@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.entities.ecs.systems;
+package com.custardgames.sudokil.entities.ecs.systems.power;
 
 import java.util.EventListener;
 
@@ -8,30 +8,34 @@ import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.utils.Array;
+import com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
-import com.custardgames.sudokil.entities.ecs.components.current.CurrentConsumerComponent;
-import com.custardgames.sudokil.entities.ecs.components.current.CurrentGeneratorComponent;
-import com.custardgames.sudokil.entities.ecs.components.current.CurrentInputComponent;
-import com.custardgames.sudokil.entities.ecs.components.current.CurrentOutputComponent;
+import com.custardgames.sudokil.entities.ecs.components.PowerConsumerComponent;
+import com.custardgames.sudokil.entities.ecs.components.PowerGeneratorComponent;
+import com.custardgames.sudokil.entities.ecs.components.PowerInputComponent;
+import com.custardgames.sudokil.entities.ecs.components.PowerOutputComponent;
 import com.custardgames.sudokil.events.MapEntitiesLoadedEvent;
-import com.custardgames.sudokil.events.entities.CurrentStorageEvent;
+import com.custardgames.sudokil.events.entities.PowerStorageEvent;
 import com.custardgames.sudokil.events.entities.map.AddToMapEvent;
 import com.custardgames.sudokil.events.entities.map.PingCellEvent;
 import com.custardgames.sudokil.events.entities.map.RemoveFromMapEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
-public class CurrentConsumptionSystem extends EntityProcessingSystem implements EventListener
+public class PowerConsumptionSystem extends EntityProcessingSystem implements EventListener
 {
-	private ComponentMapper<CurrentConsumerComponent> currentConsumerComponents;
+	private ComponentMapper<PowerConsumerComponent> powerConsumerComponents;
 	private ComponentMapper<PositionComponent> positionComponents;
+	private ComponentMapper<ActivityBlockingComponent> activityBlockingComponents;
 
-	private ComponentMapper<CurrentInputComponent> currentInputComponents;
-	private ComponentMapper<CurrentGeneratorComponent> currentGeneratorComponents;
+	private ComponentMapper<PowerInputComponent> powerInputComponents;
+	private ComponentMapper<PowerOutputComponent> powerOutputComponents;
+	private ComponentMapper<PowerGeneratorComponent> powerGeneratorComponents;
 
 	@SuppressWarnings("unchecked")
-	public CurrentConsumptionSystem()
+	public PowerConsumptionSystem()
 	{
-		super(Aspect.all(CurrentConsumerComponent.class, PositionComponent.class));
+		super(Aspect.all(PowerConsumerComponent.class, PositionComponent.class));
+
 		EventManager.get_instance().register(AddToMapEvent.class, this);
 		EventManager.get_instance().register(RemoveFromMapEvent.class, this);
 		EventManager.get_instance().register(MapEntitiesLoadedEvent.class, this);
@@ -40,6 +44,8 @@ public class CurrentConsumptionSystem extends EntityProcessingSystem implements 
 	@Override
 	public void dispose()
 	{
+		super.dispose();
+
 		EventManager.get_instance().deregister(AddToMapEvent.class, this);
 		EventManager.get_instance().deregister(RemoveFromMapEvent.class, this);
 		EventManager.get_instance().deregister(MapEntitiesLoadedEvent.class, this);
@@ -54,8 +60,6 @@ public class CurrentConsumptionSystem extends EntityProcessingSystem implements 
 	@Override
 	protected void process(Entity e)
 	{
-		// TODO Auto-generated method stub
-
 	}
 
 	public boolean isConnectedToGenerator(Entity sourceEntity)
@@ -65,10 +69,10 @@ public class CurrentConsumptionSystem extends EntityProcessingSystem implements 
 
 		for (Entity entity : searchEntities)
 		{
-			CurrentGeneratorComponent currentGeneratorComponent = currentGeneratorComponents.get(entity);
-			if (currentGeneratorComponent != null)
+			PowerGeneratorComponent powerGeneratorComponent = powerGeneratorComponents.get(entity);
+			if (powerGeneratorComponent != null)
 			{
-				if (currentGeneratorComponent.isGeneratingCurrent())
+				if (powerGeneratorComponent.isGeneratingPower())
 				{
 					return true;
 				}
@@ -81,8 +85,8 @@ public class CurrentConsumptionSystem extends EntityProcessingSystem implements 
 	public Array<Entity> findGeneratorConnections(Entity entity, Array<Entity> entities)
 	{
 		PositionComponent positionComponent = positionComponents.get(entity);
-		CurrentInputComponent currentInputComponent = currentInputComponents.get(entity);
-		if (currentInputComponent != null)
+		PowerInputComponent powerInputComponent = powerInputComponents.get(entity);
+		if (powerInputComponent != null)
 		{
 			for (int x = 0; x < 5; x++)
 			{
@@ -93,34 +97,34 @@ public class CurrentConsumptionSystem extends EntityProcessingSystem implements 
 				switch (x)
 				{
 					case 0:
-						if (currentInputComponent.isCentre())
+						if (powerInputComponent.isCentre())
 						{
 							willInput = true;
 						}
 						break;
 					case 1:
-						if (currentInputComponent.isLeft())
+						if (powerInputComponent.isLeft())
 						{
 							willInput = true;
 							xDir = -1;
 						}
 						break;
 					case 2:
-						if (currentInputComponent.isRight())
+						if (powerInputComponent.isRight())
 						{
 							willInput = true;
 							xDir = 1;
 						}
 						break;
 					case 3:
-						if (currentInputComponent.isDown())
+						if (powerInputComponent.isDown())
 						{
 							willInput = true;
 							yDir = -1;
 						}
 						break;
 					case 4:
-						if (currentInputComponent.isUp())
+						if (powerInputComponent.isUp())
 						{
 							willInput = true;
 							yDir = 1;
@@ -142,17 +146,17 @@ public class CurrentConsumptionSystem extends EntityProcessingSystem implements 
 					{
 						if (!entities.contains(inputEntity, false))
 						{
-							CurrentOutputComponent inputEntityCurrentOutputComponent = inputEntity.getComponent(CurrentOutputComponent.class);
+							PowerOutputComponent inputEntityPowerOutputComponent = inputEntity.getComponent(PowerOutputComponent.class);
 							PositionComponent inputEntityPositionComponent = inputEntity.getComponent(PositionComponent.class);
 
-							if (inputEntityCurrentOutputComponent != null)
+							if (inputEntityPowerOutputComponent != null)
 							{
 								if (inputEntityPositionComponent != null)
 								{
 									int inputEntityXDir = (int) inputEntityPositionComponent.unOrientateDirectionX(-xDir, -yDir);
 									int inputEntityYDir = (int) inputEntityPositionComponent.unOrientateDirectionY(-xDir, -yDir);
 
-									if (inputEntityCurrentOutputComponent.isOutputting(inputEntityXDir, inputEntityYDir))
+									if (inputEntityPowerOutputComponent.isOutputting(inputEntityXDir, inputEntityYDir))
 									{
 										entities.add(inputEntity);
 									}
@@ -166,22 +170,31 @@ public class CurrentConsumptionSystem extends EntityProcessingSystem implements 
 		return entities;
 	}
 
-	public void checkCurrentStorage()
+	public void checkPowerActivityBlocker()
 	{
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)
 		{
-			CurrentConsumerComponent currentConsumerComponent = currentConsumerComponents.get(entity);
+			PowerConsumerComponent powerConsumerComponent = powerConsumerComponents.get(entity);
+			ActivityBlockingComponent activityBlockingComponent = activityBlockingComponents.get(entity);
 
 			if (isConnectedToGenerator(entity))
 			{
-				currentConsumerComponent.setHasCurrent(true);
-				EventManager.get_instance().broadcast(new CurrentStorageEvent(entity));
+				powerConsumerComponent.setPowered(true);
+				if (activityBlockingComponent != null)
+				{
+					activityBlockingComponent.removeActivityBlocker(powerConsumerComponent.getClass());
+				}
+				EventManager.get_instance().broadcast(new PowerStorageEvent(entity));
 			}
 			else
 			{
-				currentConsumerComponent.setHasCurrent(false);
-				EventManager.get_instance().broadcast(new CurrentStorageEvent(entity));
+				powerConsumerComponent.setPowered(false);
+				if (activityBlockingComponent != null)
+				{
+					activityBlockingComponent.addActivityBlocker(powerConsumerComponent.getClass());
+				}
+				EventManager.get_instance().broadcast(new PowerStorageEvent(entity));
 			}
 		}
 	}
@@ -191,7 +204,12 @@ public class CurrentConsumptionSystem extends EntityProcessingSystem implements 
 		Entity entity = event.getEntity();
 		if (entity != null)
 		{
-			checkCurrentStorage();
+			PowerInputComponent powerInputComponent = powerInputComponents.get(entity);
+			PowerOutputComponent powerOutputComponent = powerOutputComponents.get(entity);
+			if (powerInputComponent != null || powerOutputComponent != null)
+			{
+				checkPowerActivityBlocker();
+			}
 		}
 	}
 
@@ -200,12 +218,18 @@ public class CurrentConsumptionSystem extends EntityProcessingSystem implements 
 		Entity entity = event.getEntity();
 		if (entity != null)
 		{
-			checkCurrentStorage();
+			PowerInputComponent powerInputComponent = powerInputComponents.get(entity);
+			PowerOutputComponent powerOutputComponent = powerOutputComponents.get(entity);
+			if (powerInputComponent != null || powerOutputComponent != null)
+			{
+				checkPowerActivityBlocker();
+			}
 		}
 	}
-
+	
 	public void handleMapLoaded(MapEntitiesLoadedEvent event)
 	{
-		checkCurrentStorage();
+		checkPowerActivityBlocker();
 	}
+
 }

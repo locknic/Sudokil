@@ -1,6 +1,8 @@
 package com.custardgames.sudokil.entities.ecs.processes;
 
 import com.artemis.Entity;
+import com.custardgames.sudokil.entities.ecs.components.EntityStateComponent;
+import com.custardgames.sudokil.entities.ecs.components.EntityStateComponent.EntityStates;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.VelocityComponent;
 import com.custardgames.sudokil.entities.ecs.components.tween.PositionComponentAccessor;
@@ -23,8 +25,8 @@ public class TurnProcess extends EntityProcess
 
 	private PositionComponent position;
 	private VelocityComponent velocity;
+	private EntityStateComponent entityState;
 
-	private boolean setTarget;
 	private boolean finishedAnimations;
 
 	public TurnProcess(Entity entity, float dirAngle, int times)
@@ -35,6 +37,41 @@ public class TurnProcess extends EntityProcess
 
 		position = entity.getComponent(PositionComponent.class);
 		velocity = entity.getComponent(VelocityComponent.class);
+		entityState = entity.getComponent(EntityStateComponent.class);
+	}
+
+	@Override
+	public boolean preProcess()
+	{
+		boolean canContinue = (position != null && velocity != null);
+
+		if (canContinue)
+		{
+			createTurnAccelerationTween(times * 1.0f, dirAngle, position.getAngle() + 90 * dirAngle * times);
+			
+			if (entityState != null)
+			{
+				entityState.pushState(EntityStates.TURNING);
+			}
+		}
+
+		return canContinue;
+	}
+
+	@Override
+	public boolean process()
+	{
+		EventManager.get_instance().broadcast(new EntityTurnedEvent(entity));
+		return finishedAnimations;
+	}
+
+	@Override
+	public void postProcess()
+	{
+		if (entityState != null)
+		{
+			entityState.popState(EntityStates.TURNING);
+		}
 	}
 
 	private void createTurnAccelerationTween(float time, float dir, float targetAngle)
@@ -53,21 +90,4 @@ public class TurnProcess extends EntityProcess
 					}
 				}).start(UniTweenManager.getTweenManager());
 	}
-
-	@Override
-	public boolean process()
-	{
-		if (!setTarget)
-		{
-			float targetAngle = position.getAngle() + 90 * dirAngle * times;
-
-			createTurnAccelerationTween(times * 1.0f, dirAngle, targetAngle);
-
-			setTarget = true;
-		}
-
-		EventManager.get_instance().broadcast(new EntityTurnedEvent(entity));
-		return finishedAnimations;
-	}
-
 }

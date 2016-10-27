@@ -35,7 +35,6 @@ public class PhysicalConnectProcess extends ConnectProcess implements EventListe
 			if (connectedTo != null)
 			{
 				ActivityBlockingComponent activityBlockingComponent = connectedTo.getComponent(ActivityBlockingComponent.class);
-
 				if (activityBlockingComponent == null || (activityBlockingComponent != null && activityBlockingComponent.isActive()))
 				{
 					FileSystemComponent fileSystemComponent = connectedTo.getComponent(FileSystemComponent.class);
@@ -60,5 +59,12 @@ public class PhysicalConnectProcess extends ConnectProcess implements EventListe
 		EventManager.get_instance().broadcast(new ConsoleOutputEvent(consoleUUID, "ERROR! No device found."));
 		
 		return false;
+	}
+
+	@Override
+	public void postProcess()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }

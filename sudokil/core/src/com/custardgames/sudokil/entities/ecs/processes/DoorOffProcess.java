@@ -10,34 +10,54 @@ public class DoorOffProcess extends EntityProcess
 {
 	private float countDown = 10;
 
+	private SpriteComponent spriteComponent;
+	private BlockingComponent blockingComponent;
+	
 	public DoorOffProcess(Entity entity)
 	{
 		super(entity);
-		// TODO Auto-generated constructor stub
+		
+		spriteComponent = entity.getComponent(SpriteComponent.class);
+		blockingComponent = entity.getComponent(BlockingComponent.class);
+	}
+	
+	@Override
+	public boolean preProcess()
+	{
+		return (spriteComponent != null && blockingComponent != null);
 	}
 
 	@Override
 	public boolean process()
 	{
-		SpriteComponent spriteComponent = entity.getComponent(SpriteComponent.class);
-		BlockingComponent blockingComponent = entity.getComponent(BlockingComponent.class);
-
+		boolean finished = true;
+		
 		if (spriteComponent.isShouldRender() || blockingComponent.isBlocking())
 		{
 			countDown--;
+			
 			if (countDown <= 0)
 			{
 				spriteComponent.setShouldRender(false);
 				blockingComponent.setBlocking(false);
 				EventManager.get_instance().broadcast(new RemoveFromMapEvent(entity));
-				return true;
+			}
+			else
+			{
+				finished = false;
 			}
 		}
-		else
-		{
-			return true;
-		}
-		return false;
+		
+		return finished;
+	}
+
+	
+
+	@Override
+	public void postProcess()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

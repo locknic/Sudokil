@@ -16,17 +16,31 @@ public class EntityProcessQueue extends EntityProcess
 	}
 
 	@Override
+	protected boolean preProcess()
+	{
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
 	public boolean process()
 	{
 		if (!queue.isEmpty())
 		{
-			if (queue.peek().process())
+			if (queue.peek().totalProcess())
 			{
 				queue.poll().dispose();
 			}
 			return false;
 		}
 		return true;
+	}
+	
+	@Override
+	protected void postProcess()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void addToQueue(EntityProcess process)

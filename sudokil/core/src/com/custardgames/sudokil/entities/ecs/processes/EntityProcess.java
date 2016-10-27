@@ -10,8 +10,10 @@ public abstract class EntityProcess
 {
 	protected Entity entity;
 	private boolean backgroundProcess;
-	
+
 	protected UUID outputUUID;
+
+	private boolean hasPreProcessed;
 
 	public EntityProcess(Entity entity)
 	{
@@ -19,7 +21,34 @@ public abstract class EntityProcess
 		this.backgroundProcess = false;
 	}
 
-	public abstract boolean process();
+	public boolean totalProcess()
+	{
+		boolean finished = false;
+
+		if (!hasPreProcessed)
+		{
+			finished = !preProcess();
+			hasPreProcessed = true;
+		}
+
+		if (!finished)
+		{
+			finished = process();
+			
+			if (finished)
+			{
+				postProcess();
+			}
+		}
+		
+		return finished;
+	}
+
+	protected abstract boolean preProcess();
+
+	protected abstract boolean process();
+
+	protected abstract void postProcess();
 
 	public void dispose()
 	{
@@ -35,12 +64,12 @@ public abstract class EntityProcess
 	{
 		this.backgroundProcess = backgroundProcess;
 	}
-	
+
 	public void setOutputUUID(UUID outputUUID)
 	{
 		this.outputUUID = outputUUID;
 	}
-	
+
 	public void sendOutput(String text)
 	{
 		if (outputUUID != null)

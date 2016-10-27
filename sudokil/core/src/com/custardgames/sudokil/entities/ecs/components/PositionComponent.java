@@ -91,6 +91,26 @@ public class PositionComponent extends Component
 	{
 		this.angle = angle;
 	}
+	
+	public static float getNormalAngle(float angle)
+	{
+		while (angle >= 360)
+		{
+			angle -= 360;
+		}
+		
+		while (angle < 0)
+		{
+			angle += 360;
+		}
+		
+		return angle;
+	}
+	
+	public float getNormalAngle()
+	{
+		return getNormalAngle(angle);
+	}
 
 	public int orientateDirectionX(float xDir, float yDir)
 	{

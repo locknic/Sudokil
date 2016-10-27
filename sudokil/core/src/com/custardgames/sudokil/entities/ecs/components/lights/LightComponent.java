@@ -3,11 +3,20 @@ package com.custardgames.sudokil.entities.ecs.components.lights;
 import com.artemis.Component;
 import com.badlogic.gdx.graphics.Color;
 
+import box2dLight.Light;
+
 public abstract class LightComponent extends Component
 {
 	private float red, green, blue, alpha;
 	private float xCo, yCo;
 	private float distance;
+	
+	// TODO create event based getter
+	private Light light;
+	
+	public LightComponent()
+	{
+	}
 
 	public Color getColor()
 	{
@@ -82,6 +91,16 @@ public abstract class LightComponent extends Component
 	public void setDistance(float distance)
 	{
 		this.distance = distance;
+	}
+
+	public Light getLight()
+	{
+		return light;
+	}
+
+	public void setLight(Light light)
+	{
+		this.light = light;
 	}
 
 }

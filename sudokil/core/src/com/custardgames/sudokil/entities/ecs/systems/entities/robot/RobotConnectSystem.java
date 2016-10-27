@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.entities.ecs.systems;
+package com.custardgames.sudokil.entities.ecs.systems.entities.robot;
 
 import java.util.EventListener;
 import java.util.UUID;
@@ -15,12 +15,12 @@ import com.custardgames.sudokil.events.entities.ProcessEvent;
 import com.custardgames.sudokil.events.entities.commands.WiredConnectEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
-public class WiredConnectionSystem extends EntityProcessingSystem implements EventListener
+public class RobotConnectSystem extends EntityProcessingSystem implements EventListener
 {
 	private ComponentMapper<EntityComponent> entityComponents;
 	
 	@SuppressWarnings("unchecked")
-	public WiredConnectionSystem()
+	public RobotConnectSystem()
 	{
 		super(Aspect.all(EntityComponent.class, ProcessQueueComponent.class));
 

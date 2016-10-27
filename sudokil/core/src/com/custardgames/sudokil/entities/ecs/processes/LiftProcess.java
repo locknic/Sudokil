@@ -25,6 +25,13 @@ public class LiftProcess extends EntityProcess
 	}
 
 	@Override
+	public boolean preProcess()
+	{
+		// TODO Auto-generated method stub
+		return true;
+	}
+	
+	@Override
 	public boolean process()
 	{
 		PositionComponent position = entity.getComponent(PositionComponent.class);
@@ -75,7 +82,7 @@ public class LiftProcess extends EntityProcess
 								lifterComponent.setLifted(lifted);
 								EventManager.get_instance().broadcast(new BlockActivityEvent(lifted, liftableComponent.getClass()));
 								targetX = position.getX() + position.getWidth() / 2 - liftedPosition.getWidth() / 2;
-								targetY = position.getY() + position.getHeight() / 2 - liftedPosition.getHeight() / 2;
+								targetY = position.getY() + position.getHeight() / 2 - liftedPosition.getHeight() / 2 + 28;
 								setTarget = true;
 								
 								if (spriteComponent != null)
@@ -133,6 +140,13 @@ public class LiftProcess extends EntityProcess
 			}
 		}
 		return true;
+	}
+
+	@Override
+	public void postProcess()
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

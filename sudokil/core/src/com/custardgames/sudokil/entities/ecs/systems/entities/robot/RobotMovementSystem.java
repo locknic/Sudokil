@@ -1,4 +1,4 @@
-package com.custardgames.sudokil.entities.ecs.systems;
+package com.custardgames.sudokil.entities.ecs.systems.entities.robot;
 
 import java.util.EventListener;
 import java.util.UUID;
@@ -21,12 +21,12 @@ import com.custardgames.sudokil.events.entities.commands.LeftEvent;
 import com.custardgames.sudokil.events.entities.commands.RightEvent;
 import com.custardgames.sudokil.managers.EventManager;
 
-public class CharacterMovementSystem extends EntityProcessingSystem implements EventListener
+public class RobotMovementSystem extends EntityProcessingSystem implements EventListener
 {
 	private ComponentMapper<EntityComponent> entityComponents;
 
 	@SuppressWarnings("unchecked")
-	public CharacterMovementSystem()
+	public RobotMovementSystem()
 	{
 		super(Aspect.all(EntityComponent.class, ProcessQueueComponent.class, PositionComponent.class, VelocityComponent.class));
 

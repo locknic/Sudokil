@@ -80,7 +80,7 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 			PositionComponent positionComponent = positionComponents.get(entity);
 			if (positionComponent != null)
 			{
-				shapeRenderer.rect(positionComponent.getX() + 2, positionComponent.getY() + 2, positionComponent.getWidth() - 4,
+				shapeRenderer.rect(positionComponent.getExpectedX() + 2, positionComponent.getExpectedY() + 2, positionComponent.getWidth() - 4,
 						positionComponent.getHeight() - 4);
 			}
 		}
@@ -91,7 +91,7 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 			PositionComponent positionComponent = positionComponents.get(entity);
 			if (positionComponent != null)
 			{
-				shapeRenderer.rect(positionComponent.getX() + 2, positionComponent.getY() + 2, positionComponent.getWidth() - 4,
+				shapeRenderer.rect(positionComponent.getExpectedX() + 2, positionComponent.getExpectedY() + 2, positionComponent.getWidth() - 4,
 						positionComponent.getHeight() - 4);
 			}
 		}

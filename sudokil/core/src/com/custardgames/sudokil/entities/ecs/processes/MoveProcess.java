@@ -44,54 +44,11 @@ public class MoveProcess extends EntityProcess
 		finishedAnimations = false;
 	}
 
-	private void createMoveAccelerationTween(int type, float time, float dir, float targetLocation)
+	@Override
+	public boolean preProcess()
 	{
-		Timeline.createSequence()
-				.push(Tween.to(position, type, 1.0f / 4.0f).targetRelative(8 * dir).ease(Sine.IN))
-				.push(Tween.to(position, type, time).target(targetLocation - 8 * dir).ease(Linear.INOUT))
-				.push(Tween.to(position, type, 1.0f / 2.0f).target(targetLocation).ease(Quad.OUT))
-				.setCallback(new TweenCallback()
-				{
-					@Override
-					public void onEvent(int type, BaseTween<?> source)
-					{
-						if (type == COMPLETE)
-						{
-							finishedAnimations = true;
-						}
-					}
-				}).start(UniTweenManager.getTweenManager());
-	}
-
-	private void createCollisionTween(int type, int dir)
-	{
-		UniTweenManager.getTweenManager().killTarget(position, type);
-		Timeline.createSequence()
-				.push(Tween.to(position, type, 1.0f / 16.0f).targetRelative(2 * dir).ease(Expo.OUT))
-				.push(Tween.to(position, type, 1.0f / 8.0f).targetRelative(-2 * dir).ease(Linear.INOUT))
-				.start(UniTweenManager.getTweenManager());
-	}
-
-	private void createShakeTween()
-	{
-		Timeline.createSequence().pushPause(1.0f / 16.0f)
-				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 32.0f).target(position.getAngle() + 2).ease(Linear.INOUT))
-				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() - 2).ease(Linear.INOUT))
-				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() + 2).ease(Linear.INOUT))
-				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() - 2).ease(Linear.INOUT))
-				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() + 2).ease(Linear.INOUT))
-				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 32.0f).target(position.getAngle()).ease(Linear.INOUT))
-				.setCallback(new TweenCallback()
-				{
-					@Override
-					public void onEvent(int type, BaseTween<?> source)
-					{
-						if (type == COMPLETE)
-						{
-							finishedAnimations = true;
-						}
-					}
-				}).start(UniTweenManager.getTweenManager());
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 	@Override
@@ -143,5 +100,62 @@ public class MoveProcess extends EntityProcess
 		
 		EventManager.get_instance().broadcast(new EntityMovedEvent(entity));
 		return finishedAnimations;
+	}
+
+	@Override
+	public void postProcess()
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void createMoveAccelerationTween(int type, float time, float dir, float targetLocation)
+	{
+		Timeline.createSequence()
+				.push(Tween.to(position, type, 1.0f / 4.0f).targetRelative(8 * dir).ease(Sine.IN))
+				.push(Tween.to(position, type, time).target(targetLocation - 8 * dir).ease(Linear.INOUT))
+				.push(Tween.to(position, type, 1.0f / 2.0f).target(targetLocation).ease(Quad.OUT))
+				.setCallback(new TweenCallback()
+				{
+					@Override
+					public void onEvent(int type, BaseTween<?> source)
+					{
+						if (type == COMPLETE)
+						{
+							finishedAnimations = true;
+						}
+					}
+				}).start(UniTweenManager.getTweenManager());
+	}
+
+	private void createCollisionTween(int type, int dir)
+	{
+		UniTweenManager.getTweenManager().killTarget(position, type);
+		Timeline.createSequence()
+				.push(Tween.to(position, type, 1.0f / 16.0f).targetRelative(2 * dir).ease(Expo.OUT))
+				.push(Tween.to(position, type, 1.0f / 8.0f).targetRelative(-2 * dir).ease(Linear.INOUT))
+				.start(UniTweenManager.getTweenManager());
+	}
+
+	private void createShakeTween()
+	{
+		Timeline.createSequence().pushPause(1.0f / 16.0f)
+				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 32.0f).target(position.getAngle() + 2).ease(Linear.INOUT))
+				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() - 2).ease(Linear.INOUT))
+				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() + 2).ease(Linear.INOUT))
+				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() - 2).ease(Linear.INOUT))
+				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 16.0f).target(position.getAngle() + 2).ease(Linear.INOUT))
+				.push(Tween.to(position, PositionComponentAccessor.ANGLE, 1.0f / 32.0f).target(position.getAngle()).ease(Linear.INOUT))
+				.setCallback(new TweenCallback()
+				{
+					@Override
+					public void onEvent(int type, BaseTween<?> source)
+					{
+						if (type == COMPLETE)
+						{
+							finishedAnimations = true;
+						}
+					}
+				}).start(UniTweenManager.getTweenManager());
 	}
 }

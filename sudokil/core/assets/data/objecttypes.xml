@@ -21,11 +21,15 @@
   <property name="PositionComponent" type="bool" default="true"/>
   <property name="PositionComponent.angle" type="float" default="0"/>
   <property name="ProcessQueueComponent" type="bool" default="true"/>
+  <property name="RobotSpritesComponent" type="bool" default="true"/>
   <property name="SpriteComponent" type="bool" default="true"/>
+  <property name="SpriteComponent.height" type="float" default="44"/>
   <property name="SpriteComponent.spriteLocation" type="string" default="images/player/robot1.png"/>
+  <property name="SpriteComponent.width" type="float" default="32"/>
+  <property name="SpriteComponent.yOffset" type="float" default="8"/>
   <property name="TextTagComponent" type="bool" default="true"/>
   <property name="TextTagComponent.deltaX" type="float" default="0"/>
-  <property name="TextTagComponent.deltaY" type="float" default="2"/>
+  <property name="TextTagComponent.deltaY" type="float" default="18"/>
   <property name="TextTagComponent.shouldRender" type="bool" default="true"/>
   <property name="TextTagComponent.text" type="string"/>
   <property name="VelocityComponent" type="bool" default="true"/>
@@ -86,6 +90,33 @@
   <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/crate.png"/>
   <property name="SpriteComponent.width" type="float" default="32"/>
  </objecttype>
+ <objecttype name="lamp" color="#ffffff">
+  <property name="BlockingComponent" type="bool" default="true"/>
+  <property name="BlockingComponent.blocking" type="bool" default="true"/>
+  <property name="Box2DBodyComponent" type="bool" default="true"/>
+  <property name="EntityComponent" type="bool" default="true"/>
+  <property name="LampSpritesComponent" type="bool" default="true"/>
+  <property name="PointLightComponent" type="bool" default="true"/>
+  <property name="PointLightComponent.alpha" type="float" default="0.5"/>
+  <property name="PointLightComponent.blue" type="float" default="1"/>
+  <property name="PointLightComponent.distance" type="float" default="512"/>
+  <property name="PointLightComponent.green" type="float" default="1"/>
+  <property name="PointLightComponent.red" type="float" default="5"/>
+  <property name="PointLightComponent.xCo" type="float" default="4"/>
+  <property name="PointLightComponent.yCo" type="float" default="0"/>
+  <property name="PositionComponent" type="bool" default="true"/>
+  <property name="PositionComponent.angle" type="float" default="0"/>
+  <property name="PowerConsumerComponent" type="bool" default="true"/>
+  <property name="PowerInputComponent" type="bool" default="true"/>
+  <property name="PowerInputComponent.down" type="bool" default="true"/>
+  <property name="PowerInputComponent.left" type="bool" default="true"/>
+  <property name="PowerInputComponent.right" type="bool" default="true"/>
+  <property name="PowerInputComponent.up" type="bool" default="true"/>
+  <property name="SpriteComponent" type="bool" default="true"/>
+  <property name="SpriteComponent.height" type="float" default="32"/>
+  <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/lamp_off.png"/>
+  <property name="SpriteComponent.width" type="float" default="32"/>
+ </objecttype>
  <objecttype name="generator" color="#ffff00">
   <property name="BlockingComponent" type="bool" default="true"/>
   <property name="BlockingComponent.blocking" type="bool" default="true"/>
@@ -107,6 +138,30 @@
   <property name="SpriteComponent.height" type="float" default="32"/>
   <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/generator.png"/>
   <property name="SpriteComponent.width" type="float" default="32"/>
+ </objecttype>
+ <objecttype name="power_cell" color="#ffff00">
+  <property name="BlockingComponent" type="bool" default="true"/>
+  <property name="BlockingComponent.blocking" type="bool" default="true"/>
+  <property name="Box2DBodyComponent" type="bool" default="true"/>
+  <property name="EntityComponent" type="bool" default="true"/>
+  <property name="LiftableComponent" type="bool" default="true"/>
+  <property name="PositionComponent" type="bool" default="true"/>
+  <property name="PositionComponent.angle" type="float" default="0"/>
+  <property name="PowerGeneratorComponent" type="bool" default="true"/>
+  <property name="PowerGeneratorComponent.generatingPower" type="bool" default="true"/>
+  <property name="PowerOutputComponent" type="bool" default="true"/>
+  <property name="PowerOutputComponent.activated" type="bool" default="true"/>
+  <property name="PowerOutputComponent.centre" type="bool" default="true"/>
+  <property name="PowerOutputComponent.down" type="bool" default="true"/>
+  <property name="PowerOutputComponent.left" type="bool" default="true"/>
+  <property name="PowerOutputComponent.right" type="bool" default="true"/>
+  <property name="PowerOutputComponent.up" type="bool" default="true"/>
+  <property name="SpriteComponent" type="bool" default="true"/>
+  <property name="SpriteComponent.height" type="float" default="32"/>
+  <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/power_cell.png"/>
+  <property name="SpriteComponent.width" type="float" default="32"/>
+  <property name="SpriteComponent.xOffset" type="float" default="0"/>
+  <property name="SpriteComponent.yOffset" type="float" default="8"/>
  </objecttype>
  <objecttype name="camera" color="#000000">
   <property name="CameraComponent" type="bool" default="true"/>
