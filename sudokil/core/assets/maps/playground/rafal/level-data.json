@@ -27,6 +27,7 @@
 		"images/player/robot_right.png",
 		"images/player/robot_back.png",
 		"images/entities/power_cell.png",
+		"images/entities/power_cell_levitation.png",
 		"images/entities/lamp_off.png",
 		"images/entities/lamp_on.png",
 	],

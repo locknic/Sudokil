@@ -31,6 +31,7 @@ import com.custardgames.sudokil.entities.ecs.systems.current.CurrentConsumptionS
 import com.custardgames.sudokil.entities.ecs.systems.current.CurrentToggleSystem;
 import com.custardgames.sudokil.entities.ecs.systems.entities.DoorToggleSystem;
 import com.custardgames.sudokil.entities.ecs.systems.entities.LampSpriteSystem;
+import com.custardgames.sudokil.entities.ecs.systems.entities.PowerCellSpriteSystem;
 import com.custardgames.sudokil.entities.ecs.systems.entities.camera.CameraMovementSystem;
 import com.custardgames.sudokil.entities.ecs.systems.entities.robot.RobotConnectSystem;
 import com.custardgames.sudokil.entities.ecs.systems.entities.robot.RobotLiftSystem;
@@ -75,12 +76,13 @@ public class ArtemisWorldManager implements EventListener
 		textRenderSystem = new TextRenderSystem();
 		consoleHighlightRenderSystem = new ConsoleHighlightRenderSystem();
 
-		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, consoleHighlightRenderSystem,
-				new RobotMovementSystem(), new CameraMovementSystem(), new CharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(),
-				new DoorToggleSystem(), new RobotConnectSystem(), new RobotLiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(),
-				new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem(), new NetworkSystem(), new NetworksConnectedSystem(),
-				new CurrentConsumptionSystem(), new CurrentToggleSystem(), new RobotSpriteSystem(), new PowerLightSystem(), new LampSpriteSystem()).build().register(camera)
-				.register(assetManager);
+		WorldConfiguration config = new WorldConfigurationBuilder()
+				.with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, consoleHighlightRenderSystem, new RobotMovementSystem(),
+						new CameraMovementSystem(), new CharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(), new DoorToggleSystem(),
+						new RobotConnectSystem(), new RobotLiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(), new ActivitySpriteSystem(),
+						new EventTriggerSystem(), new MapRefresherSystem(), new NetworkSystem(), new NetworksConnectedSystem(), new CurrentConsumptionSystem(),
+						new CurrentToggleSystem(), new RobotSpriteSystem(), new PowerLightSystem(), new LampSpriteSystem(), new PowerCellSpriteSystem())
+				.build().register(camera).register(assetManager);
 		artemisWorld = new com.artemis.World(config);
 		loadLevelData(levelData);
 	}

@@ -414,6 +414,7 @@
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="LiftableComponent" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerCellSpritesComponent" type="bool" value="true"/>
     <property name="PowerGeneratorComponent" type="bool" value="true"/>
     <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
@@ -439,6 +440,7 @@
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="LiftableComponent" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerCellSpritesComponent" type="bool" value="true"/>
     <property name="PowerGeneratorComponent" type="bool" value="true"/>
     <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
@@ -464,6 +466,7 @@
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="LiftableComponent" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerCellSpritesComponent" type="bool" value="true"/>
     <property name="PowerGeneratorComponent" type="bool" value="true"/>
     <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
@@ -489,6 +492,7 @@
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="LiftableComponent" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerCellSpritesComponent" type="bool" value="true"/>
     <property name="PowerGeneratorComponent" type="bool" value="true"/>
     <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>

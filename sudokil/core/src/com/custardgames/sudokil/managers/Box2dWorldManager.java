@@ -49,7 +49,7 @@ public class Box2dWorldManager implements EventListener
 		mapParser = new Box2DMapObjectParser();
 		rayHandler = new RayHandler(world);
 		RayHandler.useDiffuseLight(true);
-		rayHandler.setAmbientLight(0.8f, 0.8f, 0.8f, 0.5f);
+		rayHandler.setAmbientLight(0.9f, 0.9f, 0.9f, 1f);
 	}
 
 	public void dispose()

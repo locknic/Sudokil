@@ -147,6 +147,7 @@
   <property name="LiftableComponent" type="bool" default="true"/>
   <property name="PositionComponent" type="bool" default="true"/>
   <property name="PositionComponent.angle" type="float" default="0"/>
+  <property name="PowerCellSpritesComponent" type="bool" default="true"/>
   <property name="PowerGeneratorComponent" type="bool" default="true"/>
   <property name="PowerGeneratorComponent.generatingPower" type="bool" default="true"/>
   <property name="PowerOutputComponent" type="bool" default="true"/>

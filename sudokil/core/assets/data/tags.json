@@ -86,6 +86,10 @@
 			className : com.custardgames.sudokil.entities.ecs.components.entities.LampSpritesComponent,
 		}, 
 		{
+			name : PowerCellSpritesComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.entities.PowerCellSpritesComponent,
+		}, 
+		{
 			name : CurrentInputComponent,
 			className : com.custardgames.sudokil.entities.ecs.components.current.CurrentInputComponent,
 		},
