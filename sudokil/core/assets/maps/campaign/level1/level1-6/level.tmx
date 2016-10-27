@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="39">
- <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32" tilecount="256" columns="16">
-  <image source="../../../../images/tiles/tileset1.png" width="512" height="512"/>
-  <tile id="16">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="17">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="49">
+ <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" spacing="2" margin="1" tilecount="15" columns="15">
+  <image source="../../../../images/tiles/tileset.png" width="512" height="64"/>
+ </tileset>
+ <tileset firstgid="16" name="tiles" tilewidth="32" tileheight="32" tilecount="1" columns="0">
+  <tile id="0">
+   <image width="32" height="32" source="../../../../images/entities/power_cell.png"/>
   </tile>
  </tileset>
  <layer name="floor" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGBxAhIbmEoMptQOfvdQAo3aM2jFqx+C2A4RFkTAt7KAGGLWDMjuoDUbtwG8mNevq4QgA32v69MQJAAA=
+   H4sIAAAAAAAAC2NgGByAkYbmMqHR2MQoAUw4xBhxyJEDsLmRWu6HgVF/EA9G/UE8GPUH8YCQP6hRbg0Gf1ADDJQ/qA2o5VZ8YKj6g9p19XAEAHWHY47ECQAA
+  </data>
+ </layer>
+ <layer name="floor-over-left" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGByAeYiZS8gOats7aseoHaN2jNoxasfA20FtMGoHfc0cbgAAiNdYXsQJAAA=
+  </data>
+ </layer>
+ <layer name="floor-over-right" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGByAmYGhYajajU8/tfw1aseoHaN2jGw7qGXnQPtjuNhBLTBqx+CyY6gBABg7Pm7ECQAA
+  </data>
+ </layer>
+ <layer name="floor-over-top" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGByAmYFhAa3MhWF0PrrcKBgFo2AUDGYwWm6NgpEERtM7YQAA79Qxc8QJAAA=
   </data>
  </layer>
  <layer name="tiles" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+WVYQrAIAiFvYLe/7D9CuTNtczHaO2BSEJ+iYYiY6kzplSuuTFWZWfurTLM+bv3Vusw8D0nMip6g6HgkRed/8o4pec7McxZlhkxnnqcZczMVbWOWUZFp/8Pxm4aMdiK+sHI2WcRdziTkYmvMnwdWM8X1ABHyaVdxAkAAA==
+   H4sIAAAAAAAAC+2V0QrAIAhFexi01k/v09fYgst9aJpuD7ILEoh4SM1SGis3265zfwhVqec9rd65K/jQZtlZEVuMjIUM1X2rkYF14LtZ+/MzbIxCMbPzNGJEqVVUBu8vLVPCYGnnTMLgXabdW5HfYKuFqTYShrfeYOD/jX+4J4P7CX43BvfTq69f6gCpsIk4xAkAAA==
+  </data>
+ </layer>
+ <layer name="tiles2" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAXUAOwMDA1IbJxyo2AUjIJRMJjBaHk1CkbB0AEA+12LusQJAAA=
   </data>
  </layer>
  <layer name="objects" width="25" height="25">
@@ -28,103 +43,156 @@
    H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAeDP5i1XpxAkAAA==
   </data>
  </layer>
- <objectgroup name="Object Layer 1">
-  <object id="1" name="wall-body" type="object" x="32" y="672" width="160" height="32">
+ <objectgroup name="obj">
+  <object id="2" name="wall-body" type="object" x="56" y="672" width="136" height="8">
    <properties>
     <property name="bodyType" value="StaticBody"/>
    </properties>
   </object>
-  <object id="2" name="wall3" type="fixture" x="224" y="128" width="32" height="608">
+  <object id="4" name="wall" type="fixture" x="56" y="680" width="8" height="48">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="3" name="wall5" type="fixture" x="160" y="32" width="128" height="32">
+  <object id="5" name="wall2" type="fixture" x="56" y="728" width="176" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="4" name="wall2" type="fixture" x="32" y="736" width="224" height="32">
+  <object id="19" name="wall5" type="fixture" x="184" y="32" width="104" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="5" name="wall" type="fixture" x="32" y="704" width="32" height="32">
+  <object id="20" name="wall4" type="fixture" x="184" y="40" width="8" height="632">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="6" name="wall4" type="fixture" x="160" y="64" width="32" height="608">
+  <object id="21" name="wall3" type="fixture" x="224" y="96" width="8" height="632">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="7" name="wall6" type="fixture" x="256" y="0" width="96" height="32">
+  <object id="24" name="wall5" type="fixture" x="224" y="88" width="128" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="8" name="wall7" type="fixture" x="224" y="96" width="128" height="32">
+  <object id="25" name="wall5" type="fixture" x="280" y="0" width="48" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="9" name="wall8" type="fixture" x="320" y="32" width="224" height="32">
+  <object id="26" name="wall5" type="fixture" x="320" y="32" width="200" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="10" name="wall9" type="fixture" x="512" y="64" width="32" height="32">
+  <object id="27" name="wall5" type="fixture" x="280" y="8" width="8" height="24">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="11" name="wall10" type="fixture" x="448" y="96" width="96" height="32">
+  <object id="28" name="wall5" type="fixture" x="320" y="8" width="8" height="24">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="12" name="wall11" type="fixture" x="320" y="128" width="32" height="448">
+  <object id="29" name="wall5" type="fixture" x="512" y="40" width="8" height="48">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="13" name="wall12" type="fixture" x="448" y="128" width="32" height="256">
+  <object id="32" name="wall5" type="fixture" x="344" y="96" width="8" height="472">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="14" name="wall13" type="fixture" x="320" y="576" width="160" height="32">
+  <object id="33" name="wall5" type="fixture" x="344" y="568" width="112" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="15" name="wall14" type="fixture" x="448" y="384" width="160" height="32">
+  <object id="34" name="wall5" type="fixture" x="448" y="96" width="8" height="320">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="16" name="wall15" type="fixture" x="576" y="416" width="32" height="32">
+  <object id="35" name="wall5" type="fixture" x="448" y="88" width="72" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="17" name="wall16" type="fixture" x="448" y="448" width="160" height="32">
+  <object id="37" name="wall5" type="fixture" x="448" y="416" width="136" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="18" name="wall17" type="fixture" x="448" y="480" width="32" height="96">
+  <object id="38" name="wall5" type="fixture" x="448" y="472" width="136" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="26" name="generator" type="generator" x="547" y="419" width="26" height="26">
+  <object id="39" name="wall5" type="fixture" x="576" y="424" width="8" height="48">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="40" name="wall5" type="fixture" x="448" y="480" width="8" height="88">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="41" name="computer1" type="computer" x="448" y="448" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="ComputerSpritesComponent" type="bool" value="true"/>
+    <property name="ConnectableComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/campaign/level1/level1-6/computer1.json"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
+    <property name="NetworkedDeviceComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="180"/>
+    <property name="PowerConsumerComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent.activated" type="bool" value="true"/>
+    <property name="PowerInputComponent.centre" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.left" type="bool" value="true"/>
+    <property name="PowerInputComponent.right" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="49"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/computer-on.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+    <property name="TextTagComponent" type="bool" value="true"/>
+    <property name="TextTagComponent.deltaY" type="float" value="18"/>
+    <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="42" name="generator" type="generator" x="547" y="451" width="26" height="26">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
     <property name="Box2DBodyComponent" type="bool" value="true"/>
     <property name="EntityComponent" type="bool" value="true"/>
+    <property name="GeneratorSpritesComponent" type="bool" value="true"/>
     <property name="LiftableComponent" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
     <property name="PowerGeneratorComponent" type="bool" value="true"/>
@@ -142,7 +210,7 @@
     <property name="SpriteComponent.width" type="float" value="32"/>
    </properties>
   </object>
-  <object id="27" type="wire-l" x="480" y="416" width="32" height="32">
+  <object id="43" type="wire-l" x="480" y="448" width="32" height="32">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
@@ -174,7 +242,7 @@
     <property name="SpriteComponent.zOrder" type="float" value="45"/>
    </properties>
   </object>
-  <object id="28" type="wire-l" x="512" y="416" width="32" height="32">
+  <object id="44" type="wire-l" x="512" y="448" width="32" height="32">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
@@ -206,49 +274,29 @@
     <property name="SpriteComponent.zOrder" type="float" value="45"/>
    </properties>
   </object>
-  <object id="32" name="computer1" type="computer" x="448" y="416" width="32" height="32">
+  <object id="45" name="door1-1" type="door" x="416" y="480" width="32" height="32">
    <properties>
-    <property name="ActivityBlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
-    <property name="Box2DBodyComponent" type="bool" value="true"/>
-    <property name="ConnectableComponent" type="bool" value="true"/>
     <property name="EntityComponent" type="bool" value="true"/>
-    <property name="FileSystemComponent" type="bool" value="true"/>
-    <property name="FileSystemComponent.fileLocation" value="maps/campaign/level1/level1-6/computer1.json"/>
-    <property name="NetworkConnectionComponent" type="bool" value="true"/>
-    <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
-    <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
-    <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
-    <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
-    <property name="NetworkedDeviceComponent" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
-    <property name="PositionComponent.angle" type="float" value="270"/>
-    <property name="PowerConsumerComponent" type="bool" value="true"/>
-    <property name="PowerInputComponent" type="bool" value="true"/>
-    <property name="PowerInputComponent.activated" type="bool" value="true"/>
-    <property name="PowerInputComponent.centre" type="bool" value="true"/>
-    <property name="PowerInputComponent.down" type="bool" value="true"/>
-    <property name="PowerInputComponent.left" type="bool" value="true"/>
-    <property name="PowerInputComponent.right" type="bool" value="true"/>
-    <property name="PowerInputComponent.up" type="bool" value="true"/>
-    <property name="PowerOutputComponent" type="bool" value="true"/>
-    <property name="PowerOutputComponent.down" type="bool" value="true"/>
-    <property name="PowerOutputComponent.left" type="bool" value="true"/>
-    <property name="PowerOutputComponent.right" type="bool" value="true"/>
-    <property name="PowerOutputComponent.up" type="bool" value="true"/>
-    <property name="ProcessQueueComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/computer-on.png"/>
-    <property name="SpriteDeactiveComponent" type="bool" value="true"/>
-    <property name="SpriteDeactiveComponent.offSpriteLocation" value="images/entities/computer-off.png"/>
-    <property name="SpriteDeactiveComponent.onSpriteLocation" value="images/entities/computer-on.png"/>
-    <property name="TextTagComponent" type="bool" value="true"/>
-    <property name="TextTagComponent.deltaY" type="float" value="2"/>
-    <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
+    <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
    </properties>
   </object>
-  <object id="33" name="door1" type="door-controller" x="448" y="448" width="32" height="32">
+  <object id="46" name="door1-2" type="door" x="384" y="480" width="32" height="32">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
+   </properties>
+  </object>
+  <object id="47" name="door1" type="door-controller" x="448" y="480" width="32" height="32">
    <properties>
     <property name="ActivityBlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent" type="bool" value="true"/>
@@ -274,29 +322,7 @@
     <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-control.png"/>
    </properties>
   </object>
-  <object id="36" name="door1-1" type="door" x="416" y="448" width="32" height="32">
-   <properties>
-    <property name="BlockingComponent" type="bool" value="true"/>
-    <property name="BlockingComponent.blocking" type="bool" value="true"/>
-    <property name="EntityComponent" type="bool" value="true"/>
-    <property name="PositionComponent" type="bool" value="true"/>
-    <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
-   </properties>
-  </object>
-  <object id="37" name="door1-2" type="door" x="384" y="448" width="32" height="32">
-   <properties>
-    <property name="BlockingComponent" type="bool" value="true"/>
-    <property name="BlockingComponent.blocking" type="bool" value="true"/>
-    <property name="EntityComponent" type="bool" value="true"/>
-    <property name="PositionComponent" type="bool" value="true"/>
-    <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
-   </properties>
-  </object>
-  <object id="38" name="door1-3" type="door" x="352" y="448" width="32" height="32">
+  <object id="48" name="door1-3" type="door" x="352" y="480" width="32" height="32">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
@@ -308,4 +334,9 @@
    </properties>
   </object>
  </objectgroup>
+ <layer name="tiles-over" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGP6ADYhZoRjIbsAmNwpGwSgYBYMdIJdlo+UWJhgNm+EFWLHgUYAKADqQ0lzECQAA
+  </data>
+ </layer>
 </map>

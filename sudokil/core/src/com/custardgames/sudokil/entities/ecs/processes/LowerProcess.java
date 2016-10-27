@@ -54,6 +54,7 @@ public class LowerProcess extends EntityProcess
 
 						targetX = event.getxCo() + position.getWidth() / 2 - liftedPosition.getWidth() / 2;
 						targetY = event.getyCo() + position.getHeight() / 2 - liftedPosition.getHeight() / 2;
+						
 						if (event.isFloor())
 						{
 							Entity destination = event.getCellEntity();
@@ -62,6 +63,7 @@ public class LowerProcess extends EntityProcess
 								BlockingComponent blockingComponent = lifted.getComponent(BlockingComponent.class);
 								liftableComponent = lifted.getComponent(LiftableComponent.class);
 								SpriteComponent spriteComponent = lifted.getComponent(SpriteComponent.class);
+								
 								if (liftableComponent != null && liftableComponent.isLifted())
 								{
 									if (blockingComponent != null)
@@ -111,6 +113,8 @@ public class LowerProcess extends EntityProcess
 		{
 			liftedPosition.setX(targetX);
 			liftedPosition.setY(targetY);
+			liftedPosition.setExpectedX(targetX);
+			liftedPosition.setExpectedY(targetY);
 			EventManager.get_instance().broadcast(new AddToMapEvent(lifted));
 			EventManager.get_instance().broadcast(new EntityMovedEvent(lifted));
 			return true;

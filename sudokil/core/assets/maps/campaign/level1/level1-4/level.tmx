@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="13">
- <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32" tilecount="256" columns="16">
-  <image source="../../../../images/tiles/tileset1.png" width="512" height="512"/>
-  <tile id="16">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="17">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="32">
+ <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" spacing="2" margin="1" tilecount="15" columns="15">
+  <image source="../../../../images/tiles/tileset.png" width="512" height="64"/>
+ </tileset>
+ <tileset firstgid="16" name="tiles" tilewidth="32" tileheight="32" tilecount="1" columns="0">
+  <tile id="0">
+   <image width="32" height="32" source="../../../../images/entities/power_cell.png"/>
   </tile>
  </tileset>
  <layer name="floor" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGBxAhIbmYsPUtoPWYNSOUTtG7Ri1Y9SOUTtGkh20rruHAwAAi+x7qsQJAAA=
+   H4sIAAAAAAAAC2NgGByAkYbmMmGhqQmobR42QKvwQQaj/iAejPqDeDDqD+LBqD+IB6P+IB4MVX9gq79HASoAACvRHODECQAA
+  </data>
+ </layer>
+ <layer name="floor-over-left" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGByAeYiZO2rHqB2jdozaMWrHqB2jdtDODnq4e6gDAHDllVbECQAA
+  </data>
+ </layer>
+ <layer name="floor-over-right" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGByAmYGhYajaRQ+3j9oxaseoHaN2jNoxaseoHaMAGQAA6jznTsQJAAA=
+  </data>
+ </layer>
+ <layer name="floor-over-top" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGByAmYFhAa3MhWFkPi3sGgWjYBSMglEwCkYBdQBy/T1ab2MHAGORxc/ECQAA
   </data>
  </layer>
  <layer name="tiles" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgwA8EkTA1gSADptnUtgufOdSyQwiJRvcTLeygFaCHHYJo9KgduMFwifNRO4gHwyXtjuaPwWUHLeIDVr8h13u0sIMUcXLtQPYHun+GAgAA3Fbiu8QJAAA=
+   H4sIAAAAAAAAC2NgwA/YgZgLQjcQUEoSgJkLwtxQs7mpbBc7HjlOKtvBggVzUNkOasfBqB2jdozaMWrHqB2jdpBjJhcDZh1OTTs4cYtTzQ5gHU3TupseAACx7b/RxAkAAA==
+  </data>
+ </layer>
+ <layer name="tiles2" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAXUAOwMDA0D7YZRMApGwSgYBaNgFIwcAACZp16AxAkAAA==
   </data>
  </layer>
  <layer name="objects" width="25" height="25">
@@ -28,58 +43,68 @@
    H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAeDP5i1XpxAkAAA==
   </data>
  </layer>
- <objectgroup name="Object Layer 1">
-  <object id="1" name="wall-body" type="object" x="32" y="672" width="160" height="32">
+ <objectgroup name="obj">
+  <object id="2" name="wall-body" type="object" x="56" y="672" width="136" height="8">
    <properties>
     <property name="bodyType" value="StaticBody"/>
    </properties>
   </object>
-  <object id="2" name="wall3" type="fixture" x="224" y="128" width="32" height="608">
+  <object id="4" name="wall" type="fixture" x="56" y="680" width="8" height="48">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="3" name="wall5" type="fixture" x="160" y="32" width="128" height="32">
+  <object id="5" name="wall2" type="fixture" x="56" y="728" width="176" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="4" name="wall2" type="fixture" x="32" y="736" width="224" height="32">
+  <object id="19" name="wall5" type="fixture" x="184" y="32" width="104" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="5" name="wall" type="fixture" x="32" y="704" width="32" height="32">
+  <object id="20" name="wall4" type="fixture" x="184" y="40" width="8" height="632">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="6" name="wall4" type="fixture" x="160" y="64" width="32" height="608">
+  <object id="21" name="wall3" type="fixture" x="224" y="96" width="8" height="632">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="8" name="wall6" type="fixture" x="256" y="0" width="96" height="32">
+  <object id="24" name="wall5" type="fixture" x="224" y="88" width="168" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="9" name="wall7" type="fixture" x="224" y="96" width="192" height="32">
+  <object id="25" name="wall5" type="fixture" x="280" y="0" width="48" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="10" name="wall8" type="fixture" x="320" y="32" width="96" height="32">
+  <object id="26" name="wall5" type="fixture" x="320" y="32" width="72" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="11" name="wall9" type="fixture" x="384" y="64" width="32" height="32">
+  <object id="27" name="wall5" type="fixture" x="280" y="8" width="8" height="24">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="12" name="crate" type="crate" x="323" y="67" width="26" height="26">
+  <object id="28" name="wall5" type="fixture" x="320" y="8" width="8" height="24">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="29" name="wall5" type="fixture" x="384" y="40" width="8" height="48">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="30" name="power cell" type="power_cell" x="328" y="69" width="16" height="16">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
@@ -87,11 +112,26 @@
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="LiftableComponent" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerCellSpritesComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent" type="bool" value="false"/>
+    <property name="PowerGeneratorComponent.generatingPower" type="bool" value="false"/>
+    <property name="PowerOutputComponent" type="bool" value="false"/>
+    <property name="PowerOutputComponent.activated" type="bool" value="false"/>
+    <property name="PowerOutputComponent.centre" type="bool" value="false"/>
+    <property name="PowerOutputComponent.down" type="bool" value="false"/>
+    <property name="PowerOutputComponent.left" type="bool" value="false"/>
+    <property name="PowerOutputComponent.right" type="bool" value="false"/>
+    <property name="PowerOutputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.height" type="float" value="32"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/crate.png"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
+    <property name="SpriteComponent.yOffset" type="float" value="0"/>
    </properties>
   </object>
  </objectgroup>
+ <layer name="tiles-over" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGP6ADYhZ0fAoGAWjYBSMglEwCgYvQK+3R+tuTAAAvD1JY8QJAAA=
+  </data>
+ </layer>
 </map>

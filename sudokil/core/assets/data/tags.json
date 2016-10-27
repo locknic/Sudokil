@@ -90,6 +90,14 @@
 			className : com.custardgames.sudokil.entities.ecs.components.entities.PowerCellSpritesComponent,
 		}, 
 		{
+			name : ComputerSpritesComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.entities.ComputerSpritesComponent,
+		}, 
+		{
+			name : GeneratorSpritesComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.entities.GeneratorSpritesComponent,
+		}, 
+		{
 			name : CurrentInputComponent,
 			className : com.custardgames.sudokil.entities.ecs.components.current.CurrentInputComponent,
 		},

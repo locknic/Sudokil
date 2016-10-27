@@ -75,8 +75,10 @@ public class MoveProcess extends EntityProcess
 			{
 				position.setX(position.getExpectedX());
 				position.setY(position.getExpectedY());
-
+				
+				System.out.println("bef" + position.getExpectedX());
 				RequestMoveEvent event = (RequestMoveEvent) EventManager.get_instance().broadcastInquiry(new RequestMoveEvent(entity, dirX, dirY));
+				System.out.println("aft" + position.getExpectedX());
 				if (!event.isAllowedMove())
 				{
 					if (entityComponent != null && entityComponent.getId() != null)
@@ -105,8 +107,8 @@ public class MoveProcess extends EntityProcess
 	@Override
 	public void postProcess()
 	{
-		// TODO Auto-generated method stub
-		
+		position.setX(position.getExpectedX());
+		position.setY(position.getExpectedY());
 	}
 
 	private void createMoveAccelerationTween(int type, float time, float dir, float targetLocation)

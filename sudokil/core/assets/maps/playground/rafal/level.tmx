@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" nextobjectid="216">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="50" tilewidth="32" tileheight="32" nextobjectid="228">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" spacing="2" margin="1" tilecount="15" columns="15">
   <image source="../../../images/rafal-packed1/tileset.png" width="512" height="64"/>
  </tileset>
@@ -91,7 +91,7 @@
     <property name="VelocityComponent.maxTurnVelocity" type="float" value="1.5"/>
    </properties>
   </object>
-  <object id="23" name="camera" type="camera" x="40" y="1552">
+  <object id="23" name="camera" type="camera" x="16" y="1584">
    <properties>
     <property name="CameraComponent" type="bool" value="true"/>
     <property name="CameraComponent.panSpeed" type="float" value="1"/>
@@ -303,11 +303,11 @@
     <property name="PowerInputComponent.right" type="bool" value="true"/>
     <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.height" type="float" value="46"/>
     <property name="SpriteComponent.spriteLocation" value="images/entities/lamp_off.png"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="SpriteComponent.xOffset" type="float" value="0"/>
-    <property name="SpriteComponent.yOffset" type="float" value="8"/>
+    <property name="SpriteComponent.yOffset" type="float" value="0"/>
    </properties>
   </object>
   <object id="206" name="lamp" type="lamp" x="352" y="960" width="32" height="32">
@@ -335,11 +335,11 @@
     <property name="PowerInputComponent.right" type="bool" value="false"/>
     <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.height" type="float" value="46"/>
     <property name="SpriteComponent.spriteLocation" value="images/entities/lamp_off.png"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="SpriteComponent.xOffset" type="float" value="0"/>
-    <property name="SpriteComponent.yOffset" type="float" value="8"/>
+    <property name="SpriteComponent.yOffset" type="float" value="0"/>
    </properties>
   </object>
   <object id="207" name="lamp" type="lamp" x="608" y="1216" width="32" height="32">
@@ -367,11 +367,11 @@
     <property name="PowerInputComponent.right" type="bool" value="false"/>
     <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.height" type="float" value="46"/>
     <property name="SpriteComponent.spriteLocation" value="images/entities/lamp_off.png"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="SpriteComponent.xOffset" type="float" value="0"/>
-    <property name="SpriteComponent.yOffset" type="float" value="8"/>
+    <property name="SpriteComponent.yOffset" type="float" value="0"/>
    </properties>
   </object>
   <object id="208" name="lamp" type="lamp" x="352" y="1472" width="32" height="32">
@@ -399,11 +399,11 @@
     <property name="PowerInputComponent.right" type="bool" value="false"/>
     <property name="PowerInputComponent.up" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.height" type="float" value="46"/>
     <property name="SpriteComponent.spriteLocation" value="images/entities/lamp_off.png"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="SpriteComponent.xOffset" type="float" value="0"/>
-    <property name="SpriteComponent.yOffset" type="float" value="8"/>
+    <property name="SpriteComponent.yOffset" type="float" value="0"/>
    </properties>
   </object>
   <object id="209" name="power_cell" type="power_cell" x="296" y="1288" width="16" height="16">
@@ -429,7 +429,7 @@
     <property name="SpriteComponent.spriteLocation" value="images/entities/power_cell.png"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="SpriteComponent.xOffset" type="float" value="0"/>
-    <property name="SpriteComponent.yOffset" type="float" value="8"/>
+    <property name="SpriteComponent.yOffset" type="float" value="0"/>
    </properties>
   </object>
   <object id="213" name="power_cell" type="power_cell" x="296" y="1160" width="16" height="16">
@@ -455,7 +455,7 @@
     <property name="SpriteComponent.spriteLocation" value="images/entities/power_cell.png"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="SpriteComponent.xOffset" type="float" value="0"/>
-    <property name="SpriteComponent.yOffset" type="float" value="8"/>
+    <property name="SpriteComponent.yOffset" type="float" value="0"/>
    </properties>
   </object>
   <object id="214" name="power_cell" type="power_cell" x="424" y="1160" width="16" height="16">
@@ -481,7 +481,7 @@
     <property name="SpriteComponent.spriteLocation" value="images/entities/power_cell.png"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="SpriteComponent.xOffset" type="float" value="0"/>
-    <property name="SpriteComponent.yOffset" type="float" value="8"/>
+    <property name="SpriteComponent.yOffset" type="float" value="0"/>
    </properties>
   </object>
   <object id="215" name="power_cell" type="power_cell" x="424" y="1288" width="16" height="16">
@@ -507,7 +507,271 @@
     <property name="SpriteComponent.spriteLocation" value="images/entities/power_cell.png"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="SpriteComponent.xOffset" type="float" value="0"/>
-    <property name="SpriteComponent.yOffset" type="float" value="8"/>
+    <property name="SpriteComponent.yOffset" type="float" value="0"/>
+   </properties>
+  </object>
+  <object id="216" name="generator" type="generator" x="291" y="899" width="26" height="26">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="GeneratorSpritesComponent" type="bool" value="true"/>
+    <property name="LiftableComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.activated" type="bool" value="true"/>
+    <property name="PowerOutputComponent.centre" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/power_generator_on.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+   </properties>
+  </object>
+  <object id="221" name="computer2" type="computer" x="352" y="896" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="ComputerSpritesComponent" type="bool" value="true"/>
+    <property name="ConnectableComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/campaign/level1/level1-7/computer2.json"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
+    <property name="NetworkedDeviceComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="270"/>
+    <property name="PowerConsumerComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent.activated" type="bool" value="true"/>
+    <property name="PowerInputComponent.centre" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.left" type="bool" value="true"/>
+    <property name="PowerInputComponent.right" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="49"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/computer-on.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+    <property name="TextTagComponent" type="bool" value="true"/>
+    <property name="TextTagComponent.deltaY" type="float" value="18"/>
+    <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="222" name="computer2" type="computer" x="672" y="1216" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="ComputerSpritesComponent" type="bool" value="true"/>
+    <property name="ConnectableComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/campaign/level1/level1-7/computer2.json"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
+    <property name="NetworkedDeviceComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="180"/>
+    <property name="PowerConsumerComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent.activated" type="bool" value="true"/>
+    <property name="PowerInputComponent.centre" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.left" type="bool" value="true"/>
+    <property name="PowerInputComponent.right" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="49"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/computer-on.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+    <property name="TextTagComponent" type="bool" value="true"/>
+    <property name="TextTagComponent.deltaY" type="float" value="18"/>
+    <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="223" name="computer2" type="computer" x="352" y="1536" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="ComputerSpritesComponent" type="bool" value="true"/>
+    <property name="ConnectableComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/campaign/level1/level1-7/computer2.json"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
+    <property name="NetworkedDeviceComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="90"/>
+    <property name="PowerConsumerComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent.activated" type="bool" value="true"/>
+    <property name="PowerInputComponent.centre" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.left" type="bool" value="true"/>
+    <property name="PowerInputComponent.right" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="49"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/computer-on.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+    <property name="TextTagComponent" type="bool" value="true"/>
+    <property name="TextTagComponent.deltaY" type="float" value="18"/>
+    <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="224" name="computer2" type="computer" x="32" y="1216" width="32" height="32">
+   <properties>
+    <property name="ActivityBlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="ComputerSpritesComponent" type="bool" value="true"/>
+    <property name="ConnectableComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent" type="bool" value="true"/>
+    <property name="FileSystemComponent.fileLocation" value="maps/campaign/level1/level1-7/computer2.json"/>
+    <property name="NetworkConnectionComponent" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.down" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.left" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
+    <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
+    <property name="NetworkedDeviceComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="0"/>
+    <property name="PowerConsumerComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent" type="bool" value="true"/>
+    <property name="PowerInputComponent.activated" type="bool" value="true"/>
+    <property name="PowerInputComponent.centre" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.left" type="bool" value="true"/>
+    <property name="PowerInputComponent.right" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="49"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/computer-on.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+    <property name="TextTagComponent" type="bool" value="true"/>
+    <property name="TextTagComponent.deltaY" type="float" value="18"/>
+    <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
+   </properties>
+  </object>
+  <object id="225" name="generator" type="generator" x="35" y="1155" width="26" height="26">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="GeneratorSpritesComponent" type="bool" value="true"/>
+    <property name="LiftableComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.activated" type="bool" value="true"/>
+    <property name="PowerOutputComponent.centre" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/power_generator_on.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+   </properties>
+  </object>
+  <object id="226" name="generator" type="generator" x="675" y="1283" width="26" height="26">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="GeneratorSpritesComponent" type="bool" value="true"/>
+    <property name="LiftableComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.activated" type="bool" value="true"/>
+    <property name="PowerOutputComponent.centre" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/power_generator_on.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+   </properties>
+  </object>
+  <object id="227" name="generator" type="generator" x="291" y="1539" width="26" height="26">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="Box2DBodyComponent" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="GeneratorSpritesComponent" type="bool" value="true"/>
+    <property name="LiftableComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent" type="bool" value="true"/>
+    <property name="PowerGeneratorComponent.generatingPower" type="bool" value="true"/>
+    <property name="PowerOutputComponent" type="bool" value="true"/>
+    <property name="PowerOutputComponent.activated" type="bool" value="true"/>
+    <property name="PowerOutputComponent.centre" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.height" type="float" value="32"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/power_generator_on.png"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
    </properties>
   </object>
  </objectgroup>

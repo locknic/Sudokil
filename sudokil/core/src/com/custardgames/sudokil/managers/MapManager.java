@@ -57,6 +57,7 @@ public class MapManager implements EventListener
 		tiledEntities.put(tiledEntity, entity);
 		((TiledMapTileLayer) map.getLayers().get("objects")).setCell(x, y, tiledEntity);
 		PositionComponent position = entity.getComponent(PositionComponent.class);
+		
 		position.setExpectedX(x * tileWidth);
 		position.setExpectedY(y * tileHeight);
 	}
@@ -66,7 +67,7 @@ public class MapManager implements EventListener
 		PositionComponent position = entity.getComponent(PositionComponent.class);
 		if (position != null)
 		{
-			addToMap(entity, (int) (position.getX() / tileWidth), (int) (position.getY() / tileHeight));
+			addToMap(entity, (int) (position.getExpectedX() / tileWidth), (int) (position.getExpectedY() / tileHeight));
 		}
 	}
 
@@ -82,7 +83,7 @@ public class MapManager implements EventListener
 		PositionComponent position = entity.getComponent(PositionComponent.class);
 		if (position != null)
 		{
-			removeFromMap(entity, (int) (position.getX() / tileWidth), (int) (position.getY() / tileHeight));
+			removeFromMap(entity, (int) (position.getExpectedX() / tileWidth), (int) (position.getExpectedY() / tileHeight));
 		}
 	}
 
@@ -90,8 +91,8 @@ public class MapManager implements EventListener
 	{
 		PositionComponent position = entity.getComponent(PositionComponent.class);
 
-		int xPosition = (int) (position.getX() / tileWidth) + xDir;
-		int yPosition = (int) (position.getY() / tileHeight) + yDir;
+		int xPosition = (int) (position.getExpectedX() / tileWidth) + xDir;
+		int yPosition = (int) (position.getExpectedY() / tileHeight) + yDir;
 
 		if (((TiledMapTileLayer) map.getLayers().get("floor")).getCell(xPosition, yPosition) != null)
 		{
@@ -139,8 +140,6 @@ public class MapManager implements EventListener
 		if (requestMove(event.getEntity(), event.getxDir(), event.getyDir()))
 		{
 			event.setAllowedMove(true);
-//			event.setxDir(event.getxDir() * tileWidth);
-//			event.setyDir(event.getyDir() * tileHeight);
 			return event;
 		}
 		else

@@ -8,6 +8,8 @@ import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.Bag;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -19,6 +21,9 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 {
 	private ComponentMapper<SpriteComponent> spriteComponents;
 	private ComponentMapper<PositionComponent> positionComponents;
+
+	private boolean released = false;
+	private boolean oldSprites = false;
 
 	@Wire
 	private AssetManager assetManager;
@@ -32,13 +37,24 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 	@Override
 	public boolean checkProcessing()
 	{
-		return false;
+		return true;
 	}
 
 	@Override
 	protected void process(Entity arg0)
 	{
-
+		if (Gdx.input.isKeyPressed(Keys.F12))
+		{
+			if (released)
+			{
+				oldSprites = !oldSprites;
+			}
+			released = false;
+		}
+		else
+		{
+			released = true;
+		}
 	}
 
 	public final Comparator<Entity> SpritezComparator = new Comparator<Entity>()
@@ -63,19 +79,22 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 			PositionComponent positionComponent = positionComponents.get(entity);
 			if (spriteComponent.isShouldRender())
 			{
-				if(spriteComponent.getWidth() == 0 || spriteComponent.getHeight() == 0)
+				if (spriteComponent.getWidth() == 0 || spriteComponent.getHeight() == 0)
 				{
 					sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()), (int) positionComponent.getWidth(),
-						(int) positionComponent.getHeight());
+							(int) positionComponent.getHeight());
 					sprite.setPosition(positionComponent.getX() + spriteComponent.getxOffset(), positionComponent.getY() + spriteComponent.getyOffset());
 				}
 				else
 				{
 					sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()), (int) spriteComponent.getWidth(),
 							(int) spriteComponent.getHeight());
-					sprite.setPosition(positionComponent.getX() + positionComponent.getWidth() / 2 - spriteComponent.getWidth() / 2 + spriteComponent.getxOffset(), positionComponent.getY() + positionComponent.getHeight() / 2 - spriteComponent.getHeight() / 2 + spriteComponent.getyOffset());
+					sprite.setPosition(
+							positionComponent.getX() + positionComponent.getWidth() / 2 - spriteComponent.getWidth() / 2 + spriteComponent.getxOffset(),
+							positionComponent.getY() + positionComponent.getHeight() / 2 - spriteComponent.getHeight() / 2 + spriteComponent.getyOffset());
 				}
-//				sprite.rotate(positionComponent.getAngle());
+				if (oldSprites)
+					sprite.rotate(positionComponent.getAngle());
 				sprite.draw(spriteBatch);
 			}
 		}

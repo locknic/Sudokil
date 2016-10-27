@@ -12,8 +12,8 @@
   <property name="ConeLightComponent.directionDegree" type="float" default="0"/>
   <property name="ConeLightComponent.distance" type="float" default="512"/>
   <property name="ConeLightComponent.green" type="float" default="1"/>
-  <property name="ConeLightComponent.red" type="float" default="5"/>
-  <property name="ConeLightComponent.xCo" type="float" default="4"/>
+  <property name="ConeLightComponent.red" type="float" default="1"/>
+  <property name="ConeLightComponent.xCo" type="float" default="0"/>
   <property name="ConeLightComponent.yCo" type="float" default="0"/>
   <property name="EntityComponent" type="bool" default="true"/>
   <property name="LiftableComponent" type="bool" default="false"/>
@@ -24,7 +24,6 @@
   <property name="RobotSpritesComponent" type="bool" default="true"/>
   <property name="SpriteComponent" type="bool" default="true"/>
   <property name="SpriteComponent.height" type="float" default="44"/>
-  <property name="SpriteComponent.spriteLocation" type="string" default="images/player/robot1.png"/>
   <property name="SpriteComponent.width" type="float" default="32"/>
   <property name="SpriteComponent.yOffset" type="float" default="8"/>
   <property name="TextTagComponent" type="bool" default="true"/>
@@ -41,6 +40,7 @@
   <property name="BlockingComponent" type="bool" default="true"/>
   <property name="BlockingComponent.blocking" type="bool" default="true"/>
   <property name="Box2DBodyComponent" type="bool" default="true"/>
+  <property name="ComputerSpritesComponent" type="bool" default="true"/>
   <property name="ConnectableComponent" type="bool" default="true"/>
   <property name="EntityComponent" type="bool" default="true"/>
   <property name="FileSystemComponent" type="bool" default="true"/>
@@ -68,13 +68,12 @@
   <property name="PowerOutputComponent.up" type="bool" default="true"/>
   <property name="ProcessQueueComponent" type="bool" default="true"/>
   <property name="SpriteComponent" type="bool" default="true"/>
+  <property name="SpriteComponent.height" type="float" default="49"/>
   <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/computer-on.png"/>
-  <property name="SpriteDeactiveComponent" type="bool" default="true"/>
-  <property name="SpriteDeactiveComponent.offSpriteLocation" type="string" default="images/entities/computer-off.png"/>
-  <property name="SpriteDeactiveComponent.onSpriteLocation" type="string" default="images/entities/computer-on.png"/>
+  <property name="SpriteComponent.width" type="float" default="32"/>
   <property name="TextTagComponent" type="bool" default="true"/>
   <property name="TextTagComponent.deltaX" type="float" default="0"/>
-  <property name="TextTagComponent.deltaY" type="float" default="2"/>
+  <property name="TextTagComponent.deltaY" type="float" default="18"/>
   <property name="TextTagComponent.shouldRender" type="bool" default="true"/>
  </objecttype>
  <objecttype name="crate" color="#aa5500">
@@ -122,6 +121,7 @@
   <property name="BlockingComponent.blocking" type="bool" default="true"/>
   <property name="Box2DBodyComponent" type="bool" default="true"/>
   <property name="EntityComponent" type="bool" default="true"/>
+  <property name="GeneratorSpritesComponent" type="bool" default="true"/>
   <property name="LiftableComponent" type="bool" default="true"/>
   <property name="PositionComponent" type="bool" default="true"/>
   <property name="PositionComponent.angle" type="float" default="0"/>
@@ -162,7 +162,7 @@
   <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/power_cell.png"/>
   <property name="SpriteComponent.width" type="float" default="32"/>
   <property name="SpriteComponent.xOffset" type="float" default="0"/>
-  <property name="SpriteComponent.yOffset" type="float" default="8"/>
+  <property name="SpriteComponent.yOffset" type="float" default="0"/>
  </objecttype>
  <objecttype name="camera" color="#000000">
   <property name="CameraComponent" type="bool" default="true"/>

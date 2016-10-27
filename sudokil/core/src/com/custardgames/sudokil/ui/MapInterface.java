@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.custardgames.sudokil.events.ChangeLevelEvent;
@@ -43,6 +44,7 @@ public class MapInterface extends Stage implements EventListener
 	private TiledMap tileMap;
 	private MapManager mapManager;
 	private OrthogonalTiledMapRenderer tmr;
+	private OrthographicCamera backgroundCamera;
 	private OrthographicCamera camera;
 
 	private Actor map;
@@ -52,6 +54,8 @@ public class MapInterface extends Stage implements EventListener
 	private int mouseX, mouseY, mouseWheelRotation;
 	private boolean mouseLeft, mouseRight, mouseMiddle;
 	private boolean shouldRender;
+
+	private Image backgroundImage;
 
 	public MapInterface(LevelData levelData)
 	{
@@ -71,9 +75,10 @@ public class MapInterface extends Stage implements EventListener
 		tileMap = new TmxMapLoader().load(levelData.getMapLocation());
 		mapManager = new MapManager(tileMap);
 		tmr = new OrthogonalTiledMapRenderer(tileMap);
+		backgroundCamera = new OrthographicCamera();
 		camera = new OrthographicCamera();
 		tmr.setView(camera);
-		this.getViewport().setCamera(camera);
+//		this.getViewport().setCamera(camera);
 
 		box2dWorldManager = new Box2dWorldManager();
 		box2dWorldManager.loadMap(tileMap);
@@ -85,6 +90,11 @@ public class MapInterface extends Stage implements EventListener
 		this.addActor(map);
 
 		shouldRender = true;
+		
+		backgroundImage = new Image(new Texture(Gdx.files.internal("images/ui/background.png")));
+		backgroundImage.setBounds(-backgroundCamera.viewportWidth / 2, -backgroundCamera.viewportHeight / 2, backgroundCamera.viewportWidth, backgroundCamera.viewportHeight);
+		this.addActor(backgroundImage);
+		this.getViewport().setCamera(backgroundCamera);
 	}
 
 	@Override
@@ -145,13 +155,17 @@ public class MapInterface extends Stage implements EventListener
 
 	public void render()
 	{
+		this.draw();
+
 		if (shouldRender)
 		{
 			camera.update();
-			tmr.setView(camera);
-			tmr.render();
 			Batch spriteBatch = getBatch();
 			spriteBatch.setProjectionMatrix(camera.combined);
+
+			tmr.setView(camera);
+			tmr.render();
+
 			worldManager.render(spriteBatch);
 			TiledMapTileLayer overLayer = (TiledMapTileLayer) tileMap.getLayers().get("tiles-over");
 			if (overLayer != null)
@@ -161,7 +175,6 @@ public class MapInterface extends Stage implements EventListener
 				tmr.getBatch().end();
 			}
 			box2dWorldManager.render(camera);
-			this.draw();
 		}
 	}
 
@@ -170,6 +183,9 @@ public class MapInterface extends Stage implements EventListener
 		camera.viewportWidth = width;
 		camera.viewportHeight = height;
 		camera.update();
+		backgroundCamera.viewportWidth = width;
+		backgroundCamera.viewportHeight = height;
+		backgroundImage.setBounds(-backgroundCamera.viewportWidth / 2, -backgroundCamera.viewportHeight / 2, backgroundCamera.viewportWidth, backgroundCamera.viewportHeight);
 		map.setSize(camera.viewportWidth, camera.viewportHeight);
 	}
 

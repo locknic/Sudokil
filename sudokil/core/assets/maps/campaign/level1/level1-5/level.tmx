@@ -1,26 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="16">
- <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32" tilecount="256" columns="16">
-  <image source="../../../../images/tiles/tileset1.png" width="512" height="512"/>
-  <tile id="16">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="17">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="37">
+ <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" spacing="2" margin="1" tilecount="15" columns="15">
+  <image source="../../../../images/tiles/tileset.png" width="512" height="64"/>
+ </tileset>
+ <tileset firstgid="16" name="tiles" tilewidth="32" tileheight="32" tilecount="1" columns="0">
+  <tile id="0">
+   <image width="32" height="32" source="../../../../images/entities/power_cell.png"/>
   </tile>
  </tileset>
  <layer name="floor" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGBxAhIbmEoMptQOfvdQAo3aM2kELMGrHqB2jdozaMVjtoHZdPRwBAHxIERnECQAA
+   H4sIAAAAAAAAC2NgGByAkYbmMqHR2MQoAUw4xBhxyJEDsLmRWu6HgVF/EA8Gyh/UBrTKd8hg1B/Eg1F/EA9G/UE8GKr+oHZdPRwBALQN5WnECQAA
+  </data>
+ </layer>
+ <layer name="floor-over-left" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGByAeYiZS8gOats7aseoHbQAo3aM2jFqx6gdg9UOerh7qAMAqMDwXMQJAAA=
+  </data>
+ </layer>
+ <layer name="floor-over-right" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGByAmYGhYajajU8/tfw1aseoHbQAo3aM2jFqx6gdo3YMXQAAgG6hxMQJAAA=
+  </data>
+ </layer>
+ <layer name="floor-over-top" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGByAmYFhAa3MhWF0PrrcKBgFo2AUjIJRMAoGBxitpwkDAFtKTpzECQAA
   </data>
  </layer>
  <layer name="tiles" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgwA8EkTA1gSADptnoYpTaTYo+cu0QQqJxuZdSfwih0TAz0e2gBNDDDkE0Gt0+bPyRageu+KBGvsBnB7XBqB3EA2zpatQO7GC4xPlQTVew8ge53qOFHaSIk2sHsj/Q/TMUAADdh4ylxAkAAA==
+   H4sIAAAAAAAAC2NgwA/YgZgLQjcQUEoSgJkLwtxQs7mRxJAxuXazk6CWk0I7WNAwMoCJcVBoB3I4oPuN0vgZtYMyOzjR1JCbnvDZAUw/KGmM3PSEzw5qg1E7Ru0YtWP42YFcfyPX4dS0A71MRRKnmh3oZSq1ylZ6AgB7rfc0xAkAAA==
+  </data>
+ </layer>
+ <layer name="tiles2" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAXUAOwMDA1IbJxyo2AUjIJRMApGwSgYBdQAAJFsykrECQAA
   </data>
  </layer>
  <layer name="objects" width="25" height="25">
@@ -28,92 +43,102 @@
    H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAeDP5i1XpxAkAAA==
   </data>
  </layer>
- <objectgroup name="Object Layer 1">
-  <object id="1" name="wall-body" type="object" x="32" y="672" width="160" height="32">
+ <objectgroup name="obj">
+  <object id="2" name="wall-body" type="object" x="56" y="672" width="136" height="8">
    <properties>
     <property name="bodyType" value="StaticBody"/>
    </properties>
   </object>
-  <object id="2" name="wall3" type="fixture" x="224" y="128" width="32" height="608">
+  <object id="4" name="wall" type="fixture" x="56" y="680" width="8" height="48">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="3" name="wall5" type="fixture" x="160" y="32" width="128" height="32">
+  <object id="5" name="wall2" type="fixture" x="56" y="728" width="176" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="4" name="wall2" type="fixture" x="32" y="736" width="224" height="32">
+  <object id="19" name="wall5" type="fixture" x="184" y="32" width="104" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="5" name="wall" type="fixture" x="32" y="704" width="32" height="32">
+  <object id="20" name="wall4" type="fixture" x="184" y="40" width="8" height="632">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="6" name="wall4" type="fixture" x="160" y="64" width="32" height="608">
+  <object id="21" name="wall3" type="fixture" x="224" y="96" width="8" height="632">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="7" name="wall6" type="fixture" x="256" y="0" width="96" height="32">
+  <object id="24" name="wall5" type="fixture" x="224" y="88" width="128" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="8" name="wall7" type="fixture" x="224" y="96" width="128" height="32">
+  <object id="25" name="wall5" type="fixture" x="280" y="0" width="48" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="9" name="wall8" type="fixture" x="320" y="32" width="224" height="32">
+  <object id="26" name="wall5" type="fixture" x="320" y="32" width="200" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="10" name="wall9" type="fixture" x="512" y="64" width="32" height="32">
+  <object id="27" name="wall5" type="fixture" x="280" y="8" width="8" height="24">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="11" name="wall10" type="fixture" x="448" y="96" width="96" height="32">
+  <object id="28" name="wall5" type="fixture" x="320" y="8" width="8" height="24">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="12" name="wall11" type="fixture" x="320" y="128" width="32" height="160">
+  <object id="29" name="wall5" type="fixture" x="512" y="40" width="8" height="48">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="13" name="wall12" type="fixture" x="448" y="128" width="32" height="160">
+  <object id="32" name="wall5" type="fixture" x="344" y="96" width="8" height="184">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="14" name="wall13" type="fixture" x="320" y="288" width="160" height="32">
+  <object id="33" name="wall5" type="fixture" x="344" y="280" width="112" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="15" name="robot2" type="robot" x="480" y="64" width="32" height="32">
+  <object id="34" name="wall5" type="fixture" x="448" y="96" width="8" height="184">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="35" name="wall5" type="fixture" x="448" y="88" width="72" height="8">
+   <properties>
+    <property name="body" value="wall-body"/>
+   </properties>
+  </object>
+  <object id="36" name="robot2" type="robot" x="480" y="64" width="32" height="32">
    <properties>
     <property name="ActivityBlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
     <property name="Box2DBodyComponent" type="bool" value="true"/>
     <property name="ConeLightComponent" type="bool" value="true"/>
-    <property name="ConeLightComponent.alpha" type="float" value="0.5"/>
+    <property name="ConeLightComponent.alpha" type="float" value="0.8"/>
     <property name="ConeLightComponent.blue" type="float" value="1"/>
     <property name="ConeLightComponent.coneDegree" type="float" value="45"/>
     <property name="ConeLightComponent.directionDegree" type="float" value="0"/>
     <property name="ConeLightComponent.distance" type="float" value="512"/>
     <property name="ConeLightComponent.green" type="float" value="0.8"/>
-    <property name="ConeLightComponent.red" type="float" value="0.8"/>
-    <property name="ConeLightComponent.xCo" type="float" value="4"/>
+    <property name="ConeLightComponent.red" type="float" value="1"/>
+    <property name="ConeLightComponent.xCo" type="float" value="0"/>
     <property name="ConeLightComponent.yCo" type="float" value="0"/>
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="LiftableComponent" type="bool" value="false"/>
@@ -121,11 +146,14 @@
     <property name="PositionComponent" type="bool" value="true"/>
     <property name="PositionComponent.angle" type="float" value="180"/>
     <property name="ProcessQueueComponent" type="bool" value="true"/>
+    <property name="RobotSpritesComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/player/robot1.png"/>
+    <property name="SpriteComponent.height" type="float" value="44"/>
+    <property name="SpriteComponent.width" type="float" value="32"/>
+    <property name="SpriteComponent.yOffset" type="float" value="8"/>
     <property name="TextTagComponent" type="bool" value="true"/>
     <property name="TextTagComponent.deltaX" type="float" value="0"/>
-    <property name="TextTagComponent.deltaY" type="float" value="2"/>
+    <property name="TextTagComponent.deltaY" type="float" value="18"/>
     <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
     <property name="VelocityComponent" type="bool" value="true"/>
     <property name="VelocityComponent.maxTravelVelocity" type="float" value="2"/>
@@ -133,4 +161,9 @@
    </properties>
   </object>
  </objectgroup>
+ <layer name="tiles-over" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGP6ADYhZoRjIbsAmNwpGAaWAFQmPglEwCkbBKKAMsGLBowAVAADrGT2VxAkAAA==
+  </data>
+ </layer>
 </map>

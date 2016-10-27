@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="7">
- <tileset firstgid="1" name="tileset1" tilewidth="32" tileheight="32" tilecount="256" columns="16">
-  <image source="../../../../images/tiles/tileset1.png" width="512" height="512"/>
-  <tile id="16">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
-  <tile id="17">
-   <properties>
-    <property name="solid" value="true"/>
-   </properties>
-  </tile>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="22">
+ <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" spacing="2" margin="1" tilecount="15" columns="15">
+  <image source="../../../../images/tiles/tileset.png" width="512" height="64"/>
  </tileset>
  <layer name="floor" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBcAUiQ9QOESx4FKACAG1RaGfECQAA
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBcAWMdLCDiQZmMkLNRaZHASoAABKtVsbECQAA
+  </data>
+ </layer>
+ <layer name="floor-over-left" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBcAXMQ9QOerh7qAMAIh5bScQJAAA=
+  </data>
+ </layer>
+ <layer name="floor-over-right" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3NAQ0AAAjAoG8WN7o9HBSgAICvptbx0wGYD4DhxAkAAA==
+  </data>
+ </layer>
+ <layer name="floor-over-top" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBcAXMDAwLBtoN5ACQu5HxQLtnMAIA0ypRg8QJAAA=
   </data>
  </layer>
  <layer name="tiles" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkYBvYEgEqalHcg0tcwEYSEGVPdT2w5SxMm1A9kf6P4ZCgAAEvXcp8QJAAA=
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkYBvQE7EHNB6AZa2sFAZTtg7oZhbqjZ1LSDE7c41ezgAGIWLJiDhvFBbQAAfUm258QJAAA=
   </data>
  </layer>
  <layer name="objects" width="25" height="25">
@@ -28,36 +33,41 @@
    H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAeDP5i1XpxAkAAA==
   </data>
  </layer>
- <objectgroup name="Object Layer 1">
-  <object id="1" name="wall-body" type="object" x="32" y="672" width="160" height="32">
+ <objectgroup name="obj">
+  <object id="2" name="wall-body" type="object" x="56" y="672" width="136" height="8">
    <properties>
     <property name="bodyType" value="StaticBody"/>
    </properties>
   </object>
-  <object id="2" name="wall" type="fixture" x="32" y="704" width="32" height="32">
+  <object id="4" name="wall" type="fixture" x="56" y="680" width="8" height="48">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="3" name="wall2" type="fixture" x="32" y="736" width="224" height="32">
+  <object id="5" name="wall2" type="fixture" x="56" y="728" width="176" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="4" name="wall3" type="fixture" x="224" y="640" width="32" height="96">
+  <object id="19" name="wall5" type="fixture" x="184" y="608" width="48" height="8">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="5" name="wall4" type="fixture" x="160" y="640" width="32" height="32">
+  <object id="20" name="wall4" type="fixture" x="184" y="616" width="8" height="56">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="6" name="wall5" type="fixture" x="160" y="608" width="96" height="32">
+  <object id="21" name="wall3" type="fixture" x="224" y="616" width="8" height="112">
    <properties>
     <property name="body" value="wall-body"/>
    </properties>
   </object>
  </objectgroup>
+ <layer name="tiles-over" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBKBhcgBULHgWoAAArMtmjxAkAAA==
+  </data>
+ </layer>
 </map>
