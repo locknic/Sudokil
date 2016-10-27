@@ -134,8 +134,8 @@ public class MoveProcess extends EntityProcess
 	{
 		UniTweenManager.getTweenManager().killTarget(position, type);
 		Timeline.createSequence()
-				.push(Tween.to(position, type, 1.0f / 16.0f).targetRelative(2 * dir).ease(Expo.OUT))
-				.push(Tween.to(position, type, 1.0f / 8.0f).targetRelative(-2 * dir).ease(Linear.INOUT))
+				.push(Tween.to(position, type, 1.0f / 4.0f).targetRelative(8 * dir).ease(Expo.OUT))
+				.push(Tween.to(position, type, 1.0f / 2.0f).targetRelative(-8 * dir).ease(Linear.INOUT))
 				.start(UniTweenManager.getTweenManager());
 	}
 

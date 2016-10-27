@@ -1,0 +1,70 @@
+{
+deviceName : computer1,
+name : computer1,
+children: 
+[
+	{
+		class: ItemCLI,
+		name: computer1.dev,
+	},
+	{
+			class: FolderCLI,
+			name: robot2,
+			children: 
+			[
+				{
+					class: ItemCLI,
+					name: robot2.dev,
+				},
+				{
+					class: ScriptCLI,
+					name: forward.sh,
+					event:
+					{
+						class: ForwardEvent
+					}
+				},
+				{
+					class: ScriptCLI,
+					name: backward.sh,
+					event:
+					{
+						class: BackwardEvent
+					}
+				},
+				{
+					class: ScriptCLI,
+					name: left.sh,
+					event:
+					{
+						class: LeftEvent
+					}
+				},
+				{
+					class: ScriptCLI,
+					name: right.sh,
+					event:
+					{
+						class: RightEvent
+					}
+				},
+				{
+					class: ScriptCLI,
+					name: lift.sh,
+					event:
+					{
+						class: LiftEvent
+					}
+				},
+				{
+					class: ScriptCLI,
+					name: lower.sh,
+					event:
+					{
+						class: LowerEvent
+					}
+				},
+			],
+		},
+]
+}

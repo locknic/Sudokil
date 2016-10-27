@@ -68,11 +68,22 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 		}
 	};
 
+	public final Comparator<Entity> PositionYComparator = new Comparator<Entity>()
+	{
+		@Override
+		public int compare(Entity o1, Entity o2)
+		{
+			PositionComponent positionComponent1 = positionComponents.get(o1);
+			PositionComponent positionComponent2 = positionComponents.get(o2);
+			return ((Float)positionComponent2.getExpectedY()).compareTo(positionComponent1.getExpectedY());
+		}
+	};
+
 	public void render(Batch spriteBatch)
 	{
 		Sprite sprite;
 		Bag<Entity> entities = getEntities();
-		entities.sort(SpritezComparator);
+		entities.sort(PositionYComparator);
 		for (Entity entity : entities)
 		{
 			SpriteComponent spriteComponent = spriteComponents.get(entity);
@@ -89,9 +100,7 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 				{
 					sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()), (int) spriteComponent.getWidth(),
 							(int) spriteComponent.getHeight());
-					sprite.setPosition(
-							positionComponent.getX() + positionComponent.getWidth() / 2 - spriteComponent.getWidth() / 2 + spriteComponent.getxOffset(),
-							positionComponent.getY() + positionComponent.getHeight() / 2 - spriteComponent.getHeight() / 2 + spriteComponent.getyOffset());
+					sprite.setPosition(positionComponent.getX() + spriteComponent.getxOffset(), positionComponent.getY() + spriteComponent.getyOffset());
 				}
 				if (oldSprites)
 					sprite.rotate(positionComponent.getAngle());

@@ -115,6 +115,10 @@ public class MapInterface extends Stage implements EventListener
 
 	private void loadAssets(AssetManager assets, LevelData levelData)
 	{
+		for (String image : DefaultImages.getDefaultImagesList())
+		{
+			assets.load(image, Texture.class);
+		}
 		for (String image : levelData.getImages())
 		{
 			assets.load(image, Texture.class);

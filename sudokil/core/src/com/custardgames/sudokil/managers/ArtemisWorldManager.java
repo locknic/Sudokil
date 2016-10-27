@@ -47,6 +47,7 @@ import com.custardgames.sudokil.entities.ecs.systems.rendering.ConsoleHighlightR
 import com.custardgames.sudokil.entities.ecs.systems.rendering.ShapeRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.SpriteRenderSystem;
 import com.custardgames.sudokil.entities.ecs.systems.rendering.TextRenderSystem;
+import com.custardgames.sudokil.entities.ecs.systems.rendering.WireRenderSystem;
 import com.custardgames.sudokil.events.AddEntitiesEvent;
 import com.custardgames.sudokil.events.DisposeWorldEvent;
 import com.custardgames.sudokil.events.MapEntitiesLoadedEvent;
@@ -63,6 +64,7 @@ public class ArtemisWorldManager implements EventListener
 {
 	private World artemisWorld;
 	
+	private WireRenderSystem wireRenderSystem;
 	private SpriteRenderSystem spriteRenderSystem;
 	private ShapeRenderSystem shapeRenderSystem;
 	private TextRenderSystem textRenderSystem;
@@ -73,12 +75,13 @@ public class ArtemisWorldManager implements EventListener
 		EventManager.get_instance().register(CreateEntityEvent.class, this);
 		EventManager.get_instance().register(AddEntitiesEvent.class, this);
 
+		wireRenderSystem = new WireRenderSystem();
 		spriteRenderSystem = new SpriteRenderSystem();
 		shapeRenderSystem = new ShapeRenderSystem();
 		textRenderSystem = new TextRenderSystem();
 		consoleHighlightRenderSystem = new ConsoleHighlightRenderSystem();
 
-		WorldConfiguration config = new WorldConfigurationBuilder().with(spriteRenderSystem, shapeRenderSystem, textRenderSystem, consoleHighlightRenderSystem,
+		WorldConfiguration config = new WorldConfigurationBuilder().with(wireRenderSystem, spriteRenderSystem, shapeRenderSystem, textRenderSystem, consoleHighlightRenderSystem,
 				new RobotMovementSystem(), new CameraMovementSystem(), new CharacterInputSystem(), new ProcessQueueSystem(), new EntityLocatorSystem(),
 				new DoorToggleSystem(), new RobotConnectSystem(), new RobotLiftSystem(), new ActivityBlockingSystem(), new PowerConsumptionSystem(),
 				new ActivitySpriteSystem(), new EventTriggerSystem(), new MapRefresherSystem(), new NetworkSystem(), new NetworksConnectedSystem(),
@@ -127,6 +130,7 @@ public class ArtemisWorldManager implements EventListener
 		spriteBatch.begin();
 		shapeRenderSystem.render(spriteBatch);
 		consoleHighlightRenderSystem.render(spriteBatch);
+		wireRenderSystem.render(spriteBatch);
 		spriteRenderSystem.render(spriteBatch);
 		textRenderSystem.render(spriteBatch);
 		spriteBatch.end();

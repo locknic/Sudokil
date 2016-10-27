@@ -17,7 +17,9 @@ public class LiftProcess extends EntityProcess
 	private float targetX, targetY;
 	private boolean setTarget;
 	private Entity lifted;
-
+	
+	private PositionComponent liftedPosition;
+	
 	public LiftProcess(Entity entity)
 	{
 		super(entity);
@@ -66,10 +68,11 @@ public class LiftProcess extends EntityProcess
 						lifted = event.getCellEntity();
 						if (lifted != null)
 						{
-							PositionComponent liftedPosition = lifted.getComponent(PositionComponent.class);
+							liftedPosition = lifted.getComponent(PositionComponent.class);
 							LiftableComponent liftableComponent = lifted.getComponent(LiftableComponent.class);
 							BlockingComponent blockingComponent = lifted.getComponent(BlockingComponent.class);
 							SpriteComponent spriteComponent = lifted.getComponent(SpriteComponent.class);
+							
 							if (liftableComponent != null && !liftableComponent.isLifted())
 							{
 								EventManager.get_instance().broadcast(new RemoveFromMapEvent(lifted));
@@ -83,6 +86,7 @@ public class LiftProcess extends EntityProcess
 								EventManager.get_instance().broadcast(new BlockActivityEvent(lifted, liftableComponent.getClass()));
 								targetX = position.getX() + position.getWidth() / 2 - liftedPosition.getWidth() / 2;
 								targetY = position.getY() + position.getHeight() / 2 - liftedPosition.getHeight() / 2 + 28;
+								liftedPosition.setExpectedY(position.getExpectedY()-1);
 								setTarget = true;
 								
 								if (spriteComponent != null)
@@ -145,8 +149,7 @@ public class LiftProcess extends EntityProcess
 	@Override
 	public void postProcess()
 	{
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }
