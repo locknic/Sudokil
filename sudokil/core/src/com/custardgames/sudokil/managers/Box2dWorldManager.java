@@ -49,7 +49,7 @@ public class Box2dWorldManager implements EventListener
 		mapParser = new Box2DMapObjectParser();
 		rayHandler = new RayHandler(world);
 		RayHandler.useDiffuseLight(true);
-		rayHandler.setAmbientLight(0.9f, 0.9f, 0.9f, 1f);
+		rayHandler.setAmbientLight(0.8f, 0.8f, 0.8f, 0.9f);
 	}
 
 	public void dispose()
@@ -138,6 +138,9 @@ public class Box2dWorldManager implements EventListener
 			fixtureDef.density = 0.5f;
 			fixtureDef.friction = 0.4f;
 			fixtureDef.restitution = 0.6f;
+			fixtureDef.filter.categoryBits = 4;
+			fixtureDef.filter.maskBits = 4;
+			fixtureDef.filter.groupIndex = 4;
 
 			body.createFixture(fixtureDef);
 			rect.dispose();
@@ -155,7 +158,9 @@ public class Box2dWorldManager implements EventListener
 				ConeLight coneLight = new ConeLight(rayHandler, 64, lightComponent.getColor(), lightComponent.getDistance(), lightComponent.getxCo(),
 						lightComponent.getyCo(), ((ConeLightComponent) lightComponent).getDirectionDegree(),
 						((ConeLightComponent) lightComponent).getConeDegree());
-				
+				short shortInt = 1;
+				coneLight.setContactFilter(shortInt,shortInt,shortInt);
+			
 				lightComponent.setLight(coneLight);
 
 				if (bodyComponent != null)
@@ -168,6 +173,9 @@ public class Box2dWorldManager implements EventListener
 				PointLight pointLight = new PointLight(rayHandler, 64, lightComponent.getColor(), lightComponent.getDistance(), lightComponent.getxCo(),
 						lightComponent.getyCo());
 				
+				short shortInt = 1;
+				pointLight.setContactFilter(shortInt,shortInt,shortInt);
+			
 				lightComponent.setLight(pointLight);
 				
 				if (bodyComponent != null)

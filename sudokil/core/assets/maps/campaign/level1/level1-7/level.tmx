@@ -10,7 +10,7 @@
  </tileset>
  <layer name="floor" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2VQQpAIQhEzfsf+q/+RpQZa4IWvo1QYT6RMnuDdTGvh5itneDF2ir2dshqVNX/Mx4848EzHjzIQ/FuveChoOMRe8fS8fBwhmXHw0JE93Xmqpo11Dfkgf7gzIOZebVHhyyvcsYZPoLdMxrECQAA
+   H4sIAAAAAAAAC+2UQQoAIAgEzf8/ulMQYbhrCh2ci2RQjlgifzAKz9UjWrkX9JIbl70IVo1Z9S/aA6c9cNoDx/PI+Ld+8MiA8Yj2jfHY10wfIx5yRO8+dq4i8+Z5oNGrsdqDwTo38x0hTBE046jECQAA
   </data>
  </layer>
  <layer name="floor-over-left" width="25" height="25">
@@ -263,24 +263,24 @@
     <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
     <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
-    <property name="PositionComponent.angle" type="float" value="180"/>
+    <property name="PositionComponent.angle" type="float" value="0"/>
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.activated" type="bool" value="true"/>
     <property name="PowerInputComponent.centre" type="bool" value="true"/>
     <property name="PowerInputComponent.down" type="bool" value="true"/>
-    <property name="PowerInputComponent.left" type="bool" value="true"/>
+    <property name="PowerInputComponent.left" type="bool" value="false"/>
     <property name="PowerInputComponent.right" type="bool" value="true"/>
-    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
     <property name="PowerOutputComponent.activated" type="bool" value="true"/>
     <property name="PowerOutputComponent.centre" type="bool" value="true"/>
     <property name="PowerOutputComponent.down" type="bool" value="true"/>
-    <property name="PowerOutputComponent.left" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="false"/>
     <property name="PowerOutputComponent.right" type="bool" value="true"/>
-    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/wire2.png"/>
     <property name="SpriteComponent.zOrder" type="float" value="45"/>
+    <property name="WireSpritesComponent" type="bool" value="true"/>
    </properties>
   </object>
   <object id="71" name="door2-3" type="door" x="672" y="704" width="32" height="32">
@@ -307,24 +307,24 @@
     <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
     <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
-    <property name="PositionComponent.angle" type="float" value="90"/>
+    <property name="PositionComponent.angle" type="float" value="0"/>
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.activated" type="bool" value="true"/>
     <property name="PowerInputComponent.centre" type="bool" value="true"/>
     <property name="PowerInputComponent.down" type="bool" value="true"/>
     <property name="PowerInputComponent.left" type="bool" value="true"/>
-    <property name="PowerInputComponent.right" type="bool" value="true"/>
-    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerInputComponent.right" type="bool" value="false"/>
+    <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
     <property name="PowerOutputComponent.activated" type="bool" value="true"/>
     <property name="PowerOutputComponent.centre" type="bool" value="true"/>
     <property name="PowerOutputComponent.down" type="bool" value="true"/>
     <property name="PowerOutputComponent.left" type="bool" value="true"/>
-    <property name="PowerOutputComponent.right" type="bool" value="true"/>
-    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent.right" type="bool" value="false"/>
+    <property name="PowerOutputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/wire2.png"/>
     <property name="SpriteComponent.zOrder" type="float" value="45"/>
+    <property name="WireSpritesComponent" type="bool" value="true"/>
    </properties>
   </object>
   <object id="73" type="wire-l" x="608" y="544" width="32" height="32">
@@ -343,20 +343,20 @@
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.activated" type="bool" value="true"/>
     <property name="PowerInputComponent.centre" type="bool" value="true"/>
-    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="false"/>
     <property name="PowerInputComponent.left" type="bool" value="true"/>
     <property name="PowerInputComponent.right" type="bool" value="true"/>
-    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
     <property name="PowerOutputComponent.activated" type="bool" value="true"/>
     <property name="PowerOutputComponent.centre" type="bool" value="true"/>
-    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="false"/>
     <property name="PowerOutputComponent.left" type="bool" value="true"/>
     <property name="PowerOutputComponent.right" type="bool" value="true"/>
-    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/wire.png"/>
     <property name="SpriteComponent.zOrder" type="float" value="45"/>
+    <property name="WireSpritesComponent" type="bool" value="true"/>
    </properties>
   </object>
   <object id="74" name="door2-2" type="door" x="672" y="672" width="32" height="32">
@@ -371,7 +371,7 @@
     <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
    </properties>
   </object>
-  <object id="75" name="generator" type="generator" x="579" y="611" width="26" height="26">
+  <object id="75" name="generator" type="generator" x="576" y="608" width="32" height="32">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
@@ -449,24 +449,24 @@
     <property name="NetworkConnectionComponent.right" type="bool" value="true"/>
     <property name="NetworkConnectionComponent.up" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
-    <property name="PositionComponent.angle" type="float" value="90"/>
+    <property name="PositionComponent.angle" type="float" value="0"/>
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.activated" type="bool" value="true"/>
     <property name="PowerInputComponent.centre" type="bool" value="true"/>
     <property name="PowerInputComponent.down" type="bool" value="true"/>
-    <property name="PowerInputComponent.left" type="bool" value="true"/>
-    <property name="PowerInputComponent.right" type="bool" value="true"/>
+    <property name="PowerInputComponent.left" type="bool" value="false"/>
+    <property name="PowerInputComponent.right" type="bool" value="false"/>
     <property name="PowerInputComponent.up" type="bool" value="true"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
     <property name="PowerOutputComponent.activated" type="bool" value="true"/>
     <property name="PowerOutputComponent.centre" type="bool" value="true"/>
     <property name="PowerOutputComponent.down" type="bool" value="true"/>
-    <property name="PowerOutputComponent.left" type="bool" value="true"/>
-    <property name="PowerOutputComponent.right" type="bool" value="true"/>
+    <property name="PowerOutputComponent.left" type="bool" value="false"/>
+    <property name="PowerOutputComponent.right" type="bool" value="false"/>
     <property name="PowerOutputComponent.up" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/wire.png"/>
     <property name="SpriteComponent.zOrder" type="float" value="45"/>
+    <property name="WireSpritesComponent" type="bool" value="true"/>
    </properties>
   </object>
   <object id="78" type="wire-l" x="576" y="544" width="32" height="32">
@@ -485,20 +485,20 @@
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.activated" type="bool" value="true"/>
     <property name="PowerInputComponent.centre" type="bool" value="true"/>
-    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="false"/>
     <property name="PowerInputComponent.left" type="bool" value="true"/>
     <property name="PowerInputComponent.right" type="bool" value="true"/>
-    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
     <property name="PowerOutputComponent.activated" type="bool" value="true"/>
     <property name="PowerOutputComponent.centre" type="bool" value="true"/>
-    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="false"/>
     <property name="PowerOutputComponent.left" type="bool" value="true"/>
     <property name="PowerOutputComponent.right" type="bool" value="true"/>
-    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/wire.png"/>
     <property name="SpriteComponent.zOrder" type="float" value="45"/>
+    <property name="WireSpritesComponent" type="bool" value="true"/>
    </properties>
   </object>
   <object id="79" name="door2" type="door-controller" x="672" y="608" width="32" height="32">

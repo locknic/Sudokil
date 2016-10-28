@@ -1,0 +1,33 @@
+{
+	entities :
+	[
+		[
+			{
+				class : TriggerEntityComponent,
+			},
+			{
+				class : TriggerConditionsComponent,
+				triggerCondition : 
+				{
+					class : TimedTriggerCondition,
+					running : true,
+					duration : 2,
+				}
+			},
+			{
+				class : TriggerReactionsComponent,
+				triggerReaction :
+				{ 
+					class : TriggerReactionArray,
+					triggerReactions : 
+					[
+						{
+							class : PrintDialogueReaction,
+							dialogueMessage : "Rob: As you know, robots are terrified of the dark. Use the lessons you've learnt to switch on all the lamps!",
+						},
+					]
+				}
+			},
+		],
+	]
+}

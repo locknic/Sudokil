@@ -88,7 +88,7 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 		{
 			SpriteComponent spriteComponent = spriteComponents.get(entity);
 			PositionComponent positionComponent = positionComponents.get(entity);
-			if (spriteComponent.isShouldRender())
+			if (spriteComponent.isShouldRender() && spriteComponent.getSpriteLocation() != null)
 			{
 				if (spriteComponent.getWidth() == 0 || spriteComponent.getHeight() == 0)
 				{

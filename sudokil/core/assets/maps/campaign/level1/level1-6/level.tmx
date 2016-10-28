@@ -186,7 +186,7 @@
     <property name="TextTagComponent.shouldRender" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="42" name="generator" type="generator" x="547" y="451" width="26" height="26">
+  <object id="42" name="generator" type="generator" x="544" y="448" width="32" height="26">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>

@@ -5,7 +5,7 @@ children:
 [
 	{
 		class: ItemCLI,
-		name: computer1.dev,
+		name: computer3.dev,
 	},
 	{
 			class: FolderCLI,

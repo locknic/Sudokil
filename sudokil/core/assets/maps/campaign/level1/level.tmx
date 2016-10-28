@@ -87,7 +87,7 @@
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.height" type="float" value="44"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
-    <property name="SpriteComponent.yOffset" type="float" value="8"/>
+    <property name="SpriteComponent.yOffset" type="float" value="0"/>
     <property name="TextTagComponent" type="bool" value="true"/>
     <property name="TextTagComponent.deltaX" type="float" value="0"/>
     <property name="TextTagComponent.deltaY" type="float" value="18"/>

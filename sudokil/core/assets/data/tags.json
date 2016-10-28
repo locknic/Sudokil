@@ -98,6 +98,10 @@
 			className : com.custardgames.sudokil.entities.ecs.components.entities.GeneratorSpritesComponent,
 		}, 
 		{
+			name : WireSpritesComponent,
+			className : com.custardgames.sudokil.entities.ecs.components.entities.WireSpritesComponent,
+		}, 
+		{
 			name : CurrentInputComponent,
 			className : com.custardgames.sudokil.entities.ecs.components.current.CurrentInputComponent,
 		},

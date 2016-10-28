@@ -8,6 +8,7 @@ import com.artemis.Entity;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.utils.Array;
+import com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkConnectionComponent;
 import com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkedDeviceComponent;
@@ -23,6 +24,7 @@ public class NetworksConnectedSystem extends EntityProcessingSystem implements E
 	ComponentMapper<WirelessRouterComponent> wirelessNetworkComponents;
 	ComponentMapper<NetworkConnectionComponent> networkConnectionComponents;
 	ComponentMapper<EntityComponent> entityComponents;
+	ComponentMapper<ActivityBlockingComponent> blockingComponents;
 
 	@SuppressWarnings("unchecked")
 	public NetworksConnectedSystem()
@@ -79,17 +81,26 @@ public class NetworksConnectedSystem extends EntityProcessingSystem implements E
 					{
 						NetworkedDeviceComponent connectedWirelessDeviceComponent = wirelessDeviceComponents.get(connectedEntity);
 						EntityComponent entityComponent = entityComponents.get(connectedEntity);
-						if (connectedWirelessDeviceComponent != null && entityComponent != null)
+						ActivityBlockingComponent blockingComponent = blockingComponents.get(entity);
+						ActivityBlockingComponent connectedBlockingComponent = blockingComponents.get(connectedEntity);
+						
+						if (blockingComponent == null || blockingComponent.isActive())
 						{
-							wirelessDeviceComponent.addWiredDevice(entityComponent.getId());
-						}
-
-						WirelessRouterComponent connectedWirelessRouterComponent = wirelessNetworkComponents.get(connectedEntity);
-						if (connectedWirelessRouterComponent != null)
-						{
-							for (String network : connectedWirelessRouterComponent.getNetworkNames())
+							if (connectedBlockingComponent == null || connectedBlockingComponent.isActive())
 							{
-								wirelessDeviceComponent.addWirelessNetwork(network);
+								if (connectedWirelessDeviceComponent != null && entityComponent != null)
+								{
+									wirelessDeviceComponent.addWiredDevice(entityComponent.getId());
+								}
+
+								WirelessRouterComponent connectedWirelessRouterComponent = wirelessNetworkComponents.get(connectedEntity);
+								if (connectedWirelessRouterComponent != null)
+								{
+									for (String network : connectedWirelessRouterComponent.getNetworkNames())
+									{
+										wirelessDeviceComponent.addWirelessNetwork(network);
+									}
+								}
 							}
 						}
 					}

@@ -230,7 +230,6 @@
   <property name="PowerOutputComponent.right" type="bool" default="true"/>
   <property name="PowerOutputComponent.up" type="bool" default="true"/>
   <property name="SpriteComponent" type="bool" default="true"/>
-  <property name="SpriteComponent.spriteLocation" type="string" default="images/entities/wire2.png"/>
   <property name="SpriteComponent.zOrder" type="float" default="50"/>
  </objecttype>
  <objecttype name="router" color="#0055ff">
