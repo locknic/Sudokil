@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="80">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="81">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" spacing="2" margin="1" tilecount="15" columns="15">
   <image source="../../../../images/tiles/tileset.png" width="512" height="64"/>
  </tileset>
- <tileset firstgid="16" name="tiles" tilewidth="32" tileheight="32" tilecount="1" columns="0">
+ <tileset firstgid="16" name="tiles" tilewidth="32" tileheight="32" tilecount="9" columns="0">
   <tile id="0">
    <image width="32" height="32" source="../../../../images/entities/power_cell.png"/>
+  </tile>
+  <tile id="1">
+   <image width="32" height="32" source="../../../../images/entities/doors_vertical_top_part.png"/>
+  </tile>
+  <tile id="2">
+   <image width="32" height="32" source="../../../../images/entities/doors_vertical_part1.png"/>
+  </tile>
+  <tile id="3">
+   <image width="32" height="32" source="../../../../images/entities/doors_vertical_part2.png"/>
+  </tile>
+  <tile id="4">
+   <image width="32" height="32" source="../../../../images/entities/door_left.png"/>
+  </tile>
+  <tile id="5">
+   <image width="32" height="32" source="../../../../images/entities/wire_down.png"/>
+  </tile>
+  <tile id="6">
+   <image width="32" height="32" source="../../../../images/entities/wire_left.png"/>
+  </tile>
+  <tile id="7">
+   <image width="32" height="32" source="../../../../images/entities/wire_right.png"/>
+  </tile>
+  <tile id="8">
+   <image width="32" height="32" source="../../../../images/entities/wire_up.png"/>
   </tile>
  </tileset>
  <layer name="floor" width="25" height="25">
@@ -20,7 +44,7 @@
  </layer>
  <layer name="floor-over-right" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGByAmYGhYajajU8/tfw1aseoHaN2jGw7qGXnQPtjoO2gVhijyyHzaWUHshgp9lEjzEeKHdQwl57tGQBPIk87xAkAAA==
+   H4sIAAAAAAAAC2NgGByAmYGhYajajU8/tfw1aseoHaN2jGw7qGXnQPtjoO2gVhijyyHzaWUHshgp9lES5sJ0sINYM+hhBzXMpWd7BgCxgvmKxAkAAA==
   </data>
  </layer>
  <layer name="floor-over-top" width="25" height="25">
@@ -30,12 +54,12 @@
  </layer>
  <layer name="tiles" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2W0QqAIAxFfRDU/Gk/PaOkdVPzpr1Ig2GMtYPzMlWqbib6sq/hIZWyVHdzf9T2Iib9LdsQua6TocGlpZjtZMg+4N56z+dn9DEc5LzVU40xS69mZeD8YpktDDRWZy0MnGXs3GLOQ94DTN9YRub/TxibBrTIfdoToysvchZYsQbLaLXSufkzPoyBMzWZG8iI2r7pHTVfysF7XkFsxJspx7bX77ACnIrgocQJAAA=
+   H4sIAAAAAAAAC+2W0QqAIAxF9xCU+l59rp9eUdK6WXnVJ2kwkrE8uV1mIu/Wr273p/9IpSzsu7k79nYqpj2X3RO5ppDRgWsLsaGQoeuAZyvtz88oYxjIydXTG6OVWrXKwPnFMlMYk1qPwusshYGzjJ1bTD/0PcDUjWVE3q/OmGXXQKdyv87E6MqpHHvwbORbchip9tQ3d8arMXCmBjMVGau2b3pHzT/l4D0vEKvxzxRjD9e1XwCg+3OqxAkAAA==
   </data>
  </layer>
  <layer name="tiles2" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAXUAOwMDA1IbJxyo2AUjIJRMJjBaHlFGWBH0A0D6Y6RADgHmd2cSHHOSaP450AzFwABhfdkxAkAAA==
+   H4sIAAAAAAAAC2NgGAXUAOwMDA1IbJxyo2AUjIJRMNiACLSMAtKj5RWFgB1BN9DaLkFaWwAEwnSwg1zASYJaITrYzYkU55w0in8ONHMB6vtFsMQJAAA=
   </data>
  </layer>
  <layer name="objects" width="25" height="25">
@@ -239,18 +263,6 @@
     <property name="body" value="wall-body"/>
    </properties>
   </object>
-  <object id="69" name="door2-1" type="door" x="672" y="640" width="32" height="32">
-   <properties>
-    <property name="BlockingComponent" type="bool" value="true"/>
-    <property name="BlockingComponent.blocking" type="bool" value="true"/>
-    <property name="EntityComponent" type="bool" value="true"/>
-    <property name="PositionComponent" type="bool" value="true"/>
-    <property name="PositionComponent.angle" type="float" value="90"/>
-    <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
-   </properties>
-  </object>
   <object id="70" type="wire-l" x="544" y="544" width="32" height="32">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
@@ -283,7 +295,7 @@
     <property name="WireSpritesComponent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="71" name="door2-3" type="door" x="672" y="704" width="32" height="32">
+  <object id="71" name="door2-2" type="door" x="672" y="672" width="32" height="32">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
@@ -292,7 +304,7 @@
     <property name="PositionComponent.angle" type="float" value="90"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door_vertical_closed.png"/>
    </properties>
   </object>
   <object id="72" type="wire-l" x="640" y="544" width="32" height="32">
@@ -359,7 +371,7 @@
     <property name="WireSpritesComponent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="74" name="door2-2" type="door" x="672" y="672" width="32" height="32">
+  <object id="74" name="door2-1" type="door" x="672" y="640" width="32" height="32">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
@@ -368,7 +380,7 @@
     <property name="PositionComponent.angle" type="float" value="90"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door_vertical_closed.png"/>
    </properties>
   </object>
   <object id="75" name="generator" type="generator" x="576" y="608" width="32" height="32">
@@ -515,7 +527,7 @@
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
     <property name="PositionComponent.angle" type="float" value="270"/>
-    <property name="PowerConsumerComponent" type="bool" value="true"/>
+    <property name="PowerConsumerComponent" type="bool" value="false"/>
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.down" type="bool" value="true"/>
     <property name="PowerInputComponent.left" type="bool" value="true"/>
@@ -524,7 +536,19 @@
     <property name="ProcessQueueComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-control.png"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door_vertical_closed_upper.png"/>
+   </properties>
+  </object>
+  <object id="80" name="door2-3" type="door" x="672" y="704" width="32" height="32">
+   <properties>
+    <property name="BlockingComponent" type="bool" value="true"/>
+    <property name="BlockingComponent.blocking" type="bool" value="true"/>
+    <property name="EntityComponent" type="bool" value="true"/>
+    <property name="PositionComponent" type="bool" value="true"/>
+    <property name="PositionComponent.angle" type="float" value="90"/>
+    <property name="SpriteComponent" type="bool" value="true"/>
+    <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door_vertical_closed_lower.png"/>
    </properties>
   </object>
  </objectgroup>

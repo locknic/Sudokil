@@ -90,6 +90,8 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 				}
 			}
 		}
+		DoorOffProcess doorOffProcess = new DoorOffProcess(entity);
+		entityProcessQueue.addToQueue(doorOffProcess);
 		doorGroupComponent.getDoorTiles().reverse();
 		return entityProcessQueue;
 	}
@@ -99,6 +101,10 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 		DoorGroupComponent doorGroupComponent = doorGroupComponents.get(entity);
 		EntityProcessQueue entityProcessQueue = new EntityProcessQueue(entity);
 		boolean blocked = false;
+		
+		DoorOnProcess doorOnProcess = new DoorOnProcess(entity);
+		entityProcessQueue.addToQueue(doorOnProcess);
+		
 		for (String doorName : doorGroupComponent.getDoorTiles())
 		{
 			PingEntityEvent event = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(doorName));
@@ -115,12 +121,12 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 						break;
 					}
 					
-					DoorOnProcess doorOnProcess = new DoorOnProcess(doorTile);
+					doorOnProcess = new DoorOnProcess(doorTile);
 					entityProcessQueue.addToQueue(doorOnProcess);
 				}
 			}
 		}
-		
+
 		if (blocked)
 		{
 			entityProcessQueue.addAllToQueue(getDoorOffProcesses(entity).getQueue());

@@ -100,7 +100,7 @@
  </objectgroup>
  <layer name="tiles-over" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBKBhcgBUJjwLsAACJuXh3xAkAAA==
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBKBhcgBUJ0wqwIOGhCACA6Z8LxAkAAA==
   </data>
  </layer>
 </map>

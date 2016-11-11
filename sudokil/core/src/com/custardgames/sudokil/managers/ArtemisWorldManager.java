@@ -10,7 +10,6 @@ import com.artemis.WorldConfiguration;
 import com.artemis.WorldConfigurationBuilder;
 import com.artemis.utils.IntBag;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -70,7 +69,7 @@ public class ArtemisWorldManager implements EventListener
 	private TextRenderSystem textRenderSystem;
 	private ConsoleHighlightRenderSystem consoleHighlightRenderSystem;
 
-	public ArtemisWorldManager(Camera camera, AssetManager assetManager, LevelData levelData)
+	public ArtemisWorldManager(Camera camera, CustardAssetManager assetManager, LevelData levelData)
 	{
 		EventManager.get_instance().register(CreateEntityEvent.class, this);
 		EventManager.get_instance().register(AddEntitiesEvent.class, this);

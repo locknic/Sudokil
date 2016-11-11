@@ -10,12 +10,12 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.Bag;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
+import com.custardgames.sudokil.managers.CustardAssetManager;
 
 public class SpriteRenderSystem extends EntityProcessingSystem
 {
@@ -26,7 +26,7 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 	private boolean oldSprites = false;
 
 	@Wire
-	private AssetManager assetManager;
+	private CustardAssetManager assetManager;
 
 	@SuppressWarnings("unchecked")
 	public SpriteRenderSystem()
@@ -92,13 +92,13 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 			{
 				if (spriteComponent.getWidth() == 0 || spriteComponent.getHeight() == 0)
 				{
-					sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()), (int) positionComponent.getWidth(),
+					sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation(), Texture.class), (int) positionComponent.getWidth(),
 							(int) positionComponent.getHeight());
 					sprite.setPosition(positionComponent.getX() + spriteComponent.getxOffset(), positionComponent.getY() + spriteComponent.getyOffset());
 				}
 				else
 				{
-					sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation()), (int) spriteComponent.getWidth(),
+					sprite = new Sprite((Texture) assetManager.get(spriteComponent.getSpriteLocation(), Texture.class), (int) spriteComponent.getWidth(),
 							(int) spriteComponent.getHeight());
 					sprite.setPosition(positionComponent.getX() + spriteComponent.getxOffset(), positionComponent.getY() + spriteComponent.getyOffset());
 				}

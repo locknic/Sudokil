@@ -3,9 +3,27 @@
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" spacing="2" margin="1" tilecount="15" columns="15">
   <image source="../../../../images/tiles/tileset.png" width="512" height="64"/>
  </tileset>
- <tileset firstgid="16" name="tiles" tilewidth="32" tileheight="32" tilecount="1" columns="0">
+ <tileset firstgid="16" name="tiles" tilewidth="32" tileheight="32" tilecount="7" columns="0">
   <tile id="0">
    <image width="32" height="32" source="../../../../images/entities/power_cell.png"/>
+  </tile>
+  <tile id="1">
+   <image width="32" height="32" source="../../../../images/entities/door_left.png"/>
+  </tile>
+  <tile id="2">
+   <image width="32" height="32" source="../../../../images/entities/door_right.png"/>
+  </tile>
+  <tile id="3">
+   <image width="32" height="32" source="../../../../images/entities/wire_down.png"/>
+  </tile>
+  <tile id="4">
+   <image width="32" height="32" source="../../../../images/entities/wire_left.png"/>
+  </tile>
+  <tile id="5">
+   <image width="32" height="32" source="../../../../images/entities/wire_right.png"/>
+  </tile>
+  <tile id="6">
+   <image width="32" height="32" source="../../../../images/entities/wire_up.png"/>
   </tile>
  </tileset>
  <layer name="floor" width="25" height="25">
@@ -30,7 +48,7 @@
  </layer>
  <layer name="tiles" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2V0QrAIAhFexi01k/v09fYgst9aJpuD7ILEoh4SM1SGis3265zfwhVqec9rd65K/jQZtlZEVuMjIUM1X2rkYF14LtZ+/MzbIxCMbPzNGJEqVVUBu8vLVPCYGnnTMLgXabdW5HfYKuFqTYShrfeYOD/jX+4J4P7CX43BvfTq69f6gCpsIk4xAkAAA==
+   H4sIAAAAAAAAC2NgwA/YgZgLQjcQUEoSgJkLwtxQs7mRxJAxuXazk6CWk0I7WNAwMoCJcVBoB3I4oPuN0vgZtYMyOzjR1JCbnvDZMVzCarjagV5+kWonMXaIIrFFGEhPZ7jsEITygTRGWUZquTWc8yAwLCgKG2LsoDaghR3I9TdyHU5NO9DjE0mcanagxye14pWeAABQyYM9xAkAAA==
   </data>
  </layer>
  <layer name="tiles2" width="25" height="25">
@@ -226,20 +244,20 @@
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.activated" type="bool" value="true"/>
     <property name="PowerInputComponent.centre" type="bool" value="true"/>
-    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="false"/>
     <property name="PowerInputComponent.left" type="bool" value="true"/>
     <property name="PowerInputComponent.right" type="bool" value="true"/>
-    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
     <property name="PowerOutputComponent.activated" type="bool" value="true"/>
     <property name="PowerOutputComponent.centre" type="bool" value="true"/>
-    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="false"/>
     <property name="PowerOutputComponent.left" type="bool" value="true"/>
     <property name="PowerOutputComponent.right" type="bool" value="true"/>
-    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/wire.png"/>
     <property name="SpriteComponent.zOrder" type="float" value="45"/>
+    <property name="WireSpritesComponent" type="bool" value="true"/>
    </properties>
   </object>
   <object id="44" type="wire-l" x="512" y="448" width="32" height="32">
@@ -258,23 +276,23 @@
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.activated" type="bool" value="true"/>
     <property name="PowerInputComponent.centre" type="bool" value="true"/>
-    <property name="PowerInputComponent.down" type="bool" value="true"/>
+    <property name="PowerInputComponent.down" type="bool" value="false"/>
     <property name="PowerInputComponent.left" type="bool" value="true"/>
     <property name="PowerInputComponent.right" type="bool" value="true"/>
-    <property name="PowerInputComponent.up" type="bool" value="true"/>
+    <property name="PowerInputComponent.up" type="bool" value="false"/>
     <property name="PowerOutputComponent" type="bool" value="true"/>
     <property name="PowerOutputComponent.activated" type="bool" value="true"/>
     <property name="PowerOutputComponent.centre" type="bool" value="true"/>
-    <property name="PowerOutputComponent.down" type="bool" value="true"/>
+    <property name="PowerOutputComponent.down" type="bool" value="false"/>
     <property name="PowerOutputComponent.left" type="bool" value="true"/>
     <property name="PowerOutputComponent.right" type="bool" value="true"/>
-    <property name="PowerOutputComponent.up" type="bool" value="true"/>
+    <property name="PowerOutputComponent.up" type="bool" value="false"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/wire.png"/>
     <property name="SpriteComponent.zOrder" type="float" value="45"/>
+    <property name="WireSpritesComponent" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="45" name="door1-1" type="door" x="416" y="480" width="32" height="32">
+  <object id="45" name="door1-1" type="door" x="384" y="480" width="32" height="32">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
@@ -282,10 +300,10 @@
     <property name="PositionComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door_closed.png"/>
    </properties>
   </object>
-  <object id="46" name="door1-2" type="door" x="384" y="480" width="32" height="32">
+  <object id="46" name="door1-2" type="door" x="352" y="480" width="32" height="32">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent.blocking" type="bool" value="true"/>
@@ -293,10 +311,10 @@
     <property name="PositionComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door_closed.png"/>
    </properties>
   </object>
-  <object id="47" name="door1" type="door-controller" x="448" y="480" width="32" height="32">
+  <object id="47" name="door1" type="door-controller" x="416" y="480" width="32" height="32">
    <properties>
     <property name="ActivityBlockingComponent" type="bool" value="true"/>
     <property name="BlockingComponent" type="bool" value="true"/>
@@ -306,11 +324,11 @@
     <property name="CurrentInputComponent" type="bool" value="true"/>
     <property name="CurrentToggleComponent" type="bool" value="true"/>
     <property name="DoorGroupComponent" type="bool" value="true"/>
-    <property name="DoorGroupComponent.doorTiles" value="[door1-1,door1-2,door1-3]"/>
+    <property name="DoorGroupComponent.doorTiles" value="[door1-1,door1-2]"/>
     <property name="EntityComponent" type="bool" value="true"/>
     <property name="PositionComponent" type="bool" value="true"/>
     <property name="PositionComponent.angle" type="float" value="180"/>
-    <property name="PowerConsumerComponent" type="bool" value="true"/>
+    <property name="PowerConsumerComponent" type="bool" value="false"/>
     <property name="PowerInputComponent" type="bool" value="true"/>
     <property name="PowerInputComponent.down" type="bool" value="true"/>
     <property name="PowerInputComponent.left" type="bool" value="true"/>
@@ -319,18 +337,7 @@
     <property name="ProcessQueueComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
     <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-control.png"/>
-   </properties>
-  </object>
-  <object id="48" name="door1-3" type="door" x="352" y="480" width="32" height="32">
-   <properties>
-    <property name="BlockingComponent" type="bool" value="true"/>
-    <property name="BlockingComponent.blocking" type="bool" value="true"/>
-    <property name="EntityComponent" type="bool" value="true"/>
-    <property name="PositionComponent" type="bool" value="true"/>
-    <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.shouldRender" type="bool" value="true"/>
-    <property name="SpriteComponent.spriteLocation" value="images/entities/door-metal-on.png"/>
+    <property name="SpriteComponent.spriteLocation" value="images/entities/door_closed.png"/>
    </properties>
   </object>
  </objectgroup>

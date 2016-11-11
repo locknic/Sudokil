@@ -3,7 +3,6 @@ package com.custardgames.sudokil.ui;
 import java.util.EventListener;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -29,6 +28,7 @@ import com.custardgames.sudokil.events.physicalinput.MouseWheelMovedEvent;
 import com.custardgames.sudokil.events.ui.ToggleMapRenderEvent;
 import com.custardgames.sudokil.managers.ArtemisWorldManager;
 import com.custardgames.sudokil.managers.Box2dWorldManager;
+import com.custardgames.sudokil.managers.CustardAssetManager;
 import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.managers.InputManager;
 import com.custardgames.sudokil.managers.MapManager;
@@ -37,7 +37,7 @@ import com.custardgames.sudokil.utils.LevelData;
 
 public class MapInterface extends Stage implements EventListener
 {
-	private AssetManager assetManager;
+	private CustardAssetManager assetManager;
 	private ArtemisWorldManager worldManager;
 	private Box2dWorldManager box2dWorldManager;
 
@@ -69,7 +69,7 @@ public class MapInterface extends Stage implements EventListener
 		mouseX = mouseY = mouseWheelRotation = 0;
 		mouseLeft = mouseRight = mouseMiddle = false;
 
-		assetManager = new AssetManager();
+		assetManager = new CustardAssetManager();
 		loadAssets(assetManager, levelData);
 
 		tileMap = new TmxMapLoader().load(levelData.getMapLocation());
@@ -113,7 +113,7 @@ public class MapInterface extends Stage implements EventListener
 		EventManager.get_instance().deregister(ChangeMapEvent.class, this);
 	}
 
-	private void loadAssets(AssetManager assets, LevelData levelData)
+	private void loadAssets(CustardAssetManager assets, LevelData levelData)
 	{
 		for (String image : DefaultImages.getDefaultImagesList())
 		{

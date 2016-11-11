@@ -8,7 +8,6 @@ import com.artemis.Entity;
 import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.Bag;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -17,6 +16,7 @@ import com.custardgames.sudokil.entities.ecs.components.PowerInputComponent;
 import com.custardgames.sudokil.entities.ecs.components.PowerOutputComponent;
 import com.custardgames.sudokil.entities.ecs.components.SpriteComponent;
 import com.custardgames.sudokil.entities.ecs.components.entities.WireSpritesComponent;
+import com.custardgames.sudokil.managers.CustardAssetManager;
 
 public class WireRenderSystem extends EntityProcessingSystem
 {
@@ -26,7 +26,7 @@ public class WireRenderSystem extends EntityProcessingSystem
 	private ComponentMapper<PowerOutputComponent> powerOutputComponents;
 
 	@Wire
-	private AssetManager assetManager;
+	private CustardAssetManager assetManager;
 
 	@SuppressWarnings("unchecked")
 	public WireRenderSystem()

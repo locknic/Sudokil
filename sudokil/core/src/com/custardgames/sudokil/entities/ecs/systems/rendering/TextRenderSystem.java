@@ -7,7 +7,6 @@ import com.artemis.annotations.Wire;
 import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -18,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.entities.ecs.components.TextTagComponent;
+import com.custardgames.sudokil.managers.CustardAssetManager;
 
 public class TextRenderSystem extends EntityProcessingSystem
 {
@@ -30,7 +30,7 @@ public class TextRenderSystem extends EntityProcessingSystem
 	private BitmapFont font;
 
 	@Wire
-	private AssetManager assetManager;
+	private CustardAssetManager assetManager;
 
 	@SuppressWarnings("unchecked")
 	public TextRenderSystem()

@@ -231,6 +231,7 @@
   <property name="PowerOutputComponent.up" type="bool" default="true"/>
   <property name="SpriteComponent" type="bool" default="true"/>
   <property name="SpriteComponent.zOrder" type="float" default="50"/>
+  <property name="WireSpritesComponent" type="bool" default="true"/>
  </objecttype>
  <objecttype name="router" color="#0055ff">
   <property name="BlockingComponent" type="bool" default="true"/>
