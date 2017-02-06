@@ -18,7 +18,6 @@ public class CharacterInputSystem extends EntityProcessingSystem implements Even
 {
 	private ComponentMapper<CharacterInputComponent> characterInputComponent;
 
-	@SuppressWarnings("unchecked")
 	public CharacterInputSystem()
 	{
 		super(Aspect.all(CharacterInputComponent.class));

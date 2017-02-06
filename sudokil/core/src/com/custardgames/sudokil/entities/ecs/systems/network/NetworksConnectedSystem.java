@@ -26,7 +26,7 @@ public class NetworksConnectedSystem extends EntityProcessingSystem implements E
 	ComponentMapper<EntityComponent> entityComponents;
 	ComponentMapper<ActivityBlockingComponent> blockingComponents;
 
-	@SuppressWarnings("unchecked")
+
 	public NetworksConnectedSystem()
 	{
 		super(Aspect.all(NetworkedDeviceComponent.class));

@@ -14,7 +14,6 @@ import com.custardgames.sudokil.managers.EventManager;
 public class MapRefresherSystem extends EntityProcessingSystem implements EventListener
 {
 
-	@SuppressWarnings("unchecked")
 	public MapRefresherSystem()
 	{
 		super(Aspect.all(PositionComponent.class));

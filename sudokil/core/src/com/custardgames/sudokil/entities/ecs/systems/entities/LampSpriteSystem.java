@@ -16,7 +16,7 @@ public class LampSpriteSystem extends EntityProcessingSystem implements EventLis
 	private ComponentMapper<SpriteComponent> spriteComponents;
 	private ComponentMapper<LampSpritesComponent> lampSpritesComponents;
 	
-	@SuppressWarnings("unchecked")
+
 	public LampSpriteSystem()
 	{
 		super(Aspect.all(PowerConsumerComponent.class, SpriteComponent.class, LampSpritesComponent.class));

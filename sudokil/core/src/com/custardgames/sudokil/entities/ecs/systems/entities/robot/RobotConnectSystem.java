@@ -19,7 +19,7 @@ public class RobotConnectSystem extends EntityProcessingSystem implements EventL
 {
 	private ComponentMapper<EntityComponent> entityComponents;
 	
-	@SuppressWarnings("unchecked")
+
 	public RobotConnectSystem()
 	{
 		super(Aspect.all(EntityComponent.class, ProcessQueueComponent.class));

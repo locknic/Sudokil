@@ -19,7 +19,6 @@ public class ActivitySpriteSystem extends EntityProcessingSystem implements Even
 	private ComponentMapper<SpriteDeactiveComponent> spriteDeactiveComponents;
 	private ComponentMapper<ActivityBlockingComponent> activityBlockingComponents;
 
-	@SuppressWarnings("unchecked")
 	public ActivitySpriteSystem()
 	{
 		super(Aspect.all(SpriteComponent.class, SpriteDeactiveComponent.class, ActivityBlockingComponent.class));

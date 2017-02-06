@@ -16,7 +16,7 @@ public class GeneratorSpriteSystem extends EntityProcessingSystem implements Eve
 	private ComponentMapper<SpriteComponent> spriteComponents;
 	private ComponentMapper<GeneratorSpritesComponent> generatorSpritesComponents;
 	
-	@SuppressWarnings("unchecked")
+
 	public GeneratorSpriteSystem()
 	{
 		super(Aspect.all(LiftableComponent.class, SpriteComponent.class, GeneratorSpritesComponent.class));

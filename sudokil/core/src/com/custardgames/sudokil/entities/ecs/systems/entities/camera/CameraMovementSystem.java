@@ -34,7 +34,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 	@Wire
 	private OrthographicCamera camera;
 
-	@SuppressWarnings("unchecked")
+
 	public CameraMovementSystem()
 	{
 		super(Aspect.all(CameraComponent.class, EntityComponent.class));

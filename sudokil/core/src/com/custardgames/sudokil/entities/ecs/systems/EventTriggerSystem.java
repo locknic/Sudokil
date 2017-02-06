@@ -21,7 +21,6 @@ public class EventTriggerSystem extends EntityProcessingSystem implements EventL
 	private ComponentMapper<TriggerConditionsComponent> triggerConditionsComponents;
 	private ComponentMapper<TriggerReactionsComponent> triggerReactionsComponents;
 
-	@SuppressWarnings("unchecked")
 	public EventTriggerSystem()
 	{
 		super(Aspect.all(TriggerEntityComponent.class, TriggerConditionsComponent.class, TriggerReactionsComponent.class));

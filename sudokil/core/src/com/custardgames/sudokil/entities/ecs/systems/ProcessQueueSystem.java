@@ -20,7 +20,6 @@ public class ProcessQueueSystem extends EntityProcessingSystem implements EventL
 	private ComponentMapper<EntityComponent> entityComponents;
 	private ComponentMapper<ActivityBlockingComponent> activityBlockingComponents;
 
-	@SuppressWarnings("unchecked")
 	public ProcessQueueSystem()
 	{
 		super(Aspect.all(EntityComponent.class, ProcessQueueComponent.class));

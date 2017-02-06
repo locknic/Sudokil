@@ -16,7 +16,7 @@ public class PowerCellSpriteSystem extends EntityProcessingSystem implements Eve
 	private ComponentMapper<SpriteComponent> spriteComponents;
 	private ComponentMapper<PowerCellSpritesComponent> powerCellSpritesComponents;
 	
-	@SuppressWarnings("unchecked")
+
 	public PowerCellSpriteSystem()
 	{
 		super(Aspect.all(LiftableComponent.class, SpriteComponent.class, PowerCellSpritesComponent.class));

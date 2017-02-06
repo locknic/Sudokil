@@ -31,7 +31,7 @@ public class ConsoleHighlightRenderSystem extends EntityProcessingSystem impleme
 	private Array<Entity> selectedEntities;
 	private Array<Entity> possibleSelectedEntities;
 
-	@SuppressWarnings("unchecked")
+
 	public ConsoleHighlightRenderSystem()
 	{
 		super(Aspect.all(PositionComponent.class));

@@ -28,7 +28,7 @@ public class NetworkSystem extends EntityProcessingSystem implements EventListen
 	ComponentMapper<NetworkedDeviceComponent> wirelessDeviceComponents;
 	ComponentMapper<FileSystemComponent> fileSystemComponents;
 
-	@SuppressWarnings("unchecked")
+
 	public NetworkSystem()
 	{
 		super(Aspect.all(EntityComponent.class, NetworkedDeviceComponent.class));

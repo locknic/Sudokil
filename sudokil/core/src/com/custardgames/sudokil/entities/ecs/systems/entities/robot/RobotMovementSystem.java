@@ -25,7 +25,7 @@ public class RobotMovementSystem extends EntityProcessingSystem implements Event
 {
 	private ComponentMapper<EntityComponent> entityComponents;
 
-	@SuppressWarnings("unchecked")
+
 	public RobotMovementSystem()
 	{
 		super(Aspect.all(EntityComponent.class, ProcessQueueComponent.class, PositionComponent.class, VelocityComponent.class));

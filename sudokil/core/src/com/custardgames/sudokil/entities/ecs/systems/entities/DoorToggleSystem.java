@@ -28,7 +28,7 @@ public class DoorToggleSystem extends EntityProcessingSystem implements EventLis
 	private ComponentMapper<CurrentConsumerComponent> currentConsumerComponents;
 	private ComponentMapper<ProcessQueueComponent> processQueueComponents;
 
-	@SuppressWarnings("unchecked")
+
 	public DoorToggleSystem()
 	{
 		super(Aspect.all(EntityComponent.class, DoorGroupComponent.class, SpriteComponent.class, BlockingComponent.class, ProcessQueueComponent.class));
