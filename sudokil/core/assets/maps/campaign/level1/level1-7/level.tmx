@@ -54,12 +54,12 @@
  </layer>
  <layer name="tiles" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2W0QqAIAxF9xCU+l59rp9eUdK6WXnVJ2kwkrE8uV1mIu/Wr273p/9IpSzsu7k79nYqpj2X3RO5ppDRgWsLsaGQoeuAZyvtz88oYxjIydXTG6OVWrXKwPnFMlMYk1qPwusshYGzjJ1bTD/0PcDUjWVE3q/OmGXXQKdyv87E6MqpHHvwbORbchip9tQ3d8arMXCmBjMVGau2b3pHzT/l4D0vEKvxzxRjD9e1XwCg+3OqxAkAAA==
+   H4sIAAAAAAAAC+2W0QqAIAxF9xCUia/V5/bpFSWtm5ZXfYoGIxnLk9tlJvJs7er9/pxfUinz+25uj72timnPZbdErilkNODafKwrZOg64NlK+/MzyhgGcnL19MT4Sq2+ysD5xTJTGKNaD8LrLIWBs4ydW0w/9D3A1I1lBN6vzpjkOv/12WI8RldW5biD5wLfksNItVjf7BmvxsCZ6s1UZKzavukdNR/LwXteIFbjnynE7q7reQG+NQtaxAkAAA==
   </data>
  </layer>
  <layer name="tiles2" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAXUAOwMDA1IbJxyo2AUjIJRMNiACLSMAtKj5RWFgB1BN9DaLkFaWwAEwnSwg1zASYJaITrYzYkU55w0in8ONHMB6vtFsMQJAAA=
+   H4sIAAAAAAAAC2NgGAXUAOwMDA1IbJxyo2B4gtE4HwVDGYhA0yuQHk27FABuBkRZQI9wFKS1BUAgTAc7yAWcJKgVooPdnEhxzkmj+OdAMxcAuVSKK8QJAAA=
   </data>
  </layer>
  <layer name="objects" width="25" height="25">
@@ -554,7 +554,7 @@
  </objectgroup>
  <layer name="tiles-over" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGP6ADYhZoRjIbsAmNwpGwSgYBYMdIJdlo+UWaYCNAbP8pwVgp4MdIwWwYsHEqMEWz7TIL+j2cuJxJ60AAKFqFe7ECQAA
+   H4sIAAAAAAAAC2NgGP6ADYhZoRjIbsAmNwpGwSgYBYMdIJdlo+UWaYCNAbP8pwVgp4MdIwWwYsHEqMEWzzx0cB8nHnfSCgAA8NVSicQJAAA=
   </data>
  </layer>
 </map>

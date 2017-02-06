@@ -63,7 +63,7 @@
    H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAODfAC7KO00QJwAA
   </data>
  </layer>
- <objectgroup name="Object Layer 1">
+ <objectgroup name="Object Layer 1" visible="0">
   <object id="15" name="crate" type="crate" x="99" y="1539" width="26" height="26">
    <properties>
     <property name="BlockingComponent" type="bool" value="true"/>
