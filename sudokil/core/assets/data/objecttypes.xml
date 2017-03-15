@@ -167,6 +167,7 @@
  <objecttype name="camera" color="#000000">
   <property name="CameraComponent" type="bool" default="true"/>
   <property name="CameraComponent.panSpeed" type="float" default="1"/>
+  <property name="CameraInputComponent" type="bool" default="true"/>
   <property name="EntityComponent" type="bool" default="true"/>
  </objecttype>
  <objecttype name="door" color="#a0a0a4">

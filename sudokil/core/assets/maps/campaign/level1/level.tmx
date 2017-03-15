@@ -5,32 +5,32 @@
  </tileset>
  <layer name="floor" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBKBhcgBGImaD0KMAOACgNYmrECQAA
+   H4sIAAAAAAAAA2NgGAWjYBSMglEwCkbBKBhcgBGImaD0KMAOACgNYmrECQAA
   </data>
  </layer>
  <layer name="floor-over-left" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBKBhcgHmgHTAEAAAPW1puxAkAAA==
+   H4sIAAAAAAAAA2NgGAWjYBSMglEwCkbBKBhcgHmgHTAEAAAPW1puxAkAAA==
   </data>
  </layer>
  <layer name="floor-over-right" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3OMQ0AAAgDsCUYRzoy2NEqaAIA0GmS/T60OqfkyAzECQAA
+   H4sIAAAAAAAAA+3OMQ0AAAgDsCUYRzoy2NEqaAIA0GmS/T60OqfkyAzECQAA
   </data>
  </layer>
  <layer name="floor-over-top" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBKBhcgJmBYQEMD7RbBisAAGTeXJ7ECQAA
+   H4sIAAAAAAAAA2NgGAWjYBSMglEwCkbBKBhcgJmBYQEMD7RbBisAAGTeXJ7ECQAA
   </data>
  </layer>
  <layer name="tiles" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBKCAOsAMxFxIG8huobQcnJp/qdnAAMQsS5qCBHbQGAE8BXj3ECQAA
+   H4sIAAAAAAAAA2NgGAWjYBSMglEwCkbBKCAOsAMxFxIG8huobQcnJp/qdnAAMQsS5qCBHbQGAE8BXj3ECQAA
   </data>
  </layer>
  <layer name="objects" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAeDP5i1XpxAkAAA==
+   H4sIAAAAAAAAA+3BAQ0AAADCoPdPbQ43oAAAeDP5i1XpxAkAAA==
   </data>
  </layer>
  <objectgroup name="obj">
@@ -58,6 +58,7 @@
    <properties>
     <property name="CameraComponent" type="bool" value="true"/>
     <property name="CameraComponent.panSpeed" type="float" value="1"/>
+    <property name="CameraInputComponent" type="bool" value="true"/>
     <property name="EntityComponent" type="bool" value="true"/>
    </properties>
   </object>
@@ -100,7 +101,7 @@
  </objectgroup>
  <layer name="tiles-over" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkbBKBhcgBUJ0wqwIOGhCACA6Z8LxAkAAA==
+   H4sIAAAAAAAAA2NgGAWjYBSMglEwCkbBKBhcgBUJ0wqwIOGhCACA6Z8LxAkAAA==
   </data>
  </layer>
 </map>

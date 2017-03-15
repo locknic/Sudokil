@@ -10,6 +10,7 @@ import com.artemis.systems.EntityProcessingSystem;
 import com.artemis.utils.ImmutableBag;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.custardgames.sudokil.entities.ecs.components.CameraComponent;
+import com.custardgames.sudokil.entities.ecs.components.CameraInputComponent;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
 import com.custardgames.sudokil.entities.ecs.components.PositionComponent;
 import com.custardgames.sudokil.events.PingEntityEvent;
@@ -28,12 +29,12 @@ import com.custardgames.sudokil.managers.EventManager;
 
 public class CameraMovementSystem extends EntityProcessingSystem implements EventListener
 {
-	private ComponentMapper<CameraComponent> cameraInputComponents;
+	private ComponentMapper<CameraComponent> cameraComponents;
+	private ComponentMapper<CameraInputComponent> cameraInputComponents;
 	private ComponentMapper<EntityComponent> entityComponents;
 
 	@Wire
 	private OrthographicCamera camera;
-
 
 	public CameraMovementSystem()
 	{
@@ -69,122 +70,126 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 	@Override
 	protected void process(Entity e)
 	{
-		CameraComponent cameraInput = cameraInputComponents.get(e);
+		CameraComponent cameraComponent = cameraComponents.get(e);
+		CameraInputComponent cameraInputComponent = cameraInputComponents.get(e);
 
-		float targetX = cameraInput.getTargetX();
-		float targetY = cameraInput.getTargetY();
+		float targetX = cameraComponent.getTargetX();
+		float targetY = cameraComponent.getTargetY();
 
-		if (cameraInput.getTargetID() != null && !cameraInput.getTargetID().equals(""))
+		if (cameraComponent.getTargetID() != null && !cameraComponent.getTargetID().equals(""))
 		{
-			PingEntityEvent event = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(cameraInput.getTargetID()));
+			PingEntityEvent event = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(cameraComponent.getTargetID()));
 			if (event != null && event instanceof PingEntityEvent)
 			{
-				cameraInput.setTarget(event.getEntity().getComponent(PositionComponent.class));
+				cameraComponent.setTarget(event.getEntity().getComponent(PositionComponent.class));
 			}
-			cameraInput.setTargetID(null);
+			cameraComponent.setTargetID(null);
 		}
 
-		if (cameraInput.getTarget() != null)
+		if (cameraComponent.getTarget() != null)
 		{
-			if (cameraInput.getTarget() instanceof PositionComponent)
+			if (cameraComponent.getTarget() instanceof PositionComponent)
 			{
-				targetX = ((PositionComponent) cameraInput.getTarget()).getX();
-				targetY = ((PositionComponent) cameraInput.getTarget()).getY();
+				targetX = ((PositionComponent) cameraComponent.getTarget()).getX();
+				targetY = ((PositionComponent) cameraComponent.getTarget()).getY();
 			}
 		}
 
-		float deltaX = (float) ((targetX - camera.position.x) * 0.1 + cameraInput.getTargetOffsetX());
-		float deltaY = (float) ((targetY - camera.position.y) * 0.1 + cameraInput.getTargetOffsetY());
+		float deltaX = (float) ((targetX - camera.position.x) * 0.1 + cameraComponent.getTargetOffsetX());
+		float deltaY = (float) ((targetY - camera.position.y) * 0.1 + cameraComponent.getTargetOffsetY());
 		if (Math.abs(deltaX) > 0.1 || Math.abs(deltaY) > 0.1)
 		{
-			if (camera.position.x + deltaX <= cameraInput.getMaxX())
+			if (camera.position.x + deltaX <= cameraComponent.getMaxX())
 			{
-				if (camera.position.x + deltaX >= cameraInput.getMinX())
+				if (camera.position.x + deltaX >= cameraComponent.getMinX())
 				{
 					camera.position.x += deltaX;
 				}
 				else
 				{
-					camera.position.x = cameraInput.getMinX();
+					camera.position.x = cameraComponent.getMinX();
 				}
 			}
 			else
 			{
-				camera.position.x = cameraInput.getMaxX();
+				camera.position.x = cameraComponent.getMaxX();
 			}
-			if (camera.position.y + deltaY <= cameraInput.getMaxY())
+			if (camera.position.y + deltaY <= cameraComponent.getMaxY())
 			{
-				if (camera.position.y + deltaY >= cameraInput.getMinY())
+				if (camera.position.y + deltaY >= cameraComponent.getMinY())
 				{
 					camera.position.y += deltaY;
 				}
 				else
 				{
-					camera.position.y = cameraInput.getMinY();
+					camera.position.y = cameraComponent.getMinY();
 				}
 			}
 			else
 			{
-				camera.position.y = cameraInput.getMaxY();
+				camera.position.y = cameraComponent.getMaxY();
 			}
 		}
 
-		if (cameraInput.isUp())
+		if (cameraInputComponent != null)
 		{
-			cameraInput.setTargetOffsetY((float) (cameraInput.getTargetOffsetY() + (cameraInput.getPanSpeed() * camera.zoom)));
-		}
-		else if (cameraInput.isDown())
-		{
-			cameraInput.setTargetOffsetY((float) (cameraInput.getTargetOffsetY() - (cameraInput.getPanSpeed() * camera.zoom)));
-		}
+			if (cameraInputComponent.isUp())
+			{
+				cameraComponent.setTargetOffsetY((float) (cameraComponent.getTargetOffsetY() + (cameraComponent.getPanSpeed() * camera.zoom)));
+			}
+			else if (cameraInputComponent.isDown())
+			{
+				cameraComponent.setTargetOffsetY((float) (cameraComponent.getTargetOffsetY() - (cameraComponent.getPanSpeed() * camera.zoom)));
+			}
 
-		if (cameraInput.isLeft())
-		{
-			cameraInput.setTargetOffsetX((float) (cameraInput.getTargetOffsetX() - (cameraInput.getPanSpeed() * camera.zoom)));
-		}
-		else if (cameraInput.isRight())
-		{
-			cameraInput.setTargetOffsetX((float) (cameraInput.getTargetOffsetX() + (cameraInput.getPanSpeed() * camera.zoom)));
-		}
+			if (cameraInputComponent.isLeft())
+			{
+				cameraComponent.setTargetOffsetX((float) (cameraComponent.getTargetOffsetX() - (cameraComponent.getPanSpeed() * camera.zoom)));
+			}
+			else if (cameraInputComponent.isRight())
+			{
+				cameraComponent.setTargetOffsetX((float) (cameraComponent.getTargetOffsetX() + (cameraComponent.getPanSpeed() * camera.zoom)));
+			}
 
-		double zoomSpeed = 0.03;
+			double zoomSpeed = 0.03;
 
-		if (cameraInput.isZoomIn())
-		{
-			camera.zoom += zoomSpeed;
-			EventManager.get_instance().broadcast(new CameraZoomedEvent((float) zoomSpeed));
-		}
-		else if (cameraInput.isZoomOut() && camera.zoom > zoomSpeed)
-		{
-			camera.zoom -= zoomSpeed;
-			EventManager.get_instance().broadcast(new CameraZoomedEvent((float) -zoomSpeed));
-		}
+			if (cameraInputComponent.isZoomIn())
+			{
+				camera.zoom += zoomSpeed;
+				EventManager.get_instance().broadcast(new CameraZoomedEvent((float) zoomSpeed));
+			}
+			else if (cameraInputComponent.isZoomOut() && camera.zoom > zoomSpeed)
+			{
+				camera.zoom -= zoomSpeed;
+				EventManager.get_instance().broadcast(new CameraZoomedEvent((float) -zoomSpeed));
+			}
 
-		if (cameraInput.getZoomAmount() != 0)
-		{
-			camera.zoom += cameraInput.getZoomAmount() / 10;
-			cameraInput.setZoomAmount(0);
-		}
-		
-		if (camera.zoom <= cameraInput.getMinZoom())
-		{
-			camera.zoom = cameraInput.getMinZoom();
-		}
-		else if (camera.zoom >= cameraInput.getMaxZoom())
-		{
-			camera.zoom = cameraInput.getMaxZoom();
-		}
+			if (cameraComponent.getZoomAmount() != 0)
+			{
+				camera.zoom += cameraComponent.getZoomAmount() / 10;
+				cameraComponent.setZoomAmount(0);
+			}
 
-		if (cameraInput.isReset())
-		{
-			cameraInput.setTargetOffsetX(0);
-			cameraInput.setTargetOffsetY(0);
-			cameraInput.setTargetX(0);
-			cameraInput.setTargetY(0);
-			camera.position.x = 0;
-			camera.position.y = 0;
-			camera.zoom = 0.5f;
-			cameraInput.setReset(false);
+			if (camera.zoom <= cameraComponent.getMinZoom())
+			{
+				camera.zoom = cameraComponent.getMinZoom();
+			}
+			else if (camera.zoom >= cameraComponent.getMaxZoom())
+			{
+				camera.zoom = cameraComponent.getMaxZoom();
+			}
+
+			if (cameraInputComponent.isReset())
+			{
+				cameraComponent.setTargetOffsetX(0);
+				cameraComponent.setTargetOffsetY(0);
+				cameraComponent.setTargetX(0);
+				cameraComponent.setTargetY(0);
+				camera.position.x = 0;
+				camera.position.y = 0;
+				camera.zoom = 0.5f;
+				cameraInputComponent.setReset(false);
+			}
 		}
 
 		camera.update();
@@ -195,38 +200,41 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		ImmutableBag<Entity> entities = getEntities();
 		for (int x = 0; x < entities.size(); x++)
 		{
-			CameraComponent cameraInput = cameraInputComponents.get(entities.get(x));
+			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
 
-			if (keyEvent.getKeyCode() == 152 || keyEvent.getKeyCode() == 19)
+			if (cameraInput != null)
 			{
-				cameraInput.setUp(true);
-			}
-			else if (keyEvent.getKeyCode() == 146 || keyEvent.getKeyCode() == 20)
-			{
-				cameraInput.setDown(true);
-			}
+				if (keyEvent.getKeyCode() == 152 || keyEvent.getKeyCode() == 19)
+				{
+					cameraInput.setUp(true);
+				}
+				else if (keyEvent.getKeyCode() == 146 || keyEvent.getKeyCode() == 20)
+				{
+					cameraInput.setDown(true);
+				}
 
-			if (keyEvent.getKeyCode() == 148 || keyEvent.getKeyCode() == 21)
-			{
-				cameraInput.setLeft(true);
-			}
-			else if (keyEvent.getKeyCode() == 150 || keyEvent.getKeyCode() == 22)
-			{
-				cameraInput.setRight(true);
-			}
+				if (keyEvent.getKeyCode() == 148 || keyEvent.getKeyCode() == 21)
+				{
+					cameraInput.setLeft(true);
+				}
+				else if (keyEvent.getKeyCode() == 150 || keyEvent.getKeyCode() == 22)
+				{
+					cameraInput.setRight(true);
+				}
 
-			if (keyEvent.getKeyCode() == 151 || keyEvent.getKeyCode() == 69)
-			{
-				cameraInput.setZoomIn(true);
-			}
-			else if (keyEvent.getKeyCode() == 153 || keyEvent.getKeyCode() == 70)
-			{
-				cameraInput.setZoomOut(true);
-			}
+				if (keyEvent.getKeyCode() == 151 || keyEvent.getKeyCode() == 69)
+				{
+					cameraInput.setZoomIn(true);
+				}
+				else if (keyEvent.getKeyCode() == 153 || keyEvent.getKeyCode() == 70)
+				{
+					cameraInput.setZoomOut(true);
+				}
 
-			if (keyEvent.getKeyCode() == 149 || keyEvent.getKeyCode() == 7)
-			{
-				cameraInput.setReset(true);
+				if (keyEvent.getKeyCode() == 149 || keyEvent.getKeyCode() == 7)
+				{
+					cameraInput.setReset(true);
+				}
 			}
 		}
 	}
@@ -236,33 +244,36 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		ImmutableBag<Entity> entities = getEntities();
 		for (int x = 0; x < entities.size(); x++)
 		{
-			CameraComponent cameraInput = cameraInputComponents.get(entities.get(x));
+			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
 
-			if (keyEvent.getKeyCode() == 152 || keyEvent.getKeyCode() == 19)
+			if (cameraInput != null)
 			{
-				cameraInput.setUp(false);
-			}
-			else if (keyEvent.getKeyCode() == 146 || keyEvent.getKeyCode() == 20)
-			{
-				cameraInput.setDown(false);
-			}
+				if (keyEvent.getKeyCode() == 152 || keyEvent.getKeyCode() == 19)
+				{
+					cameraInput.setUp(false);
+				}
+				else if (keyEvent.getKeyCode() == 146 || keyEvent.getKeyCode() == 20)
+				{
+					cameraInput.setDown(false);
+				}
 
-			if (keyEvent.getKeyCode() == 148 || keyEvent.getKeyCode() == 21)
-			{
-				cameraInput.setLeft(false);
-			}
-			else if (keyEvent.getKeyCode() == 150 || keyEvent.getKeyCode() == 22)
-			{
-				cameraInput.setRight(false);
-			}
+				if (keyEvent.getKeyCode() == 148 || keyEvent.getKeyCode() == 21)
+				{
+					cameraInput.setLeft(false);
+				}
+				else if (keyEvent.getKeyCode() == 150 || keyEvent.getKeyCode() == 22)
+				{
+					cameraInput.setRight(false);
+				}
 
-			if (keyEvent.getKeyCode() == 151 || keyEvent.getKeyCode() == 69)
-			{
-				cameraInput.setZoomIn(false);
-			}
-			else if (keyEvent.getKeyCode() == 153 || keyEvent.getKeyCode() == 70)
-			{
-				cameraInput.setZoomOut(false);
+				if (keyEvent.getKeyCode() == 151 || keyEvent.getKeyCode() == 69)
+				{
+					cameraInput.setZoomIn(false);
+				}
+				else if (keyEvent.getKeyCode() == 153 || keyEvent.getKeyCode() == 70)
+				{
+					cameraInput.setZoomOut(false);
+				}
 			}
 		}
 	}
@@ -273,7 +284,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		for (Entity entity : entities)
 		{
 			EntityComponent entityComponent = entityComponents.get(entity);
-			CameraComponent cameraInput = cameraInputComponents.get(entity);
+			CameraComponent cameraInput = cameraComponents.get(entity);
 
 			if (entityComponent.getId().equals(event.getEntityName()))
 			{
@@ -294,9 +305,9 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		for (int x = 0; x < entities.size(); x++)
 		{
 			EntityComponent entityComponent = entityComponents.get(entities.get(x));
-			CameraComponent cameraInput = cameraInputComponents.get(entities.get(x));
+			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
 
-			if (entityComponent.getId().equals(event.getEntityName()))
+			if (cameraInput != null && entityComponent.getId().equals(event.getEntityName()))
 			{
 				cameraInput.setReset(true);
 			}
@@ -308,9 +319,11 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		ImmutableBag<Entity> entities = getEntities();
 		for (int x = 0; x < entities.size(); x++)
 		{
-			CameraComponent cameraInput = cameraInputComponents.get(entities.get(x));
-
-			cameraInput.setReset(true);
+			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
+			if (cameraInput != null)
+			{
+				cameraInput.setReset(true);
+			}
 		}
 	}
 
@@ -322,10 +335,13 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			ImmutableBag<Entity> entities = getEntities();
 			for (int x = 0; x < entities.size(); x++)
 			{
-				CameraComponent cameraInput = cameraInputComponents.get(entities.get(x));
-				cameraInput.setMousePressing(true);
-				cameraInput.setMouseX(event.getX());
-				cameraInput.setMouseY(event.getY());
+				CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
+				if (cameraInput != null)
+				{
+					cameraInput.setMousePressing(true);
+					cameraInput.setMouseX(event.getX());
+					cameraInput.setMouseY(event.getY());
+				}
 			}
 		}
 	}
@@ -337,11 +353,14 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			ImmutableBag<Entity> entities = getEntities();
 			for (int x = 0; x < entities.size(); x++)
 			{
-				CameraComponent cameraInput = cameraInputComponents.get(entities.get(x));
-				cameraInput.setMousePressing(false);
-				cameraInput.setMouseX(0);
-				cameraInput.setMouseY(0);
-				EventManager.get_instance().broadcast(new CameraMovedEvent());
+				CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
+				if (cameraInput != null)
+				{
+					cameraInput.setMousePressing(false);
+					cameraInput.setMouseX(0);
+					cameraInput.setMouseY(0);
+					EventManager.get_instance().broadcast(new CameraMovedEvent());
+				}
 			}
 		}
 	}
@@ -351,14 +370,17 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		ImmutableBag<Entity> entities = getEntities();
 		for (int x = 0; x < entities.size(); x++)
 		{
-			CameraComponent cameraInput = cameraInputComponents.get(entities.get(x));
-			if (event.getButton() == 0)
+			CameraComponent cameraComponent = cameraComponents.get(entities.get(x));
+			CameraInputComponent cameraInput = cameraInputComponents.get(entities.get(x));
+			if (cameraInput != null)
 			{
-				cameraInput.setTargetX(cameraInput.getTargetX() - ((event.getX() - cameraInput.getMouseX()) * camera.zoom));
-				cameraInput.setTargetY(cameraInput.getTargetY() + ((event.getY() - cameraInput.getMouseY()) * camera.zoom));
-				cameraInput.setMouseX(event.getX());
-				cameraInput.setMouseY(event.getY());
-				;
+				if (event.getButton() == 0)
+				{
+					cameraComponent.setTargetX(cameraComponent.getTargetX() - ((event.getX() - cameraInput.getMouseX()) * camera.zoom));
+					cameraComponent.setTargetY(cameraComponent.getTargetY() + ((event.getY() - cameraInput.getMouseY()) * camera.zoom));
+					cameraInput.setMouseX(event.getX());
+					cameraInput.setMouseY(event.getY());
+				}
 			}
 		}
 	}
@@ -368,7 +390,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		ImmutableBag<Entity> entities = getEntities();
 		for (int x = 0; x < entities.size(); x++)
 		{
-			CameraComponent cameraInput = cameraInputComponents.get(entities.get(x));
+			CameraComponent cameraInput = cameraComponents.get(entities.get(x));
 			cameraInput.setZoomAmount(event.getMouseWheelAmount());
 			EventManager.get_instance().broadcast(new CameraZoomedEvent(event.getMouseWheelAmount()));
 		}
