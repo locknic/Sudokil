@@ -23,7 +23,7 @@ public class CurrentToggleSystem extends EntityProcessingSystem implements Event
 	
 	ComponentMapper<EntityComponent> entityComponents;
 	
-	@SuppressWarnings("unchecked")
+
 	public CurrentToggleSystem()
 	{
 		super(Aspect.all(EntityComponent.class, CurrentGeneratorComponent.class, CurrentToggleComponent.class));

@@ -16,7 +16,6 @@ public class ActivityBlockingSystem extends EntityProcessingSystem implements Ev
 {
 	private ComponentMapper<ActivityBlockingComponent> activityBlockingComponents;
 
-	@SuppressWarnings("unchecked")
 	public ActivityBlockingSystem()
 	{
 		super(Aspect.all(ActivityBlockingComponent.class));

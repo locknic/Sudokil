@@ -16,7 +16,7 @@ public class RobotSpriteSystem extends EntityProcessingSystem implements EventLi
 	private ComponentMapper<SpriteComponent> spriteComponents;
 	private ComponentMapper<RobotSpritesComponent> robotSpritesComponents;
 	
-	@SuppressWarnings("unchecked")
+
 	public RobotSpriteSystem()
 	{
 		super(Aspect.all(PositionComponent.class, SpriteComponent.class, RobotSpritesComponent.class));

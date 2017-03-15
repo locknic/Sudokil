@@ -15,7 +15,6 @@ public class EntityLocatorSystem extends EntityProcessingSystem implements Event
 {
 	private ComponentMapper<EntityComponent> entityComponents;
 
-	@SuppressWarnings("unchecked")
 	public EntityLocatorSystem()
 	{
 		super(Aspect.all(EntityComponent.class));

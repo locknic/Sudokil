@@ -31,7 +31,7 @@ public class PowerConsumptionSystem extends EntityProcessingSystem implements Ev
 	private ComponentMapper<PowerOutputComponent> powerOutputComponents;
 	private ComponentMapper<PowerGeneratorComponent> powerGeneratorComponents;
 
-	@SuppressWarnings("unchecked")
+
 	public PowerConsumptionSystem()
 	{
 		super(Aspect.all(PowerConsumerComponent.class, PositionComponent.class));

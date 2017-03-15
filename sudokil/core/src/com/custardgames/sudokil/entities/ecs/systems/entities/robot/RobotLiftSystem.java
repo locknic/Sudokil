@@ -25,7 +25,7 @@ public class RobotLiftSystem extends EntityProcessingSystem implements EventList
 	private ComponentMapper<LifterComponent> lifterComponents;
 	private ComponentMapper<PositionComponent> positionComponents;
 
-	@SuppressWarnings("unchecked")
+
 	public RobotLiftSystem()
 	{
 		super(Aspect.all(EntityComponent.class, LifterComponent.class, PositionComponent.class));

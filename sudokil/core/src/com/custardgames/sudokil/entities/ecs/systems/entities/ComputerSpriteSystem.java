@@ -18,7 +18,7 @@ public class ComputerSpriteSystem extends EntityProcessingSystem implements Even
 	private ComponentMapper<SpriteComponent> spriteComponents;
 	private ComponentMapper<ComputerSpritesComponent> computerSpritesComponents;
 	
-	@SuppressWarnings("unchecked")
+
 	public ComputerSpriteSystem()
 	{
 		super(Aspect.all(PositionComponent.class, PowerConsumerComponent.class, SpriteComponent.class, ComputerSpritesComponent.class));

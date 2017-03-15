@@ -28,7 +28,7 @@ public class CurrentConsumptionSystem extends EntityProcessingSystem implements 
 	private ComponentMapper<CurrentInputComponent> currentInputComponents;
 	private ComponentMapper<CurrentGeneratorComponent> currentGeneratorComponents;
 
-	@SuppressWarnings("unchecked")
+
 	public CurrentConsumptionSystem()
 	{
 		super(Aspect.all(CurrentConsumerComponent.class, PositionComponent.class));

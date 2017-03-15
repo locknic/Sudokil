@@ -28,7 +28,7 @@ public class SpriteRenderSystem extends EntityProcessingSystem
 	@Wire
 	private CustardAssetManager assetManager;
 
-	@SuppressWarnings("unchecked")
+
 	public SpriteRenderSystem()
 	{
 		super(Aspect.all(SpriteComponent.class, PositionComponent.class));

@@ -27,7 +27,7 @@ public class ShapeRenderSystem extends EntityProcessingSystem implements EventLi
 
 	private ShapeRenderer shapeRenderer;
 
-	@SuppressWarnings("unchecked")
+
 	public ShapeRenderSystem()
 	{
 		super(Aspect.all(ShapeRenderableComponent.class, PositionComponent.class));

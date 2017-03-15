@@ -32,7 +32,7 @@ public class TextRenderSystem extends EntityProcessingSystem
 	@Wire
 	private CustardAssetManager assetManager;
 
-	@SuppressWarnings("unchecked")
+
 	public TextRenderSystem()
 	{
 		super(Aspect.all(TextTagComponent.class, PositionComponent.class));
