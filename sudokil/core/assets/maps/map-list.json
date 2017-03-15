@@ -13,44 +13,8 @@
 	},
 	{
 		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
-		name: level3,
-		fileLocation: maps/campaign/level3/level-data.json,
-		description: "Third campaign level. Contains an interactive tutorial covering some of the basics of wired and wireless network connections.",
-	},
-	{
-		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
-		name: level4,
-		fileLocation: maps/campaign/level4/level-data.json,
-		description: "Fourth campaign level. Difficulty starts to ramp up here! You need to use networked connections to solve puzzles. NOTE: This level is very unpolished and is still being worked on as just a concept.",
-	},
-	{
-		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
-		name: playground-basic,
-		fileLocation: maps/playground/basic/level-data.json,
-		description: "Playground level for showing a small level.",
-	},
-	{
-		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
 		name: playground-rafal,
 		fileLocation: maps/playground/rafal/level-data.json,
 		description: "Playground level for showing a small level in Rafal's art style.",
-	},
-	{
-		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
-		name: playground-power-wires,
-		fileLocation: maps/playground/power-wires/level-data.json,
-		description: "Playground level for testing power moving through wires.",
-	},
-	{
-		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
-		name: playground-power-wires-array-pass,
-		fileLocation: maps/playground/power-wires-array-pass/level-data.json,
-		description: "Playground level for testing power moving through wires.",
-	},
-	{
-		class: com.custardgames.sudokil.ui.tools.MapDescriptionHolder,
-		name: playground-networks,
-		fileLocation: maps/playground/wireless/level-data.json,
-		description: "Playground level for testing networking features. To see connected devices, use command 'ifconfig'. To connect to a device, use command 'ssh [device name]'. ",
 	},
 ]

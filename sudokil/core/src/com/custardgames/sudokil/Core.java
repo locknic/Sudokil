@@ -11,7 +11,7 @@ import com.custardgames.sudokil.states.Start;
 
 public class Core extends Game implements EventListener
 {
-	public static final String TITLE = "Sudokil alpha v0.23";
+	public static final String TITLE = "Sudokil alpha v0.24";
 	public static final int WIDTH = 1280;
 	public static final int HEIGHT = 720;
 	public static final int SCALE = 1;
