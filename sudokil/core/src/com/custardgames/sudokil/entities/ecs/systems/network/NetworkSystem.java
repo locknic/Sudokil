@@ -173,6 +173,10 @@ public class NetworkSystem extends EntityProcessingSystem implements EventListen
 		if (entityEvent != null && entityEvent.getEntity() != null)
 		{
 			ssh(event.getOwnerUI(), entityEvent.getEntity(), event.getConnectingToName());
+		} 
+		else 
+		{
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(event.getOwnerUI(), "ERROR! Connect to host " + event.getConnectingToName() + ": operation timed out."));
 		}
 	}
 

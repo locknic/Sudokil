@@ -264,6 +264,11 @@ public class CommandLineManager implements EventListener
 				{
 					EventManager.get_instance().broadcast(new SSHEvent(ownerUI, device, arguments[0]));
 				}
+				else
+				{
+					String[] arg = { "ssh" };
+					help(arg);
+				}
 			}
 		}
 		catch (Exception e)
