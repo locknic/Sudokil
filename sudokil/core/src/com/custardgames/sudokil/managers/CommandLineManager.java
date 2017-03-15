@@ -283,8 +283,7 @@ public class CommandLineManager implements EventListener
 			}
 			else if (e instanceof MissingArgumentException)
 			{
-				EventManager.get_instance()
-						.broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! " + args[0].substring(1, args[0].length()) + ": missing arguments."));
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! " + args[0].substring(1, args[0].length()) + ": missing arguments."));
 			}
 
 		}
@@ -311,12 +310,9 @@ public class CommandLineManager implements EventListener
 			else
 			{
 				ItemCLI item = findItem(args[0]);
-				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null
-						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
+				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null && ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
 				{
-					EventManager.get_instance()
-							.broadcast(new ConsoleOutputEvent(ownerUI, "Usage: " + ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getUsage() + "\n"
-									+ ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getDescription()));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "Usage: " + ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getUsage() + "\n" + ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getDescription()));
 				}
 				else
 				{
@@ -347,12 +343,10 @@ public class CommandLineManager implements EventListener
 			else
 			{
 				ItemCLI item = findItem(args[0]);
-				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null
-						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
+				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null && ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
 				{
 					EntityCommandEvent event = ((EntityCommandEvent) ((ScriptCLI) item).getEvent());
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI,
-							"NAME\n    " + event.getName() + "\n\nSYNOPSIS\n    " + event.getUsage() + "\n\nDESCRIPTION\n    " + event.getDescription()));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "NAME\n    " + event.getName() + "\n\nSYNOPSIS\n    " + event.getUsage() + "\n\nDESCRIPTION\n    " + event.getDescription()));
 				}
 				else
 				{
@@ -378,8 +372,7 @@ public class CommandLineManager implements EventListener
 			else
 			{
 				ItemCLI item = findItem(args[0]);
-				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null
-						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
+				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null && ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
 				{
 					EntityCommandEvent event = ((EntityCommandEvent) ((ScriptCLI) item).getEvent());
 					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, event.getName()));
@@ -727,19 +720,23 @@ public class CommandLineManager implements EventListener
 		}
 	}
 
-	public Array<String> autoComplete(String text)
+	public Array<String> autoComplete(String text, boolean includeCommands)
 	{
-		Collection<Option> optionList = options.getOptions();
 		Array<String> matches = new Array<String>();
-		for (Option option : optionList)
+
+		if (includeCommands)
 		{
-			if (option.getOpt().startsWith(text))
+			Collection<Option> optionList = options.getOptions();
+			for (Option option : optionList)
 			{
-				matches.add(option.getOpt());
-			}
-			if (option.hasLongOpt() && option.getLongOpt().startsWith(text))
-			{
-				matches.add(option.getLongOpt());
+				if (option.getOpt().startsWith(text))
+				{
+					matches.add(option.getOpt());
+				}
+				if (option.hasLongOpt() && option.getLongOpt().startsWith(text))
+				{
+					matches.add(option.getLongOpt());
+				}
 			}
 		}
 
@@ -789,13 +786,14 @@ public class CommandLineManager implements EventListener
 		{
 			if (!event.getText().substring(event.getText().length() - 1).equals(";") && !event.getText().substring(event.getText().length() - 1).equals(" "))
 			{
-				String[] commands = event.getText().split(";| ");
-				Array<String> matches = autoComplete(commands[commands.length - 1]);
+				String[] commands = event.getText().split(";");
+				String[] command = commands[commands.length - 1].split(" ");
+				Array<String> matches = autoComplete(command[command.length - 1], (command.length <= 1));
 				if (matches != null)
 				{
 					if (matches.size == 1)
 					{
-						String result = event.getText().substring(0, event.getText().length() - commands[commands.length - 1].length()) + matches.first();
+						String result = event.getText().substring(0, event.getText().length() - command[command.length - 1].length()) + matches.first();
 						EventManager.get_instance().broadcast(new AutocompleteResponseEvent(ownerUI, result));
 					}
 					else if (matches.size > 1)
@@ -821,8 +819,7 @@ public class CommandLineManager implements EventListener
 							}
 							output += match + " ";
 						}
-						EventManager.get_instance().broadcast(new AutocompleteResponseEvent(ownerUI,
-								event.getText().substring(0, event.getText().length() - commands[commands.length - 1].length()) + result));
+						EventManager.get_instance().broadcast(new AutocompleteResponseEvent(ownerUI, event.getText().substring(0, event.getText().length() - command[command.length - 1].length()) + result));
 						EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, getInputPrefix() + event.getText() + "\n" + output));
 					}
 				}
