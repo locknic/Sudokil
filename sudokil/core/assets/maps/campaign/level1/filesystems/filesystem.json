@@ -14,11 +14,45 @@ children:
 			},
 			{
 				class: ScriptCLI,
-				name: start.sh,
+				name: toggle.sh,
 				event:
 				{
-					class : ToggleMapRenderEvent,
-					shouldRender : true,
+					class : ToggleEvent,
+				}
+			},
+			{
+				class: ScriptCLI,
+				name: target.sh,
+				event:
+				{
+					class: CameraTargetEvent,
+				}
+			},
+			{
+				class: ScriptCLI,
+				name: reset.sh,
+				event:
+				{
+					class: CameraResetEvent,
+				}
+			},
+		]
+	},
+	{
+		class: FolderCLI,
+		name: camera2,
+		children: 
+		[
+			{
+				class: ItemCLI,
+				name: camera2.dev,
+			},
+			{
+				class: ScriptCLI,
+				name: toggle.sh,
+				event:
+				{
+					class : ToggleEvent,
 				}
 			},
 			{

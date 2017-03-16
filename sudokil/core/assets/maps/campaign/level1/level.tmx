@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="19">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="25" tilewidth="32" tileheight="32" nextobjectid="20">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32" spacing="2" margin="1" tilecount="15" columns="15">
   <image source="../../../images/tiles/tileset.png" width="512" height="64"/>
  </tileset>
@@ -96,6 +96,14 @@
     <property name="VelocityComponent" type="bool" value="true"/>
     <property name="VelocityComponent.maxTravelVelocity" type="float" value="2"/>
     <property name="VelocityComponent.maxTurnVelocity" type="float" value="1.5"/>
+   </properties>
+  </object>
+  <object id="19" name="camera2" type="camera" x="112" y="720">
+   <properties>
+    <property name="CameraComponent" type="bool" value="true"/>
+    <property name="CameraComponent.panSpeed" type="float" value="1"/>
+    <property name="CameraInputComponent" type="bool" value="false"/>
+    <property name="EntityComponent" type="bool" value="true"/>
    </properties>
   </object>
  </objectgroup>

@@ -61,7 +61,7 @@ public class MapInterface extends Stage implements EventListener
 	{
 		InputManager.get_instance().addProcessor(this);
 		EventManager.get_instance().register(PingAssetsEvent.class, this);
-		EventManager.get_instance().register(ToggleMapRenderEvent.class, this);
+//		EventManager.get_instance().register(ToggleMapRenderEvent.class, this);
 		EventManager.get_instance().register(ChangeLevelEvent.class, this);
 		EventManager.get_instance().register(ChangeMapEvent.class, this);
 
@@ -374,10 +374,10 @@ public class MapInterface extends Stage implements EventListener
 		return event;
 	}
 
-	public void handleToggleMapRender(ToggleMapRenderEvent event)
-	{
-		this.shouldRender = event.isShouldRender();
-	}
+//	public void handleToggleMapRender(ToggleMapRenderEvent event)
+//	{
+//		this.shouldRender = event.isShouldRender();
+//	}
 
 	public void handleChangeLevel(ChangeLevelEvent event)
 	{

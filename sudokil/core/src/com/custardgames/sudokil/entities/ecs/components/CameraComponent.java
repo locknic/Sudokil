@@ -12,6 +12,8 @@ public class CameraComponent extends Component
 	private float targetOffsetX, targetOffsetY;
 	private float panSpeed;
 	private float zoomAmount;
+	private float x, y, zoom;
+	private boolean selected;
 
 	public CameraComponent()
 	{
@@ -21,6 +23,14 @@ public class CameraComponent extends Component
 		maxY = 2000;
 		minZoom = 0.1f;
 		maxZoom = 3;
+		x = 0;
+		y = 0;
+		zoom = 0.5f;
+		targetOffsetX = 0;
+		targetOffsetY = 0;
+		targetX = 0;
+		targetY = 0;
+		setSelected(false);
 	}
 
 	public String getTargetID()
@@ -161,6 +171,98 @@ public class CameraComponent extends Component
 	public void setMaxZoom(float maxZoom)
 	{
 		this.maxZoom = maxZoom;
+	}
+
+	public float getX()
+	{
+		return x;
+	}
+
+	public void setX(float x)
+	{
+		if (x <= maxX)
+		{
+			if (x >= minX)
+			{
+				this.x = x;
+			}
+			else
+			{
+				this.x = minX;
+			}
+		}
+		else
+		{
+			this.x = maxX;
+		}
+	}
+	
+	public void translateX(float xDelta)
+	{
+		setX(this.x + xDelta);
+	}
+
+	public float getY()
+	{
+		return y;
+	}
+
+	public void setY(float y)
+	{
+		if (y <= maxY)
+		{
+			if (y >= minY)
+			{
+				this.y = y;
+			}
+			else
+			{
+				this.y = minY;
+			}
+		}
+		else
+		{
+			this.y = maxY;
+		}
+	}
+	
+	public void translateY(float yDelta)
+	{
+		setY(this.y + yDelta);
+	}
+
+	public float getZoom()
+	{
+		return zoom;
+	}
+
+	public void setZoom(float zoom)
+	{
+		this.zoom = zoom;
+		
+		if (this.zoom <= minZoom)
+		{
+			this.zoom = minZoom;
+		}
+		else if (this.zoom >= maxZoom)
+		{
+			this.zoom = maxZoom;
+		}
+	}
+	
+	public void translateZoom(float deltaZoom)
+	{
+		setZoom(zoom + deltaZoom);
+	}
+
+	public boolean isSelected()
+	{
+		return selected;
+	}
+
+	public void setSelected(boolean selected)
+	{
+		this.selected = selected;
 	}
 
 }
