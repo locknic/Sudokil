@@ -102,6 +102,7 @@
    <properties>
     <property name="CameraComponent" type="bool" value="true"/>
     <property name="CameraComponent.panSpeed" type="float" value="1"/>
+    <property name="CameraComponent.targetID" value="robot1"/>
     <property name="CameraInputComponent" type="bool" value="false"/>
     <property name="EntityComponent" type="bool" value="true"/>
    </properties>

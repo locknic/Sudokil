@@ -9,6 +9,25 @@ children:
 		children: 
 		[
 			{
+				class: FolderCLI,
+				name: camera,
+				children: 
+				[
+					{
+						class: ItemCLI,
+						name: camera2.dev,
+					},
+					{
+						class: ScriptCLI,
+						name: toggle.sh,
+						event:
+						{
+							class : ToggleEvent,
+						}
+					}, 
+				]
+			},
+			{
 				class: ItemCLI,
 				name: robot1.dev,
 			},

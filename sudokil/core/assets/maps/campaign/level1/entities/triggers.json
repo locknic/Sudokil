@@ -432,7 +432,7 @@
 					[
 						{
 							class : PrintDialogueReaction,
-							dialogueMessage : "Rob: We want to run the script called start.sh, so go ahead and type 'start.sh'.",
+							dialogueMessage : "Rob: We want to run the script called toggle.sh, so go ahead and type 'toggle.sh'.",
 						},
 						{
 							class : BroadcastEventReaction,
@@ -462,7 +462,7 @@
 				{
 					class : EventHappenedCondition,
 					running : false,
-					className : com.custardgames.sudokil.events.ui.ToggleMapRenderEvent,
+					className : com.custardgames.sudokil.events.entities.commands.ToggleEvent,
 				}
 			},
 			{

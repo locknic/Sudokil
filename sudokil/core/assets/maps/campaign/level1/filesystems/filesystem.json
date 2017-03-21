@@ -38,40 +38,5 @@ children:
 			},
 		]
 	},
-	{
-		class: FolderCLI,
-		name: camera2,
-		children: 
-		[
-			{
-				class: ItemCLI,
-				name: camera2.dev,
-			},
-			{
-				class: ScriptCLI,
-				name: toggle.sh,
-				event:
-				{
-					class : ToggleEvent,
-				}
-			},
-			{
-				class: ScriptCLI,
-				name: target.sh,
-				event:
-				{
-					class: CameraTargetEvent,
-				}
-			},
-			{
-				class: ScriptCLI,
-				name: reset.sh,
-				event:
-				{
-					class: CameraResetEvent,
-				}
-			},
-		]
-	},
 ]
 }
