@@ -14,6 +14,9 @@ public class CameraComponent extends Component
 	private float zoomAmount;
 	private float x, y, zoom;
 	private boolean selected;
+	
+	private boolean highlightEntities;
+	private boolean nameTags;
 
 	public CameraComponent()
 	{
@@ -31,6 +34,9 @@ public class CameraComponent extends Component
 		targetX = 0;
 		targetY = 0;
 		setSelected(false);
+		
+		highlightEntities = true;
+		nameTags = true;
 	}
 
 	public String getTargetID()
@@ -263,6 +269,26 @@ public class CameraComponent extends Component
 	public void setSelected(boolean selected)
 	{
 		this.selected = selected;
+	}
+
+	public boolean isHighlightEntities()
+	{
+		return highlightEntities;
+	}
+
+	public void setHighlightEntities(boolean highlightEntities)
+	{
+		this.highlightEntities = highlightEntities;
+	}
+
+	public boolean isNameTags()
+	{
+		return nameTags;
+	}
+
+	public void setNameTags(boolean nameTags)
+	{
+		this.nameTags = nameTags;
 	}
 
 }

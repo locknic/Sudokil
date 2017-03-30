@@ -33,7 +33,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 	private ComponentMapper<CameraComponent> cameraComponents;
 	private ComponentMapper<CameraInputComponent> cameraInputComponents;
 	private ComponentMapper<EntityComponent> entityComponents;
-	
+
 	private boolean hasSelected;
 
 	@Wire
@@ -53,7 +53,7 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 		EventManager.get_instance().register(MouseDraggedEvent.class, this);
 		EventManager.get_instance().register(MouseWheelMovedEvent.class, this);
 		EventManager.get_instance().register(ToggleEvent.class, this);
-		
+
 		hasSelected = false;
 	}
 
@@ -116,20 +116,24 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			{
 				if (cameraInputComponent.isUp())
 				{
-					cameraComponent.setTargetOffsetY((float) (cameraComponent.getTargetOffsetY() + (cameraComponent.getPanSpeed() * cameraComponent.getZoom())));
+					cameraComponent
+							.setTargetOffsetY((float) (cameraComponent.getTargetOffsetY() + (cameraComponent.getPanSpeed() * cameraComponent.getZoom())));
 				}
 				else if (cameraInputComponent.isDown())
 				{
-					cameraComponent.setTargetOffsetY((float) (cameraComponent.getTargetOffsetY() - (cameraComponent.getPanSpeed() * cameraComponent.getZoom())));
+					cameraComponent
+							.setTargetOffsetY((float) (cameraComponent.getTargetOffsetY() - (cameraComponent.getPanSpeed() * cameraComponent.getZoom())));
 				}
 
 				if (cameraInputComponent.isLeft())
 				{
-					cameraComponent.setTargetOffsetX((float) (cameraComponent.getTargetOffsetX() - (cameraComponent.getPanSpeed() * cameraComponent.getZoom())));
+					cameraComponent
+							.setTargetOffsetX((float) (cameraComponent.getTargetOffsetX() - (cameraComponent.getPanSpeed() * cameraComponent.getZoom())));
 				}
 				else if (cameraInputComponent.isRight())
 				{
-					cameraComponent.setTargetOffsetX((float) (cameraComponent.getTargetOffsetX() + (cameraComponent.getPanSpeed() * cameraComponent.getZoom())));
+					cameraComponent
+							.setTargetOffsetX((float) (cameraComponent.getTargetOffsetX() + (cameraComponent.getPanSpeed() * cameraComponent.getZoom())));
 				}
 
 				double zoomSpeed = 0.03;
@@ -169,11 +173,11 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 			camera.zoom = cameraComponent.getZoom();
 			camera.update();
 		}
-		
+
 		if (!hasSelected)
 		{
-			camera.position.x = - 100000;
-			camera.position.y = - 100000;
+			camera.position.x = -100000;
+			camera.position.y = -100000;
 		}
 	}
 
@@ -388,26 +392,30 @@ public class CameraMovementSystem extends EntityProcessingSystem implements Even
 
 	public void handleToggle(ToggleEvent event)
 	{
-		hasSelected = false;
-		
 		ImmutableBag<Entity> entities = getEntities();
 		for (int x = 0; x < entities.size(); x++)
 		{
 			EntityComponent entityComponent = entityComponents.get(entities.get(x));
 			CameraComponent cameraInput = cameraComponents.get(entities.get(x));
-			System.out.println("GOT SELECTED " + event.getEntityName());
+
 			if (event.getEntityName().equals(entityComponent.getId()))
 			{
+				hasSelected = false;
+
+				for (int y = 0; y < entities.size(); y++)
+				{
+					if (x != y)
+					{
+						cameraInput.setSelected(false);
+					}
+				}
+
 				cameraInput.setSelected(!cameraInput.isSelected());
-				
+
 				if (cameraInput.isSelected())
 				{
 					hasSelected = true;
 				}
-			}
-			else
-			{
-				cameraInput.setSelected(false);
 			}
 		}
 	}

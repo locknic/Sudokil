@@ -14,11 +14,10 @@ children:
 			},
 			{
 				class: ScriptCLI,
-				name: start.sh,
+				name: toggle.sh,
 				event:
 				{
-					class : ToggleMapRenderEvent,
-					shouldRender : true,
+					class : ToggleEvent,
 				}
 			},
 			{
