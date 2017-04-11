@@ -204,5 +204,10 @@ children:
 		name: testing.txt,
 		content: hello hello I am Dominic MORTLOCK,
 	},
+	{
+		class: TextFileCLI,
+		name: testing.sh,
+		content: echo hello hello I am Dominic MORTLOCK\necho What do you like to do?,
+	},
 ]
 }

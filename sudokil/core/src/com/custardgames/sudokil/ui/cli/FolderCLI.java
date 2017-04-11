@@ -1,6 +1,10 @@
 package com.custardgames.sudokil.ui.cli;
 
+import java.util.UUID;
+
 import com.badlogic.gdx.utils.Array;
+import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
+import com.custardgames.sudokil.managers.EventManager;
 
 public class FolderCLI extends ItemCLI
 {
@@ -8,13 +12,14 @@ public class FolderCLI extends ItemCLI
 
 	public FolderCLI()
 	{
-		super("", null);
+		this("", null);
 	}
 
 	public FolderCLI(String name, FolderCLI parent)
 	{
 		super(name, parent);
 		children = new Array<ItemCLI>();
+		readPerm = true;
 	}
 
 	public boolean nameTaken(String name)
@@ -79,7 +84,19 @@ public class FolderCLI extends ItemCLI
 		devices.addAll(getSubDevices());
 		return devices;
 	}
+	
+	@Override
+	public void run(UUID ownerUI, String[] args)
+	{
+		EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Is a directory."));
+	}
 
+	@Override
+	public String read()
+	{
+		return "ERROR! Is a directory.";
+	}
+	
 	@Override
 	public ItemCLI copy()
 	{
@@ -90,5 +107,4 @@ public class FolderCLI extends ItemCLI
 		}
 		return newItem;
 	}
-
 }

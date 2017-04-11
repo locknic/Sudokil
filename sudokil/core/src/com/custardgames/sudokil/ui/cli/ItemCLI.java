@@ -1,10 +1,19 @@
 package com.custardgames.sudokil.ui.cli;
 
+import java.util.UUID;
+
+import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
+import com.custardgames.sudokil.managers.EventManager;
+
 public class ItemCLI
 {
 	private String name;
 	private FolderCLI parent;
-
+	
+	protected boolean readPerm;
+	protected boolean writePerm;
+	protected boolean executePerm;
+	
 	public ItemCLI()
 	{
 		this("", null);
@@ -13,6 +22,9 @@ public class ItemCLI
 	public ItemCLI(String name, FolderCLI parent)
 	{
 		setName(name);
+		readPerm = false;
+		writePerm = false;
+		executePerm = true;
 	}
 
 	public String getName()
@@ -68,6 +80,31 @@ public class ItemCLI
 		return "";
 	}
 
+	public boolean isReadPerm()
+	{
+		return readPerm;
+	}
+
+	public boolean isWritePerm()
+	{
+		return writePerm;
+	}
+
+	public boolean isExecutePerm()
+	{
+		return executePerm;
+	}
+	
+	public void run(UUID ownerUI, String[] args)
+	{
+		EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Permission denied."));
+	}
+	
+	public String read()
+	{
+		return "ERROR! Could not read file.";
+	}
+	
 	public ItemCLI copy()
 	{
 		ItemCLI newItem = new ItemCLI(name, parent);

@@ -21,6 +21,7 @@ import com.custardgames.sudokil.events.commandLine.AutocompleteRequestEvent;
 import com.custardgames.sudokil.events.commandLine.AutocompleteResponseEvent;
 import com.custardgames.sudokil.events.commandLine.ChangedDirectoryEvent;
 import com.custardgames.sudokil.events.commandLine.ClearTerminalEvent;
+import com.custardgames.sudokil.events.commandLine.CommandEvent;
 import com.custardgames.sudokil.events.commandLine.CommandLineEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleLogEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
@@ -36,7 +37,6 @@ import com.custardgames.sudokil.ui.cli.FolderCLI;
 import com.custardgames.sudokil.ui.cli.ItemCLI;
 import com.custardgames.sudokil.ui.cli.RootCLI;
 import com.custardgames.sudokil.ui.cli.ScriptCLI;
-import com.custardgames.sudokil.ui.cli.TextFileCLI;
 
 public class CommandLineManager implements EventListener
 {
@@ -50,9 +50,10 @@ public class CommandLineManager implements EventListener
 
 	private UUID parentUI;
 	private UUID ownerUI;
-
+	
 	public CommandLineManager(RootCLI root, UUID ownerUI, UUID parentUI)
 	{
+		EventManager.get_instance().register(CommandEvent.class, this);
 		EventManager.get_instance().register(CommandLineEvent.class, this);
 		EventManager.get_instance().register(AutocompleteRequestEvent.class, this);
 		EventManager.get_instance().register(ConsoleOutputEvent.class, this);
@@ -266,7 +267,8 @@ public class CommandLineManager implements EventListener
 				}
 				else
 				{
-					String[] arg = { "ssh" };
+					String[] arg =
+					{ "ssh" };
 					help(arg);
 				}
 			}
@@ -277,7 +279,7 @@ public class CommandLineManager implements EventListener
 			{
 				args[0] = args[0].substring(1, args[0].length());
 				ItemCLI script = findItem(args[0]);
-				if (script != null && script instanceof ScriptCLI)
+				if (script != null)
 				{
 					runScript(args);
 				}
@@ -288,7 +290,8 @@ public class CommandLineManager implements EventListener
 			}
 			else if (e instanceof MissingArgumentException)
 			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! " + args[0].substring(1, args[0].length()) + ": missing arguments."));
+				EventManager.get_instance()
+						.broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! " + args[0].substring(1, args[0].length()) + ": missing arguments."));
 			}
 
 		}
@@ -315,9 +318,12 @@ public class CommandLineManager implements EventListener
 			else
 			{
 				ItemCLI item = findItem(args[0]);
-				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null && ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
+				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null
+						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
 				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "Usage: " + ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getUsage() + "\n" + ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getDescription()));
+					EventManager.get_instance()
+							.broadcast(new ConsoleOutputEvent(ownerUI, "Usage: " + ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getUsage() + "\n"
+									+ ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getDescription()));
 				}
 				else
 				{
@@ -338,20 +344,24 @@ public class CommandLineManager implements EventListener
 		{
 			if (options.hasOption(args[0]))
 			{
-				String text = "NAME\n    " + args[0] + " - " + options.getOption(args[0]).getDescription() + "\n\nSYNOPSIS\n    " + args[0] + "\n\nDESCRIPTION\n    " + options.getOption(args[0]).getDescription();
+				String text = "NAME\n    " + args[0] + " - " + options.getOption(args[0]).getDescription() + "\n\nSYNOPSIS\n    " + args[0]
+						+ "\n\nDESCRIPTION\n    " + options.getOption(args[0]).getDescription();
 				if (options.getOption(args[0]).getArgs() > 0)
 				{
-					text = "NAME\n    " + args[0] + " - " + options.getOption(args[0]).getDescription() + "\n\nSYNOPSIS\n    " + args[0] + " [" + options.getOption(args[0]).getArgName() + "]\n\nDESCRIPTION\n    " + options.getOption(args[0]).getDescription();
+					text = "NAME\n    " + args[0] + " - " + options.getOption(args[0]).getDescription() + "\n\nSYNOPSIS\n    " + args[0] + " ["
+							+ options.getOption(args[0]).getArgName() + "]\n\nDESCRIPTION\n    " + options.getOption(args[0]).getDescription();
 				}
 				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, text));
 			}
 			else
 			{
 				ItemCLI item = findItem(args[0]);
-				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null && ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
+				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null
+						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
 				{
 					EntityCommandEvent event = ((EntityCommandEvent) ((ScriptCLI) item).getEvent());
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "NAME\n    " + event.getName() + "\n\nSYNOPSIS\n    " + event.getUsage() + "\n\nDESCRIPTION\n    " + event.getDescription()));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI,
+							"NAME\n    " + event.getName() + "\n\nSYNOPSIS\n    " + event.getUsage() + "\n\nDESCRIPTION\n    " + event.getDescription()));
 				}
 				else
 				{
@@ -377,7 +387,8 @@ public class CommandLineManager implements EventListener
 			else
 			{
 				ItemCLI item = findItem(args[0]);
-				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null && ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
+				if (item != null && item instanceof ScriptCLI && ((ScriptCLI) item).getEvent() != null
+						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
 				{
 					EntityCommandEvent event = ((EntityCommandEvent) ((ScriptCLI) item).getEvent());
 					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, event.getName()));
@@ -545,17 +556,16 @@ public class CommandLineManager implements EventListener
 		{
 			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such file or directory"));
 		}
-		else if (newItem instanceof ScriptCLI)
+		else if (newItem instanceof ItemCLI)
 		{
-			((ScriptCLI) newItem).run(ownerUI, args);
-		}
-		else if (newItem instanceof FolderCLI)
-		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Is a directory."));
-		}
-		else if (newItem instanceof FolderCLI)
-		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Is not a runnable file."));
+			if (newItem.isExecutePerm())
+			{
+				((ItemCLI) newItem).run(ownerUI, args);
+			}
+			else
+			{
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Permission denied."));
+			}
 		}
 		else
 		{
@@ -705,17 +715,16 @@ public class CommandLineManager implements EventListener
 			if (args[x] != null && !args[x].equals(""))
 			{
 				ItemCLI newItem = findItem(args[x]);
-				if (newItem instanceof FolderCLI)
+				if (newItem instanceof ItemCLI)
 				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Is a directory."));
-				}
-				else if (newItem instanceof TextFileCLI)
-				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, ((TextFileCLI) newItem).getContent()));
-				}
-				else if (newItem instanceof ItemCLI)
-				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Could not read file."));
+					if (newItem.isReadPerm())
+					{
+						EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, newItem.read()));
+					}
+					else
+					{
+						EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Permission denied."));
+					}
 				}
 				else
 				{
@@ -824,19 +833,19 @@ public class CommandLineManager implements EventListener
 							}
 							output += match + " ";
 						}
-						EventManager.get_instance().broadcast(new AutocompleteResponseEvent(ownerUI, event.getText().substring(0, event.getText().length() - command[command.length - 1].length()) + result));
+						EventManager.get_instance().broadcast(new AutocompleteResponseEvent(ownerUI,
+								event.getText().substring(0, event.getText().length() - command[command.length - 1].length()) + result));
 						EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, getInputPrefix() + event.getText() + "\n" + output));
 					}
 				}
 			}
 		}
 	}
-
-	public void handleConsoleCommand(CommandLineEvent event)
+	
+	public void handleCommand(CommandEvent event)
 	{
 		if (event.getOwnerUI().equals(ownerUI))
 		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, getInputPrefix() + event.getText()));
 			try
 			{
 				String[] commands;
@@ -873,9 +882,17 @@ public class CommandLineManager implements EventListener
 			}
 			catch (Exception e)
 			{
-
 				e.printStackTrace();
 			}
+		}
+	}
+
+	public void handleConsoleCommand(CommandLineEvent event)
+	{
+		if (event.getOwnerUI().equals(ownerUI))
+		{
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, getInputPrefix() + event.getText()));
+			EventManager.get_instance().broadcast(new CommandEvent(event.getOwnerUI(), event.getText()));
 		}
 	}
 

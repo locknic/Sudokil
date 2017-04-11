@@ -12,7 +12,7 @@ public class ScriptCLI extends ItemCLI
 
 	public ScriptCLI()
 	{
-		super();
+		this("", null, null);
 	}
 
 	public ScriptCLI(String name, FolderCLI parent, BaseEvent event)
@@ -20,7 +20,13 @@ public class ScriptCLI extends ItemCLI
 		super(name, parent);
 		this.event = event;
 	}
+	
+	public BaseEvent getEvent()
+	{
+		return event;
+	}
 
+	@Override
 	public void run(UUID ownerUI, String[] args)
 	{
 		if (event != null && event instanceof EntityCommandEvent)
@@ -39,11 +45,6 @@ public class ScriptCLI extends ItemCLI
 		{
 			EventManager.get_instance().broadcast(event);
 		}
-	}
-	
-	public BaseEvent getEvent()
-	{
-		return event;
 	}
 
 	@Override
