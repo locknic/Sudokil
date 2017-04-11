@@ -1,7 +1,6 @@
 package com.custardgames.sudokil.entities.ecs.systems.entities.robot;
 
 import java.util.EventListener;
-import java.util.UUID;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -14,6 +13,7 @@ import com.custardgames.sudokil.entities.ecs.processes.networking.PhysicalConnec
 import com.custardgames.sudokil.events.entities.ProcessEvent;
 import com.custardgames.sudokil.events.entities.commands.WiredConnectEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.utils.Streams;
 
 public class RobotConnectSystem extends EntityProcessingSystem implements EventListener
 {
@@ -47,7 +47,7 @@ public class RobotConnectSystem extends EntityProcessingSystem implements EventL
 
 	}
 
-	public void connectCommand(UUID consoleUUID, String connectingWith)
+	public void connectCommand(Streams consoleUUID, String connectingWith)
 	{
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)

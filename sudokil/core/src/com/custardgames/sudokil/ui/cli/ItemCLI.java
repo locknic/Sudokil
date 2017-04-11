@@ -1,9 +1,8 @@
 package com.custardgames.sudokil.ui.cli;
 
-import java.util.UUID;
-
 import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.utils.Streams;
 
 public class ItemCLI
 {
@@ -95,7 +94,7 @@ public class ItemCLI
 		return executePerm;
 	}
 	
-	public void run(UUID ownerUI, String[] args)
+	public void run(Streams ownerUI, String[] args)
 	{
 		EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Permission denied."));
 	}

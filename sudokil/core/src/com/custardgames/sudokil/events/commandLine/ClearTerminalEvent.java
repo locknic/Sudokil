@@ -1,10 +1,10 @@
 package com.custardgames.sudokil.events.commandLine;
 
-import java.util.UUID;
+import com.custardgames.sudokil.utils.Streams;
 
 public class ClearTerminalEvent extends UserInterfaceEvent
 {
-	public ClearTerminalEvent(UUID ownerUI)
+	public ClearTerminalEvent(Streams ownerUI)
 	{
 		super(ownerUI);
 	}

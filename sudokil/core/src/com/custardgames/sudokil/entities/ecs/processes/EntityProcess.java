@@ -1,17 +1,16 @@
 package com.custardgames.sudokil.entities.ecs.processes;
 
-import java.util.UUID;
-
 import com.artemis.Entity;
 import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.utils.Streams;
 
 public abstract class EntityProcess
 {
 	protected Entity entity;
 	private boolean backgroundProcess;
 
-	protected UUID outputUUID;
+	protected Streams outputUUID;
 
 	private boolean hasPreProcessed;
 
@@ -65,7 +64,7 @@ public abstract class EntityProcess
 		this.backgroundProcess = backgroundProcess;
 	}
 
-	public void setOutputUUID(UUID outputUUID)
+	public void setOutputUUID(Streams outputUUID)
 	{
 		this.outputUUID = outputUUID;
 	}

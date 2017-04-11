@@ -37,6 +37,7 @@ import com.custardgames.sudokil.ui.cli.FolderCLI;
 import com.custardgames.sudokil.ui.cli.ItemCLI;
 import com.custardgames.sudokil.ui.cli.RootCLI;
 import com.custardgames.sudokil.ui.cli.ScriptCLI;
+import com.custardgames.sudokil.utils.Streams;
 
 public class CommandLineManager implements EventListener
 {
@@ -49,7 +50,7 @@ public class CommandLineManager implements EventListener
 	private Options options;
 
 	private UUID parentUI;
-	private UUID ownerUI;
+	private Streams ownerUI;
 	
 	public CommandLineManager(RootCLI root, UUID ownerUI, UUID parentUI)
 	{
@@ -62,7 +63,7 @@ public class CommandLineManager implements EventListener
 		device = root.getDeviceName();
 
 		this.root = root;
-		this.ownerUI = ownerUI;
+		this.ownerUI = new Streams(ownerUI);
 		this.parentUI = parentUI;
 
 		currentItem = this.root;
@@ -231,14 +232,14 @@ public class CommandLineManager implements EventListener
 			}
 			else if (commandLine.hasOption("exit"))
 			{
-				if (parentUI == null || parentUI == ownerUI)
+				if (parentUI == null || parentUI == ownerUI.getOwner())
 				{
 					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Cannot exit out of current session."));
 				}
 				else
 				{
 					DisconnectEvent disconnectEvent = new DisconnectEvent();
-					disconnectEvent.setOwnerUI(parentUI);
+					disconnectEvent.setOwnerUI(new Streams(parentUI));
 					EventManager.get_instance().broadcast(disconnectEvent);
 				}
 			}
@@ -796,7 +797,7 @@ public class CommandLineManager implements EventListener
 
 	public void handleAutocompleteRequest(AutocompleteRequestEvent event)
 	{
-		if (event.getOwnerUI().equals(ownerUI))
+		if (event.getOwnerUI().getOwner().equals(ownerUI.getOwner()))
 		{
 			if (!event.getText().substring(event.getText().length() - 1).equals(";") && !event.getText().substring(event.getText().length() - 1).equals(" "))
 			{
@@ -844,7 +845,7 @@ public class CommandLineManager implements EventListener
 	
 	public void handleCommand(CommandEvent event)
 	{
-		if (event.getOwnerUI().equals(ownerUI))
+		if (event.getOwnerUI().getOwner().equals(ownerUI.getOwner()))
 		{
 			try
 			{
@@ -889,7 +890,7 @@ public class CommandLineManager implements EventListener
 
 	public void handleConsoleCommand(CommandLineEvent event)
 	{
-		if (event.getOwnerUI().equals(ownerUI))
+		if (event.getOwnerUI().getOwner().equals(ownerUI.getOwner()))
 		{
 			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, getInputPrefix() + event.getText()));
 			EventManager.get_instance().broadcast(new CommandEvent(event.getOwnerUI(), event.getText()));
@@ -898,7 +899,7 @@ public class CommandLineManager implements EventListener
 
 	public void handleConsoleOutput(ConsoleOutputEvent event)
 	{
-		if (event.getOwnerUI() == this.ownerUI)
+		if (event.getOwnerUI().getOwner() == this.ownerUI.getOwner())
 		{
 			EventManager.get_instance().broadcast(new ConsoleLogEvent(event.getOwnerUI(), event.getText()));
 		}

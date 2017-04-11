@@ -2,7 +2,6 @@ package com.custardgames.sudokil.entities.ecs.systems.network;
 
 import java.util.EventListener;
 import java.util.HashMap;
-import java.util.UUID;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -21,6 +20,7 @@ import com.custardgames.sudokil.events.commandLine.device.IfconfigEvent;
 import com.custardgames.sudokil.events.commandLine.device.SSHEvent;
 import com.custardgames.sudokil.events.entities.ProcessEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.utils.Streams;
 
 public class NetworkSystem extends EntityProcessingSystem implements EventListener
 {
@@ -85,7 +85,7 @@ public class NetworkSystem extends EntityProcessingSystem implements EventListen
 		return networks;
 	}
 
-	public void ifconfig(UUID connected, Entity entity)
+	public void ifconfig(Streams connected, Entity entity)
 	{
 		HashMap<String, Array<String>> networks = createNetworkHashMap(entity);
 		NetworkedDeviceComponent wirelessDeviceComponent = wirelessDeviceComponents.get(entity);
@@ -117,7 +117,7 @@ public class NetworkSystem extends EntityProcessingSystem implements EventListen
 		}
 	}
 
-	public void ssh(UUID connected, Entity entity, String connectTo)
+	public void ssh(Streams connected, Entity entity, String connectTo)
 	{
 		HashMap<String, Array<String>> networks = createNetworkHashMap(entity);
 		NetworkedDeviceComponent networkedDeviceComponent = wirelessDeviceComponents.get(entity);
@@ -148,7 +148,7 @@ public class NetworkSystem extends EntityProcessingSystem implements EventListen
 		}
 	}
 
-	public void connectTo(UUID connected, Entity entity, String connectTo)
+	public void connectTo(Streams connected, Entity entity, String connectTo)
 	{
 		PingEntityEvent entityEvent = (PingEntityEvent) EventManager.get_instance().broadcastInquiry(new PingEntityEvent(connectTo));
 		if (entityEvent != null && entityEvent.getEntity() != null)

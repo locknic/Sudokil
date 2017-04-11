@@ -1,16 +1,16 @@
 package com.custardgames.sudokil.events.commandLine;
 
-import java.util.UUID;
+import com.custardgames.sudokil.utils.Streams;
 
 public class ConsoleOutputEvent extends CommandLineEvent
 {
 
-	public ConsoleOutputEvent(UUID ownerUI, String text)
+	public ConsoleOutputEvent(Streams ownerUI, String text)
 	{
 		super(ownerUI, text);
 	}
 
-	public ConsoleOutputEvent(UUID owner, String[] texts)
+	public ConsoleOutputEvent(Streams owner, String[] texts)
 	{
 		this(owner, parseTexts(texts));
 	}

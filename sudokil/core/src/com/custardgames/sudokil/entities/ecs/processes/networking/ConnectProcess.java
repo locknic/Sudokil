@@ -13,10 +13,11 @@ import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.events.entities.commands.DisconnectEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.utils.Streams;
 
 public abstract class ConnectProcess extends EntityProcess implements EventListener
 {
-	protected UUID consoleUUID;
+	protected Streams consoleUUID;
 	protected Entity connectedTo;
 
 	protected boolean disconnect;
@@ -24,7 +25,7 @@ public abstract class ConnectProcess extends EntityProcess implements EventListe
 	private ActivityBlockingComponent activityBlockingComponent;
 	private ActivityBlockingComponent connectedActivityBlockingComponent;
 
-	public ConnectProcess(UUID consoleUUID, Entity entity, Entity connectedTo)
+	public ConnectProcess(Streams consoleUUID, Entity entity, Entity connectedTo)
 	{
 		super(entity);
 
@@ -98,7 +99,7 @@ public abstract class ConnectProcess extends EntityProcess implements EventListe
 
 	public void handleDisconnectEvent(DisconnectEvent event)
 	{
-		if (event.getOwnerUI() != null && event.getOwnerUI().equals(consoleUUID))
+		if (event.getOwnerUI() != null && event.getOwnerUI().getOwner().equals(consoleUUID.getOwner()))
 		{
 			disconnect();
 		}
@@ -116,7 +117,7 @@ public abstract class ConnectProcess extends EntityProcess implements EventListe
 	{
 		for (UUID uuid : event.getUuids())
 		{
-			if (uuid.equals(consoleUUID))
+			if (uuid.equals(consoleUUID.getOwner()))
 			{
 				disconnect();
 			}

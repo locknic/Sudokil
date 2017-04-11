@@ -1,7 +1,6 @@
 package com.custardgames.sudokil.entities.ecs.processes.networking;
 
 import java.util.EventListener;
-import java.util.UUID;
 
 import com.artemis.Entity;
 import com.custardgames.sudokil.entities.ecs.components.EntityComponent;
@@ -10,6 +9,7 @@ import com.custardgames.sudokil.entities.ecs.components.filesystem.NetworkedDevi
 import com.custardgames.sudokil.events.PingFileSystemEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.utils.Streams;
 
 public class NetworkedConnectProcess extends ConnectProcess implements EventListener
 {
@@ -17,7 +17,7 @@ public class NetworkedConnectProcess extends ConnectProcess implements EventList
 	private EntityComponent connectedEntityComponent;
 	private NetworkedDeviceComponent connectedNetworkedDeviceComponent;
 
-	public NetworkedConnectProcess(UUID consoleUUID, Entity entity, Entity connectedTo)
+	public NetworkedConnectProcess(Streams consoleUUID, Entity entity, Entity connectedTo)
 	{
 		super(consoleUUID, entity, connectedTo);
 		

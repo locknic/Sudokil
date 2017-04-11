@@ -1,7 +1,6 @@
 package com.custardgames.sudokil.entities.ecs.processes.networking;
 
 import java.util.EventListener;
-import java.util.UUID;
 
 import com.artemis.Entity;
 import com.custardgames.sudokil.entities.ecs.components.ActivityBlockingComponent;
@@ -13,11 +12,12 @@ import com.custardgames.sudokil.events.commandLine.ConsoleConnectEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.events.entities.map.PingCellEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.utils.Streams;
 
 public class PhysicalConnectProcess extends ConnectProcess implements EventListener
 {
 
-	public PhysicalConnectProcess(UUID consoleUUID, Entity entity)
+	public PhysicalConnectProcess(Streams consoleUUID, Entity entity)
 	{
 		super(consoleUUID, entity, null);
 	}

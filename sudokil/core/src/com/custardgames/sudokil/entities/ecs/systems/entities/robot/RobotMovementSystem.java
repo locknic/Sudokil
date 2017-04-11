@@ -1,7 +1,6 @@
 package com.custardgames.sudokil.entities.ecs.systems.entities.robot;
 
 import java.util.EventListener;
-import java.util.UUID;
 
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
@@ -20,6 +19,7 @@ import com.custardgames.sudokil.events.entities.commands.ForwardEvent;
 import com.custardgames.sudokil.events.entities.commands.LeftEvent;
 import com.custardgames.sudokil.events.entities.commands.RightEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.utils.Streams;
 
 public class RobotMovementSystem extends EntityProcessingSystem implements EventListener
 {
@@ -59,7 +59,7 @@ public class RobotMovementSystem extends EntityProcessingSystem implements Event
 
 	}
 
-	public void moveCommand(UUID ownerUI, String owner, int distance, int direction)
+	public void moveCommand(Streams ownerUI, String owner, int distance, int direction)
 	{
 		ImmutableBag<Entity> entities = getEntities();
 		for (Entity entity : entities)

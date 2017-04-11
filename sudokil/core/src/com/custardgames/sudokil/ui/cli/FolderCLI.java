@@ -1,10 +1,9 @@
 package com.custardgames.sudokil.ui.cli;
 
-import java.util.UUID;
-
 import com.badlogic.gdx.utils.Array;
 import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.utils.Streams;
 
 public class FolderCLI extends ItemCLI
 {
@@ -86,7 +85,7 @@ public class FolderCLI extends ItemCLI
 	}
 	
 	@Override
-	public void run(UUID ownerUI, String[] args)
+	public void run(Streams ownerUI, String[] args)
 	{
 		EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Is a directory."));
 	}

@@ -1,11 +1,11 @@
 package com.custardgames.sudokil.events.commandLine;
 
-import java.util.UUID;
+import com.custardgames.sudokil.utils.Streams;
 
 public class ConsoleLogEvent extends CommandLineEvent
 {
 
-	public ConsoleLogEvent(UUID ownerUI, String text)
+	public ConsoleLogEvent(Streams ownerUI, String text)
 	{
 		super(ownerUI, text);
 	}

@@ -1,11 +1,11 @@
 package com.custardgames.sudokil.events.commandLine;
 
-import java.util.UUID;
+import com.custardgames.sudokil.utils.Streams;
 
 public class ListDirectoryEvent extends UserInterfaceEvent
 {
 
-	public ListDirectoryEvent(UUID ownerUI)
+	public ListDirectoryEvent(Streams ownerUI)
 	{
 		super(ownerUI);
 		// TODO Auto-generated constructor stub

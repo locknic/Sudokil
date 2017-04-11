@@ -1,9 +1,8 @@
 package com.custardgames.sudokil.ui.cli;
 
-import java.util.UUID;
-
 import com.custardgames.sudokil.events.commandLine.CommandEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.utils.Streams;
 
 public class TextFileCLI extends FileCLI
 {
@@ -35,7 +34,7 @@ public class TextFileCLI extends FileCLI
 	}
 	
 	@Override
-	public void run(UUID ownerUI, String[] args)
+	public void run(Streams ownerUI, String[] args)
 	{
 		if (this.getName().endsWith(".sh"))
 		{

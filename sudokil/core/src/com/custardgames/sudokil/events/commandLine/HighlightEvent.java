@@ -1,6 +1,6 @@
 package com.custardgames.sudokil.events.commandLine;
 
-import java.util.UUID;
+import com.custardgames.sudokil.utils.Streams;
 
 public class HighlightEvent extends UserInterfaceEvent
 {
@@ -8,7 +8,7 @@ public class HighlightEvent extends UserInterfaceEvent
 	private boolean possibleSelection;
 
 	
-	public HighlightEvent(UUID ownerUI, String entity, boolean possibleSelection)
+	public HighlightEvent(Streams ownerUI, String entity, boolean possibleSelection)
 	{
 		super(ownerUI);
 		this.setEntity(entity);

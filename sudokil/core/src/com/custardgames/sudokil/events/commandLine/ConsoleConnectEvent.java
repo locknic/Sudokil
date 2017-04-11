@@ -1,14 +1,13 @@
 package com.custardgames.sudokil.events.commandLine;
 
-import java.util.UUID;
-
 import com.custardgames.sudokil.ui.cli.RootCLI;
+import com.custardgames.sudokil.utils.Streams;
 
 public class ConsoleConnectEvent extends UserInterfaceEvent
 {
 	private RootCLI newRoot;
 
-	public ConsoleConnectEvent(UUID ownerUI, RootCLI newRoot)
+	public ConsoleConnectEvent(Streams ownerUI, RootCLI newRoot)
 	{
 		super(ownerUI);
 		setNewRoot(newRoot);

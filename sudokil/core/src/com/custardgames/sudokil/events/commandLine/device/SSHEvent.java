@@ -1,12 +1,12 @@
 package com.custardgames.sudokil.events.commandLine.device;
 
-import java.util.UUID;
+import com.custardgames.sudokil.utils.Streams;
 
 public class SSHEvent extends DeviceEvent
 {
 	private String connectingToName;
 	
-	public SSHEvent(UUID ownerUI, String deviceName, String connectingToName)
+	public SSHEvent(Streams ownerUI, String deviceName, String connectingToName)
 	{
 		super(ownerUI, deviceName);
 		

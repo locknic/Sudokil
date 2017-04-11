@@ -1,11 +1,11 @@
 package com.custardgames.sudokil.events.commandLine;
 
-import java.util.UUID;
+import com.custardgames.sudokil.utils.Streams;
 
 public class ResetHighlightEvent extends UserInterfaceEvent
 {
 
-	public ResetHighlightEvent(UUID ownerUI)
+	public ResetHighlightEvent(Streams ownerUI)
 	{
 		super(ownerUI);
 	}

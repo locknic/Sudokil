@@ -1,10 +1,10 @@
 package com.custardgames.sudokil.events.commandLine;
 
-import java.util.UUID;
+import com.custardgames.sudokil.utils.Streams;
 
 public class AutocompleteResponseEvent extends CommandLineEvent
 {
-	public AutocompleteResponseEvent(UUID ownerUI, String text)
+	public AutocompleteResponseEvent(Streams ownerUI, String text)
 	{
 		super(ownerUI, text);
 	}

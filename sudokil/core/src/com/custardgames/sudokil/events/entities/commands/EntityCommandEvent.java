@@ -1,14 +1,13 @@
 package com.custardgames.sudokil.events.entities.commands;
 
-import java.util.UUID;
-
 import com.custardgames.sudokil.events.BaseEvent;
 import com.custardgames.sudokil.events.commandLine.ConsoleOutputEvent;
 import com.custardgames.sudokil.managers.EventManager;
+import com.custardgames.sudokil.utils.Streams;
 
 public abstract class EntityCommandEvent extends BaseEvent
 {
-	private UUID ownerUI;
+	private Streams ownerUI;
 	private String entityName;
 	
 	private String name;
@@ -38,12 +37,12 @@ public abstract class EntityCommandEvent extends BaseEvent
 		return !checkHelpArgs(args);
 	}
 
-	public UUID getOwnerUI()
+	public Streams getOwnerUI()
 	{
 		return ownerUI;
 	}
 
-	public void setOwnerUI(UUID ownerUI)
+	public void setOwnerUI(Streams ownerUI)
 	{
 		this.ownerUI = ownerUI;
 	}

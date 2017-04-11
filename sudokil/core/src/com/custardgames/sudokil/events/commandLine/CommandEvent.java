@@ -1,12 +1,12 @@
 package com.custardgames.sudokil.events.commandLine;
 
-import java.util.UUID;
+import com.custardgames.sudokil.utils.Streams;
 
 public class CommandEvent extends UserInterfaceEvent
 {
 	private String text;
 	
-	public CommandEvent(UUID ownerUI, String text)
+	public CommandEvent(Streams ownerUI, String text)
 	{
 		super(ownerUI);
 		setText(text);

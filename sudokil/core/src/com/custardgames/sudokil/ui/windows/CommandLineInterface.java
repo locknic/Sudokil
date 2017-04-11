@@ -31,6 +31,7 @@ import com.custardgames.sudokil.managers.EventManager;
 import com.custardgames.sudokil.ui.cli.RootCLI;
 import com.custardgames.sudokil.ui.tools.CLICloseButtonListener;
 import com.custardgames.sudokil.ui.tools.CommandLineData;
+import com.custardgames.sudokil.utils.Streams;
 
 public class CommandLineInterface implements EventListener
 {
@@ -216,7 +217,7 @@ public class CommandLineInterface implements EventListener
 
 	public void enterClicked()
 	{
-		EventManager.get_instance().broadcast(new CommandLineEvent(cld.ownerUI, consoleField.getText()));
+		EventManager.get_instance().broadcast(new CommandLineEvent(new Streams(cld.ownerUI), consoleField.getText()));
 		cld.previousCommands.add(consoleField.getText());
 		consoleArrow.setText(cld.parser.getInputPrefix());
 		consoleField.setText("");
@@ -225,7 +226,7 @@ public class CommandLineInterface implements EventListener
 
 	public void tabClicked()
 	{
-		EventManager.get_instance().broadcast(new AutocompleteRequestEvent(cld.ownerUI, consoleField.getText()));
+		EventManager.get_instance().broadcast(new AutocompleteRequestEvent(new Streams(cld.ownerUI), consoleField.getText()));
 		setKeyboardFocus();
 	}
 
@@ -313,7 +314,7 @@ public class CommandLineInterface implements EventListener
 
 	public void handleAutocompleteResponse(AutocompleteResponseEvent event)
 	{
-		if (event.getOwnerUI() == cld.ownerUI)
+		if (event.getOwnerUI().getOwner() == cld.ownerUI)
 		{
 			consoleArrow.setText(cld.parser.getInputPrefix());
 			consoleField.setText(event.getText());
@@ -323,7 +324,7 @@ public class CommandLineInterface implements EventListener
 
 	public void handleConsoleLog(ConsoleLogEvent event)
 	{
-		if (event.getOwnerUI() == cld.ownerUI)
+		if (event.getOwnerUI().getOwner() == cld.ownerUI)
 		{
 			cld.textHistory = cld.textHistory + "\n" + event.getText();
 			consoleDialog.setText(cld.textHistory);
@@ -333,7 +334,7 @@ public class CommandLineInterface implements EventListener
 
 	public void handleClearTerminal(ClearTerminalEvent event)
 	{
-		if (event.getOwnerUI() == cld.ownerUI)
+		if (event.getOwnerUI().getOwner() == cld.ownerUI)
 		{
 			cld.textHistory = "";
 			consoleDialog.setText(cld.textHistory);

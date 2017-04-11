@@ -1,6 +1,6 @@
 package com.custardgames.sudokil.events.entities.commands;
 
-import java.util.UUID;
+import com.custardgames.sudokil.utils.Streams;
 
 public class StopCommandsEvent extends EntityCommandEvent
 {
@@ -9,7 +9,7 @@ public class StopCommandsEvent extends EntityCommandEvent
 
 	}
 
-	public StopCommandsEvent(UUID ownerUI, String id)
+	public StopCommandsEvent(Streams ownerUI, String id)
 	{
 		this.setEntityName(id);
 		this.setOwnerUI(ownerUI);

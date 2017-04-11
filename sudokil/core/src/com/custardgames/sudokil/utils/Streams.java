@@ -8,6 +8,11 @@ public class Streams
 	private UUID output;
 	private UUID error;
 	
+	public Streams(UUID owner)
+	{
+		this(owner, owner, owner);
+	}
+	
 	public Streams(UUID owner, UUID output, UUID error)
 	{
 		this.owner = owner;

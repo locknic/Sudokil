@@ -264,7 +264,7 @@ public class UserInterface extends Stage implements EventListener
 		while (iterator.hasNext())
 		{
 			CommandLineInterface window = iterator.next();
-			if (event.getOwnerUI().equals(window.getUUID()))
+			if (event.getOwnerUI().getOwner().equals(window.getUUID()))
 			{
 				window.dispose();
 				iterator.remove();
@@ -278,9 +278,9 @@ public class UserInterface extends Stage implements EventListener
 		{
 			if (event.getNewRoot() == null)
 			{
-				e.tryAllUpRoot(event.getOwnerUI());
+				e.tryAllUpRoot(event.getOwnerUI().getOwner());
 			}
-			else if (event.getOwnerUI().equals(e.getUUID()))
+			else if (event.getOwnerUI().getOwner().equals(e.getUUID()))
 			{
 				e.setRoot(event.getNewRoot());
 			}
