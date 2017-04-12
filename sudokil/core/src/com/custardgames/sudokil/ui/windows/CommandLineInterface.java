@@ -217,7 +217,7 @@ public class CommandLineInterface implements EventListener
 
 	public void enterClicked()
 	{
-		EventManager.get_instance().broadcastInquiry(new CommandLineEvent(new Streams(cld.ownerUI), consoleField.getText()));
+		EventManager.get_instance().broadcast(new CommandLineEvent(new Streams(cld.ownerUI), consoleField.getText()));
 		cld.previousCommands.add(consoleField.getText());
 		consoleArrow.setText(cld.parser.getInputPrefix());
 		consoleField.setText("");
@@ -302,6 +302,8 @@ public class CommandLineInterface implements EventListener
 
 	public void act()
 	{
+		cld.act();
+		
 		if (updateScroll > 0)
 		{
 			consoleScroll.setScrollPercentX(0);

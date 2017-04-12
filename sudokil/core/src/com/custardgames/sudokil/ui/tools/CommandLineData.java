@@ -33,6 +33,11 @@ public class CommandLineData
 		this.previousCommandLineData = previousCommandLineData;
 	}
 
+	public void act()
+	{
+		parser.act();
+	}
+	
 	public CommandLineData findCommandLineData(UUID id)
 	{
 		if (id.equals(ownerUI))

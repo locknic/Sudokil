@@ -85,11 +85,9 @@ public class FolderCLI extends ItemCLI
 	}
 	
 	@Override
-	public Object run(Streams ownerUI, String[] args)
+	public void run(Streams ownerUI, String[] args)
 	{
 		EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Is a directory."));
-		
-		return null;
 	}
 
 	@Override

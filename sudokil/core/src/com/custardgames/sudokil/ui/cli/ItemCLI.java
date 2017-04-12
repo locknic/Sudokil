@@ -94,11 +94,9 @@ public class ItemCLI
 		return executePerm;
 	}
 	
-	public Object run(Streams ownerUI, String[] args)
+	public void run(Streams ownerUI, String[] args)
 	{
 		EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Permission denied."));
-		
-		return null;
 	}
 	
 	public String read()
