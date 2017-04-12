@@ -93,12 +93,18 @@ public class EventManager
 		Array<EventListener> currentListeners = listeners.get(event.getClass());
 		if (currentListeners != null)
 		{
-			for (EventListener l : currentListeners)
+			EventListener[] currentListenersArray = currentListeners.toArray(EventListener.class);
+			for (int x = 0; x < currentListenersArray.length; x++)
 			{
-				Method m = findInquiry(l, event.getClass());
+				Method m = findInquiry(currentListenersArray[x], event.getClass());
 				try
 				{
-					return m.invoke(l, event);
+					Object obj = m.invoke(currentListenersArray[x], event);
+					
+					if (obj != null)
+					{
+						return obj;
+					}
 				}
 				catch (IllegalAccessException e)
 				{
@@ -155,13 +161,21 @@ public class EventManager
 		{
 			if (m.getName().startsWith("handleInquiry"))
 			{
-				if (m.getReturnType() instanceof Object)
+				Class<?>[] params = m.getParameterTypes();
+				if (params.length == 1 && params[0] == eventType)
 				{
-					Class<?>[] params = m.getParameterTypes();
-					if (params.length == 1 && params[0] == eventType)
-					{
-						return m;
-					}
+					return m;
+				}
+			}
+		}
+		for (Method m : methods)
+		{
+			if (m.getName().startsWith("handleInquiry"))
+			{
+				Class<?>[] params = m.getParameterTypes();
+				if (params.length == 1 && params[0].isAssignableFrom(eventType))
+				{
+					return m;
 				}
 			}
 		}

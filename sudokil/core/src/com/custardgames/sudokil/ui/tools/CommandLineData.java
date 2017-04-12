@@ -28,6 +28,7 @@ public class CommandLineData
 		{
 			previousUI = previousCommandLineData.ownerUI;
 		}
+		System.out.println("MAKING NEW UI " + ownerUI);
 		this.parser = new CommandLineManager(root, ownerUI, previousUI);
 		this.previousCommandLineData = previousCommandLineData;
 	}

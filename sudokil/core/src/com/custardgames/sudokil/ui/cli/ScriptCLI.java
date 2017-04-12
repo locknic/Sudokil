@@ -1,5 +1,7 @@
 package com.custardgames.sudokil.ui.cli;
 
+import java.util.ArrayList;
+
 import com.custardgames.sudokil.events.BaseEvent;
 import com.custardgames.sudokil.events.entities.commands.EntityCommandEvent;
 import com.custardgames.sudokil.managers.EventManager;
@@ -26,8 +28,10 @@ public class ScriptCLI extends ItemCLI
 	}
 
 	@Override
-	public void run(Streams ownerUI, String[] args)
+	public Object run(Streams ownerUI, String[] args)
 	{
+		ArrayList<Object> objects = new ArrayList<Object>();
+		
 		if (event != null && event instanceof EntityCommandEvent)
 		{
 			((EntityCommandEvent) event).setOwnerUI(ownerUI);
@@ -44,6 +48,8 @@ public class ScriptCLI extends ItemCLI
 		{
 			EventManager.get_instance().broadcast(event);
 		}
+		
+		return objects;
 	}
 
 	@Override

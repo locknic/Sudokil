@@ -2,6 +2,7 @@ package com.custardgames.sudokil.managers;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.EventListener;
 import java.util.Iterator;
@@ -50,8 +51,8 @@ public class CommandLineManager implements EventListener
 	private Options options;
 
 	private UUID parentUI;
-	private Streams ownerUI;
-	
+	private Streams standardStream;
+
 	public CommandLineManager(RootCLI root, UUID ownerUI, UUID parentUI)
 	{
 		EventManager.get_instance().register(CommandEvent.class, this);
@@ -63,7 +64,7 @@ public class CommandLineManager implements EventListener
 		device = root.getDeviceName();
 
 		this.root = root;
-		this.ownerUI = new Streams(ownerUI);
+		this.standardStream = new Streams(ownerUI);
 		this.parentUI = parentUI;
 
 		currentItem = this.root;
@@ -160,8 +161,9 @@ public class CommandLineManager implements EventListener
 		device = root.getDeviceName();
 	}
 
-	public void parseCommands(String[] args)
+	public Object parseCommands(String[] args, Streams stream)
 	{
+		Object returnObj = null;
 		try
 		{
 			CommandLineParser parser = new DefaultParser();
@@ -173,7 +175,7 @@ public class CommandLineManager implements EventListener
 				{
 					arguments = new String[0];
 				}
-				help(arguments);
+				returnObj = help(arguments);
 			}
 			else if (commandLine.hasOption("man"))
 			{
@@ -182,7 +184,7 @@ public class CommandLineManager implements EventListener
 				{
 					arguments = new String[0];
 				}
-				man(arguments);
+				returnObj = man(arguments);
 			}
 			else if (commandLine.hasOption("whatis"))
 			{
@@ -191,11 +193,11 @@ public class CommandLineManager implements EventListener
 				{
 					arguments = new String[0];
 				}
-				whatis(arguments);
+				returnObj = whatis(arguments);
 			}
 			else if (commandLine.hasOption("pwd"))
 			{
-				pwd();
+				returnObj = pwd();
 			}
 			else if (commandLine.hasOption("ls"))
 			{
@@ -204,37 +206,39 @@ public class CommandLineManager implements EventListener
 				{
 					arguments = new String[0];
 				}
-				list(arguments);
+				returnObj = list(arguments);
 			}
 			else if (commandLine.hasOption("cd"))
 			{
-				changeDirectory(commandLine.getOptionValue("cd"));
+				returnObj = changeDirectory(commandLine.getOptionValue("cd"));
 			}
 			else if (commandLine.hasOption("mv"))
 			{
-				moveItem(commandLine.getOptionValues("mv"));
+				returnObj = moveItem(commandLine.getOptionValues("mv"));
 			}
 			else if (commandLine.hasOption("cp"))
 			{
-				copyItem(commandLine.getOptionValues("cp"));
+				returnObj = copyItem(commandLine.getOptionValues("cp"));
 			}
 			else if (commandLine.hasOption("sh"))
 			{
-				runScript(commandLine.getOptionValues("sh"));
+				returnObj = runScript(commandLine.getOptionValues("sh"));
 			}
 			else if (commandLine.hasOption("stop"))
 			{
 				for (String device : currentItem.getDevices())
 				{
-					EventManager.get_instance().broadcast(new StopCommandsEvent(ownerUI, device));
+					EventManager.get_instance().broadcast(new StopCommandsEvent(standardStream, device));
 				}
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "Stopping queued commands."));
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "Stopping queued commands."));
+
+				returnObj = null;
 			}
 			else if (commandLine.hasOption("exit"))
 			{
-				if (parentUI == null || parentUI == ownerUI.getOwner())
+				if (parentUI == null || parentUI == standardStream.getOwner())
 				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Cannot exit out of current session."));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! Cannot exit out of current session."));
 				}
 				else
 				{
@@ -242,35 +246,46 @@ public class CommandLineManager implements EventListener
 					disconnectEvent.setOwnerUI(new Streams(parentUI));
 					EventManager.get_instance().broadcast(disconnectEvent);
 				}
+
+				returnObj = null;
 			}
 			else if (commandLine.hasOption("echo"))
 			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, commandLine.getOptionValues("echo")));
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, commandLine.getOptionValues("echo")));
+
+				returnObj = null;
 			}
 			else if (commandLine.hasOption("clear"))
 			{
-				EventManager.get_instance().broadcast(new ClearTerminalEvent(ownerUI));
+				EventManager.get_instance().broadcast(new ClearTerminalEvent(standardStream));
+
+				returnObj = null;
 			}
 			else if (commandLine.hasOption("cat"))
 			{
-				cat(commandLine.getOptionValues("cat"));
+				returnObj = cat(commandLine.getOptionValues("cat"));
+
+				returnObj = null;
 			}
 			else if (commandLine.hasOption("ifconfig"))
 			{
-				EventManager.get_instance().broadcast(new IfconfigEvent(ownerUI, device));
+				EventManager.get_instance().broadcast(new IfconfigEvent(standardStream, device));
+
+				returnObj = null;
 			}
 			else if (commandLine.hasOption("ssh"))
 			{
 				String[] arguments = commandLine.getOptionValues("ssh");
 				if (arguments != null && arguments.length > 0)
 				{
-					EventManager.get_instance().broadcast(new SSHEvent(ownerUI, device, arguments[0]));
+					EventManager.get_instance().broadcast(new SSHEvent(standardStream, device, arguments[0]));
+					returnObj = null;
 				}
 				else
 				{
 					String[] arg =
 					{ "ssh" };
-					help(arg);
+					returnObj = help(arg);
 				}
 			}
 		}
@@ -282,23 +297,28 @@ public class CommandLineManager implements EventListener
 				ItemCLI script = findItem(args[0]);
 				if (script != null)
 				{
-					runScript(args);
+					returnObj = runScript(args);
+
 				}
 				else
 				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! " + args[0] + ": command not found."));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! " + args[0] + ": command not found."));
+					returnObj = null;
 				}
 			}
 			else if (e instanceof MissingArgumentException)
 			{
 				EventManager.get_instance()
-						.broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! " + args[0].substring(1, args[0].length()) + ": missing arguments."));
+						.broadcast(new ConsoleOutputEvent(standardStream, "ERROR! " + args[0].substring(1, args[0].length()) + ": missing arguments."));
+				returnObj = null;
 			}
 
 		}
+
+		return returnObj;
 	}
 
-	public void help(String[] args)
+	public Object help(String[] args)
 	{
 		HelpFormatter formatter = new HelpFormatter();
 		StringWriter stringWriter = new StringWriter();
@@ -314,7 +334,7 @@ public class CommandLineManager implements EventListener
 					text = args[0] + " [arg]\n" + options.getOption(args[0]).getDescription();
 				}
 				formatter.printUsage(printWriter, 100, text);
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, stringWriter.toString()));
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, stringWriter.toString()));
 			}
 			else
 			{
@@ -323,23 +343,25 @@ public class CommandLineManager implements EventListener
 						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
 				{
 					EventManager.get_instance()
-							.broadcast(new ConsoleOutputEvent(ownerUI, "Usage: " + ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getUsage() + "\n"
+							.broadcast(new ConsoleOutputEvent(standardStream, "Usage: " + ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getUsage() + "\n"
 									+ ((EntityCommandEvent) ((ScriptCLI) item).getEvent()).getDescription()));
 				}
 				else
 				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No help topics match '" + args[0] + "'."));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No help topics match '" + args[0] + "'."));
 				}
 			}
 		}
 		else
 		{
 			formatter.printHelp(printWriter, 100, "Available Commands", "", options, 1, 3, "");
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, stringWriter.toString()));
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, stringWriter.toString()));
 		}
+
+		return true;
 	}
 
-	public void man(String[] args)
+	public Object man(String[] args)
 	{
 		if (args.length > 0)
 		{
@@ -352,7 +374,7 @@ public class CommandLineManager implements EventListener
 					text = "NAME\n    " + args[0] + " - " + options.getOption(args[0]).getDescription() + "\n\nSYNOPSIS\n    " + args[0] + " ["
 							+ options.getOption(args[0]).getArgName() + "]\n\nDESCRIPTION\n    " + options.getOption(args[0]).getDescription();
 				}
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, text));
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, text));
 			}
 			else
 			{
@@ -361,29 +383,31 @@ public class CommandLineManager implements EventListener
 						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
 				{
 					EntityCommandEvent event = ((EntityCommandEvent) ((ScriptCLI) item).getEvent());
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI,
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream,
 							"NAME\n    " + event.getName() + "\n\nSYNOPSIS\n    " + event.getUsage() + "\n\nDESCRIPTION\n    " + event.getDescription()));
 				}
 				else
 				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No manual entry for '" + args[0] + "'."));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No manual entry for '" + args[0] + "'."));
 				}
 			}
 		}
 		else
 		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! What manual page do you want?"));
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! What manual page do you want?"));
 		}
+
+		return null;
 	}
 
-	public void whatis(String[] args)
+	public Object whatis(String[] args)
 	{
 		if (args.length > 0)
 		{
 			if (options.hasOption(args[0]))
 			{
 				String text = args[0] + "    - " + options.getOption(args[0]).getDescription();
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, text));
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, text));
 			}
 			else
 			{
@@ -392,18 +416,290 @@ public class CommandLineManager implements EventListener
 						&& ((ScriptCLI) item).getEvent() instanceof EntityCommandEvent)
 				{
 					EntityCommandEvent event = ((EntityCommandEvent) ((ScriptCLI) item).getEvent());
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, event.getName()));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, event.getName()));
 				}
 				else
 				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! nothing appropriate for '" + args[0] + "'."));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! nothing appropriate for '" + args[0] + "'."));
 				}
 			}
 		}
 		else
 		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! whatis keword ..."));
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! whatis keword ..."));
 		}
+
+		return null;
+	}
+
+	public Object pwd()
+	{
+		EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, getLocation()));
+
+		return null;
+	}
+
+	public Object list(String args[])
+	{
+		if (args == null || args.length < 1)
+		{
+			String output = "";
+			for (ItemCLI child : currentItem.getChildren())
+			{
+				output += child.getName() + "\n";
+			}
+			EventManager.get_instance().broadcast(new ListDirectoryEvent(standardStream));
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, output));
+		}
+		for (int x = 0; x < args.length; x++)
+		{
+			if (args[x] != null && !args[x].equals(""))
+			{
+				ItemCLI newItem = findItem(args[x]);
+				if (newItem instanceof FolderCLI)
+				{
+					String output = args[x] + "/:\n";
+					for (ItemCLI child : ((FolderCLI) newItem).getChildren())
+					{
+						output += child.getName() + "\n";
+					}
+					EventManager.get_instance().broadcast(new ListDirectoryEvent(standardStream));
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, output));
+				}
+				else if (newItem instanceof ItemCLI)
+				{
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, newItem.getName()));
+				}
+				else
+				{
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No such file or directory."));
+				}
+			}
+		}
+
+		return null;
+	}
+
+	public Object changeDirectory(String location)
+	{
+		if (location == null || location.equals(""))
+		{
+			currentItem = root;
+			EventManager.get_instance().broadcast(new ChangedDirectoryEvent(currentItem.getName()));
+		}
+		else
+		{
+			ItemCLI newItem = findItem(location);
+			if (newItem instanceof FolderCLI)
+			{
+				currentItem = (FolderCLI) newItem;
+				EventManager.get_instance().broadcast(new ChangedDirectoryEvent(newItem.getName()));
+			}
+			else if (newItem instanceof ItemCLI)
+			{
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! Not a directory."));
+			}
+			else
+			{
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No such file or directory."));
+			}
+		}
+
+		return null;
+	}
+
+	public Object runScript(String[] args)
+	{
+		ItemCLI newItem = findItem(args[0]);
+
+		if (newItem == null)
+		{
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No such file or directory"));
+		}
+		else if (newItem instanceof ItemCLI)
+		{
+			if (newItem.isExecutePerm())
+			{
+				return ((ItemCLI) newItem).run(standardStream, args);
+			}
+			else
+			{
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! Permission denied."));
+			}
+		}
+		else
+		{
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No such file or directory."));
+		}
+
+		return null;
+	}
+
+	public Object moveItem(String[] args)
+	{
+		if (args[0] != null && args[0].length() > 0 && args[1] != null && args[1].length() > 0)
+		{
+			ItemCLI sourceItem = findItem(args[0]);
+
+			ItemCLI destinationItem = findItem(args[1]);
+
+			if (sourceItem != null && sourceItem != root)
+			{
+				if (destinationItem != null)
+				{
+					if (destinationItem instanceof FolderCLI)
+					{
+						if (!((FolderCLI) destinationItem).nameTaken(sourceItem.getName()))
+						{
+							sourceItem.changeParent((FolderCLI) destinationItem);
+						}
+						else
+						{
+							EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! Name already in use."));
+						}
+					}
+					else
+					{
+						EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! Destination not a directory."));
+					}
+				}
+				else
+				{
+					String location = "";
+					String[] locations;
+					locations = args[1].split("(?<=/)");
+					for (int x = 0; x < locations.length - 1; x++)
+					{
+						location += locations[x];
+					}
+					ItemCLI parent = findItem(location);
+					if (parent != null && parent instanceof FolderCLI)
+					{
+						if (!((FolderCLI) parent).nameTaken(locations[locations.length - 1]))
+						{
+							sourceItem.setName(locations[locations.length - 1]);
+							sourceItem.changeParent((FolderCLI) parent);
+						}
+						else
+						{
+							EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! Name already in use."));
+						}
+					}
+					else
+					{
+						EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No such destination file or directory."));
+					}
+				}
+			}
+			else
+			{
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No such source file or directory."));
+			}
+		}
+		else
+		{
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No such file or directory."));
+		}
+
+		return null;
+	}
+
+	public Object copyItem(String[] args)
+	{
+		if (args[0] != null && args[0].length() > 0 && args[1] != null && args[1].length() > 0)
+		{
+			ItemCLI sourceItem = findItem(args[0]);
+
+			ItemCLI destinationItem = findItem(args[1]);
+
+			if (sourceItem != null && sourceItem != root)
+			{
+				if (destinationItem != null)
+				{
+					if (destinationItem instanceof FolderCLI)
+					{
+						if (!((FolderCLI) destinationItem).nameTaken(sourceItem.getName()))
+						{
+							((FolderCLI) destinationItem).addChild(sourceItem.copy());
+						}
+						else
+						{
+							EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! Name already in use."));
+						}
+					}
+					else
+					{
+						EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! Destination not a directory."));
+					}
+				}
+				else
+				{
+					String location = "";
+					String[] locations;
+					locations = args[1].split("(?<=/)");
+					for (int x = 0; x < locations.length - 1; x++)
+					{
+						location += locations[x];
+					}
+					ItemCLI parent = findItem(location);
+					if (parent != null && parent instanceof FolderCLI)
+					{
+						if (!((FolderCLI) parent).nameTaken(locations[locations.length - 1]))
+						{
+							ItemCLI newItem = sourceItem.copy();
+							newItem.setName(locations[locations.length - 1]);
+							((FolderCLI) parent).addChild(newItem);
+						}
+						else
+						{
+							EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! Name already in use."));
+						}
+					}
+					else
+					{
+						EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No such destination file or directory."));
+					}
+				}
+			}
+			else
+			{
+				EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No such source file or directory."));
+			}
+		}
+		else
+		{
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No such file or directory."));
+		}
+
+		return null;
+	}
+
+	public Object cat(String args[])
+	{
+		for (int x = 0; x < args.length; x++)
+		{
+			if (args[x] != null && !args[x].equals(""))
+			{
+				ItemCLI newItem = findItem(args[x]);
+				if (newItem instanceof ItemCLI)
+				{
+					if (newItem.isReadPerm())
+					{
+						EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, newItem.read()));
+					}
+					else
+					{
+						EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! Permission denied."));
+					}
+				}
+				else
+				{
+					EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, "ERROR! No such file or directory."));
+				}
+			}
+		}
+
+		return null;
 	}
 
 	public ItemCLI findItemRelative(FolderCLI startingLoc, String path)
@@ -479,262 +775,6 @@ public class CommandLineManager implements EventListener
 		return output + getLocation() + "$ ";
 	}
 
-	public void pwd()
-	{
-		EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, getLocation()));
-	}
-
-	public void list(String args[])
-	{
-		if (args == null || args.length < 1)
-		{
-			String output = "";
-			for (ItemCLI child : currentItem.getChildren())
-			{
-				output += child.getName() + "\n";
-			}
-			EventManager.get_instance().broadcast(new ListDirectoryEvent(ownerUI));
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, output));
-		}
-		for (int x = 0; x < args.length; x++)
-		{
-			if (args[x] != null && !args[x].equals(""))
-			{
-				ItemCLI newItem = findItem(args[x]);
-				if (newItem instanceof FolderCLI)
-				{
-					String output = args[x] + "/:\n";
-					for (ItemCLI child : ((FolderCLI) newItem).getChildren())
-					{
-						output += child.getName() + "\n";
-					}
-					EventManager.get_instance().broadcast(new ListDirectoryEvent(ownerUI));
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, output));
-				}
-				else if (newItem instanceof ItemCLI)
-				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, newItem.getName()));
-				}
-				else
-				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such file or directory."));
-				}
-			}
-		}
-	}
-
-	public void changeDirectory(String location)
-	{
-		if (location == null || location.equals(""))
-		{
-			currentItem = root;
-			EventManager.get_instance().broadcast(new ChangedDirectoryEvent(currentItem.getName()));
-		}
-		else
-		{
-			ItemCLI newItem = findItem(location);
-			if (newItem instanceof FolderCLI)
-			{
-				currentItem = (FolderCLI) newItem;
-				EventManager.get_instance().broadcast(new ChangedDirectoryEvent(newItem.getName()));
-			}
-			else if (newItem instanceof ItemCLI)
-			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Not a directory."));
-			}
-			else
-			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such file or directory."));
-			}
-		}
-	}
-
-	public void runScript(String[] args)
-	{
-		ItemCLI newItem = findItem(args[0]);
-
-		if (newItem == null)
-		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such file or directory"));
-		}
-		else if (newItem instanceof ItemCLI)
-		{
-			if (newItem.isExecutePerm())
-			{
-				((ItemCLI) newItem).run(ownerUI, args);
-			}
-			else
-			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Permission denied."));
-			}
-		}
-		else
-		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such file or directory."));
-		}
-	}
-
-	public void moveItem(String[] args)
-	{
-		if (args[0] != null && args[0].length() > 0 && args[1] != null && args[1].length() > 0)
-		{
-			ItemCLI sourceItem = findItem(args[0]);
-
-			ItemCLI destinationItem = findItem(args[1]);
-
-			if (sourceItem != null && sourceItem != root)
-			{
-				if (destinationItem != null)
-				{
-					if (destinationItem instanceof FolderCLI)
-					{
-						if (!((FolderCLI) destinationItem).nameTaken(sourceItem.getName()))
-						{
-							sourceItem.changeParent((FolderCLI) destinationItem);
-						}
-						else
-						{
-							EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Name already in use."));
-						}
-					}
-					else
-					{
-						EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Destination not a directory."));
-					}
-				}
-				else
-				{
-					String location = "";
-					String[] locations;
-					locations = args[1].split("(?<=/)");
-					for (int x = 0; x < locations.length - 1; x++)
-					{
-						location += locations[x];
-					}
-					ItemCLI parent = findItem(location);
-					if (parent != null && parent instanceof FolderCLI)
-					{
-						if (!((FolderCLI) parent).nameTaken(locations[locations.length - 1]))
-						{
-							sourceItem.setName(locations[locations.length - 1]);
-							sourceItem.changeParent((FolderCLI) parent);
-						}
-						else
-						{
-							EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Name already in use."));
-						}
-					}
-					else
-					{
-						EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such destination file or directory."));
-					}
-				}
-			}
-			else
-			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such source file or directory."));
-			}
-		}
-		else
-		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such file or directory."));
-		}
-	}
-
-	public void copyItem(String[] args)
-	{
-		if (args[0] != null && args[0].length() > 0 && args[1] != null && args[1].length() > 0)
-		{
-			ItemCLI sourceItem = findItem(args[0]);
-
-			ItemCLI destinationItem = findItem(args[1]);
-
-			if (sourceItem != null && sourceItem != root)
-			{
-				if (destinationItem != null)
-				{
-					if (destinationItem instanceof FolderCLI)
-					{
-						if (!((FolderCLI) destinationItem).nameTaken(sourceItem.getName()))
-						{
-							((FolderCLI) destinationItem).addChild(sourceItem.copy());
-						}
-						else
-						{
-							EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Name already in use."));
-						}
-					}
-					else
-					{
-						EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Destination not a directory."));
-					}
-				}
-				else
-				{
-					String location = "";
-					String[] locations;
-					locations = args[1].split("(?<=/)");
-					for (int x = 0; x < locations.length - 1; x++)
-					{
-						location += locations[x];
-					}
-					ItemCLI parent = findItem(location);
-					if (parent != null && parent instanceof FolderCLI)
-					{
-						if (!((FolderCLI) parent).nameTaken(locations[locations.length - 1]))
-						{
-							ItemCLI newItem = sourceItem.copy();
-							newItem.setName(locations[locations.length - 1]);
-							((FolderCLI) parent).addChild(newItem);
-						}
-						else
-						{
-							EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Name already in use."));
-						}
-					}
-					else
-					{
-						EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such destination file or directory."));
-					}
-				}
-			}
-			else
-			{
-				EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such source file or directory."));
-			}
-		}
-		else
-		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such file or directory."));
-		}
-	}
-
-	public void cat(String args[])
-	{
-		for (int x = 0; x < args.length; x++)
-		{
-			if (args[x] != null && !args[x].equals(""))
-			{
-				ItemCLI newItem = findItem(args[x]);
-				if (newItem instanceof ItemCLI)
-				{
-					if (newItem.isReadPerm())
-					{
-						EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, newItem.read()));
-					}
-					else
-					{
-						EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! Permission denied."));
-					}
-				}
-				else
-				{
-					EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, "ERROR! No such file or directory."));
-				}
-			}
-		}
-	}
-
 	public Array<String> autoComplete(String text, boolean includeCommands)
 	{
 		Array<String> matches = new Array<String>();
@@ -778,26 +818,26 @@ public class CommandLineManager implements EventListener
 
 	public void highlightEntities(String text)
 	{
-		EventManager.get_instance().broadcast(new ResetHighlightEvent(ownerUI));
+		EventManager.get_instance().broadcast(new ResetHighlightEvent(standardStream));
 
 		Array<String> entities = currentItem.getDevices();
 		for (String entity : entities)
 		{
-			HighlightEvent event = new HighlightEvent(ownerUI, entity, false);
+			HighlightEvent event = new HighlightEvent(standardStream, entity, false);
 			EventManager.get_instance().broadcast(event);
 		}
 
 		entities = currentItem.getSubDevices();
 		for (String entity : entities)
 		{
-			HighlightEvent event = new HighlightEvent(ownerUI, entity, true);
+			HighlightEvent event = new HighlightEvent(standardStream, entity, true);
 			EventManager.get_instance().broadcast(event);
 		}
 	}
 
 	public void handleAutocompleteRequest(AutocompleteRequestEvent event)
 	{
-		if (event.getOwnerUI().getOwner().equals(ownerUI.getOwner()))
+		if (event.getOwnerUI().getOwner().equals(standardStream.getOwner()))
 		{
 			if (!event.getText().substring(event.getText().length() - 1).equals(";") && !event.getText().substring(event.getText().length() - 1).equals(" "))
 			{
@@ -809,7 +849,7 @@ public class CommandLineManager implements EventListener
 					if (matches.size == 1)
 					{
 						String result = event.getText().substring(0, event.getText().length() - command[command.length - 1].length()) + matches.first();
-						EventManager.get_instance().broadcast(new AutocompleteResponseEvent(ownerUI, result));
+						EventManager.get_instance().broadcast(new AutocompleteResponseEvent(standardStream, result));
 					}
 					else if (matches.size > 1)
 					{
@@ -834,19 +874,21 @@ public class CommandLineManager implements EventListener
 							}
 							output += match + " ";
 						}
-						EventManager.get_instance().broadcast(new AutocompleteResponseEvent(ownerUI,
+						EventManager.get_instance().broadcast(new AutocompleteResponseEvent(standardStream,
 								event.getText().substring(0, event.getText().length() - command[command.length - 1].length()) + result));
-						EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, getInputPrefix() + event.getText() + "\n" + output));
+						EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, getInputPrefix() + event.getText() + "\n" + output));
 					}
 				}
 			}
 		}
 	}
-	
-	public void handleCommand(CommandEvent event)
+
+	public Object handleInquiryCommand(CommandEvent event)
 	{
-		if (event.getOwnerUI().getOwner().equals(ownerUI.getOwner()))
+		if (event.getOwnerUI().getOwner().equals(standardStream.getOwner()))
 		{
+			ArrayList<Object> objects = new ArrayList<Object>();
+
 			try
 			{
 				String[] commands;
@@ -877,7 +919,8 @@ public class CommandLineManager implements EventListener
 					if (argsFinal.length > 0)
 					{
 						argsFinal[0] = "-" + argsFinal[0];
-						parseCommands(argsFinal);
+//						Streams newStream = new Streams(standardStream.getOwner(), standardStream.getOutput(), standardStream.getError());
+						objects.add(parseCommands(argsFinal, standardStream));
 					}
 				}
 			}
@@ -885,21 +928,27 @@ public class CommandLineManager implements EventListener
 			{
 				e.printStackTrace();
 			}
+			
+			return objects;
 		}
+
+		return null;
 	}
 
-	public void handleConsoleCommand(CommandLineEvent event)
+	public Object handleInquiryConsoleCommand(CommandLineEvent event)
 	{
-		if (event.getOwnerUI().getOwner().equals(ownerUI.getOwner()))
+		System.out.println(event.getOwnerUI().getOwner() + " vs " + standardStream.getOwner());
+		if (event.getOwnerUI().getOwner().equals(standardStream.getOwner()))
 		{
-			EventManager.get_instance().broadcast(new ConsoleOutputEvent(ownerUI, getInputPrefix() + event.getText()));
-			EventManager.get_instance().broadcast(new CommandEvent(event.getOwnerUI(), event.getText()));
+			EventManager.get_instance().broadcast(new ConsoleOutputEvent(standardStream, getInputPrefix() + event.getText()));
+			return EventManager.get_instance().broadcastInquiry(new CommandEvent(event.getOwnerUI(), event.getText()));
 		}
+		return null;
 	}
 
 	public void handleConsoleOutput(ConsoleOutputEvent event)
 	{
-		if (event.getOwnerUI().getOwner() == this.ownerUI.getOwner())
+		if (event.getOwnerUI().getOutput() == this.standardStream.getOutput())
 		{
 			EventManager.get_instance().broadcast(new ConsoleLogEvent(event.getOwnerUI(), event.getText()));
 		}
