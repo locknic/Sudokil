@@ -793,10 +793,6 @@ public class CommandLineManager implements EventListener
 				}
 			}
 		}
-		else
-		{
-			
-		}
 	}
 
 	public Array<String> autoComplete(String text, boolean includeCommands)

@@ -40,27 +40,27 @@
  </tileset>
  <layer name="floor" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3TQQqAMAwEwNT/P1oPCqVQ8OjGGSghx3STKgAAAAAAAOCPjuuNuyZ7ZhibPsWax1q/bv73tVbl5LGboVMeSbf/ZoaE3fpDHkk67NRsl0OnXJKk3kUnJxw3ziMQJwAA
+   H4sIAAAAAAAAC+3TQQqAMAwEwNT/P1oPCqVQ8OjGGSghx3STKgAAAAAAAOCPjuuNuyZ7ZhibPsWax1q/bv73tVbl5LGboVMeSbf/ZoaE3fpDHkk67NRsl0OnXJKk3kUnJxw3ziMQJwAA
   </data>
  </layer>
  <layer name="tiles" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3S6wqEIBCGYX8InegC2qv10jugrDtrFEU1Q+8Dg8j4Yz7VOQAAAAAAAAAAAAB7VVO1WU378OhAB1WFvcVcpRxiH24a5ZB0752Ys4+r/5776Wsj732tbz3H/C4ft7yX6ixbOcTZcNUcZ70xR2M4h89Ks2ajP8RV85+a1a583/IdtOdI5P8a/vvhplFOkf/Li6qN5Mj/l6W5kxHXdkmIECcAAA==
+   H4sIAAAAAAAAC+3S6wqEIBCGYX8InegC2qv10jugrDtrFEU1Q+8Dg8j4Yz7VOQAAAAAAAAAAAAB7VVO1WU378OhAB1WFvcVcpRxiH24a5ZB0752Ys4+r/5776Wsj732tbz3H/C4ft7yX6ixbOcTZcNUcZ70xR2M4h89Ks2ajP8RV85+a1a583/IdtOdI5P8a/vvhplFOkf/Li6qN5Mj/l6W5kxHXdkmIECcAAA==
   </data>
  </layer>
  <layer name="tiles2" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3VMQqAQAwEwHSel0/f07XwGiu7BJyBhZQLWyQCAAAAAAAAgI6O6gIAH+Wd+dwjYhVW+ZX3n9g7pA1aOO1Q4gKrzHGdECcAAA==
+   H4sIAAAAAAAAC+3VMQqAQAwEwHSel0/f07XwGiu7BJyBhZQLWyQCAAAAAAAAgI6O6gIAH+Wd+dwjYhVW+ZX3n9g7pA1aOO1Q4gKrzHGdECcAAA==
   </data>
  </layer>
  <layer name="doors" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3VMQrAIBBEUY8QwXhej54iWFjYCYPwHgxs+bstBQAAAAAAAICk59+Yd43WsNPTAYe86QAWLR3A9fwPWH3k9+qEECcAAA==
+   H4sIAAAAAAAAC+3VMQrAIBBEUY8QwXhej54iWFjYCYPwHgxs+bstBQAAAAAAAICk59+Yd43WsNPTAYe86QAWLR3A9fwPWH3k9+qEECcAAA==
   </data>
  </layer>
  <layer name="objects" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAODfAC7KO00QJwAA
+   H4sIAAAAAAAAC+3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAODfAC7KO00QJwAA
   </data>
  </layer>
  <objectgroup name="Object Layer 1">
@@ -847,7 +847,7 @@
     <property name="ProcessQueueComponent" type="bool" value="true"/>
     <property name="RobotSpritesComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.height" type="float" value="44"/>
+    <property name="SpriteComponent.height" type="float" value="64"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="SpriteComponent.yOffset" type="float" value="0"/>
     <property name="TextTagComponent" type="bool" value="true"/>
@@ -883,7 +883,7 @@
     <property name="ProcessQueueComponent" type="bool" value="true"/>
     <property name="RobotSpritesComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.height" type="float" value="44"/>
+    <property name="SpriteComponent.height" type="float" value="64"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="SpriteComponent.yOffset" type="float" value="0"/>
     <property name="TextTagComponent" type="bool" value="true"/>
@@ -919,7 +919,7 @@
     <property name="ProcessQueueComponent" type="bool" value="true"/>
     <property name="RobotSpritesComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.height" type="float" value="44"/>
+    <property name="SpriteComponent.height" type="float" value="64"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="SpriteComponent.yOffset" type="float" value="0"/>
     <property name="TextTagComponent" type="bool" value="true"/>
@@ -965,7 +965,7 @@
     <property name="PowerOutputComponent.up" type="bool" value="true"/>
     <property name="ProcessQueueComponent" type="bool" value="true"/>
     <property name="SpriteComponent" type="bool" value="true"/>
-    <property name="SpriteComponent.height" type="float" value="49"/>
+    <property name="SpriteComponent.height" type="float" value="64"/>
     <property name="SpriteComponent.spriteLocation" value="images/entities/computer-on.png"/>
     <property name="SpriteComponent.width" type="float" value="32"/>
     <property name="TextTagComponent" type="bool" value="true"/>
@@ -1018,7 +1018,7 @@
  </objectgroup>
  <layer name="tiles-over" width="50" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3TMQqAMAwF0CzWxUN7dBUURHErhNT3IEunn5QfAQAAAAAAAPzdHLFmZ+jh2mNJztHLaP8CvLV9pnNGUKHvx63bI2f7eCfHvRfVulE190g2u68kIhAnAAA=
+   H4sIAAAAAAAAC+3TMQqAMAwF0CzWxUN7dBUURHErhNT3IEunn5QfAQAAAAAAAPzdHLFmZ+jh2mNJztHLaP8CvLV9pnNGUKHvx63bI2f7eCfHvRfVulE190g2u68kIhAnAAA=
   </data>
  </layer>
 </map>
